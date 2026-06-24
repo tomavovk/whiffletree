@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Whiffletree Farm &amp; Nursery — Design System</title>
+
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700&amp;family=Mulish:wght@300;400;500;600;700;800&amp;display=swap"
+            rel="stylesheet" />
+
+        <!-- Phosphor icons (CDN) -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/light/style.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+
+        <style>
+            /* Reset */
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+
+            /* Design tokens */
+            :root {
+                /* Typography */
+                --display: "Cormorant Garamond", Georgia, serif;
+                --sans: "Mulish", ui-sans-serif, system-ui, sans-serif;
+
+                /* Neutral ramp */
+                --n00: #ffffff;
+                --n10: #e8e6e1;
+                --n20: #d2cfc8;
+                --n40: #939089;
+                --n60: #57544e;
+                --n70: #3d3b36;
+                --n80: #262521;
+                --n90: #15140f;
+
+                /* Ink / paper */
+                --ink: #15140f;
+                --ink2: #262521;
+                --muted: #57544e;
+                --subtle: #939089;
+                --paper1: #f4ead9;
+                --paper2: #ebdfc8;
+                --paper3: #e0d2b6;
+                --line: #d8c9ac;
+                --line-soft: #e8dcc4;
+
+                /* Greens */
+                --g900: #063d22;
+                --g800: #0a4a29;
+                --g700: #006837;
+                --g600: #138a45;
+                --g500: #0b9444;
+                --g300: #7fa98c;
+                --g200: #bbd6c2;
+                --g100: #e2f0e5;
+                --g050: #eff7f0;
+
+                /* Semantic */
+                --success: #1c7a45;
+                --warning: #b5772a;
+                --error: #c0392b;
+                --error-bg: #fbeeeb;
+                --info: #46566b;
+
+                /* Accent (red — default theme) */
+                --accent: #c0392b;
+                --accent-deep: #9e2c20;
+                --accent-soft: #f6dad5;
+            }
+
+            /* Interactive states — ported from the runtime hover/focus props.
+               Unquoted attribute values keep these as styling selectors only,
+               distinct from element data-comment anchors. */
+            [data-comment=buttons-shop]:hover { background: var(--g800); }
+            [data-comment=buttons-cart]:hover { background: var(--accent-deep); }
+            [data-comment=buttons-outline]:hover { background: var(--g700); color: #eaf0e0; }
+            [data-comment=buttons-link]:hover { color: var(--g800); border-color: var(--g800); }
+            [data-comment=buttons-small]:hover { background: var(--g800); }
+            [data-comment=buttons-medium]:hover { background: var(--g800); }
+            [data-comment=buttons-large]:hover { background: var(--g800); }
+            [data-comment=buttons-icon]:hover { border-color: var(--g500); background: var(--g050); }
+            [data-comment=forms-name-input]:focus { border-color: var(--g600); }
+        </style>
+    </head>
+    <body>
+        <div data-comment="page-root" style="background:#F7F5EE; font-family:var(--sans); color:var(--ink2); font-size:16px; line-height:1.6;">
+
+            <!-- ================= COVER ================= -->
+            <section data-comment="cover-section" style="background:var(--g900); color:#EAF0E0; padding:72px 56px 68px; position:relative; overflow:hidden;">
+                <div data-comment="cover-inner" style="max-width:1180px; margin:0 auto; position:relative; z-index:1;">
+                    <div data-comment="cover-logo-plate" style="display:inline-block; background:var(--paper1); border-radius:4px; padding:18px 26px; box-shadow:0 10px 30px rgba(0,0,0,0.22);">
+                        <img data-comment="cover-logo" src="assets/whiffletree-logo.png" alt="Whiffletree Farm &amp; Nursery" style="display:block; height:62px; width:auto;">
+                    </div>
+
+                    <h1 data-comment="cover-heading" style="font-family:var(--display); font-weight:500; font-size:72px; line-height:1.02; letter-spacing:0; margin:46px 0 0; max-width:15ch; color:#FFFFFF;">The design system</h1>
+                    <p data-comment="cover-subheading" style="font-family:var(--sans); font-weight:300; font-size:20px; line-height:1.55; color:#BFD2C2; max-width:48ch; margin:20px 0 0;">Canada’s finest in fruit trees. Cold-hardy, bare-root, grown for food forests. One library of colour, type, and components — drawn from the real Whiffletree brand.</p>
+
+                    <div data-comment="cover-meta" style="display:flex; flex-wrap:wrap; align-items:center; gap:16px; margin-top:40px; font-family:var(--sans); font-weight:600; font-size:13px; letter-spacing:0.16em; text-transform:uppercase; color:#A9C2B0;">
+                        <span data-comment="cover-meta-1">Bare-root</span><span data-comment="cover-meta-dot-1" style="width:5px; height:5px; border-radius:9999px; background:var(--accent);"></span>
+                        <span data-comment="cover-meta-2">Cold-hardy</span><span data-comment="cover-meta-dot-2" style="width:5px; height:5px; border-radius:9999px; background:var(--accent);"></span>
+                        <span data-comment="cover-meta-3">Permaculture</span><span data-comment="cover-meta-dot-3" style="width:5px; height:5px; border-radius:9999px; background:var(--accent);"></span>
+                        <span data-comment="cover-meta-4">Ontario-grown</span><span data-comment="cover-meta-dot-4" style="width:5px; height:5px; border-radius:9999px; background:var(--accent);"></span>
+                        <span data-comment="cover-meta-5">Est. 2012</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- content column -->
+            <div data-comment="content-column" style="max-width:1180px; margin:0 auto; padding:0 56px;">
+
+                <!-- ================= 01 BRAND ================= -->
+                <section data-comment="brand-section" style="padding:84px 0 0;">
+                    <div data-comment="brand-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12.5px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent-deep);">01 — Brand</div>
+                    <h2 data-comment="brand-heading" style="font-family:var(--display); font-weight:500; font-size:44px; line-height:1.06; margin:10px 0 0; color:var(--ink);">Logo &amp; lockups</h2>
+                    <p data-comment="brand-text" style="max-width:62ch; color:var(--muted); font-size:17px; margin:14px 0 0;">The wordmark sits over a whiffletree — the wooden swingle-bar of a horse harness, the farm’s namesake. Two greens (kelly fading to forest) and a single sprig of leaves. Keep clear space of at least the height of the wooden bar on every side. On dark surfaces, place the full-colour logo on a cream plate; never recolour the mark.</p>
+                    <div data-comment="brand-divider" style="height:1px; background:var(--line); margin:34px 0 0;"></div>
+
+                    <div data-comment="brand-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px; margin-top:34px;">
+                        <div data-comment="brand-lockup-cream" style="background:var(--paper1); border:1px solid var(--line); border-radius:4px; padding:40px; display:flex; align-items:center; justify-content:center; min-height:190px;">
+                            <img data-comment="brand-lockup-cream-logo" src="assets/whiffletree-logo.png" alt="Whiffletree on cream" style="max-width:78%; height:auto;">
+                        </div>
+                        <div data-comment="brand-lockup-white" style="background:#fff; border:1px solid var(--line); border-radius:4px; padding:40px; display:flex; align-items:center; justify-content:center; min-height:190px;">
+                            <img data-comment="brand-lockup-white-logo" src="assets/whiffletree-logo.png" alt="Whiffletree on white" style="max-width:78%; height:auto;">
+                        </div>
+                        <div data-comment="brand-lockup-dark" style="background:var(--g900); border-radius:4px; padding:40px; display:flex; align-items:center; justify-content:center; min-height:190px;">
+                            <div data-comment="brand-lockup-dark-plate" style="background:var(--paper1); border-radius:4px; padding:20px 26px; display:flex; align-items:center; justify-content:center;">
+                                <img data-comment="brand-lockup-dark-logo" src="assets/whiffletree-logo.png" alt="Whiffletree on cream plate over dark" style="height:64px; width:auto;">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ================= 02 COLOUR ================= -->
+                <section data-comment="colour-section" style="padding:84px 0 0;">
+                    <div data-comment="colour-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12.5px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent-deep);">02 — Colour</div>
+                    <h2 data-comment="colour-heading" style="font-family:var(--display); font-weight:500; font-size:44px; line-height:1.06; margin:10px 0 0; color:var(--ink);">Palette</h2>
+                    <p data-comment="colour-text" style="max-width:62ch; color:var(--muted); font-size:17px; margin:14px 0 0;">Cream surfaces carry the page; a neutral grey ramp handles all text; forest green leads the brand; semantic colours signal state; brick red points to action.</p>
+                    <div data-comment="colour-divider" style="height:1px; background:var(--line); margin:34px 0 0;"></div>
+
+                    <!-- Cream surfaces -->
+                    <h3 data-comment="colour-cream-title" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink2); margin:34px 0 16px;">Cream surfaces</h3>
+                    <div data-comment="colour-cream-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px;">
+                        <div data-comment="colour-cream-1" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-cream-1-swatch" style="height:78px; background:#FAF4E8;"></div><div data-comment="colour-cream-1-meta" style="padding:10px 12px;"><div data-comment="colour-cream-1-name" style="font-weight:700; font-size:13px;">Page cream</div><div data-comment="colour-cream-1-hex" style="font-size:12px; color:var(--muted);">#FAF4E8</div></div></div>
+                        <div data-comment="colour-cream-2" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-cream-2-swatch" style="height:78px; background:#F4EAD9;"></div><div data-comment="colour-cream-2-meta" style="padding:10px 12px;"><div data-comment="colour-cream-2-name" style="font-weight:700; font-size:13px;">Cream 1</div><div data-comment="colour-cream-2-hex" style="font-size:12px; color:var(--muted);">#F4EAD9</div></div></div>
+                        <div data-comment="colour-cream-3" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-cream-3-swatch" style="height:78px; background:#EBDFC8;"></div><div data-comment="colour-cream-3-meta" style="padding:10px 12px;"><div data-comment="colour-cream-3-name" style="font-weight:700; font-size:13px;">Cream 2</div><div data-comment="colour-cream-3-hex" style="font-size:12px; color:var(--muted);">#EBDFC8</div></div></div>
+                        <div data-comment="colour-cream-4" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-cream-4-swatch" style="height:78px; background:#E0D2B6;"></div><div data-comment="colour-cream-4-meta" style="padding:10px 12px;"><div data-comment="colour-cream-4-name" style="font-weight:700; font-size:13px;">Cream 3</div><div data-comment="colour-cream-4-hex" style="font-size:12px; color:var(--muted);">#E0D2B6</div></div></div>
+                        <div data-comment="colour-cream-5" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-cream-5-swatch" style="height:78px; background:#D8C9AC;"></div><div data-comment="colour-cream-5-meta" style="padding:10px 12px;"><div data-comment="colour-cream-5-name" style="font-weight:700; font-size:13px;">Line</div><div data-comment="colour-cream-5-hex" style="font-size:12px; color:var(--muted);">#D8C9AC</div></div></div>
+                    </div>
+
+                    <!-- Neutral text ramp -->
+                    <h3 data-comment="colour-neutral-title" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink2); margin:32px 0 16px;">Neutral <span data-comment="colour-neutral-title-note" style="font-weight:500; text-transform:none; letter-spacing:0; color:var(--subtle);">— text &amp; lines · heading = N-900, body = N-800/700</span></h3>
+                    <div data-comment="colour-neutral-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px;">
+                        <div data-comment="colour-neutral-1" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-neutral-1-swatch" style="height:72px; background:#FFFFFF;"></div><div data-comment="colour-neutral-1-meta" style="padding:9px 12px;"><div data-comment="colour-neutral-1-name" style="font-weight:700; font-size:13px;">N-00</div><div data-comment="colour-neutral-1-hex" style="font-size:12px; color:var(--muted);">#FFFFFF</div></div></div>
+                        <div data-comment="colour-neutral-2" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-neutral-2-swatch" style="height:72px; background:#E8E6E1;"></div><div data-comment="colour-neutral-2-meta" style="padding:9px 12px;"><div data-comment="colour-neutral-2-name" style="font-weight:700; font-size:13px;">N-10</div><div data-comment="colour-neutral-2-hex" style="font-size:12px; color:var(--muted);">#E8E6E1</div></div></div>
+                        <div data-comment="colour-neutral-3" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-neutral-3-swatch" style="height:72px; background:#D2CFC8;"></div><div data-comment="colour-neutral-3-meta" style="padding:9px 12px;"><div data-comment="colour-neutral-3-name" style="font-weight:700; font-size:13px;">N-20</div><div data-comment="colour-neutral-3-hex" style="font-size:12px; color:var(--muted);">#D2CFC8</div></div></div>
+                        <div data-comment="colour-neutral-4" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-neutral-4-swatch" style="height:72px; background:#939089;"></div><div data-comment="colour-neutral-4-meta" style="padding:9px 12px;"><div data-comment="colour-neutral-4-name" style="font-weight:700; font-size:13px;">N-40</div><div data-comment="colour-neutral-4-hex" style="font-size:12px; color:var(--muted);">#939089</div></div></div>
+                        <div data-comment="colour-neutral-5" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-neutral-5-swatch" style="height:72px; background:#57544E;"></div><div data-comment="colour-neutral-5-meta" style="padding:9px 12px;"><div data-comment="colour-neutral-5-name" style="font-weight:700; font-size:13px;">N-60 · muted</div><div data-comment="colour-neutral-5-hex" style="font-size:12px; color:var(--muted);">#57544E</div></div></div>
+                        <div data-comment="colour-neutral-6" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-neutral-6-swatch" style="height:72px; background:#3D3B36;"></div><div data-comment="colour-neutral-6-meta" style="padding:9px 12px;"><div data-comment="colour-neutral-6-name" style="font-weight:700; font-size:13px;">N-700 · body</div><div data-comment="colour-neutral-6-hex" style="font-size:12px; color:var(--muted);">#3D3B36</div></div></div>
+                        <div data-comment="colour-neutral-7" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-neutral-7-swatch" style="height:72px; background:#262521;"></div><div data-comment="colour-neutral-7-meta" style="padding:9px 12px;"><div data-comment="colour-neutral-7-name" style="font-weight:700; font-size:13px;">N-800 · body</div><div data-comment="colour-neutral-7-hex" style="font-size:12px; color:var(--muted);">#262521</div></div></div>
+                        <div data-comment="colour-neutral-8" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-neutral-8-swatch" style="height:72px; background:#15140F;"></div><div data-comment="colour-neutral-8-meta" style="padding:9px 12px;"><div data-comment="colour-neutral-8-name" style="font-weight:700; font-size:13px;">N-900 · heading</div><div data-comment="colour-neutral-8-hex" style="font-size:12px; color:var(--muted);">#15140F</div></div></div>
+                    </div>
+
+                    <!-- Forest green -->
+                    <h3 data-comment="colour-green-title" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink2); margin:32px 0 16px;">Forest green</h3>
+                    <div data-comment="colour-green-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px;">
+                        <div data-comment="colour-green-1" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-green-1-swatch" style="height:78px; background:#063D22;"></div><div data-comment="colour-green-1-meta" style="padding:10px 12px;"><div data-comment="colour-green-1-name" style="font-weight:700; font-size:13px;">Green 900</div><div data-comment="colour-green-1-hex" style="font-size:12px; color:var(--muted);">#063D22</div></div></div>
+                        <div data-comment="colour-green-2" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-green-2-swatch" style="height:78px; background:#0A4A29;"></div><div data-comment="colour-green-2-meta" style="padding:10px 12px;"><div data-comment="colour-green-2-name" style="font-weight:700; font-size:13px;">Green 800</div><div data-comment="colour-green-2-hex" style="font-size:12px; color:var(--muted);">#0A4A29</div></div></div>
+                        <div data-comment="colour-green-3" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-green-3-swatch" style="height:78px; background:#006837;"></div><div data-comment="colour-green-3-meta" style="padding:10px 12px;"><div data-comment="colour-green-3-name" style="font-weight:700; font-size:13px;">Green 700 ★</div><div data-comment="colour-green-3-hex" style="font-size:12px; color:var(--muted);">#006837</div></div></div>
+                        <div data-comment="colour-green-4" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-green-4-swatch" style="height:78px; background:#138A45;"></div><div data-comment="colour-green-4-meta" style="padding:10px 12px;"><div data-comment="colour-green-4-name" style="font-weight:700; font-size:13px;">Green 600</div><div data-comment="colour-green-4-hex" style="font-size:12px; color:var(--muted);">#138A45</div></div></div>
+                        <div data-comment="colour-green-5" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-green-5-swatch" style="height:78px; background:#0B9444;"></div><div data-comment="colour-green-5-meta" style="padding:10px 12px;"><div data-comment="colour-green-5-name" style="font-weight:700; font-size:13px;">Green 500 · kelly</div><div data-comment="colour-green-5-hex" style="font-size:12px; color:var(--muted);">#0B9444</div></div></div>
+                        <div data-comment="colour-green-6" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-green-6-swatch" style="height:78px; background:#7FA98C;"></div><div data-comment="colour-green-6-meta" style="padding:10px 12px;"><div data-comment="colour-green-6-name" style="font-weight:700; font-size:13px;">Green 300 · sage</div><div data-comment="colour-green-6-hex" style="font-size:12px; color:var(--muted);">#7FA98C</div></div></div>
+                        <div data-comment="colour-green-7" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-green-7-swatch" style="height:78px; background:#BBD6C2;"></div><div data-comment="colour-green-7-meta" style="padding:10px 12px;"><div data-comment="colour-green-7-name" style="font-weight:700; font-size:13px;">Green 200</div><div data-comment="colour-green-7-hex" style="font-size:12px; color:var(--muted);">#BBD6C2</div></div></div>
+                        <div data-comment="colour-green-8" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-green-8-swatch" style="height:78px; background:#E2F0E5;"></div><div data-comment="colour-green-8-meta" style="padding:10px 12px;"><div data-comment="colour-green-8-name" style="font-weight:700; font-size:13px;">Green 100</div><div data-comment="colour-green-8-hex" style="font-size:12px; color:var(--muted);">#E2F0E5</div></div></div>
+                    </div>
+
+                    <!-- Semantic -->
+                    <h3 data-comment="colour-semantic-title" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink2); margin:32px 0 16px;">Semantic</h3>
+                    <div data-comment="colour-semantic-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px;">
+                        <div data-comment="colour-semantic-1" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-semantic-1-swatch" style="height:62px; background:#1C7A45;"></div><div data-comment="colour-semantic-1-meta" style="padding:9px 12px;"><div data-comment="colour-semantic-1-name" style="font-weight:700; font-size:13px;">Success</div><div data-comment="colour-semantic-1-hex" style="font-size:12px; color:var(--muted);">In stock · #1C7A45</div></div></div>
+                        <div data-comment="colour-semantic-2" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-semantic-2-swatch" style="height:62px; background:#B5772A;"></div><div data-comment="colour-semantic-2-meta" style="padding:9px 12px;"><div data-comment="colour-semantic-2-name" style="font-weight:700; font-size:13px;">Warning</div><div data-comment="colour-semantic-2-hex" style="font-size:12px; color:var(--muted);">Low stock · #B5772A</div></div></div>
+                        <div data-comment="colour-semantic-3" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-semantic-3-swatch" style="height:62px; background:#C0392B;"></div><div data-comment="colour-semantic-3-meta" style="padding:9px 12px;"><div data-comment="colour-semantic-3-name" style="font-weight:700; font-size:13px;">Error</div><div data-comment="colour-semantic-3-hex" style="font-size:12px; color:var(--muted);">Sold out · #C0392B</div></div></div>
+                        <div data-comment="colour-semantic-4" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-semantic-4-swatch" style="height:62px; background:#46566B;"></div><div data-comment="colour-semantic-4-meta" style="padding:9px 12px;"><div data-comment="colour-semantic-4-name" style="font-weight:700; font-size:13px;">Info</div><div data-comment="colour-semantic-4-hex" style="font-size:12px; color:var(--muted);">Zone note · #46566B</div></div></div>
+                    </div>
+
+                    <!-- Accent -->
+                    <h3 data-comment="colour-accent-title" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink2); margin:32px 0 16px;">Accent <span data-comment="colour-accent-title-note" style="font-weight:500; text-transform:none; letter-spacing:0; color:var(--subtle);">— CTA · tweakable</span></h3>
+                    <div data-comment="colour-accent-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px;">
+                        <div data-comment="colour-accent-1" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-accent-1-swatch" style="height:78px; background:var(--accent-deep);"></div><div data-comment="colour-accent-1-meta" style="padding:10px 12px;"><div data-comment="colour-accent-1-name" style="font-weight:700; font-size:13px;">Accent deep</div><div data-comment="colour-accent-1-hex" style="font-size:12px; color:var(--muted);">hover / press</div></div></div>
+                        <div data-comment="colour-accent-2" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-accent-2-swatch" style="height:78px; background:var(--accent);"></div><div data-comment="colour-accent-2-meta" style="padding:10px 12px;"><div data-comment="colour-accent-2-name" style="font-weight:700; font-size:13px;">Accent ★</div><div data-comment="colour-accent-2-hex" style="font-size:12px; color:var(--muted);">#C0392B</div></div></div>
+                        <div data-comment="colour-accent-3" style="border:1px solid var(--line); border-radius:4px; overflow:hidden;"><div data-comment="colour-accent-3-swatch" style="height:78px; background:var(--accent-soft);"></div><div data-comment="colour-accent-3-meta" style="padding:10px 12px;"><div data-comment="colour-accent-3-name" style="font-weight:700; font-size:13px;">Accent soft</div><div data-comment="colour-accent-3-hex" style="font-size:12px; color:var(--muted);">tint / fill</div></div></div>
+                    </div>
+                </section>
+
+                <!-- ================= 03 TYPOGRAPHY ================= -->
+                <section data-comment="type-section" style="padding:84px 0 0;">
+                    <div data-comment="type-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12.5px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent-deep);">03 — Typography</div>
+                    <h2 data-comment="type-heading" style="font-family:var(--display); font-weight:500; font-size:44px; line-height:1.06; margin:10px 0 0; color:var(--ink);">Type</h2>
+                    <p data-comment="type-text" style="max-width:64ch; color:var(--muted); font-size:17px; margin:14px 0 0;"><strong data-comment="type-text-strong-1" style="color:var(--ink2); font-weight:700;">Cormorant Garamond</strong> for headings — an elegant old-style serif set in near-black ink (N-900). <strong data-comment="type-text-strong-2" style="color:var(--ink2); font-weight:700;">Mulish</strong> for body and UI in neutral N-800/700. Labels go uppercase with wide tracking.</p>
+                    <div data-comment="type-divider" style="height:1px; background:var(--line); margin:34px 0 0;"></div>
+
+                    <div data-comment="type-specimens" style="display:flex; flex-direction:column; gap:0; margin-top:20px;">
+                        <div data-comment="type-row-1" style="display:grid; grid-template-columns:200px 1fr; gap:24px; padding:22px 0; border-bottom:1px solid var(--line-soft); align-items:baseline;">
+                            <div data-comment="type-row-1-label" style="font-size:12.5px; color:var(--muted); line-height:1.5;"><div data-comment="type-row-1-label-name" style="font-weight:700; color:var(--ink2);">Display XL</div>Serif 500 · 72/76</div>
+                            <div data-comment="type-row-1-sample" style="font-family:var(--display); font-weight:500; font-size:72px; line-height:1.04; color:var(--ink);">Canada’s finest fruit trees</div>
+                        </div>
+                        <div data-comment="type-row-2" style="display:grid; grid-template-columns:200px 1fr; gap:24px; padding:22px 0; border-bottom:1px solid var(--line-soft); align-items:baseline;">
+                            <div data-comment="type-row-2-label" style="font-size:12.5px; color:var(--muted); line-height:1.5;"><div data-comment="type-row-2-label-name" style="font-weight:700; color:var(--ink2);">Display L</div>Serif 500 · 56/60</div>
+                            <div data-comment="type-row-2-sample" style="font-family:var(--display); font-weight:500; font-size:56px; line-height:1.06; color:var(--ink);">Bare-root, beautifully grown</div>
+                        </div>
+                        <div data-comment="type-row-3" style="display:grid; grid-template-columns:200px 1fr; gap:24px; padding:22px 0; border-bottom:1px solid var(--line-soft); align-items:baseline;">
+                            <div data-comment="type-row-3-label" style="font-size:12.5px; color:var(--muted); line-height:1.5;"><div data-comment="type-row-3-label-name" style="font-weight:700; color:var(--ink2);">Display M</div>Serif 500 · 42/46</div>
+                            <div data-comment="type-row-3-sample" style="font-family:var(--display); font-weight:500; font-size:42px; line-height:1.1; color:var(--ink);">Hardy varieties for the north</div>
+                        </div>
+                        <div data-comment="type-row-4" style="display:grid; grid-template-columns:200px 1fr; gap:24px; padding:22px 0; border-bottom:1px solid var(--line-soft); align-items:baseline;">
+                            <div data-comment="type-row-4-label" style="font-size:12.5px; color:var(--muted); line-height:1.5;"><div data-comment="type-row-4-label-name" style="font-weight:700; color:var(--ink2);">Heading S</div>Serif 600 · 30/36</div>
+                            <div data-comment="type-row-4-sample" style="font-family:var(--display); font-weight:600; font-size:30px; line-height:1.2; color:var(--ink);">Buying bare-root trees</div>
+                        </div>
+                        <div data-comment="type-row-5" style="display:grid; grid-template-columns:200px 1fr; gap:24px; padding:22px 0; border-bottom:1px solid var(--line-soft); align-items:baseline;">
+                            <div data-comment="type-row-5-label" style="font-size:12.5px; color:var(--muted); line-height:1.5;"><div data-comment="type-row-5-label-name" style="font-weight:700; color:var(--ink2);">Heading XS</div>Serif 600 · 24/30</div>
+                            <div data-comment="type-row-5-sample" style="font-family:var(--display); font-weight:600; font-size:24px; line-height:1.3; color:var(--ink);">Ships at the right time for your zone</div>
+                        </div>
+                        <div data-comment="type-row-6" style="display:grid; grid-template-columns:200px 1fr; gap:24px; padding:22px 0; border-bottom:1px solid var(--line-soft); align-items:baseline;">
+                            <div data-comment="type-row-6-label" style="font-size:12.5px; color:var(--muted); line-height:1.5;"><div data-comment="type-row-6-label-name" style="font-weight:700; color:var(--ink2);">Eyebrow</div>Mulish 700 · 13 · 0.22em</div>
+                            <div data-comment="type-row-6-sample" style="font-family:var(--sans); font-weight:700; font-size:13px; line-height:1; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent-deep);">How it works</div>
+                        </div>
+                        <div data-comment="type-row-7" style="display:grid; grid-template-columns:200px 1fr; gap:24px; padding:22px 0; border-bottom:1px solid var(--line-soft);">
+                            <div data-comment="type-row-7-label" style="font-size:12.5px; color:var(--muted); line-height:1.5;"><div data-comment="type-row-7-label-name" style="font-weight:700; color:var(--ink2);">Body L</div>Mulish 400 · 18/30</div>
+                            <div data-comment="type-row-7-sample" style="font-family:var(--sans); font-weight:400; font-size:18px; line-height:1.66; color:var(--ink2); max-width:58ch;">From our own seed-grown understock to graft to finished plant, we produce every tree ourselves — no shortcuts, just healthy, hardy stock grown the right way.</div>
+                        </div>
+                        <div data-comment="type-row-8" style="display:grid; grid-template-columns:200px 1fr; gap:24px; padding:22px 0; border-bottom:1px solid var(--line-soft);">
+                            <div data-comment="type-row-8-label" style="font-size:12.5px; color:var(--muted); line-height:1.5;"><div data-comment="type-row-8-label-name" style="font-weight:700; color:var(--ink2);">Body M</div>Mulish 400 · 16/26</div>
+                            <div data-comment="type-row-8-sample" style="font-family:var(--sans); font-weight:400; font-size:16px; line-height:1.62; color:var(--ink2); max-width:60ch;">Each year’s crop is grown, sold, and shipped seasonally so you always receive fresh plants. Read a <a data-comment="type-row-8-link" href="#" style="color:var(--accent-deep); text-decoration:underline; text-underline-offset:2px;">growing guide</a> before you plant.</div>
+                        </div>
+                        <div data-comment="type-row-9" style="display:grid; grid-template-columns:200px 1fr; gap:24px; padding:22px 0; border-bottom:1px solid var(--line-soft);">
+                            <div data-comment="type-row-9-label" style="font-size:12.5px; color:var(--muted); line-height:1.5;"><div data-comment="type-row-9-label-name" style="font-weight:700; color:var(--ink2);">Body S / Caption</div>Mulish 400 · 14/20</div>
+                            <div data-comment="type-row-9-sample" style="font-family:var(--sans); font-weight:400; font-size:14px; line-height:1.5; color:var(--muted); max-width:60ch;">All plants sent out are considered alive and true to name. Hardy to Zone 3 unless noted.</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ================= 04 SPACING ================= -->
+                <section data-comment="spacing-section" style="padding:84px 0 0;">
+                    <div data-comment="spacing-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12.5px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent-deep);">04 — Spacing</div>
+                    <h2 data-comment="spacing-heading" style="font-family:var(--display); font-weight:500; font-size:44px; line-height:1.06; margin:10px 0 0; color:var(--ink);">Spacing scale</h2>
+                    <p data-comment="spacing-text" style="max-width:62ch; color:var(--muted); font-size:17px; margin:14px 0 0;">A 4-based ramp. Tight steps for component interiors, generous ones for section rhythm.</p>
+                    <div data-comment="spacing-divider" style="height:1px; background:var(--line); margin:34px 0 0;"></div>
+                    <div data-comment="spacing-list" style="display:flex; flex-direction:column; gap:12px; margin-top:30px;">
+                        <div data-comment="spacing-row-1" style="display:flex; align-items:center; gap:18px;"><div data-comment="spacing-row-1-label" style="width:64px; font-size:13px; color:var(--muted); font-weight:600;">4 · xs</div><div data-comment="spacing-row-1-bar" style="height:18px; width:4px; background:var(--g700);"></div></div>
+                        <div data-comment="spacing-row-2" style="display:flex; align-items:center; gap:18px;"><div data-comment="spacing-row-2-label" style="width:64px; font-size:13px; color:var(--muted); font-weight:600;">8 · sm</div><div data-comment="spacing-row-2-bar" style="height:18px; width:8px; background:var(--g700);"></div></div>
+                        <div data-comment="spacing-row-3" style="display:flex; align-items:center; gap:18px;"><div data-comment="spacing-row-3-label" style="width:64px; font-size:13px; color:var(--muted); font-weight:600;">12</div><div data-comment="spacing-row-3-bar" style="height:18px; width:12px; background:var(--g700);"></div></div>
+                        <div data-comment="spacing-row-4" style="display:flex; align-items:center; gap:18px;"><div data-comment="spacing-row-4-label" style="width:64px; font-size:13px; color:var(--muted); font-weight:600;">16 · md</div><div data-comment="spacing-row-4-bar" style="height:18px; width:16px; background:var(--g700);"></div></div>
+                        <div data-comment="spacing-row-5" style="display:flex; align-items:center; gap:18px;"><div data-comment="spacing-row-5-label" style="width:64px; font-size:13px; color:var(--muted); font-weight:600;">24 · lg</div><div data-comment="spacing-row-5-bar" style="height:18px; width:24px; background:var(--g700);"></div></div>
+                        <div data-comment="spacing-row-6" style="display:flex; align-items:center; gap:18px;"><div data-comment="spacing-row-6-label" style="width:64px; font-size:13px; color:var(--muted); font-weight:600;">32 · xl</div><div data-comment="spacing-row-6-bar" style="height:18px; width:32px; background:var(--g700);"></div></div>
+                        <div data-comment="spacing-row-7" style="display:flex; align-items:center; gap:18px;"><div data-comment="spacing-row-7-label" style="width:64px; font-size:13px; color:var(--muted); font-weight:600;">48</div><div data-comment="spacing-row-7-bar" style="height:18px; width:48px; background:var(--g700);"></div></div>
+                        <div data-comment="spacing-row-8" style="display:flex; align-items:center; gap:18px;"><div data-comment="spacing-row-8-label" style="width:64px; font-size:13px; color:var(--muted); font-weight:600;">64</div><div data-comment="spacing-row-8-bar" style="height:18px; width:64px; background:var(--g700);"></div></div>
+                        <div data-comment="spacing-row-9" style="display:flex; align-items:center; gap:18px;"><div data-comment="spacing-row-9-label" style="width:64px; font-size:13px; color:var(--muted); font-weight:600;">96</div><div data-comment="spacing-row-9-bar" style="height:18px; width:96px; background:var(--g700);"></div></div>
+                    </div>
+                </section>
+
+                <!-- ================= 05 RADII + 06 ELEVATION ================= -->
+                <section data-comment="radii-elevation-section" style="padding:84px 0 0; display:grid; grid-template-columns:1fr 1fr; gap:56px;">
+                    <div data-comment="radii-block">
+                        <div data-comment="radii-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12.5px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent-deep);">05 — Radii</div>
+                        <h2 data-comment="radii-heading" style="font-family:var(--display); font-weight:500; font-size:34px; line-height:1.1; margin:10px 0 0; color:var(--ink);">Corner radius</h2>
+                        <p data-comment="radii-text" style="color:var(--muted); font-size:15px; margin:12px 0 0;"><strong data-comment="radii-text-strong" style="color:var(--ink2);">4px is the default</strong> — buttons, cards, inputs, badges, tags, images.</p>
+                        <div data-comment="radii-divider" style="height:1px; background:var(--line); margin:26px 0 0;"></div>
+                        <div data-comment="radii-samples" style="display:flex; flex-wrap:wrap; gap:20px; margin-top:28px;">
+                            <div data-comment="radii-sample-1" style="text-align:center;"><div data-comment="radii-sample-1-box" style="width:78px; height:78px; background:var(--g100); border:1px solid var(--g300); border-radius:2px;"></div><div data-comment="radii-sample-1-label" style="font-size:12.5px; color:var(--muted); margin-top:8px; font-weight:600;">2 · xs</div></div>
+                            <div data-comment="radii-sample-2" style="text-align:center;"><div data-comment="radii-sample-2-box" style="width:78px; height:78px; background:var(--g100); border:1.5px solid var(--g600); border-radius:4px;"></div><div data-comment="radii-sample-2-label" style="font-size:12.5px; color:var(--g700); margin-top:8px; font-weight:700;">4 · sm ★</div></div>
+                            <div data-comment="radii-sample-3" style="text-align:center;"><div data-comment="radii-sample-3-box" style="width:78px; height:78px; background:var(--g100); border:1px solid var(--g300); border-radius:8px;"></div><div data-comment="radii-sample-3-label" style="font-size:12.5px; color:var(--muted); margin-top:8px; font-weight:600;">8 · md</div></div>
+                            <div data-comment="radii-sample-4" style="text-align:center;"><div data-comment="radii-sample-4-box" style="width:78px; height:78px; background:var(--g100); border:1px solid var(--g300); border-radius:9999px;"></div><div data-comment="radii-sample-4-label" style="font-size:12.5px; color:var(--muted); margin-top:8px; font-weight:600;">pill</div></div>
+                        </div>
+                    </div>
+                    <div data-comment="elevation-block">
+                        <div data-comment="elevation-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12.5px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent-deep);">06 — Elevation</div>
+                        <h2 data-comment="elevation-heading" style="font-family:var(--display); font-weight:500; font-size:34px; line-height:1.1; margin:10px 0 0; color:var(--ink);">Shadows</h2>
+                        <p data-comment="elevation-text" style="color:var(--muted); font-size:15px; margin:12px 0 0;">Soft and warm-neutral. Used sparingly on lift.</p>
+                        <div data-comment="elevation-divider" style="height:1px; background:var(--line); margin:26px 0 0;"></div>
+                        <div data-comment="elevation-samples" style="display:flex; flex-wrap:wrap; gap:24px; margin-top:28px;">
+                            <div data-comment="elevation-sample-1" style="text-align:center;"><div data-comment="elevation-sample-1-box" style="width:120px; height:78px; background:#fff; border-radius:4px; box-shadow:0 1px 2px rgba(40,45,30,0.10);"></div><div data-comment="elevation-sample-1-label" style="font-size:12.5px; color:var(--muted); margin-top:10px; font-weight:600;">Hairline</div></div>
+                            <div data-comment="elevation-sample-2" style="text-align:center;"><div data-comment="elevation-sample-2-box" style="width:120px; height:78px; background:#fff; border-radius:4px; box-shadow:0 4px 14px rgba(40,45,30,0.12);"></div><div data-comment="elevation-sample-2-label" style="font-size:12.5px; color:var(--muted); margin-top:10px; font-weight:600;">Card</div></div>
+                            <div data-comment="elevation-sample-3" style="text-align:center;"><div data-comment="elevation-sample-3-box" style="width:120px; height:78px; background:#fff; border-radius:4px; box-shadow:0 14px 36px rgba(40,45,30,0.18);"></div><div data-comment="elevation-sample-3-label" style="font-size:12.5px; color:var(--muted); margin-top:10px; font-weight:600;">Overlay</div></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ================= 07 ICONOGRAPHY ================= -->
+                <section data-comment="icons-section" style="padding:84px 0 0;">
+                    <div data-comment="icons-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12.5px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent-deep);">07 — Iconography</div>
+                    <h2 data-comment="icons-heading" style="font-family:var(--display); font-weight:500; font-size:44px; line-height:1.06; margin:10px 0 0; color:var(--ink);">Icons</h2>
+                    <p data-comment="icons-text" style="max-width:62ch; color:var(--muted); font-size:17px; margin:14px 0 0;">Phosphor, light weight at rest. Switch to fill on active / selected states. Inherit text colour; 20px in buttons, 24px standalone.</p>
+                    <div data-comment="icons-divider" style="height:1px; background:var(--line); margin:34px 0 0;"></div>
+                    <div data-comment="icons-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(118px,1fr)); gap:14px; margin-top:30px;">
+                        <div data-comment="icons-item-1" style="border:1px solid var(--line); border-radius:4px; padding:20px 10px; text-align:center; background:var(--paper1);"><i data-comment="icons-item-1-icon" class="ph-light ph-tree" style="font-size:28px; color:var(--g700);"></i><div data-comment="icons-item-1-label" style="font-size:12px; color:var(--muted); margin-top:10px;">tree</div></div>
+                        <div data-comment="icons-item-2" style="border:1px solid var(--line); border-radius:4px; padding:20px 10px; text-align:center; background:var(--paper1);"><i data-comment="icons-item-2-icon" class="ph-light ph-plant" style="font-size:28px; color:var(--g700);"></i><div data-comment="icons-item-2-label" style="font-size:12px; color:var(--muted); margin-top:10px;">plant</div></div>
+                        <div data-comment="icons-item-3" style="border:1px solid var(--line); border-radius:4px; padding:20px 10px; text-align:center; background:var(--paper1);"><i data-comment="icons-item-3-icon" class="ph-light ph-leaf" style="font-size:28px; color:var(--g700);"></i><div data-comment="icons-item-3-label" style="font-size:12px; color:var(--muted); margin-top:10px;">leaf</div></div>
+                        <div data-comment="icons-item-4" style="border:1px solid var(--line); border-radius:4px; padding:20px 10px; text-align:center; background:var(--paper1);"><i data-comment="icons-item-4-icon" class="ph-light ph-flower-tulip" style="font-size:28px; color:var(--g700);"></i><div data-comment="icons-item-4-label" style="font-size:12px; color:var(--muted); margin-top:10px;">bloom</div></div>
+                        <div data-comment="icons-item-5" style="border:1px solid var(--line); border-radius:4px; padding:20px 10px; text-align:center; background:var(--paper1);"><i data-comment="icons-item-5-icon" class="ph-light ph-drop" style="font-size:28px; color:var(--g700);"></i><div data-comment="icons-item-5-label" style="font-size:12px; color:var(--muted); margin-top:10px;">water</div></div>
+                        <div data-comment="icons-item-6" style="border:1px solid var(--line); border-radius:4px; padding:20px 10px; text-align:center; background:var(--paper1);"><i data-comment="icons-item-6-icon" class="ph-light ph-sun" style="font-size:28px; color:var(--g700);"></i><div data-comment="icons-item-6-label" style="font-size:12px; color:var(--muted); margin-top:10px;">sun</div></div>
+                        <div data-comment="icons-item-7" style="border:1px solid var(--line); border-radius:4px; padding:20px 10px; text-align:center; background:var(--paper1);"><i data-comment="icons-item-7-icon" class="ph-light ph-snowflake" style="font-size:28px; color:var(--g700);"></i><div data-comment="icons-item-7-label" style="font-size:12px; color:var(--muted); margin-top:10px;">cold-hardy</div></div>
+                        <div data-comment="icons-item-8" style="border:1px solid var(--line); border-radius:4px; padding:20px 10px; text-align:center; background:var(--paper1);"><i data-comment="icons-item-8-icon" class="ph-light ph-thermometer-simple" style="font-size:28px; color:var(--g700);"></i><div data-comment="icons-item-8-label" style="font-size:12px; color:var(--muted); margin-top:10px;">zone</div></div>
+                        <div data-comment="icons-item-9" style="border:1px solid var(--line); border-radius:4px; padding:20px 10px; text-align:center; background:var(--paper1);"><i data-comment="icons-item-9-icon" class="ph-light ph-scissors" style="font-size:28px; color:var(--g700);"></i><div data-comment="icons-item-9-label" style="font-size:12px; color:var(--muted); margin-top:10px;">prune</div></div>
+                        <div data-comment="icons-item-10" style="border:1px solid var(--line); border-radius:4px; padding:20px 10px; text-align:center; background:var(--paper1);"><i data-comment="icons-item-10-icon" class="ph-light ph-package" style="font-size:28px; color:var(--g700);"></i><div data-comment="icons-item-10-label" style="font-size:12px; color:var(--muted); margin-top:10px;">bare-root</div></div>
+                        <div data-comment="icons-item-11" style="border:1px solid var(--line); border-radius:4px; padding:20px 10px; text-align:center; background:var(--paper1);"><i data-comment="icons-item-11-icon" class="ph-light ph-truck" style="font-size:28px; color:var(--g700);"></i><div data-comment="icons-item-11-label" style="font-size:12px; color:var(--muted); margin-top:10px;">shipping</div></div>
+                        <div data-comment="icons-item-12" style="border:1px solid var(--line); border-radius:4px; padding:20px 10px; text-align:center; background:var(--paper1);"><i data-comment="icons-item-12-icon" class="ph-light ph-seal-check" style="font-size:28px; color:var(--g700);"></i><div data-comment="icons-item-12-label" style="font-size:12px; color:var(--muted); margin-top:10px;">guarantee</div></div>
+                        <div data-comment="icons-item-13" style="border:1px solid var(--line); border-radius:4px; padding:20px 10px; text-align:center; background:var(--paper1);"><i data-comment="icons-item-13-icon" class="ph-light ph-shopping-bag" style="font-size:28px; color:var(--g700);"></i><div data-comment="icons-item-13-label" style="font-size:12px; color:var(--muted); margin-top:10px;">cart</div></div>
+                        <div data-comment="icons-item-14" style="border:1px solid var(--line); border-radius:4px; padding:20px 10px; text-align:center; background:var(--paper1);"><i data-comment="icons-item-14-icon" class="ph-light ph-heart" style="font-size:28px; color:var(--g700);"></i><div data-comment="icons-item-14-label" style="font-size:12px; color:var(--muted); margin-top:10px;">wishlist</div></div>
+                        <div data-comment="icons-item-15" style="border:1px solid var(--line); border-radius:4px; padding:20px 10px; text-align:center; background:var(--paper1);"><i data-comment="icons-item-15-icon" class="ph-light ph-magnifying-glass" style="font-size:28px; color:var(--g700);"></i><div data-comment="icons-item-15-label" style="font-size:12px; color:var(--muted); margin-top:10px;">search</div></div>
+                        <div data-comment="icons-item-16" style="border:1px solid var(--line); border-radius:4px; padding:20px 10px; text-align:center; background:var(--paper1);"><i data-comment="icons-item-16-icon" class="ph-light ph-map-pin" style="font-size:28px; color:var(--g700);"></i><div data-comment="icons-item-16-label" style="font-size:12px; color:var(--muted); margin-top:10px;">location</div></div>
+                    </div>
+                </section>
+
+                <!-- ================= 08 BUTTONS ================= -->
+                <section data-comment="buttons-section" style="padding:84px 0 0;">
+                    <div data-comment="buttons-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12.5px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent-deep);">08 — Buttons</div>
+                    <h2 data-comment="buttons-heading" style="font-family:var(--display); font-weight:500; font-size:44px; line-height:1.06; margin:10px 0 0; color:var(--ink);">Buttons</h2>
+                    <p data-comment="buttons-text" style="max-width:62ch; color:var(--muted); font-size:17px; margin:14px 0 0;">Rectangular, 4px radius, uppercase Mulish with wide tracking. Forest green for the main path; brick red for conversion; outline and link for the rest.</p>
+                    <div data-comment="buttons-divider" style="height:1px; background:var(--line); margin:34px 0 0;"></div>
+
+                    <div data-comment="buttons-row-variants" style="display:flex; flex-wrap:wrap; gap:16px; align-items:center; margin-top:30px;">
+                        <button data-comment="buttons-shop" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#EAF0E0; background:var(--g700); border:none; border-radius:4px; padding:15px 32px; cursor:pointer; transition:background-color 150ms cubic-bezier(0.2,0,0,1);">Shop all trees</button>
+                        <button data-comment="buttons-cart" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#fff; background:var(--accent); border:none; border-radius:4px; padding:15px 32px; cursor:pointer; display:inline-flex; align-items:center; gap:9px; transition:background-color 150ms cubic-bezier(0.2,0,0,1);"><i data-comment="buttons-cart-icon" class="ph ph-shopping-bag" style="font-size:18px;"></i>Add to cart</button>
+                        <button data-comment="buttons-outline" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--g700); background:transparent; border:1.5px solid var(--g700); border-radius:4px; padding:13.5px 30px; cursor:pointer; transition:background-color 150ms cubic-bezier(0.2,0,0,1), color 150ms cubic-bezier(0.2,0,0,1);">Learn more</button>
+                        <button data-comment="buttons-link" style="font-family:var(--sans); font-weight:700; font-size:15px; letter-spacing:0; text-transform:none; color:var(--g700); background:transparent; border:none; padding:14px 4px; cursor:pointer; display:inline-flex; align-items:center; gap:8px; border-bottom:1.5px solid var(--g700); transition:color 150ms cubic-bezier(0.2,0,0,1), border-color 150ms cubic-bezier(0.2,0,0,1);">Read guide <i data-comment="buttons-link-icon" class="ph ph-arrow-right" style="font-size:16px;"></i></button>
+                        <button data-comment="buttons-disabled" disabled="" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--subtle); background:var(--paper2); border:none; border-radius:4px; padding:15px 32px; cursor:not-allowed;">Sold out</button>
+                    </div>
+
+                    <div data-comment="buttons-row-sizes" style="display:flex; flex-wrap:wrap; gap:16px; align-items:center; margin-top:22px;">
+                        <button data-comment="buttons-small" style="font-family:var(--sans); font-weight:700; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#EAF0E0; background:var(--g700); border:none; border-radius:4px; padding:9px 20px; cursor:pointer; transition:background-color 150ms cubic-bezier(0.2,0,0,1);">Small</button>
+                        <button data-comment="buttons-medium" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#EAF0E0; background:var(--g700); border:none; border-radius:4px; padding:13px 28px; cursor:pointer; transition:background-color 150ms cubic-bezier(0.2,0,0,1);">Medium</button>
+                        <button data-comment="buttons-large" style="font-family:var(--sans); font-weight:700; font-size:15px; letter-spacing:0.1em; text-transform:uppercase; color:#EAF0E0; background:var(--g700); border:none; border-radius:4px; padding:18px 40px; cursor:pointer; transition:background-color 150ms cubic-bezier(0.2,0,0,1);">Large</button>
+                        <button data-comment="buttons-icon" aria-label="favourite" style="width:48px; height:48px; border-radius:4px; border:1.5px solid var(--line); background:#fff; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; transition:background-color 150ms cubic-bezier(0.2,0,0,1), border-color 150ms cubic-bezier(0.2,0,0,1);"><i data-comment="buttons-icon-glyph" class="ph ph-heart" style="font-size:20px; color:var(--g700);"></i></button>
+                    </div>
+                </section>
+
+                <!-- ================= 09 FORMS ================= -->
+                <section data-comment="forms-section" style="padding:84px 0 0;">
+                    <div data-comment="forms-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12.5px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent-deep);">09 — Forms</div>
+                    <h2 data-comment="forms-heading" style="font-family:var(--display); font-weight:500; font-size:44px; line-height:1.06; margin:10px 0 0; color:var(--ink);">Inputs &amp; controls</h2>
+                    <div data-comment="forms-divider" style="height:1px; background:var(--line); margin:24px 0 0;"></div>
+
+                    <div data-comment="forms-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-top:32px;">
+                        <div data-comment="forms-col-left" style="display:flex; flex-direction:column; gap:22px;">
+                            <div data-comment="forms-field-name">
+                                <label data-comment="forms-field-name-label" style="display:block; font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink2); margin-bottom:8px;">Full name</label>
+                                <input data-comment="forms-name-input" value="Maynard Martin" style="width:100%; font-family:var(--sans); font-size:15px; color:var(--ink); background:#fff; border:1.5px solid var(--line); border-radius:4px; padding:13px 15px; outline:none;">
+                            </div>
+                            <div data-comment="forms-field-postal">
+                                <label data-comment="forms-field-postal-label" style="display:block; font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink2); margin-bottom:8px;">Postal code · find your zone</label>
+                                <div data-comment="forms-field-postal-control" style="display:flex; align-items:center; gap:10px; background:#fff; border:1.5px solid var(--line); border-radius:4px; padding:0 15px;"><i data-comment="forms-field-postal-icon" class="ph ph-map-pin" style="font-size:18px; color:var(--muted);"></i><input data-comment="forms-postal-input" placeholder="N0B 1S0" style="flex:1; font-family:var(--sans); font-size:15px; color:var(--ink); background:transparent; border:none; padding:13px 0; outline:none;"></div>
+                            </div>
+                            <div data-comment="forms-field-variety">
+                                <label data-comment="forms-field-variety-label" style="display:block; font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink2); margin-bottom:8px;">Variety type</label>
+                                <div data-comment="forms-field-variety-control" style="position:relative;"><select data-comment="forms-variety-select" style="width:100%; appearance:none; font-family:var(--sans); font-size:15px; color:var(--ink); background:#fff; border:1.5px solid var(--line); border-radius:4px; padding:13px 15px; outline:none; cursor:pointer;"><option>Apple — cold-hardy</option><option>Pear</option><option>Cherry</option><option>Apricot</option></select><i data-comment="forms-variety-caret" class="ph ph-caret-down" style="position:absolute; right:15px; top:50%; transform:translateY(-50%); font-size:15px; color:var(--muted); pointer-events:none;"></i></div>
+                            </div>
+                            <div data-comment="forms-field-email">
+                                <label data-comment="forms-field-email-label" style="display:block; font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--error); margin-bottom:8px;">Email · error state</label>
+                                <input data-comment="forms-email-input" value="not-an-email" style="width:100%; font-family:var(--sans); font-size:15px; color:var(--ink); background:var(--error-bg); border:1.5px solid var(--error); border-radius:4px; padding:13px 15px; outline:none;">
+                                <div data-comment="forms-email-error" style="font-size:12.5px; color:var(--error); margin-top:6px; display:flex; align-items:center; gap:6px;"><i data-comment="forms-email-error-icon" class="ph-fill ph-warning-circle" style="font-size:14px;"></i>Enter a valid email address.</div>
+                            </div>
+                        </div>
+
+                        <div data-comment="forms-col-right" style="display:flex; flex-direction:column; gap:24px;">
+                            <div data-comment="forms-field-notes">
+                                <label data-comment="forms-field-notes-label" style="display:block; font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink2); margin-bottom:8px;">Notes for our growers</label>
+                                <textarea data-comment="forms-notes-textarea" rows="3" style="width:100%; font-family:var(--sans); font-size:15px; line-height:1.5; color:var(--ink); background:#fff; border:1.5px solid var(--line); border-radius:4px; padding:13px 15px; outline:none; resize:vertical;">Planting a small food forest — looking for Zone 4 hardy apples.</textarea>
+                            </div>
+
+                            <div data-comment="forms-checkbox-group">
+                                <div data-comment="forms-checkbox-title" style="font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink2); margin-bottom:12px;">Checkbox</div>
+                                <label data-comment="forms-checkbox-1" style="display:flex; align-items:center; gap:11px; cursor:pointer; font-size:15px; color:var(--ink2); margin-bottom:11px;"><span data-comment="forms-checkbox-1-box" style="width:20px; height:20px; border-radius:4px; background:var(--g700); display:inline-flex; align-items:center; justify-content:center; flex:none;"><i data-comment="forms-checkbox-1-check" class="ph-bold ph-check" style="font-size:13px; color:#EAF0E0;"></i></span>Add planting guide (free)</label>
+                                <label data-comment="forms-checkbox-2" style="display:flex; align-items:center; gap:11px; cursor:pointer; font-size:15px; color:var(--ink2);"><span data-comment="forms-checkbox-2-box" style="width:20px; height:20px; border-radius:4px; border:1.5px solid var(--line); background:#fff; flex:none;"></span>Notify me at next crop release</label>
+                            </div>
+
+                            <div data-comment="forms-radio-group">
+                                <div data-comment="forms-radio-title" style="font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink2); margin-bottom:12px;">Radio</div>
+                                <label data-comment="forms-radio-1" style="display:flex; align-items:center; gap:11px; cursor:pointer; font-size:15px; color:var(--ink2); margin-bottom:11px;"><span data-comment="forms-radio-1-ring" style="width:20px; height:20px; border-radius:9999px; border:1.5px solid var(--g700); display:inline-flex; align-items:center; justify-content:center; flex:none;"><span data-comment="forms-radio-1-dot" style="width:10px; height:10px; border-radius:9999px; background:var(--g700);"></span></span>Ship to Canada</label>
+                                <label data-comment="forms-radio-2" style="display:flex; align-items:center; gap:11px; cursor:pointer; font-size:15px; color:var(--ink2);"><span data-comment="forms-radio-2-ring" style="width:20px; height:20px; border-radius:9999px; border:1.5px solid var(--line); background:#fff; flex:none;"></span>Ship to United States</label>
+                            </div>
+
+                            <div data-comment="forms-quantity-group">
+                                <div data-comment="forms-quantity-title" style="font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink2); margin-bottom:12px;">Quantity</div>
+                                <div data-comment="forms-quantity-stepper" style="display:inline-flex; align-items:center; border:1.5px solid var(--line); border-radius:4px; overflow:hidden;"><button data-comment="forms-quantity-minus" style="width:42px; height:42px; border:none; background:#fff; cursor:pointer; font-size:18px; color:var(--g700);">−</button><div data-comment="forms-quantity-value" style="width:48px; text-align:center; font-weight:700; font-size:15px; border-left:1.5px solid var(--line); border-right:1.5px solid var(--line); line-height:42px;">2</div><button data-comment="forms-quantity-plus" style="width:42px; height:42px; border:none; background:#fff; cursor:pointer; font-size:18px; color:var(--g700);">+</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ================= 10 CARDS ================= -->
+                <section data-comment="cards-section" style="padding:84px 0 0;">
+                    <div data-comment="cards-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12.5px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent-deep);">10 — Cards</div>
+                    <h2 data-comment="cards-heading" style="font-family:var(--display); font-weight:500; font-size:44px; line-height:1.06; margin:10px 0 0; color:var(--ink);">Cards</h2>
+                    <p data-comment="cards-text" style="max-width:62ch; color:var(--muted); font-size:17px; margin:14px 0 0;">Editorial e-commerce cards — image-led, text left-aligned. Photo areas are placeholders; real product photography drops straight in.</p>
+                    <div data-comment="cards-divider" style="height:1px; background:var(--line); margin:34px 0 0;"></div>
+
+                    <div data-comment="cards-feature-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:28px; margin-top:32px; align-items:start;">
+                        <!-- product card -->
+                        <div data-comment="cards-product" style="text-align:left;">
+                            <div data-comment="cards-product-image" style="position:relative; height:300px; border-radius:4px; overflow:hidden; background:linear-gradient(160deg,#E2F0E5,#BBD6C2); display:flex; align-items:center; justify-content:center;">
+                                <i data-comment="cards-product-icon" class="ph-light ph-tree" style="font-size:56px; color:var(--g600);"></i>
+                                <span data-comment="cards-product-badge" style="position:absolute; top:14px; left:14px; font-family:var(--sans); font-weight:700; font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; color:#fff; background:var(--accent); padding:6px 12px; border-radius:4px;">New</span>
+                            </div>
+                            <div data-comment="cards-product-category" style="font-size:11px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent-deep); margin-top:16px;">Apple · Zone 3</div>
+                            <div data-comment="cards-product-title" style="font-family:var(--display); font-weight:600; font-size:26px; line-height:1.18; color:var(--ink); margin-top:6px;">Honeycrisp</div>
+                            <div data-comment="cards-product-price" style="font-family:var(--sans); font-weight:700; font-size:16px; color:var(--ink2); margin-top:8px;">$48.95 CAD</div>
+                            <div data-comment="cards-product-meta" style="font-family:var(--sans); font-size:14px; color:var(--muted); margin-top:4px;">Bare-root · grafted</div>
+                        </div>
+
+                        <!-- promise tile -->
+                        <div data-comment="cards-promise" style="background:var(--g900); border-radius:4px; padding:30px; color:#EAF0E0; display:flex; flex-direction:column; min-height:300px; text-align:left;">
+                            <i data-comment="cards-promise-icon" class="ph-light ph-seal-check" style="font-size:42px; color:var(--g300);"></i>
+                            <div data-comment="cards-promise-title" style="font-family:var(--display); font-weight:500; font-size:30px; line-height:1.14; margin-top:18px; color:#FFFFFF;">Alive &amp; true to name</div>
+                            <p data-comment="cards-promise-text" style="font-size:14.5px; line-height:1.6; color:#AFC5B6; margin:12px 0 0;">Every plant we ship is guaranteed alive and exactly the variety you ordered — grown by us, start to finish.</p>
+                            <a data-comment="cards-promise-link" href="#" style="margin-top: auto; padding-top: 24px; font-family: var(--sans); font-weight: 700; font-size: 14px; letter-spacing: 0; text-transform: none; color: #7fa98c; text-decoration: none; display: inline-flex; align-items: center; gap: 8px">View guarantee <i data-comment="cards-promise-link-icon" class="ph ph-arrow-right" style="font-size:15px;"></i></a>
+                        </div>
+
+                        <!-- resource card -->
+                        <div data-comment="cards-resource" style="text-align:left;">
+                            <div data-comment="cards-resource-image" style="height:200px; border-radius:4px; overflow:hidden; background:linear-gradient(160deg,#F4EAD9,#E0D2B6); display:flex; align-items:center; justify-content:center;"><i data-comment="cards-resource-icon" class="ph-light ph-scissors" style="font-size:46px; color:var(--g600);"></i></div>
+                            <div data-comment="cards-resource-title" style="font-family:var(--display); font-weight:600; font-size:24px; line-height:1.22; color:var(--ink); margin-top:18px;">Pruning a young fruit tree</div>
+                            <p data-comment="cards-resource-text" style="font-size:14px; color:var(--muted); margin:8px 0 16px; line-height:1.55;">Shape for light and air in the first three winters.</p>
+                            <a data-comment="cards-resource-link" href="#" style="font-family: var(--sans); font-weight: 700; font-size: 14px; letter-spacing: 0; text-transform: none; color: var(--g700); text-decoration: none; border-bottom: 1.5px solid var(--accent); padding-bottom: 3px; border-color: #006837">Read more</a>
+                        </div>
+                    </div>
+
+                    <!-- collection cards -->
+                    <h3 data-comment="cards-collection-title" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink2); margin:44px 0 18px;">Collection cards</h3>
+                    <div data-comment="cards-collection-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:24px; align-items:start;">
+                        <div data-comment="cards-collection-1" style="text-align:left;">
+                            <div data-comment="cards-collection-1-image" style="height:220px; border-radius:4px; overflow:hidden; background:linear-gradient(160deg,#E2F0E5,#BBD6C2); display:flex; align-items:center; justify-content:center;"><i data-comment="cards-collection-1-icon" class="ph-light ph-tree" style="font-size:46px; color:var(--g600);"></i></div>
+                            <div data-comment="cards-collection-1-title" style="font-family:var(--display); font-weight:600; font-size:20px; line-height:1.22; color:var(--ink); margin-top:14px;">Apple trees</div>
+                            <div data-comment="cards-collection-1-meta" style="font-family:var(--sans); font-size:13.5px; color:var(--muted); margin-top:4px;">24 cold-hardy varieties</div>
+                        </div>
+                        <div data-comment="cards-collection-2" style="text-align:left;">
+                            <div data-comment="cards-collection-2-image" style="height:220px; border-radius:4px; overflow:hidden; background:linear-gradient(160deg,#EFF7F0,#C7D3B5); display:flex; align-items:center; justify-content:center;"><i data-comment="cards-collection-2-icon" class="ph-light ph-plant" style="font-size:46px; color:var(--g600);"></i></div>
+                            <div data-comment="cards-collection-2-title" style="font-family:var(--display); font-weight:600; font-size:20px; line-height:1.22; color:var(--ink); margin-top:14px;">Pear trees</div>
+                            <div data-comment="cards-collection-2-meta" style="font-family:var(--sans); font-size:13.5px; color:var(--muted); margin-top:4px;">11 varieties</div>
+                        </div>
+                        <div data-comment="cards-collection-3" style="text-align:left;">
+                            <div data-comment="cards-collection-3-image" style="height:220px; border-radius:4px; overflow:hidden; background:linear-gradient(160deg,#F4EAD9,#E0D2B6); display:flex; align-items:center; justify-content:center;"><i data-comment="cards-collection-3-icon" class="ph-light ph-flower-tulip" style="font-size:46px; color:var(--g600);"></i></div>
+                            <div data-comment="cards-collection-3-title" style="font-family:var(--display); font-weight:600; font-size:20px; line-height:1.22; color:var(--ink); margin-top:14px;">Cherry trees</div>
+                            <div data-comment="cards-collection-3-meta" style="font-family:var(--sans); font-size:13.5px; color:var(--muted); margin-top:4px;">8 varieties</div>
+                        </div>
+                        <div data-comment="cards-collection-4" style="text-align:left;">
+                            <div data-comment="cards-collection-4-image" style="height:220px; border-radius:4px; overflow:hidden; background:linear-gradient(160deg,#E2F0E5,#7FA98C); display:flex; align-items:center; justify-content:center;"><i data-comment="cards-collection-4-icon" class="ph-light ph-leaf" style="font-size:46px; color:var(--g700);"></i></div>
+                            <div data-comment="cards-collection-4-title" style="font-family:var(--display); font-weight:600; font-size:20px; line-height:1.22; color:var(--ink); margin-top:14px;">Berries</div>
+                            <div data-comment="cards-collection-4-meta" style="font-family:var(--sans); font-size:13.5px; color:var(--muted); margin-top:4px;">Fruiting shrubs</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ================= 11 NAVIGATION ================= -->
+                <section data-comment="nav-section" style="padding:84px 0 0;">
+                    <div data-comment="nav-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12.5px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent-deep);">11 — Navigation</div>
+                    <h2 data-comment="nav-heading" style="font-family:var(--display); font-weight:500; font-size:44px; line-height:1.06; margin:10px 0 0; color:var(--ink);">Navigation</h2>
+                    <div data-comment="nav-divider" style="height:1px; background:var(--line); margin:24px 0 0;"></div>
+
+                    <!-- top bar -->
+                    <div data-comment="nav-topbar" style="margin-top:30px; border:1px solid var(--line); border-radius:4px; overflow:hidden; box-shadow:0 4px 14px rgba(40,45,30,0.06);">
+                        <div data-comment="nav-topbar-promo" style="background:var(--g700); color:#DCEAE0; font-family:var(--sans); font-weight:600; font-size:11.5px; letter-spacing:0.18em; text-transform:uppercase; text-align:center; padding:10px;">Free shipping over $200 · Spring 2026 crop now open</div>
+                        <div data-comment="nav-topbar-main" style="background:#FFFFFF; display:flex; align-items:center; justify-content:space-between; padding:18px 30px; border-top:1px solid var(--line-soft);">
+                            <img data-comment="nav-topbar-logo" src="assets/whiffletree-logo.png" alt="Whiffletree" style="height:48px; width:auto;">
+                            <div data-comment="nav-topbar-links" style="display:flex; align-items:center; gap:30px; font-family:var(--sans); font-weight:600; font-size:15px; letter-spacing:0; color:var(--g700);">
+                                <span data-comment="nav-topbar-link-shop" style="border-bottom: 2px solid var(--accent); padding-bottom: 4px; border-color: #006837">Shop all</span>
+                                <span data-comment="nav-topbar-link-resources" style="height: 30px; align-self: auto">Resources</span><span data-comment="nav-topbar-link-info" style="height: 30px; align-self: auto">Info</span><span data-comment="nav-topbar-link-contact" style="height: 30px; align-self: auto">Contact</span>
+                                <div data-comment="nav-topbar-actions" style="display:flex; gap:20px; padding-left:6px;"><i data-comment="nav-topbar-action-search" class="ph ph-magnifying-glass" style="font-size:21px;"></i><i data-comment="nav-topbar-action-user" class="ph ph-user" style="font-size:21px;"></i><i data-comment="nav-topbar-action-cart" class="ph ph-shopping-bag" style="font-size:21px;"></i></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- breadcrumb -->
+                    <div data-comment="nav-breadcrumb" style="display:flex; align-items:center; gap:10px; margin-top:26px; font-family:var(--sans); font-size:13.5px; color:var(--muted);">
+                        <span data-comment="nav-breadcrumb-1">Home</span><i data-comment="nav-breadcrumb-sep-1" class="ph ph-caret-right" style="font-size:12px;"></i>
+                        <span data-comment="nav-breadcrumb-2">Shop all</span><i data-comment="nav-breadcrumb-sep-2" class="ph ph-caret-right" style="font-size:12px;"></i>
+                        <span data-comment="nav-breadcrumb-3">Apple</span><i data-comment="nav-breadcrumb-sep-3" class="ph ph-caret-right" style="font-size:12px;"></i>
+                        <span data-comment="nav-breadcrumb-4" style="color:var(--ink); font-weight:700;">Honeycrisp</span>
+                    </div>
+
+                    <!-- filter tabs -->
+                    <div data-comment="nav-filters" style="display:flex; flex-wrap:wrap; gap:10px; margin-top:24px;">
+                        <span data-comment="nav-filter-1" style="font-family:var(--sans); font-weight:700; font-size:13px; color:#EAF0E0; background:var(--g700); border-radius:4px; padding:9px 18px;">All trees</span>
+                        <span data-comment="nav-filter-2" style="font-family:var(--sans); font-weight:600; font-size:13px; color:var(--ink2); background:#fff; border:1px solid var(--line); border-radius:4px; padding:9px 17px;">Apple</span>
+                        <span data-comment="nav-filter-3" style="font-family:var(--sans); font-weight:600; font-size:13px; color:var(--ink2); background:#fff; border:1px solid var(--line); border-radius:4px; padding:9px 17px;">Pear</span>
+                        <span data-comment="nav-filter-4" style="font-family:var(--sans); font-weight:600; font-size:13px; color:var(--ink2); background:#fff; border:1px solid var(--line); border-radius:4px; padding:9px 17px;">Cherry</span>
+                        <span data-comment="nav-filter-5" style="font-family:var(--sans); font-weight:600; font-size:13px; color:var(--ink2); background:#fff; border:1px solid var(--line); border-radius:4px; padding:9px 17px;">Apricot</span>
+                        <span data-comment="nav-filter-6" style="font-family:var(--sans); font-weight:600; font-size:13px; color:var(--ink2); background:#fff; border:1px solid var(--line); border-radius:4px; padding:9px 17px;">Berries</span>
+                    </div>
+                </section>
+
+                <!-- ================= 12 TAGS & BADGES ================= -->
+                <section data-comment="tags-section" style="padding:84px 0 0;">
+                    <div data-comment="tags-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12.5px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent-deep);">12 — Tags &amp; badges</div>
+                    <h2 data-comment="tags-heading" style="font-family:var(--display); font-weight:500; font-size:44px; line-height:1.06; margin:10px 0 0; color:var(--ink);">Tags &amp; badges</h2>
+                    <div data-comment="tags-divider" style="height:1px; background:var(--line); margin:24px 0 0;"></div>
+
+                    <h3 data-comment="tags-category-title" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink2); margin:30px 0 14px;">Category tags <span data-comment="tags-category-title-note" style="font-weight:500; text-transform:none; letter-spacing:0; color:var(--subtle);">— outlined chips</span></h3>
+                    <div data-comment="tags-category-row" style="display:flex; flex-wrap:wrap; gap:12px;">
+                        <span data-comment="tags-category-1" style="font-family:var(--sans); font-weight:600; font-size:14px; color:var(--ink2); background:#fff; border:1px solid var(--line); border-radius:4px; padding:10px 18px;">Apple</span>
+                        <span data-comment="tags-category-2" style="font-family:var(--sans); font-weight:600; font-size:14px; color:var(--ink2); background:#fff; border:1px solid var(--line); border-radius:4px; padding:10px 18px;">Pear</span>
+                        <span data-comment="tags-category-3" style="font-family:var(--sans); font-weight:600; font-size:14px; color:var(--ink2); background:#fff; border:1px solid var(--line); border-radius:4px; padding:10px 18px;">Cherry</span>
+                        <span data-comment="tags-category-4" style="font-family:var(--sans); font-weight:600; font-size:14px; color:var(--ink2); background:#fff; border:1px solid var(--line); border-radius:4px; padding:10px 18px;">Apricot</span>
+                        <span data-comment="tags-category-5" style="font-family:var(--sans); font-weight:600; font-size:14px; color:var(--ink2); background:#fff; border:1px solid var(--line); border-radius:4px; padding:10px 18px;">Plum</span>
+                        <span data-comment="tags-category-6" style="font-family:var(--sans); font-weight:600; font-size:14px; color:var(--ink2); background:#fff; border:1px solid var(--line); border-radius:4px; padding:10px 18px;">Pruning</span>
+                        <span data-comment="tags-category-7" style="font-family:var(--sans); font-weight:600; font-size:14px; color:var(--ink2); background:#fff; border:1px solid var(--line); border-radius:4px; padding:10px 18px;">Watering</span>
+                        <span data-comment="tags-category-8" style="font-family:var(--sans); font-weight:600; font-size:14px; color:var(--ink2); background:#fff; border:1px solid var(--line); border-radius:4px; padding:10px 18px;">Companions</span>
+                    </div>
+
+                    <h3 data-comment="tags-status-title" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink2); margin:34px 0 14px;">Status badges <span data-comment="tags-status-title-note" style="font-weight:500; text-transform:none; letter-spacing:0; color:var(--subtle);">— solid fill, white text</span></h3>
+                    <div data-comment="tags-status-row" style="display:flex; flex-wrap:wrap; gap:12px; align-items:center;">
+                        <span data-comment="tags-status-new" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:#fff; background:var(--accent); border-radius:4px; padding:9px 16px;">New</span>
+                        <span data-comment="tags-status-instock" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:#fff; background:var(--success); border-radius:4px; padding:9px 16px;">In stock</span>
+                        <span data-comment="tags-status-lowstock" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:#fff; background:var(--warning); border-radius:4px; padding:9px 16px;">Low stock</span>
+                        <span data-comment="tags-status-soldout" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:#fff; background:var(--n70); border-radius:4px; padding:9px 16px;">Sold out</span>
+                        <span data-comment="tags-status-hardy" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:#fff; background:var(--g700); border-radius:4px; padding:9px 16px; display:inline-flex; align-items:center; gap:7px;"><i data-comment="tags-status-hardy-icon" class="ph-fill ph-snowflake" style="font-size:14px;"></i>Hardy · Zone 3</span>
+                    </div>
+                </section>
+
+                <!-- ================= COLOPHON ================= -->
+                <section data-comment="colophon-section" style="padding:80px 0 90px;">
+                    <div data-comment="colophon-divider" style="height:1px; background:var(--line); margin-bottom:30px;"></div>
+                    <div data-comment="colophon-row" style="display:flex; flex-wrap:wrap; gap:24px; align-items:baseline; justify-content:space-between;">
+                        <div data-comment="colophon-title" style="font-family:var(--display); font-weight:500; font-size:26px; color:var(--ink);">Whiffletree Design System <span data-comment="colophon-version" style="font-family:var(--sans); font-size:13px; font-weight:600; color:var(--subtle); letter-spacing:0.04em;">v0.4</span></div>
+                        <div data-comment="colophon-note" style="font-size:13px; color:var(--muted); max-width:54ch; line-height:1.6;">Colours and logo taken from the live Whiffletree brand. Headings use Cormorant Garamond. Product photography is placeholder.</div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+
+        <script>
+            /* Static design-system reference page — no app state needed. */
+        </script>
+    </body>
+</html>
