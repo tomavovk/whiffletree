@@ -266,8 +266,10 @@
                (which win on specificity), so overrides below use !important.
                ============================================================ */
 
-            /* Never allow horizontal scroll from fixed-width children */
-            [data-comment="page-root"] { overflow-x: hidden; }
+            /* Never allow horizontal scroll from fixed-width children.
+               Use `clip` (not `hidden`): `hidden` makes page-root a scroll
+               container, which breaks the sticky header. `clip` does not. */
+            [data-comment="page-root"] { overflow-x: clip; }
 
             /* Hamburger — hidden on desktop, revealed at the mobile breakpoint */
             [data-comment="header-burger"] {
