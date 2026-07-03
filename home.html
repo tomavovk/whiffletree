@@ -49,41 +49,54 @@
                 --ink2: #262521;
                 --muted: #57544e;
                 --subtle: #939089;
-                --paper1: #f4ead9;
-                --paper2: #ebdfc8;
-                --paper3: #e0d2b6;
-                --line: #d8c9ac;
-                --line-soft: #e8dcc4;
+                --paper0: #faf8f3;
+                --paper1: #f0ebe2;
+                --paper2: #e6e0d4;
+                --paper3: #dad3c5;
+                --line: #d2cabb;
+                --line-soft: #e3ddd1;
+                --line-neutral: #d5d4d0;
 
                 /* Colors — greens */
-                --g900: #063d22;
-                --g800: #0a4a29;
-                --g700: #006837;
-                --g600: #138a45;
-                --g500: #0b9444;
-                --g300: #7fa98c;
-                --g200: #bbd6c2;
-                --g100: #e2f0e5;
-                --g050: #eff7f0;
+                --g900: #093f1e;
+                --g800: #0e4c23;
+                --g700: #14682a;
+                --g600: #268b39;
+                --g500: #2f9b3c;
+                --g300: #85ac81;
+                --g200: #c1d8b6;
+                --g100: #e6f1db;
+                --g050: #f1f8ea;
 
                 /* Colors — status / accent */
                 --success: #1c7a45;
                 --warning: #b5772a;
-                --error: #c0392b;
-                --accent: #c0392b;
-                --accent-deep: #9e2c20;
+                --error: #e5202c;
+                /* Coral — primary accent (brand scale) */
+                --c900: #521c13;
+                --c800: #6e2519;
+                --c700: #8f3122;
+                --c600: #b23e2c;
+                --c500: #d75640;
+                --c300: #ee917d;
+                --c200: #f5bcaf;
+                --c100: #fbdfd7;
+                --c050: #fdf1ec;
+                --accent: var(--c500);
+                --accent-deep: var(--c700);
+                --accent-soft: var(--c100);
             }
 
             /* Newsletter input theming */
             #gift input::placeholder {
-                color: #6db791;
+                color: var(--subtle);
                 opacity: 1;
             }
             #gift input,
             #gift input:focus {
-                color: #ffffff;
-                -webkit-text-fill-color: #ffffff;
-                caret-color: #ffffff;
+                color: var(--ink);
+                -webkit-text-fill-color: var(--ink);
+                caret-color: var(--ink);
             }
 
             /* ============================================================
@@ -147,7 +160,7 @@
                 font-family: var(--sans);
                 font-weight: 600;
                 font-size: 15px;
-                color: var(--g700);
+                color: var(--muted);
                 background: none;
                 border: none;
                 cursor: pointer;
@@ -199,7 +212,7 @@
                 top: 100%;
                 background: #ffffff;
                 border-top: 1px solid var(--line);
-                box-shadow: 0 22px 34px -12px rgba(20, 20, 15, 0.18);
+                box-shadow: 0 16px 24px -20px rgba(20, 20, 15, 0.14);
                 display: none;
                 z-index: 30;
             }
@@ -243,8 +256,6 @@
             }
             .np-pill:hover {
                 background: var(--accent-deep);
-                transform: translateY(-1px);
-                box-shadow: 0 4px 12px rgba(158, 44, 32, 0.22);
             }
             .np-grid { display: grid; gap: 30px 28px; }
             .np-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -264,7 +275,7 @@
                 font-family: var(--sans);
                 font-weight: 600;
                 font-size: 15.5px;
-                color: var(--g700);
+                color: var(--muted);
                 text-decoration: none;
                 padding: 7px 0;
                 display: inline-flex;
@@ -297,29 +308,25 @@
             .np-seeall:hover { color: var(--accent-deep) !important; }
 
             /* --- White buttons on dark (primary CTA) --- */
-            [data-comment="hero-cta-primary"]:hover,
+            [data-comment="hero-cta-primary"]:hover {
+                background: var(--c700) !important;
+            }
             [data-comment="contact-cta-faq"]:hover {
                 background: var(--paper1) !important;
-                transform: translateY(-1px);
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
             }
 
             /* --- Outline buttons on dark backgrounds --- */
             [data-comment="hero-cta-secondary"]:hover,
             [data-comment="contact-cta-contact"]:hover {
                 background: #ffffff !important;
-                color: var(--g900) !important;
+                color: var(--accent-deep) !important;
                 border-color: #ffffff !important;
-                transform: translateY(-1px);
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
             }
 
             /* --- Solid accent (brick red) buttons --- */
             [data-comment="about-cta"]:hover,
             [data-comment="newsletter-submit"]:hover {
-                background: var(--accent-deep) !important;
-                transform: translateY(-1px);
-                box-shadow: 0 4px 12px rgba(158, 44, 32, 0.22);
+                background: var(--c700) !important;
             }
 
             /* --- Green underline link-button --- */
@@ -346,45 +353,56 @@
                 color: var(--g700) !important;
             }
 
-            /* --- Why Whiffletree cards: lift + scale + fill + brighten link --- */
-            [data-comment="why-card-1"],
-            [data-comment="why-card-2"],
-            [data-comment="why-card-3"] {
-                transition:
-                    transform 300ms cubic-bezier(0.2, 0, 0, 1),
-                    background-color 300ms cubic-bezier(0.2, 0, 0, 1),
-                    box-shadow 300ms cubic-bezier(0.2, 0, 0, 1);
+            /* --- Why Whiffletree cards: icon-tile lift + accent-underline link --- */
+            [data-comment^="why-card-"][data-comment$="-icon-tile"] {
+                position: relative;
+                overflow: hidden;
             }
-            [data-comment="why-card-1"]:hover,
-            [data-comment="why-card-2"]:hover,
-            [data-comment="why-card-3"]:hover {
-                background: var(--g800) !important;
-                transform: translateY(-4px);
-                box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+            [data-comment^="why-card-"][data-comment$="-icon-tile"]::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: #ffffff;
+                opacity: 0;
+                transition: opacity 550ms cubic-bezier(0.22, 1, 0.36, 1);
+                pointer-events: none;
+            }
+            [data-comment^="why-card-"][data-comment$="-icon-tile"] > i {
+                position: relative;
+                z-index: 1;
+            }
+            [data-comment="why-card-1"]:hover [data-comment$="-icon-tile"]::after,
+            [data-comment="why-card-2"]:hover [data-comment$="-icon-tile"]::after,
+            [data-comment="why-card-3"]:hover [data-comment$="-icon-tile"]::after {
+                opacity: 1;
             }
             [data-comment="why-card-1"]:hover [data-comment$="-link"],
             [data-comment="why-card-2"]:hover [data-comment$="-link"],
             [data-comment="why-card-3"]:hover [data-comment$="-link"] {
-                color: #ffffff !important;
-            }
-
-            /* --- Gifts feature cards: image zoom on card hover --- */
-            [data-comment^="gifts-card-"] [data-comment$="-image"] {
-                transition: transform 450ms cubic-bezier(0.2, 0, 0, 1);
-            }
-            [data-comment^="gifts-card-"]:hover [data-comment$="-image"] {
-                transform: scale(1.045);
+                color: var(--accent-deep) !important;
+                border-color: var(--accent-deep) !important;
             }
 
             /* --- Resource tiles (icon-button pattern) --- */
-            a[data-comment^="resources-tile-"]:hover {
-                border-color: var(--line) !important;
-                background: var(--paper2) !important;
-                transform: translateY(-2px);
-                box-shadow: 0 8px 20px rgba(90, 70, 35, 0.14);
+            a[data-comment^="resources-tile-"] {
+                position: relative;
+                overflow: hidden;
             }
-            a[data-comment^="resources-tile-"]:hover [data-comment$="-title"] {
-                color: var(--ink) !important;
+            a[data-comment^="resources-tile-"]::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: #ffffff;
+                opacity: 0;
+                transition: opacity 550ms cubic-bezier(0.22, 1, 0.36, 1);
+                pointer-events: none;
+            }
+            a[data-comment^="resources-tile-"] > * {
+                position: relative;
+                z-index: 1;
+            }
+            a[data-comment^="resources-tile-"]:hover::after {
+                opacity: 1;
             }
 
             /* --- Contact inline phone link --- */
@@ -396,22 +414,26 @@
             [data-comment^="footer-products-link-"]:hover,
             [data-comment^="footer-downloads-link-"]:hover,
             [data-comment^="footer-links-link-"]:hover {
-                color: #ffffff !important;
+                color: var(--accent) !important;
                 text-decoration: underline;
                 text-underline-offset: 3px;
             }
             [data-comment="footer-legal-terms"]:hover,
             [data-comment="footer-legal-privacy"]:hover {
-                color: #dceae0 !important;
+                color: var(--accent) !important;
             }
             [data-comment^="footer-social-"]:hover {
-                color: #ffffff !important;
+                color: var(--accent) !important;
                 cursor: pointer;
             }
 
             /* --- Newsletter input focus --- */
+            [data-comment="newsletter-input"]:hover {
+                border-color: var(--subtle) !important;
+            }
             [data-comment="newsletter-input"]:focus {
-                border-color: var(--g500) !important;
+                border-color: var(--g600) !important;
+                box-shadow: 0 0 0 3px rgba(38,139,57,0.15) !important;
             }
 
             /* Keyboard focus visibility for all interactive elements */
@@ -510,9 +532,7 @@
                 /* Collapse multi-column grids */
                 [data-comment="shop-grid"] { grid-template-columns: repeat(2, 1fr) !important; gap: 16px !important; }
                 [data-comment="why-grid"] { grid-template-columns: 1fr !important; }
-                [data-comment="why-card-1"],
-                [data-comment="why-card-2"],
-                [data-comment="why-card-3"] { min-height: 0 !important; padding: 34px 28px !important; }
+                [data-comment^="why-card-"][data-comment$="-icon-tile"] { height: 200px !important; }
                 [data-comment="gifts-grid"] { grid-template-columns: 1fr !important; gap: 32px !important; }
                 [data-comment="newsletter-inner"] { grid-template-columns: 1fr !important; gap: 28px !important; }
                 [data-comment="about-image"] { height: 300px !important; }
@@ -576,19 +596,27 @@
                 [data-comment="footer-columns"] { grid-template-columns: 1fr !important; }
                 [data-comment="hero-heading"] { font-size: 34px !important; }
             }
+
+            /* ════════════════════════════════════════════════════════════
+               CORNER RADIUS — unified 2px across the site (subtle, editorial).
+               Scoped to page-root so the floating advisor widget (outside
+               page-root) is left untouched. Pills/circles use their own
+               radius (999px / 50%) and are not [data-comment] targets here.
+               ════════════════════════════════════════════════════════════ */
+            [data-comment="page-root"] [data-comment] { border-radius: 2px !important; }
         </style>
     </head>
     <body>
-        <div data-comment="page-root" style="background:#F7F5EE; font-family:var(--sans); color:var(--ink2); font-size:16px; line-height:1.6;">
+        <div data-comment="page-root" style="background:#ffffff; font-family:var(--sans); color:var(--ink2); font-size:16px; line-height:1.6;">
 
             <!-- ANNOUNCEMENT -->
-            <div data-comment="announcement-bar" style="background:var(--g900); color:#CFE0D3; font-family:var(--sans); font-weight:500; font-size:12.5px; text-align:center; padding:10px 20px; line-height:1.5;">Due to CFIA regulations we cannot ship plants outside of Canada, or fruit trees &amp; grape vines to BC.</div>
+            <div data-comment="announcement-bar" style="background:var(--paper2); color:var(--ink); font-family:var(--sans); font-weight:500; font-size:12.5px; text-align:center; padding:10px 20px; line-height:1.5; border-bottom:1px solid var(--line);">Due to CFIA regulations we cannot ship plants outside of Canada, or fruit trees &amp; grape vines to BC.</div>
 
             <!-- NAV -->
             <header data-comment="header-root" style="background:#FFFFFF; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:20;">
                 <div data-comment="header-inner" style="max-width: none; width: 100%; margin: 0; padding: 16px 40px; display: flex; align-items: center; justify-content: flex-end; padding-top: 20px; padding-bottom: 20px">
                     <a data-comment="header-logo-link" href="home.html" style="position: absolute; left: 28px; top: 11px; z-index: 40; display: block;"><img data-comment="header-logo" src="assets/whiffletree-logo.png" alt="Whiffletree Farm &amp; Nursery" style="height: 75px; width: 239px; display: block;"></a>
-                    <nav data-comment="header-nav" style="display: flex; align-items: center; gap: 28px; font-family: var(--sans); font-weight: 600; font-size: 15px; color: var(--g700); align-self: flex-end">
+                    <nav data-comment="header-nav" style="display: flex; align-items: center; gap: 28px; font-family: var(--sans); font-weight: 600; font-size: 15px; color: var(--muted); align-self: flex-end">
 
                         <!-- SHOP ALL — mega panel: Trees / Shrubs & Plants / Berries / More -->
                         <div class="nav-item" data-nav-item>
@@ -650,7 +678,10 @@
                         </div>
 
                         <!-- CATALOGUE — standalone link -->
-                        <a class="nav-link" data-comment="header-nav-link-catalogue" href="#catalogue" style="color: var(--g700); text-decoration: none; align-self: center; height: 24px; flex-grow: 0">Catalogue</a>
+                        <a class="nav-link" data-comment="header-nav-link-catalogue" href="catalog.html" style="color: var(--muted); text-decoration: none; align-self: center; height: 24px; flex-grow: 0">Catalogue</a>
+
+                        <!-- MEMBERS HUB — standalone link -->
+                        <a class="nav-link" data-comment="header-nav-link-members" href="members.html" style="color: var(--muted); text-decoration: none; align-self: center; height: 24px; flex-grow: 0">Members Hub</a>
 
                         <!-- RESOURCES — mega panel: Learn / Guides -->
                         <div class="nav-item" data-nav-item>
@@ -692,9 +723,9 @@
                         </div>
 
                         <!-- CONTACT — standalone link -->
-                        <a class="nav-link" data-comment="header-nav-link-contact" href="#contact" style="color: var(--g700); text-decoration: none; align-self: center; height: 24px; flex-grow: 0">Contact</a>
+                        <a class="nav-link" data-comment="header-nav-link-contact" href="#contact" style="color: var(--muted); text-decoration: none; align-self: center; height: 24px; flex-grow: 0">Contact</a>
 
-                        <div data-comment="header-actions" style="display:flex; align-items:center; gap:20px; padding-left:8px; color:var(--g700);">
+                        <div data-comment="header-actions" style="display:flex; align-items:center; gap:20px; padding-left:8px; color:var(--muted);">
                             <svg data-comment="header-action-search" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><circle cx="11" cy="11" r="7"></circle><line x1="16.2" y1="16.2" x2="20.5" y2="20.5"></line></svg>
                             <svg data-comment="header-action-user" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                             <svg data-comment="header-action-cart" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
@@ -705,66 +736,62 @@
             </header>
 
             <!-- HERO -->
-            <section data-comment="hero-section" style="position:relative; overflow:hidden; background:#063D22; display:flex; flex-direction:column; min-height:calc(100svh - var(--chrome-h, 104px));">
-                <div data-comment="hero-bg-image" style="position:absolute; inset:0; background:url('assets/hero-apples.jpg') center 38% / cover no-repeat;"></div>
-                <!-- darkening: deeper on the left under the text, lighter to the right -->
-                <div data-comment="hero-bg-overlay" style="position:absolute; inset:0; background:linear-gradient(100deg, rgba(6,40,20,0.82) 0%, rgba(6,40,20,0.66) 38%, rgba(6,40,20,0.28) 70%, rgba(6,40,20,0.12) 100%);"></div>
+            <section data-comment="hero-section" style="position:relative; overflow:hidden; background:#ffffff; display:flex; flex-direction:column; min-height:calc(100svh - var(--chrome-h, 104px));">
+                <div data-comment="hero-bg-image" style="position:absolute; inset:0; background:url('assets/hero-pexels-28946547.jpg') center center / cover no-repeat;"></div>
 
-                <div data-comment="hero-inner" style="position: relative; max-width: 1600px; margin: 0 auto; padding: 80px 40px; width: 100%; flex: 1 1 auto; display: flex; align-items: center;">
+                <div data-comment="hero-inner" style="position: relative; max-width: 1600px; margin: 0 auto; padding: 80px 40px; width: 100%; flex: 1 1 auto; display: flex; align-items: flex-end;">
                     <div data-comment="hero-content" style="max-width: 800px">
-                        <div data-comment="hero-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:#EAD7B4;">Canada’s premier fruit tree nursery</div>
-                        <h1 data-comment="hero-heading" style="font-family: var(--display); font-weight: 500; font-size: 74px; line-height: 1.02; color: #FFFFFF; margin: 18px 0 0; text-shadow: 0 2px 24px rgba(0,0,0,0.28); width: 623px">Canada’s finest in fruit trees</h1>
+                        <h1 data-comment="hero-heading" style="font-family: var(--display); font-weight: 500; font-size: 74px; line-height: 1.02; color: #ffffff; margin: 18px 0 0; text-shadow: none; max-width: 623px">Canada’s finest in fruit trees</h1>
 
-                        <p data-comment="hero-subheading" style="font-family: var(--sans); font-weight: 400; font-size: 16px; line-height: 1.65; color: rgba(255,255,255,0.9); margin: 20px 0 0; width: 549px">We specialize in cold-hardy bare-root trees, selected for growers passionate about permaculture and food forests. Discover the difference of premium fruit trees and start growing your own harvest today.</p>
+                        <p data-comment="hero-subheading" style="font-family: var(--sans); font-weight: 400; font-size: 16px; line-height: 1.65; color: #ffffff; margin: 20px 0 0; max-width: 549px">We specialize in cold-hardy bare-root trees, selected for growers passionate about permaculture and food forests.</p>
                         <div data-comment="hero-cta-group" style="display:flex; flex-wrap:wrap; gap:14px; margin-top:32px;">
-                            <a data-comment="hero-cta-primary" href="#shop" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--g900); background:#FFFFFF; border-radius:4px; padding:16px 34px; text-decoration:none;">Shop now</a>
-                            <a data-comment="hero-cta-secondary" href="#how" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#FFFFFF; background:transparent; border:1.5px solid rgba(255,255,255,0.7); border-radius:4px; padding:14.5px 32px; text-decoration:none;">How to order</a>
+                            <a data-comment="hero-cta-primary" href="#shop" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#fff; background:var(--c600); border-radius:4px; padding:16px 34px; text-decoration:none;">Shop now</a>
                         </div>
                     </div>
                 </div>
                 <!-- full-width trust bar -->
-                <div data-comment="hero-trust-wrap" style="position:relative; background:var(--g900);">
-                    <div data-comment="hero-trust-bar" style="max-width: none; width: 100%; margin: 0; padding: 20px 40px; border-top: 1px solid rgba(255,255,255,0.16); border-bottom: 1px solid rgba(255,255,255,0.16); display: flex; gap: 14px; flex-wrap: wrap; font-family: var(--sans); font-weight: 600; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.9); padding-top: 12px; padding-bottom: 12px; align-items: center; justify-content: space-between; border-color: #2e573fe6">
-                        <span data-comment="hero-trust-item-1" style="color: #FFFFFF">Bare-root</span>
-                        <svg data-comment="hero-trust-leaf-1" width="18" height="18" viewBox="0 0 24 24" fill="none" style="flex:none; color:var(--g300);"><path d="M10 17.5 C9 13 11 9 15.2 7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"></path><path d="M15.2 7 Q18.8 3 22.5 4.2 Q19.2 8.6 15.2 7 Z" fill="currentColor"></path><circle cx="9.5" cy="17.5" r="4.7" fill="currentColor"></circle></svg>
-                        <span data-comment="hero-trust-item-2" style="color: #FFFFFF">Cold-hardy</span>
-                        <svg data-comment="hero-trust-leaf-2" width="18" height="18" viewBox="0 0 24 24" fill="none" style="flex:none; color:var(--g300);"><path d="M10 17.5 C9 13 11 9 15.2 7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"></path><path d="M15.2 7 Q18.8 3 22.5 4.2 Q19.2 8.6 15.2 7 Z" fill="currentColor"></path><circle cx="9.5" cy="17.5" r="4.7" fill="currentColor"></circle></svg>
-                        <span data-comment="hero-trust-item-3" style="color: #FFFFFF">Disease-resistant</span>
-                        <svg data-comment="hero-trust-leaf-3" width="18" height="18" viewBox="0 0 24 24" fill="none" style="flex:none; color:var(--g300);"><path d="M10 17.5 C9 13 11 9 15.2 7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"></path><path d="M15.2 7 Q18.8 3 22.5 4.2 Q19.2 8.6 15.2 7 Z" fill="currentColor"></path><circle cx="9.5" cy="17.5" r="4.7" fill="currentColor"></circle></svg>
-                        <span data-comment="hero-trust-item-4" style="color: #FFFFFF">Alive &amp; true to name</span>
+                <div data-comment="hero-trust-wrap" style="position:relative; background:#ffffff;">
+                    <div data-comment="hero-trust-bar" style="max-width: none; width: 100%; margin: 0; padding: 20px 40px; display: flex; gap: 14px; flex-wrap: wrap; font-family: var(--sans); font-weight: 600; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); padding-top: 12px; padding-bottom: 12px; align-items: center; justify-content: space-between; border-top: 1px solid var(--line-soft)">
+                        <span data-comment="hero-trust-item-1" style="color: var(--ink)">Bare-root</span>
+                        <svg data-comment="hero-trust-leaf-1" width="18" height="18" viewBox="0 0 24 24" fill="none" style="flex:none; color:var(--g700);"><path d="M10 17.5 C9 13 11 9 15.2 7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"></path><path d="M15.2 7 Q18.8 3 22.5 4.2 Q19.2 8.6 15.2 7 Z" fill="currentColor"></path><circle cx="9.5" cy="17.5" r="4.7" fill="currentColor"></circle></svg>
+                        <span data-comment="hero-trust-item-2" style="color: var(--ink)">Cold-hardy</span>
+                        <svg data-comment="hero-trust-leaf-2" width="18" height="18" viewBox="0 0 24 24" fill="none" style="flex:none; color:var(--g700);"><path d="M10 17.5 C9 13 11 9 15.2 7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"></path><path d="M15.2 7 Q18.8 3 22.5 4.2 Q19.2 8.6 15.2 7 Z" fill="currentColor"></path><circle cx="9.5" cy="17.5" r="4.7" fill="currentColor"></circle></svg>
+                        <span data-comment="hero-trust-item-3" style="color: var(--ink)">Disease-resistant</span>
+                        <svg data-comment="hero-trust-leaf-3" width="18" height="18" viewBox="0 0 24 24" fill="none" style="flex:none; color:var(--g700);"><path d="M10 17.5 C9 13 11 9 15.2 7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"></path><path d="M15.2 7 Q18.8 3 22.5 4.2 Q19.2 8.6 15.2 7 Z" fill="currentColor"></path><circle cx="9.5" cy="17.5" r="4.7" fill="currentColor"></circle></svg>
+                        <span data-comment="hero-trust-item-4" style="color: var(--ink)">Alive &amp; true to name</span>
                     </div>
                 </div>
             </section>
 
             <!-- SEASONAL STATUS + HOURS -->
-            <section data-comment="status-section" style="background:var(--g900);">
-                <div data-comment="status-inner" style="max-width:none; width:100%; margin:0; padding:44px 40px; display:grid; grid-template-columns:1.5fr 1fr 1fr; gap:40px; align-items:start;">
-                    <div data-comment="status-message">
-                        <div data-comment="status-badge" style="display:inline-flex; align-items:center; gap:7px; font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:#fff; background:var(--accent); border-radius:4px; padding:9px 16px;"><i data-comment="status-badge-icon" class="ph-fill ph-calendar-x" style="font-size:14px;"></i>Spring 2026 sales closed</div>
-                        <p data-comment="status-text" style="font-family:var(--sans); font-size:15.5px; line-height:1.6; color:#CFE0D3; margin:16px 0 0; max-width:42ch;">Our store stays open for orchard supplies. Join our mailing list for the next crop and events.</p>
+            <section data-comment="status-section" style="background:#ffffff;">
+                <div data-comment="status-inner" style="max-width:none; width:100%; margin:0; padding:0 40px; display:grid; grid-template-columns:1.5fr 1fr 1fr; gap:40px; align-items:stretch; border-top:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft);">
+                    <div data-comment="status-message" style="padding:44px 0;">
+                        <div data-comment="status-badge" style="display:inline-flex; align-items:center; gap:7px; font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:#fff; background:var(--accent-deep); border-radius:4px; padding:9px 16px;"><i data-comment="status-badge-icon" class="ph-fill ph-calendar-x" style="font-size:14px;"></i>Spring 2026 sales closed</div>
+                        <p data-comment="status-text" style="font-family:var(--sans); font-size:15.5px; line-height:1.6; color:var(--muted); margin:16px 0 0; max-width:42ch;">Our store stays open for orchard supplies. Join our mailing list for the next crop and events.</p>
                     </div>
-                    <div data-comment="status-hours-summer" style="border-left:1px solid rgba(255,255,255,0.14); padding-left:32px;">
-                        <div data-comment="status-hours-summer-label" style="font-family:var(--sans); font-weight:700; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--g300); margin-bottom:12px;">Summer hours</div>
-                        <div data-comment="status-hours-summer-days" style="font-family:var(--display); font-weight:600; font-size:21px; color:#FFFFFF; line-height:1.25;">Mon–Fri</div>
-                        <div data-comment="status-hours-summer-time" style="font-family:var(--sans); font-size:14.5px; color:#AFC5B6; margin-top:2px;">9am – 5pm</div>
+                    <div data-comment="status-hours-summer" style="border-left:1px solid var(--line-soft); padding:44px 0 44px 32px;">
+                        <div data-comment="status-hours-summer-label" style="font-family:var(--sans); font-weight:700; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--g700); margin-bottom:12px;">Summer hours</div>
+                        <div data-comment="status-hours-summer-days" style="font-family:var(--display); font-weight:600; font-size:21px; color:var(--ink); line-height:1.25;">Mon–Fri</div>
+                        <div data-comment="status-hours-summer-time" style="font-family:var(--sans); font-size:14.5px; color:var(--muted); margin-top:2px;">9am – 5pm</div>
                     </div>
-                    <div data-comment="status-hours-office" style="border-left:1px solid rgba(255,255,255,0.14); padding-left:32px;">
-                        <div data-comment="status-hours-office-label" style="font-family:var(--sans); font-weight:700; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--g300); margin-bottom:12px;">Office &amp; phone</div>
-                        <div data-comment="status-hours-office-days" style="font-family:var(--display); font-weight:600; font-size:21px; color:#FFFFFF; line-height:1.25;">Tue &amp; Thu</div>
-                        <div data-comment="status-hours-office-time" style="font-family:var(--sans); font-size:14.5px; color:#AFC5B6; margin-top:2px;">10am – 4pm</div>
+                    <div data-comment="status-hours-office" style="border-left:1px solid var(--line-soft); padding:44px 0 44px 32px;">
+                        <div data-comment="status-hours-office-label" style="font-family:var(--sans); font-weight:700; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--g700); margin-bottom:12px;">Office &amp; phone</div>
+                        <div data-comment="status-hours-office-days" style="font-family:var(--display); font-weight:600; font-size:21px; color:var(--ink); line-height:1.25;">Tue &amp; Thu</div>
+                        <div data-comment="status-hours-office-time" style="font-family:var(--sans); font-size:14.5px; color:var(--muted); margin-top:2px;">10am – 4pm</div>
                     </div>
                 </div>
             </section>
 
             <!-- BROWSE OUR PLANTS -->
-            <section id="shop" data-comment="shop-section" style="background:#FFFFFF; border-top:1px solid var(--line-soft);">
+            <section id="shop" data-comment="shop-section" style="background:#FFFFFF;">
                 <div data-comment="shop-inner" style="max-width: none; width: 100%; margin: 0; padding: 88px 40px; padding-top: 128px; padding-bottom: 128px">
                     <div data-comment="shop-header" style="display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap;">
                         <div data-comment="shop-header-text">
                             <div data-comment="shop-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent-deep);">Explore the nursery</div>
                             <h2 data-comment="shop-heading" style="font-family:var(--display); font-weight:500; font-size:48px; line-height:1.04; color:var(--ink); margin:12px 0 0;">Browse our plants</h2>
                         </div>
-                        <a data-comment="shop-header-link" href="#" style="font-family:var(--sans); font-weight:700; font-size:15px; letter-spacing:0; color:var(--g700); text-decoration:none; border-bottom:1.5px solid var(--g700); padding-bottom:6px; display:inline-flex; align-items:center; gap:8px;">Shop all products <i data-comment="shop-header-link-icon" class="ph-light ph-arrow-right" style="font-size:16px;"></i></a>
+                        <a data-comment="shop-header-link" href="catalog.html" style="font-family:var(--sans); font-weight:700; font-size:15px; letter-spacing:0; color:var(--g700); text-decoration:none; border-bottom:1.5px solid var(--g700); padding-bottom:6px; display:inline-flex; align-items:center; gap:8px;">Shop all products <i data-comment="shop-header-link-icon" class="ph-light ph-arrow-right" style="font-size:16px;"></i></a>
                     </div>
 
                     <div data-comment="shop-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-top:44px;">
@@ -783,37 +810,43 @@
             </section>
 
             <!-- WHY WHIFFLETREE -->
-            <section data-comment="why-section" style="background: linear-gradient(rgba(13,46,30,0.40), rgba(13,46,30,0.40)), url('assets/why-bg.png') center / cover no-repeat;">
+            <section data-comment="why-section" style="background:var(--paper0);">
                 <div data-comment="why-inner" style="max-width: none; width: 100%; margin: 0; padding: 88px 40px; padding-top: 128px; padding-bottom: 128px">
                     <div data-comment="why-header" style="text-align:center;">
-                        <div data-comment="why-eyebrow" style="font-family: var(--sans); font-weight: 700; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff">The Whiffletree difference</div>
-                        <h2 data-comment="why-heading" style="font-family: var(--display); font-weight: 500; font-size: 48px; line-height: 1.04; color: #ffffff; margin: 12px 0 0">Why Whiffletree?</h2>
+                        <div data-comment="why-eyebrow" style="font-family: var(--sans); font-weight: 700; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent-deep)">The Whiffletree difference</div>
+                        <h2 data-comment="why-heading" style="font-family: var(--display); font-weight: 500; font-size: 48px; line-height: 1.04; color: var(--ink); margin: 12px 0 0">Why Whiffletree?</h2>
                     </div>
                     <div data-comment="why-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-top:48px;">
-                        <div data-comment="why-card-1" style="background:var(--g900); border-radius:4px; padding:44px 40px 38px; display:flex; flex-direction:column; min-height:340px;">
-                            <i data-comment="why-card-1-icon" class="ph-light ph-medal" style="font-size:44px; color:var(--g300);"></i>
-                            <div data-comment="why-card-1-title" style="font-family:var(--display); font-weight:500; font-size:34px; line-height:1.08; color:#FFFFFF; margin-top:26px;">Quality</div>
-                            <p data-comment="why-card-1-text" style="font-family:var(--sans); font-size:16px; line-height:1.6; color:#AFC5B6; margin:14px 0 0;">We work hard to provide high-quality stock from one of the finest collections of fruiting trees in Canada.</p>
-                            <a data-comment="why-card-1-link" href="#" style="margin-top:auto; padding-top:28px; display:inline-flex; align-items:center; gap:10px; font-family:var(--sans); font-weight:700; font-size:15px; color:var(--g300); text-decoration:none;">Our story <i data-comment="why-card-1-link-icon" class="ph-light ph-arrow-right" style="font-size:18px;"></i></a>
+                        <div data-comment="why-card-1" style="display:flex; flex-direction:column;">
+                            <div data-comment="why-card-1-icon-tile" style="height:260px; border:1px solid #F1EEE7; border-radius:4px; background:linear-gradient(135deg, #ffffff 0%, #EDE7DB 100%); display:flex; align-items:center; justify-content:center;">
+                                <i data-comment="why-card-1-icon" class="ph-light ph-medal" style="font-size:72px; color:#9A7B4F;"></i>
+                            </div>
+                            <div data-comment="why-card-1-title" style="font-family:var(--display); font-weight:500; font-size:24px; line-height:1.15; color:var(--ink); margin-top:24px;">Quality</div>
+                            <p data-comment="why-card-1-text" style="font-family:var(--sans); font-size:14px; line-height:1.65; color:var(--muted); margin:12px 0 0;">We work hard to provide high-quality stock from one of the finest collections of fruiting trees in Canada.</p>
+                            <a data-comment="why-card-1-link" href="#" style="margin-top:22px; align-self:flex-start; font-family:var(--sans); font-weight:700; font-size:15px; letter-spacing:0; color:var(--accent); text-decoration:none; padding-bottom:6px; border-bottom:1.5px solid var(--accent); display:inline-flex; align-items:center; gap:8px;">Our story <i data-comment="why-card-1-link-icon" class="ph-light ph-arrow-right" style="font-size:16px;"></i></a>
                         </div>
-                        <div data-comment="why-card-2" style="background:var(--g900); border-radius:4px; padding:44px 40px 38px; display:flex; flex-direction:column; min-height:340px;">
-                            <i data-comment="why-card-2-icon" class="ph-light ph-seal-check" style="font-size:44px; color:var(--g300);"></i>
-                            <div data-comment="why-card-2-title" style="font-family:var(--display); font-weight:500; font-size:34px; line-height:1.08; color:#FFFFFF; margin-top:26px;">Guaranteed</div>
-                            <p data-comment="why-card-2-text" style="font-family:var(--sans); font-size:16px; line-height:1.6; color:#AFC5B6; margin:14px 0 0;">All plants sent out are considered alive and true to name — grown by us, start to finish.</p>
-                            <a data-comment="why-card-2-link" href="#" style="margin-top:auto; padding-top:28px; display:inline-flex; align-items:center; gap:10px; font-family:var(--sans); font-weight:700; font-size:15px; color:var(--g300); text-decoration:none;">View guarantee <i data-comment="why-card-2-link-icon" class="ph-light ph-arrow-right" style="font-size:18px;"></i></a>
+                        <div data-comment="why-card-2" style="display:flex; flex-direction:column;">
+                            <div data-comment="why-card-2-icon-tile" style="height:260px; border:1px solid #F1EEE7; border-radius:4px; background:linear-gradient(135deg, #ffffff 0%, #EDE7DB 100%); display:flex; align-items:center; justify-content:center;">
+                                <i data-comment="why-card-2-icon" class="ph-light ph-seal-check" style="font-size:72px; color:#9A7B4F;"></i>
+                            </div>
+                            <div data-comment="why-card-2-title" style="font-family:var(--display); font-weight:500; font-size:24px; line-height:1.15; color:var(--ink); margin-top:24px;">Guaranteed</div>
+                            <p data-comment="why-card-2-text" style="font-family:var(--sans); font-size:14px; line-height:1.65; color:var(--muted); margin:12px 0 0;">All plants sent out are considered alive and true to name — grown by us, start to finish.</p>
+                            <a data-comment="why-card-2-link" href="#" style="margin-top:22px; align-self:flex-start; font-family:var(--sans); font-weight:700; font-size:15px; letter-spacing:0; color:var(--accent); text-decoration:none; padding-bottom:6px; border-bottom:1.5px solid var(--accent); display:inline-flex; align-items:center; gap:8px;">View guarantee <i data-comment="why-card-2-link-icon" class="ph-light ph-arrow-right" style="font-size:16px;"></i></a>
                         </div>
-                        <div data-comment="why-card-3" style="background:var(--g900); border-radius:4px; padding:44px 40px 38px; display:flex; flex-direction:column; min-height:340px;">
-                            <i data-comment="why-card-3-icon" class="ph-light ph-hand-heart" style="font-size:44px; color:var(--g300);"></i>
-                            <div data-comment="why-card-3-title" style="font-family:var(--display); font-weight:500; font-size:34px; line-height:1.08; color:#FFFFFF; margin-top:26px;">Knowledge</div>
-                            <p data-comment="why-card-3-text" style="font-family:var(--sans); font-size:16px; line-height:1.6; color:#AFC5B6; margin:14px 0 0;">New to fruit trees? We’re here to help. Contact us and we’ll do our best to answer your questions.</p>
-                            <a data-comment="why-card-3-link" href="#contact" style="margin-top:auto; padding-top:28px; display:inline-flex; align-items:center; gap:10px; font-family:var(--sans); font-weight:700; font-size:15px; color:var(--g300); text-decoration:none;">Get in touch <i data-comment="why-card-3-link-icon" class="ph-light ph-arrow-right" style="font-size:18px;"></i></a>
+                        <div data-comment="why-card-3" style="display:flex; flex-direction:column;">
+                            <div data-comment="why-card-3-icon-tile" style="height:260px; border:1px solid #F1EEE7; border-radius:4px; background:linear-gradient(135deg, #ffffff 0%, #EDE7DB 100%); display:flex; align-items:center; justify-content:center;">
+                                <i data-comment="why-card-3-icon" class="ph-light ph-hand-heart" style="font-size:72px; color:#9A7B4F;"></i>
+                            </div>
+                            <div data-comment="why-card-3-title" style="font-family:var(--display); font-weight:500; font-size:24px; line-height:1.15; color:var(--ink); margin-top:24px;">Knowledge</div>
+                            <p data-comment="why-card-3-text" style="font-family:var(--sans); font-size:14px; line-height:1.65; color:var(--muted); margin:12px 0 0;">New to fruit trees? We’re here to help. Contact us and we’ll do our best to answer your questions.</p>
+                            <a data-comment="why-card-3-link" href="#contact" style="margin-top:22px; align-self:flex-start; font-family:var(--sans); font-weight:700; font-size:15px; letter-spacing:0; color:var(--accent); text-decoration:none; padding-bottom:6px; border-bottom:1.5px solid var(--accent); display:inline-flex; align-items:center; gap:8px;">Get in touch <i data-comment="why-card-3-link-icon" class="ph-light ph-arrow-right" style="font-size:16px;"></i></a>
                         </div>
                     </div>
                 </div>
             </section>
 
             <!-- STORY / ABOUT -->
-            <section id="about" data-comment="about-section" style="background:#FFFFFF; border-top:1px solid var(--line-soft);">
+            <section id="about" data-comment="about-section" style="background:#FFFFFF;">
                 <div data-comment="about-inner" style="max-width: none; width: 100%; margin: 0; padding: 88px 40px; display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 56px; align-items: flex-start; padding-top: 128px; padding-bottom: 128px">
                     <div data-comment="about-image" style="position: relative; min-height: 470px; border-radius: 4px; overflow: hidden; background: url('assets/about-orchard.png') center / cover no-repeat; width: 100%; height: 470px; align-self: center">
                         <div data-comment="about-badges-top" style="position: absolute; top: 16px; left: 16px; display: flex; flex-wrap: wrap; gap: 10px; max-width: calc(100% - 32px); flex-direction: column; align-items: flex-start">
@@ -825,17 +858,17 @@
                             <span data-comment="about-badge-canada" style="display:inline-flex; align-items:center; gap:8px; font-family:var(--sans); font-weight:600; font-size:13px; color:var(--g900); background:rgba(255,255,255,0.94); border-radius:8px; padding:9px 14px;"><i data-comment="about-badge-canada-icon" class="ph-light ph-map-pin" style="font-size:15px; color:var(--g700);"></i>Grown in Canada</span>
                         </div>
                     </div>
-                    <div data-comment="about-text" style="width: 480px; align-self: center">
+                    <div data-comment="about-text" style="max-width: 480px; align-self: center">
                         <div data-comment="about-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent-deep);">Rooted in Ontario</div>
                         <h2 data-comment="about-heading" style="font-family:var(--display); font-weight:500; font-size:46px; line-height:1.06; color:var(--ink); margin:14px 0 0;">Cultivating food forest dreams</h2>
                         <p data-comment="about-paragraph" style="font-family:var(--sans); font-size:17px; line-height:1.7; color:var(--ink2); margin:20px 0 0; max-width:52ch;">Welcome to Canada’s premier fruit tree nursery, where we specialize in cold-hardy, disease-resistant bare-root trees selected for growers passionate about permaculture and food forests. From our Ontario nursery, we grow stock the right way — healthy, hardy, and true to name.</p>
-                        <a data-comment="about-cta" href="#" style="display:inline-block; margin-top:30px; font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#fff; background:var(--accent); border-radius:4px; padding:15px 30px; text-decoration:none;">About us</a>
+                        <a data-comment="about-cta" href="#" style="display:inline-block; margin-top:30px; font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#fff; background:var(--c600); border-radius:4px; padding:15px 30px; text-decoration:none;">About us</a>
                     </div>
                 </div>
             </section>
 
             <!-- FEATURE CARDS -->
-            <section data-comment="gifts-section" style="background:#F7F5EE;">
+            <section data-comment="gifts-section" style="background:var(--paper0);">
                 <div data-comment="gifts-inner" style="max-width: none; width: 100%; margin: 0; padding: 88px 40px; padding-top: 128px; padding-bottom: 128px">
                     <div data-comment="gifts-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent-deep);">More than trees</div>
                     <h2 data-comment="gifts-heading" style="font-family:var(--display); font-weight:500; font-size:48px; line-height:1.04; color:var(--ink); margin:12px 0 0;">Gifts &amp; the well-stocked orchard</h2>
@@ -863,7 +896,7 @@
             </section>
 
             <!-- RESOURCES -->
-            <section id="resources" data-comment="resources-section" style="background:#FFFFFF; border-top:1px solid var(--line-soft);">
+            <section id="resources" data-comment="resources-section" style="background:#FFFFFF;">
                 <div data-comment="resources-inner" style="max-width: none; width: 100%; margin: 0; padding: 88px 40px; padding-top: 128px; padding-bottom: 128px">
                     <div data-comment="resources-layout" style="display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: flex-start; width: 100%; height: 100%">
                         <div data-comment="resources-intro" style="width: 100%; display: block">
@@ -880,100 +913,98 @@
                         </div>
 
                         <div data-comment="resources-tile-grid" style="display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; align-content: start; width: 100%; height: 561px">
-                            <a data-comment="resources-tile-1" href="#" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; background: #F7F5EE; border: 1px solid var(--line-soft); border-radius: 4px; padding: 22px; aspect-ratio: 1/1; justify-content: center; text-align: center; width: 100%; height: 180px; border-color: #e8dcc4"><i data-comment="resources-tile-1-icon" class="ph-light ph-book-bookmark" style="font-size:54px; color:#9A7B4F;"></i><div data-comment="resources-tile-1-text"><div data-comment="resources-tile-1-title" style="font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink);">Catalogue</div><div data-comment="resources-tile-1-subtitle" style="font-family:var(--sans); font-size:13px; color:var(--muted); margin-top:4px;">Browse the full range</div></div></a>
-                            <a data-comment="resources-tile-2" href="#" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; background: #F7F5EE; border: 1px solid var(--line-soft); border-radius: 4px; padding: 22px; aspect-ratio: 1/1; justify-content: center; text-align: center; width: 100%; height: 180px"><i data-comment="resources-tile-2-icon" class="ph-light ph-chalkboard-teacher" style="font-size:54px; color:#9A7B4F;"></i><div data-comment="resources-tile-2-text"><div data-comment="resources-tile-2-title" style="font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink);">Workshops</div><div data-comment="resources-tile-2-subtitle" style="font-family:var(--sans); font-size:13px; color:var(--muted); margin-top:4px;">Learn from our growers</div></div></a>
-                            <a data-comment="resources-tile-3" href="#" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; background: #F7F5EE; border: 1px solid var(--line-soft); border-radius: 4px; padding: 22px; aspect-ratio: 1/1; justify-content: center; text-align: center; width: 100%; height: 180px"><i data-comment="resources-tile-3-icon" class="ph-light ph-scissors" style="font-size:54px; color:#9A7B4F;"></i><div data-comment="resources-tile-3-text"><div data-comment="resources-tile-3-title" style="font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink);">Orchard care</div><div data-comment="resources-tile-3-subtitle" style="font-family:var(--sans); font-size:13px; color:var(--muted); margin-top:4px;">Planting &amp; pruning tips</div></div></a>
-                            <a data-comment="resources-tile-4" href="#" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; background: #F7F5EE; border: 1px solid var(--line-soft); border-radius: 4px; padding: 22px; aspect-ratio: 1/1; justify-content: center; text-align: center; width: 100%; height: 180px"><i data-comment="resources-tile-4-icon" class="ph-light ph-bug" style="font-size:54px; color:#9A7B4F;"></i><div data-comment="resources-tile-4-text"><div data-comment="resources-tile-4-title" style="font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink);">Bee guide</div><div data-comment="resources-tile-4-subtitle" style="font-family:var(--sans); font-size:13px; color:var(--muted); margin-top:4px;">PDF download</div></div></a>
-                            <a data-comment="resources-tile-5" href="#" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; background: #F7F5EE; border: 1px solid var(--line-soft); border-radius: 4px; padding: 22px; aspect-ratio: 1/1; justify-content: center; text-align: center; width: 100%; height: 180px"><i data-comment="resources-tile-5-icon" class="ph-light ph-shovel" style="font-size:54px; color:#9A7B4F;"></i><div data-comment="resources-tile-5-text"><div data-comment="resources-tile-5-title" style="font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink);">Planting guide</div><div data-comment="resources-tile-5-subtitle" style="font-family:var(--sans); font-size:13px; color:var(--muted); margin-top:4px;">PDF download</div></div></a>
-                            <a data-comment="resources-tile-6" href="#" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; background: #F7F5EE; border: 1px solid var(--line-soft); border-radius: 4px; padding: 22px; aspect-ratio: 1/1; justify-content: center; text-align: center; width: 100%; height: 180px"><i data-comment="resources-tile-6-icon" class="ph-light ph-drop" style="font-size:54px; color:#9A7B4F;"></i><div data-comment="resources-tile-6-text"><div data-comment="resources-tile-6-title" style="font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink);">Irrigation</div><div data-comment="resources-tile-6-subtitle" style="font-family:var(--sans); font-size:13px; color:var(--muted); margin-top:4px;">PDF brochure</div></div></a>
+                            <a data-comment="resources-tile-1" href="#" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; background: linear-gradient(135deg, #ffffff 0%, #EDE7DB 100%); border: 1px solid #F1EEE7; border-radius: 4px; padding: 22px; aspect-ratio: 1/1; justify-content: center; text-align: center; width: 100%; height: 180px"><i data-comment="resources-tile-1-icon" class="ph-light ph-book-bookmark" style="font-size:54px; color:#9A7B4F;"></i><div data-comment="resources-tile-1-text"><div data-comment="resources-tile-1-title" style="font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink);">Catalogue</div><div data-comment="resources-tile-1-subtitle" style="font-family:var(--sans); font-size:13px; color:var(--muted); margin-top:4px;">Browse the full range</div></div></a>
+                            <a data-comment="resources-tile-2" href="#" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; background: linear-gradient(135deg, #ffffff 0%, #EDE7DB 100%); border: 1px solid #F1EEE7; border-radius: 4px; padding: 22px; aspect-ratio: 1/1; justify-content: center; text-align: center; width: 100%; height: 180px"><i data-comment="resources-tile-2-icon" class="ph-light ph-chalkboard-teacher" style="font-size:54px; color:#9A7B4F;"></i><div data-comment="resources-tile-2-text"><div data-comment="resources-tile-2-title" style="font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink);">Workshops</div><div data-comment="resources-tile-2-subtitle" style="font-family:var(--sans); font-size:13px; color:var(--muted); margin-top:4px;">Learn from our growers</div></div></a>
+                            <a data-comment="resources-tile-3" href="#" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; background: linear-gradient(135deg, #ffffff 0%, #EDE7DB 100%); border: 1px solid #F1EEE7; border-radius: 4px; padding: 22px; aspect-ratio: 1/1; justify-content: center; text-align: center; width: 100%; height: 180px"><i data-comment="resources-tile-3-icon" class="ph-light ph-scissors" style="font-size:54px; color:#9A7B4F;"></i><div data-comment="resources-tile-3-text"><div data-comment="resources-tile-3-title" style="font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink);">Orchard care</div><div data-comment="resources-tile-3-subtitle" style="font-family:var(--sans); font-size:13px; color:var(--muted); margin-top:4px;">Planting &amp; pruning tips</div></div></a>
+                            <a data-comment="resources-tile-4" href="#" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; background: linear-gradient(135deg, #ffffff 0%, #EDE7DB 100%); border: 1px solid #F1EEE7; border-radius: 4px; padding: 22px; aspect-ratio: 1/1; justify-content: center; text-align: center; width: 100%; height: 180px"><i data-comment="resources-tile-4-icon" class="ph-light ph-bug" style="font-size:54px; color:#9A7B4F;"></i><div data-comment="resources-tile-4-text"><div data-comment="resources-tile-4-title" style="font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink);">Bee guide</div><div data-comment="resources-tile-4-subtitle" style="font-family:var(--sans); font-size:13px; color:var(--muted); margin-top:4px;">PDF download</div></div></a>
+                            <a data-comment="resources-tile-5" href="#" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; background: linear-gradient(135deg, #ffffff 0%, #EDE7DB 100%); border: 1px solid #F1EEE7; border-radius: 4px; padding: 22px; aspect-ratio: 1/1; justify-content: center; text-align: center; width: 100%; height: 180px"><i data-comment="resources-tile-5-icon" class="ph-light ph-shovel" style="font-size:54px; color:#9A7B4F;"></i><div data-comment="resources-tile-5-text"><div data-comment="resources-tile-5-title" style="font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink);">Planting guide</div><div data-comment="resources-tile-5-subtitle" style="font-family:var(--sans); font-size:13px; color:var(--muted); margin-top:4px;">PDF download</div></div></a>
+                            <a data-comment="resources-tile-6" href="#" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; background: linear-gradient(135deg, #ffffff 0%, #EDE7DB 100%); border: 1px solid #F1EEE7; border-radius: 4px; padding: 22px; aspect-ratio: 1/1; justify-content: center; text-align: center; width: 100%; height: 180px"><i data-comment="resources-tile-6-icon" class="ph-light ph-drop" style="font-size:54px; color:#9A7B4F;"></i><div data-comment="resources-tile-6-text"><div data-comment="resources-tile-6-title" style="font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink);">Irrigation</div><div data-comment="resources-tile-6-subtitle" style="font-family:var(--sans); font-size:13px; color:var(--muted); margin-top:4px;">PDF brochure</div></div></a>
                         </div>
                     </div>
                 </div>
             </section>
 
             <!-- FAQ / CONTACT CTA -->
-            <section id="contact" data-comment="contact-section" style="position:relative; overflow:hidden; background:#0A4A29;">
-                <!-- photo placeholder — drop your image here -->
-                <div data-comment="contact-bg-gradient" style="position:absolute; inset:0; background:linear-gradient(125deg,#D98A33 0%,#9C6B22 42%,#3C5A2C 78%,#0A4A29 100%);"></div>
-                <!-- darkening overlay for legibility -->
+            <section id="contact" data-comment="contact-section" style="position:relative; overflow:hidden; background:#0e4c23;">
+                <!-- background photo (section has solid --g800 as fallback) -->
                 <div data-comment="contact-bg-image" style="position: absolute; inset: 0; overflow: visible; background: url('assets/cta-blossom.png') center / cover no-repeat"></div>
-                <!-- darkening layer: black 30%, deeper behind the text -->
+                <!-- darkening layer for text legibility -->
                 <div data-comment="contact-bg-overlay" style="position:absolute; inset:0; background:radial-gradient(ellipse 70% 80% at center, rgba(0,0,0,0.48) 0%, rgba(0,0,0,0.30) 70%);"></div>
                 <div data-comment="contact-content" style="position:relative; max-width:780px; margin:0 auto; padding:128px 40px; text-align:center;">
                     <div data-comment="contact-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:#EAD7B4;">We’re here to help</div>
                     <h2 data-comment="contact-heading" style="font-family:var(--display); font-weight:500; font-size:54px; line-height:1.08; color:#FFFFFF; margin:18px 0 0; text-wrap:balance;">Questions? Read our FAQ or get in touch.</h2>
                     <p data-comment="contact-text" style="font-family:var(--sans); font-weight:400; font-size:18px; line-height:1.7; color:rgba(255,255,255,0.88); margin:20px auto 0; max-width:50ch;">New to fruit trees? We’re here to help, and we’ll do our best to answer your questions. Call us at <a data-comment="contact-phone-link" href="tel:5196691349" style="color:#FFFFFF; font-weight:700; text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.5);">519.669.1349</a> · Elora, Ontario.</p>
                     <div data-comment="contact-cta-group" style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-top:34px;">
-                        <a data-comment="contact-cta-faq" href="#" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--g900); background:#FFFFFF; border-radius:4px; padding:16px 32px; text-decoration:none;">Read the FAQ</a>
+                        <a data-comment="contact-cta-faq" href="#" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent-deep); background:#FFFFFF; border-radius:4px; padding:16px 32px; text-decoration:none;">Read the FAQ</a>
                         <a data-comment="contact-cta-contact" href="#" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#FFFFFF; border:1.5px solid rgba(255,255,255,0.65); border-radius:4px; padding:14.5px 30px; text-decoration:none;">Contact us</a>
                     </div>
                 </div>
             </section>
 
             <!-- READY SET GROW / NEWSLETTER -->
-            <section id="gift" data-comment="newsletter-section" style="background:var(--g900);">
+            <section id="gift" data-comment="newsletter-section" style="background:var(--paper1);">
                 <div data-comment="newsletter-inner" style="max-width:none; width:100%; margin:0; padding:72px 40px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;">
                     <div data-comment="newsletter-text">
-                        <div data-comment="newsletter-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:var(--g300);">Ready, set, grow!</div>
-                        <h2 data-comment="newsletter-heading" style="font-family:var(--display); font-weight:500; font-size:44px; line-height:1.08; color:#FFFFFF; margin:12px 0 0; max-width:18ch;">Join our mailing list</h2>
-                        <p data-comment="newsletter-subtext" style="font-family:var(--sans); font-size:16px; line-height:1.6; color:#AFC5B6; margin:14px 0 0; max-width:46ch;">Be first to know when the next crop is released, plus updates on events, workshops and sales from the farm.</p>
+                        <div data-comment="newsletter-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent-deep);">Ready, set, grow!</div>
+                        <h2 data-comment="newsletter-heading" style="font-family:var(--display); font-weight:500; font-size:44px; line-height:1.08; color:var(--ink); margin:12px 0 0; max-width:18ch;">Join our mailing list</h2>
+                        <p data-comment="newsletter-subtext" style="font-family:var(--sans); font-size:16px; line-height:1.6; color:var(--muted); margin:14px 0 0; max-width:46ch;">Be first to know when the next crop is released, plus updates on events, workshops and sales from the farm.</p>
                     </div>
                     <form data-comment="newsletter-form" style="display:flex; gap:12px; flex-wrap:wrap;" onsubmit="return false;">
-                        <input data-comment="newsletter-input" placeholder="you@email.com" style="flex: 1; min-width: 220px; font-family: var(--sans); font-size: 15px; color: #6db791; border: 1.5px solid transparent; border-radius: 4px; padding: 15px 16px; outline: none; background-color: #206341">
-                        <button data-comment="newsletter-submit" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#fff; background:var(--accent); border:none; border-radius:4px; padding:15px 30px; cursor:pointer;">Subscribe</button>
+                        <input data-comment="newsletter-input" placeholder="you@email.com" style="flex: 1; min-width: 220px; font-family: var(--sans); font-size: 15px; color: var(--ink); border: 1.5px solid var(--line); border-radius: 4px; padding: 15px 16px; outline: none; background-color: #fff">
+                        <button data-comment="newsletter-submit" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#fff; background:var(--c600); border:none; border-radius:4px; padding:15px 30px; cursor:pointer;">Subscribe</button>
                     </form>
                 </div>
             </section>
 
             <!-- FOOTER -->
-            <footer data-comment="footer-root" style="background:var(--g900); border-top:1px solid rgba(255,255,255,0.08);">
+            <footer data-comment="footer-root" style="background:var(--paper2); border-top:1px solid var(--line);">
                 <div data-comment="footer-inner" style="max-width:none; width:100%; margin:0; padding:64px 40px 40px;">
                     <div data-comment="footer-columns" style="display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px;">
                         <div data-comment="footer-brand">
                             <div data-comment="footer-logo-wrap" style="display: inline-block; border-radius: 4px; padding: 14px 18px; padding-top: 8px; padding-bottom: 8px; padding-left: 8px; padding-right: 8px">
                                 <img data-comment="footer-logo" src="assets/whiffletree-logo.png" alt="Whiffletree Farm &amp; Nursery" style="height: 80px; width: 251px; display: block">
                             </div>
-                            <p data-comment="footer-brand-text" style="font-family:var(--sans); font-size:14px; line-height:1.6; color:#AFC5B6; margin:18px 0 0; max-width:34ch;">Cold-hardy, disease-resistant bare-root fruit trees &amp; fruiting shrubs grown in Elora, Ontario. Alive and true to name.</p>
-                            <div data-comment="footer-social" style="display:flex; gap:16px; margin-top:18px; color:#7FA98C;">
+                            <p data-comment="footer-brand-text" style="font-family:var(--sans); font-size:14px; line-height:1.6; color:var(--muted); margin:18px 0 0; max-width:34ch;">Cold-hardy, disease-resistant bare-root fruit trees &amp; fruiting shrubs grown in Elora, Ontario. Alive and true to name.</p>
+                            <div data-comment="footer-social" style="display:flex; gap:16px; margin-top:18px; color:var(--g700);">
                                 <i data-comment="footer-social-instagram" class="ph-light ph-instagram-logo" style="font-size:22px; cursor:pointer;"></i>
                                 <i data-comment="footer-social-facebook" class="ph-light ph-facebook-logo" style="font-size:22px; cursor:pointer;"></i>
                                 <i data-comment="footer-social-youtube" class="ph-light ph-youtube-logo" style="font-size:22px; cursor:pointer;"></i>
                             </div>
                         </div>
                         <div data-comment="footer-col-products">
-                            <div data-comment="footer-col-products-title" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:#7FA98C; margin-bottom:16px;">Products</div>
+                            <div data-comment="footer-col-products-title" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">Products</div>
                             <div data-comment="footer-col-products-links" style="display:flex; flex-direction:column; gap:11px; font-family:var(--sans); font-size:14.5px;">
-                                <a data-comment="footer-products-link-1" href="#" style="color:#DCEAE0; text-decoration:none;">All products</a>
-                                <a data-comment="footer-products-link-2" href="#" style="color:#DCEAE0; text-decoration:none;">Trees</a>
-                                <a data-comment="footer-products-link-3" href="#" style="color:#DCEAE0; text-decoration:none;">Small fruit</a>
-                                <a data-comment="footer-products-link-4" href="#" style="color:#DCEAE0; text-decoration:none;">Orchard supplies</a>
-                                <a data-comment="footer-products-link-5" href="#" style="color:#DCEAE0; text-decoration:none;">Reference books</a>
+                                <a data-comment="footer-products-link-1" href="catalog.html" style="color:var(--ink2); text-decoration:none;">All products</a>
+                                <a data-comment="footer-products-link-2" href="catalog.html?category=apples" style="color:var(--ink2); text-decoration:none;">Trees</a>
+                                <a data-comment="footer-products-link-3" href="catalog.html?category=shrubs" style="color:var(--ink2); text-decoration:none;">Small fruit</a>
+                                <a data-comment="footer-products-link-4" href="catalog.html?category=supplies" style="color:var(--ink2); text-decoration:none;">Orchard supplies</a>
+                                <a data-comment="footer-products-link-5" href="catalog.html" style="color:var(--ink2); text-decoration:none;">Reference books</a>
                             </div>
                         </div>
                         <div data-comment="footer-col-downloads">
-                            <div data-comment="footer-col-downloads-title" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:#7FA98C; margin-bottom:16px;">Downloads</div>
+                            <div data-comment="footer-col-downloads-title" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">Downloads</div>
                             <div data-comment="footer-col-downloads-links" style="display:flex; flex-direction:column; gap:11px; font-family:var(--sans); font-size:14.5px;">
-                                <a data-comment="footer-downloads-link-1" href="#" style="color:#DCEAE0; text-decoration:none;">Catalogue</a>
-                                <a data-comment="footer-downloads-link-2" href="#" style="color:#DCEAE0; text-decoration:none;">Planting guide</a>
-                                <a data-comment="footer-downloads-link-3" href="#" style="color:#DCEAE0; text-decoration:none;">Irrigation brochure</a>
-                                <a data-comment="footer-downloads-link-4" href="#" style="color:#DCEAE0; text-decoration:none;">Bee guide</a>
+                                <a data-comment="footer-downloads-link-1" href="#" style="color:var(--ink2); text-decoration:none;">Catalogue</a>
+                                <a data-comment="footer-downloads-link-2" href="#" style="color:var(--ink2); text-decoration:none;">Planting guide</a>
+                                <a data-comment="footer-downloads-link-3" href="#" style="color:var(--ink2); text-decoration:none;">Irrigation brochure</a>
+                                <a data-comment="footer-downloads-link-4" href="#" style="color:var(--ink2); text-decoration:none;">Bee guide</a>
                             </div>
                         </div>
                         <div data-comment="footer-col-links">
-                            <div data-comment="footer-col-links-title" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:#7FA98C; margin-bottom:16px;">Quick links</div>
+                            <div data-comment="footer-col-links-title" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">Quick links</div>
                             <div data-comment="footer-col-links-links" style="display:flex; flex-direction:column; gap:11px; font-family:var(--sans); font-size:14.5px;">
-                                <a data-comment="footer-links-link-1" href="#" style="color:#DCEAE0; text-decoration:none;">My account</a>
-                                <a data-comment="footer-links-link-2" href="#" style="color:#DCEAE0; text-decoration:none;">Cart</a>
-                                <a data-comment="footer-links-link-3" href="#" style="color:#DCEAE0; text-decoration:none;">Contact</a>
-                                <a data-comment="footer-links-link-4" href="#" style="color:#DCEAE0; text-decoration:none;">(519) 669-1349</a>
+                                <a data-comment="footer-links-link-1" href="#" style="color:var(--ink2); text-decoration:none;">My account</a>
+                                <a data-comment="footer-links-link-2" href="#" style="color:var(--ink2); text-decoration:none;">Cart</a>
+                                <a data-comment="footer-links-link-3" href="#contact" style="color:var(--ink2); text-decoration:none;">Contact</a>
+                                <a data-comment="footer-links-link-4" href="tel:5196691349" style="color:var(--ink2); text-decoration:none;">(519) 669-1349</a>
                             </div>
                         </div>
                     </div>
-                    <div data-comment="footer-bottom" style="border-top:1px solid rgba(255,255,255,0.1); margin-top:44px; padding-top:24px; display:flex; flex-wrap:wrap; gap:14px; justify-content:space-between; font-family:var(--sans); font-size:12.5px; color:#7FA98C;">
+                    <div data-comment="footer-bottom" style="border-top:1px solid var(--line); margin-top:44px; padding-top:24px; display:flex; flex-wrap:wrap; gap:14px; justify-content:space-between; font-family:var(--sans); font-size:12.5px; color:var(--muted);">
                         <span data-comment="footer-copyright">© 2026 Whiffletree Farm &amp; Nursery Inc. All rights reserved.</span>
                         <div data-comment="footer-legal-links" style="display:flex; gap:22px;">
-                            <a data-comment="footer-legal-terms" href="#" style="color:#7FA98C; text-decoration:none;">Terms &amp; conditions</a>
-                            <a data-comment="footer-legal-privacy" href="#" style="color:#7FA98C; text-decoration:none;">Privacy policy</a>
+                            <a data-comment="footer-legal-terms" href="#" style="color:var(--muted); text-decoration:none;">Terms &amp; conditions</a>
+                            <a data-comment="footer-legal-privacy" href="#" style="color:var(--muted); text-decoration:none;">Privacy policy</a>
                         </div>
                     </div>
                 </div>
@@ -1094,88 +1125,88 @@
                  Uses the design-system tokens already defined in this file's :root. -->
             <style>
                 /* ─── Floating launcher ─── */
-                .adv-fab { position: fixed; right: 26px; bottom: 26px; z-index: 1000; display: inline-flex; align-items: center; gap: 10px; background: var(--g700); color: var(--paper1); border: none; cursor: pointer; border-radius: 999px; padding: 14px 22px 14px 16px; font-family: var(--sans); font-weight: 700; font-size: 15px; box-shadow: 0 10px 30px rgba(6,61,34,0.34); transition: transform 160ms, background 160ms; }
+                .adv-fab { position: fixed; right: 26px; bottom: 26px; z-index: 1000; display: inline-flex; align-items: center; gap: 10px; background: var(--g700); color: #EAF0E0; border: none; cursor: pointer; border-radius: 2px; padding: 14px 24px 14px 14px; font-family: var(--sans); font-weight: 700; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; box-shadow: 0 10px 30px rgba(6,61,34,0.34); transition: transform 160ms, background 160ms; }
                 .adv-fab:hover { background: var(--g800); transform: translateY(-2px); }
                 .adv-fab:focus-visible { outline: 3px solid var(--g300); outline-offset: 3px; }
                 .adv-fab-mark { position: relative; width: 30px; height: 30px; border-radius: 999px; background: var(--paper1); color: var(--g700); display: flex; align-items: center; justify-content: center; font-size: 18px; }
                 .adv-fab-pulse { position: absolute; top: -3px; right: -3px; width: 12px; height: 12px; border-radius: 999px; background: var(--accent); border: 2px solid #fff; }
 
                 /* ─── Header link (green chip) ─── */
-                .adv-header-link { display: inline-flex; align-items: center; gap: 7px; font-family: var(--sans); font-weight: 700; font-size: 15px; color: var(--g700); background: var(--g050); border: 1px solid var(--g100); border-radius: 4px; padding: 8px 14px; cursor: pointer; align-self: center; }
+                .adv-header-link { display: inline-flex; align-items: center; gap: 7px; font-family: var(--sans); font-weight: 700; font-size: 15px; color: var(--g700); background: var(--g050); border: 1px solid var(--g100); border-radius: 2px; padding: 8px 14px; cursor: pointer; align-self: center; }
                 .adv-header-link:hover { background: var(--g100); }
                 .adv-header-link:focus-visible { outline: 2px solid var(--g300); outline-offset: 2px; }
 
                 /* ─── Scrim + drawer ─── */
                 /* Mobile-first: full-screen popup. No scrim (desktop popover leaves store usable). */
                 .adv-scrim { display: none; }
-                .adv-drawer { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 1002; background: var(--page, #f7f5ee); font-family: var(--sans); color: var(--ink2); display: flex; flex-direction: column; transform: translateY(100%); transition: transform 300ms cubic-bezier(0.22,1,0.36,1), opacity 200ms ease; pointer-events: none; }
+                .adv-drawer { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 1002; background: var(--page, #ffffff); font-family: var(--sans); color: var(--ink2); display: flex; flex-direction: column; transform: translateY(100%); transition: transform 300ms cubic-bezier(0.22,1,0.36,1), opacity 200ms ease; pointer-events: none; }
                 .adv-drawer.open { transform: none; opacity: 1; pointer-events: auto; }
 
-                .adv-head { background: var(--g900); color: #eaf0e0; padding: 18px 20px; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
-                .adv-head-mark { width: 38px; height: 38px; border-radius: 8px; background: var(--paper1); color: var(--g900); display: flex; align-items: center; justify-content: center; font-size: 21px; }
+                .adv-head { background: var(--paper2); color: var(--ink); padding: 18px 20px; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+                .adv-head-mark { width: 38px; height: 38px; border-radius: 2px; background: var(--g700); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 21px; }
                 .adv-head-name { font-family: var(--display); font-size: 20px; font-weight: 600; line-height: 1.1; }
-                .adv-head-status { font-size: 12px; color: #a9c2b0; display: flex; align-items: center; gap: 6px; }
-                .adv-head-status .dot { width: 7px; height: 7px; border-radius: 999px; background: var(--g300); }
-                .adv-close { margin-left: auto; background: none; border: none; color: #a9c2b0; cursor: pointer; font-size: 22px; display: flex; }
+                .adv-head-status { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+                .adv-head-status .dot { width: 7px; height: 7px; border-radius: 999px; background: var(--g600); }
+                .adv-close { margin-left: auto; background: none; border: none; color: var(--muted); cursor: pointer; font-size: 22px; display: flex; }
                 .adv-close:hover { color: #fff; }
-                .adv-close:focus-visible { outline: 2px solid var(--g300); outline-offset: 2px; border-radius: 4px; }
+                .adv-close:focus-visible { outline: 2px solid var(--g300); outline-offset: 2px; border-radius: 2px; }
 
                 .adv-body { flex: 1; overflow-y: auto; overflow-x: hidden; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
                 .adv-body > * { flex-shrink: 0; }   /* keep full height; scroll instead of compressing cards */
                 .adv-bubble { max-width: 90%; padding: 11px 14px; font-size: 14px; line-height: 1.5; }
-                .adv-bubble-ai { align-self: flex-start; background: #fff; border: 1px solid var(--paper2); color: var(--ink2); border-radius: 4px 14px 14px 14px; }
-                .adv-bubble-user { align-self: flex-end; background: var(--g700); color: #fff; border-radius: 14px 4px 14px 14px; }
+                .adv-bubble-ai { align-self: flex-start; background: #fff; border: 1px solid var(--paper2); color: var(--ink2); border-radius: 2px; }
+                .adv-bubble-user { align-self: flex-end; background: var(--g700); color: #fff; border-radius: 2px; }
                 .adv-bubble-ai b, .adv-bubble-ai strong { color: var(--g700); }
 
-                .adv-prod-card { align-self: flex-start; width: 100%; display: flex; gap: 12px; background: #fff; border: 1px solid var(--paper2); border-radius: 10px; padding: 10px; }
-                .adv-prod-img { flex-shrink: 0; width: 96px; height: 96px; border-radius: 8px; background: linear-gradient(135deg, var(--g100), #bbd6c2); display: flex; align-items: center; justify-content: center; font-size: 42px; position: relative; text-decoration: none; background-size: cover; background-position: center; }
-                .adv-prod-badge { position: absolute; top: 6px; left: 6px; font-size: 8.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; background: var(--accent); border-radius: 4px; padding: 3px 6px; }
+                .adv-prod-card { align-self: flex-start; width: 100%; display: flex; gap: 12px; background: #fff; border: 1px solid var(--paper2); border-radius: 2px; padding: 10px; }
+                .adv-prod-img { flex-shrink: 0; width: 96px; height: 96px; border-radius: 2px; background: linear-gradient(135deg, var(--g100), #c1d8b6); display: flex; align-items: center; justify-content: center; font-size: 42px; position: relative; text-decoration: none; background-size: cover; background-position: center; }
+                .adv-prod-badge { position: absolute; top: 6px; left: 6px; font-size: 8.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; background: var(--accent-deep); border-radius: 2px; padding: 3px 6px; }
                 .adv-prod-cardbody { flex: 1; min-width: 0; display: flex; flex-direction: column; }
                 .adv-prod-row { display: flex; align-items: baseline; justify-content: space-between; gap: 4px 8px; flex-wrap: wrap; }
                 .adv-prod-name { font-family: var(--display); font-size: 18px; font-weight: 600; color: var(--ink); line-height: 1.15; }
                 .adv-prod-price { font-weight: 800; font-size: 15px; color: var(--g700); white-space: nowrap; }
                 .adv-prod-meta { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
-                .adv-prod-cta { margin-top: auto; align-self: flex-start; font-family: var(--sans); font-weight: 700; font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; background: var(--accent); border: none; border-radius: 4px; padding: 7px 12px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; transition: background 160ms; }
+                .adv-prod-cta { margin-top: auto; align-self: flex-start; font-family: var(--sans); font-weight: 700; font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; background: var(--c600); border: none; border-radius: 2px; padding: 7px 12px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; transition: background 160ms; }
                 .adv-prod-cta:hover { background: var(--accent-deep); }
                 .adv-prod-cta:focus-visible { outline: 2px solid var(--accent-deep); outline-offset: 2px; }
                 .adv-prod-cta.added { background: var(--success); cursor: default; }
 
                 .adv-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-                .adv-chip { font-size: 13px; font-weight: 600; color: var(--g700); background: #fff; border: 1px solid var(--paper2); border-radius: 999px; padding: 7px 13px; cursor: pointer; font-family: var(--sans); text-align: left; max-width: 100%; overflow-wrap: anywhere; }
+                .adv-chip { font-size: 13px; font-weight: 600; color: var(--g700); background: #fff; border: 1px solid var(--paper2); border-radius: 2px; padding: 7px 13px; cursor: pointer; font-family: var(--sans); text-align: left; max-width: 100%; overflow-wrap: anywhere; }
                 .adv-chip:hover { background: var(--g050); border-color: var(--g100); }
                 .adv-chip:focus-visible { outline: 2px solid var(--g300); outline-offset: 2px; }
 
                 .adv-disclaimer { font-size: 11px; color: var(--subtle); text-align: center; padding: 4px 14px 10px; background: #fff; flex-shrink: 0; }
                 .adv-composer { padding: 12px 14px; background: #fff; border-top: 1px solid var(--paper2); display: flex; gap: 9px; align-items: center; flex-shrink: 0; }
-                .adv-input { flex: 1; border: 1px solid var(--paper2); border-radius: 999px; padding: 11px 16px; font-family: var(--sans); font-size: 14px; background: var(--page, #f7f5ee); color: var(--ink); outline: none; }
+                .adv-input { flex: 1; border: 1px solid var(--paper2); border-radius: 2px; padding: 11px 16px; font-family: var(--sans); font-size: 14px; background: var(--page, #ffffff); color: var(--ink); outline: none; }
                 .adv-input:focus, .adv-input:focus-visible { outline: none; border-color: var(--g300); box-shadow: 0 0 0 3px rgba(127, 169, 140, 0.22); }
-                .adv-send { width: 40px; height: 40px; flex-shrink: 0; border-radius: 999px; background: var(--g700); color: #fff; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+                .adv-send { width: 40px; height: 40px; flex-shrink: 0; border-radius: 2px; background: var(--g700); color: #fff; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 17px; }
                 .adv-send:hover { background: var(--g800); }
                 .adv-send:focus-visible { outline: 2px solid var(--g300); outline-offset: 2px; }
 
-                .adv-typing { align-self: flex-start; display: inline-flex; gap: 4px; background: #fff; border: 1px solid var(--paper2); border-radius: 14px; padding: 12px 14px; }
+                .adv-typing { align-self: flex-start; display: inline-flex; gap: 4px; background: #fff; border: 1px solid var(--paper2); border-radius: 2px; padding: 12px 14px; }
                 .adv-typing span { width: 7px; height: 7px; border-radius: 999px; background: var(--g300); animation: advBlink 1.2s infinite; }
                 .adv-typing span:nth-child(2) { animation-delay: 0.2s; }
                 .adv-typing span:nth-child(3) { animation-delay: 0.4s; }
                 @keyframes advBlink { 0%, 60%, 100% { opacity: 0.3; } 30% { opacity: 1; } }
 
                 /* ─── Error + offline states ─── */
-                .adv-error { align-self: flex-start; max-width: 90%; background: #fff; border: 1px solid var(--paper2); border-radius: 4px 14px 14px 14px; padding: 11px 14px; font-size: 14px; line-height: 1.5; color: var(--ink2); }
-                .adv-error-retry { margin-top: 8px; font-family: var(--sans); font-weight: 700; font-size: 13px; color: var(--g700); background: var(--g050); border: 1px solid var(--g100); border-radius: 4px; padding: 7px 13px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+                .adv-error { align-self: flex-start; max-width: 90%; background: #fff; border: 1px solid var(--paper2); border-radius: 2px; padding: 11px 14px; font-size: 14px; line-height: 1.5; color: var(--ink2); }
+                .adv-error-retry { margin-top: 8px; font-family: var(--sans); font-weight: 700; font-size: 13px; color: var(--g700); background: var(--g050); border: 1px solid var(--g100); border-radius: 2px; padding: 7px 13px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
                 .adv-error-retry:hover { background: var(--g100); }
                 .adv-error-retry:focus-visible { outline: 2px solid var(--g300); outline-offset: 2px; }
                 .adv-offline { margin: auto; text-align: center; padding: 30px 24px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
                 .adv-offline-icon { font-size: 40px; color: var(--g300); }
                 .adv-offline-title { font-family: var(--display); font-size: 24px; font-weight: 600; color: var(--ink); }
                 .adv-offline-text { font-size: 14px; color: var(--muted); max-width: 30ch; line-height: 1.5; }
-                .adv-offline-cta { margin-top: 4px; font-family: var(--sans); font-weight: 700; font-size: 13px; color: #fff; background: var(--g700); border: none; border-radius: 999px; padding: 11px 20px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+                .adv-offline-cta { margin-top: 4px; font-family: var(--sans); font-weight: 700; font-size: 13px; color: #fff; background: var(--g700); border: none; border-radius: 2px; padding: 11px 20px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
                 .adv-offline-cta:hover { background: var(--g800); }
 
                 @media (min-width: 640px) {  /* sm+ — anchored corner popover above the launcher */
                     .adv-drawer {
                         inset: auto; right: 26px; bottom: 96px;
                         width: 400px; height: min(640px, calc(100vh - 120px));
-                        border-radius: 18px; overflow: hidden;
+                        border-radius: 2px; overflow: hidden;
                         box-shadow: 0 18px 50px rgba(15,20,15,0.28);
                         transform-origin: bottom right; transform: translateY(14px) scale(0.96); opacity: 0;
                         transition: transform 220ms cubic-bezier(0.22,1,0.36,1), opacity 160ms ease;

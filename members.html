@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Whiffletree Farm &amp; Nursery — Liberty Apple</title>
+        <title>Whiffletree Farm &amp; Nursery — Members Hub</title>
 
         <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -330,7 +330,7 @@
             /* --- Solid accent (brick red) buttons --- */
             [data-comment="about-cta"]:hover,
             [data-comment="newsletter-submit"]:hover {
-                background: var(--c700) !important;
+                background: var(--accent-deep) !important;
                 transform: translateY(-1px);
                 box-shadow: 0 4px 12px rgba(158, 44, 32, 0.22);
             }
@@ -594,9 +594,63 @@
                 [data-comment="hero-heading"] { font-size: 34px !important; }
             }
         </style>
+    <style data-comment="wt-dd-styles">
+        /* ===== Custom dropdown — progressively enhances native <select> =====
+           Trigger keeps each context's field/pill look; the open list is styled
+           to match our form fields site-wide. */
+        .wt-dd { position: relative; }
+        .wt-dd-native {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+            opacity: 0; pointer-events: none;
+        }
+        .wt-dd-trigger {
+            display: flex; align-items: center; gap: 10px; width: 100%;
+            font-family: var(--sans); font-size: 15px; color: var(--ink);
+            background: #fff; border: 1.5px solid var(--line); border-radius: 2px;
+            padding: 13px 15px; cursor: pointer; text-align: left;
+            transition: border-color 150ms cubic-bezier(0.2,0,0,1), box-shadow 150ms cubic-bezier(0.2,0,0,1);
+        }
+        .wt-dd-trigger:hover { border-color: var(--subtle); }
+        .wt-dd.is-open .wt-dd-trigger,
+        .wt-dd-trigger:focus-visible {
+            border-color: var(--g600);
+            box-shadow: 0 0 0 3px rgba(38,139,57,0.15);
+            outline: none;
+        }
+        .wt-dd-trigger-label { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .wt-dd-caret { flex: none; font-size: 15px; color: var(--muted); transition: transform 180ms cubic-bezier(0.2,0,0,1); }
+        .wt-dd.is-open .wt-dd-caret { transform: rotate(180deg); }
+        .wt-dd-menu {
+            position: absolute; top: calc(100% + 6px); left: 0; z-index: 90;
+            min-width: 100%; width: max-content; max-width: min(340px, 92vw);
+            background: #fff; border: 1.5px solid var(--line); border-radius: 2px;
+            box-shadow: 0 14px 34px rgba(21,20,15,0.13);
+            padding: 5px; max-height: 288px; overflow-y: auto;
+            opacity: 0; transform: translateY(-4px); pointer-events: none;
+            transition: opacity 150ms cubic-bezier(0.2,0,0,1), transform 150ms cubic-bezier(0.2,0,0,1);
+        }
+        .wt-dd.is-open .wt-dd-menu { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        .wt-dd-option {
+            display: flex; align-items: center; justify-content: space-between; gap: 12px;
+            font-family: var(--sans); font-size: 14px; line-height: 1.3; color: var(--ink2);
+            padding: 10px 12px; border-radius: 2px; cursor: pointer; white-space: nowrap;
+        }
+        .wt-dd-option:hover, .wt-dd-option.is-active { background: var(--paper1); color: var(--ink); }
+        .wt-dd-option.is-selected { color: var(--ink); font-weight: 700; }
+        .wt-dd-option-check { flex: none; font-size: 15px; color: var(--g600); opacity: 0; }
+        .wt-dd-option.is-selected .wt-dd-option-check { opacity: 1; }
+        /* Context variants — trigger matches where it lives */
+        .wt-dd--sm .wt-dd-trigger { font-size: 13.5px; color: var(--ink2); padding: 9px 11px; }
+        .wt-dd--sort .wt-dd-trigger { font-size: 14px; font-weight: 600; color: var(--ink2); padding: 11px 16px; }
+        .wt-dd--pill .wt-dd-trigger {
+            font-size: 13.5px; font-weight: 600; color: var(--ink2);
+            border: 1px solid var(--line-soft); border-radius: 999px; padding: 9px 16px;
+        }
+    </style>
     </head>
     <body>
-        <div data-comment="page-root" style="background:#ffffff; font-family:var(--sans); color:var(--ink2); font-size:16px; line-height:1.6;">
+        <div data-comment="page-root" style="background:#FFFFFF; font-family:var(--sans); color:var(--ink2); font-size:16px; line-height:1.6;">
 
             <!-- ANNOUNCEMENT -->
             <div data-comment="announcement-bar" style="background:var(--paper2); color:var(--ink); font-family:var(--sans); font-weight:500; font-size:12.5px; text-align:center; padding:10px 20px; line-height:1.5; border-bottom:1px solid var(--line);">Due to CFIA regulations we cannot ship plants outside of Canada, or fruit trees &amp; grape vines to BC.</div>
@@ -604,7 +658,7 @@
             <!-- NAV -->
             <header data-comment="header-root" style="background:#FFFFFF; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:20;">
                 <div data-comment="header-inner" style="max-width: none; width: 100%; margin: 0; padding: 16px 40px; display: flex; align-items: center; justify-content: flex-end; padding-top: 20px; padding-bottom: 20px">
-                    <a data-comment="header-logo-link" href="home.html" aria-label="Whiffletree — home" style="position: absolute; left: 28px; top: 11px; z-index: 40; display: block;"><img data-comment="header-logo" src="assets/whiffletree-logo.png" alt="Whiffletree Farm &amp; Nursery" style="height: 75px; width: 239px; display: block;"></a>
+                    <a data-comment="header-logo-link" href="home.html" style="position: absolute; left: 28px; top: 11px; z-index: 40; display: block;"><img data-comment="header-logo" src="assets/whiffletree-logo.png" alt="Whiffletree Farm &amp; Nursery" style="height: 75px; width: 239px; display: block;"></a>
                     <nav data-comment="header-nav" style="display: flex; align-items: center; gap: 28px; font-family: var(--sans); font-weight: 600; font-size: 15px; color: var(--muted); align-self: flex-end">
 
                         <!-- SHOP ALL — mega panel: Trees / Shrubs & Plants / Berries / More -->
@@ -614,52 +668,52 @@
                                 <div class="np-inner">
                                     <div class="np-top">
                                         <span class="np-eyebrow">Explore the nursery</span>
-                                        <a class="np-pill" href="#shop">See all categories</a>
+                                        <a class="np-pill" href="catalog.html">See all categories</a>
                                     </div>
                                     <div class="np-grid np-grid--4">
                                         <div class="np-col">
                                             <span class="np-col-head">Trees</span>
-                                            <a class="np-link" href="#">Apple</a>
-                                            <a class="np-link" href="#">Pear</a>
-                                            <a class="np-link" href="#">Plum</a>
-                                            <a class="np-link" href="#">Peach</a>
-                                            <a class="np-link" href="#">Cherry</a>
-                                            <a class="np-link" href="#">Apricot</a>
-                                            <a class="np-link" href="#">Nut</a>
-                                            <a class="np-link" href="#">Combo Trees</a>
-                                            <a class="np-seeall" href="#">See all trees <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                                            <a class="np-link" href="catalog.html?category=apples">Apple</a>
+                                            <a class="np-link" href="catalog.html?category=pears">Pear</a>
+                                            <a class="np-link" href="catalog.html?category=plums">Plum</a>
+                                            <a class="np-link" href="catalog.html?category=peaches">Peach</a>
+                                            <a class="np-link" href="catalog.html?category=cherries">Cherry</a>
+                                            <a class="np-link" href="catalog.html?category=apricots">Apricot</a>
+                                            <a class="np-link" href="catalog.html?category=nuts">Nut</a>
+                                            <a class="np-link" href="catalog.html">Combo Trees</a>
+                                            <a class="np-seeall" href="catalog.html">See all trees <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
                                         </div>
                                         <div class="np-col">
                                             <span class="np-col-head">Shrubs &amp; Plants</span>
-                                            <a class="np-link" href="#">Grape</a>
-                                            <a class="np-link" href="#">Haskap</a>
-                                            <a class="np-link" href="#">Kiwi</a>
-                                            <a class="np-link" href="#">Rhubarb</a>
-                                            <a class="np-link" href="#">Fig</a>
-                                            <a class="np-link" href="#">Sea Buckthorn</a>
-                                            <a class="np-link" href="#">Asparagus</a>
-                                            <a class="np-link" href="#">Goumi</a>
-                                            <a class="np-seeall" href="#">See all shrubs &amp; plants <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                                            <a class="np-link" href="catalog.html?category=grapes">Grape</a>
+                                            <a class="np-link" href="catalog.html?category=shrubs">Haskap</a>
+                                            <a class="np-link" href="catalog.html?category=shrubs">Kiwi</a>
+                                            <a class="np-link" href="catalog.html?category=shrubs">Rhubarb</a>
+                                            <a class="np-link" href="catalog.html?category=shrubs">Fig</a>
+                                            <a class="np-link" href="catalog.html?category=shrubs">Sea Buckthorn</a>
+                                            <a class="np-link" href="catalog.html?category=shrubs">Asparagus</a>
+                                            <a class="np-link" href="catalog.html?category=shrubs">Goumi</a>
+                                            <a class="np-seeall" href="catalog.html?category=shrubs">See all shrubs &amp; plants <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
                                         </div>
                                         <div class="np-col">
                                             <span class="np-col-head">Berries</span>
-                                            <a class="np-link" href="#">Blueberry</a>
-                                            <a class="np-link" href="#">Raspberry</a>
-                                            <a class="np-link" href="#">Strawberry</a>
-                                            <a class="np-link" href="#">Currant</a>
-                                            <a class="np-link" href="#">Saskatoon Berry</a>
-                                            <a class="np-link" href="#">Elderberry</a>
-                                            <a class="np-link" href="#">Gooseberry</a>
-                                            <a class="np-link" href="#">Blackberry</a>
-                                            <a class="np-seeall" href="#">See all berries <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                                            <a class="np-link" href="catalog.html?category=shrubs">Blueberry</a>
+                                            <a class="np-link" href="catalog.html?category=shrubs">Raspberry</a>
+                                            <a class="np-link" href="catalog.html?category=shrubs">Strawberry</a>
+                                            <a class="np-link" href="catalog.html?category=shrubs">Currant</a>
+                                            <a class="np-link" href="catalog.html?category=shrubs">Saskatoon Berry</a>
+                                            <a class="np-link" href="catalog.html?category=shrubs">Elderberry</a>
+                                            <a class="np-link" href="catalog.html?category=shrubs">Gooseberry</a>
+                                            <a class="np-link" href="catalog.html?category=shrubs">Blackberry</a>
+                                            <a class="np-seeall" href="catalog.html?category=shrubs">See all berries <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
                                         </div>
                                         <div class="np-col">
                                             <span class="np-col-head">More</span>
-                                            <a class="np-link" href="#">Roses</a>
-                                            <a class="np-link" href="#">Collector's Corner</a>
-                                            <a class="np-link" href="#">Orchard Supplies</a>
-                                            <a class="np-link" href="#">Reference Books</a>
-                                            <a class="np-link" href="#">Gift Certificates</a>
+                                            <a class="np-link" href="catalog.html?category=roses">Roses</a>
+                                            <a class="np-link" href="catalog.html">Collector's Corner</a>
+                                            <a class="np-link" href="catalog.html?category=supplies">Orchard Supplies</a>
+                                            <a class="np-link" href="catalog.html">Reference Books</a>
+                                            <a class="np-link" href="catalog.html">Gift Certificates</a>
                                         </div>
                                     </div>
                                 </div>
@@ -705,7 +759,6 @@
                                             <span class="np-col-head">About</span>
                                             <a class="np-link" href="#">About Us</a>
                                             <a class="np-link" href="#">Guarantee Policy</a>
-                                            <a class="np-link" href="#">My Account</a>
                                         </div>
                                     </div>
                                 </div>
@@ -713,356 +766,522 @@
                         </div>
 
                         <!-- CONTACT — standalone link -->
-                        <a class="nav-link" data-comment="header-nav-link-contact" href="#contact" style="color: var(--muted); text-decoration: none; align-self: center; height: 24px; flex-grow: 0">Contact</a>
+                        <a class="nav-link" data-comment="header-nav-link-contact" href="home.html#contact" style="color: var(--muted); text-decoration: none; align-self: center; height: 24px; flex-grow: 0">Contact</a>
 
                         <div data-comment="header-actions" style="display:flex; align-items:center; gap:20px; padding-left:8px; color:var(--muted);">
                             <svg data-comment="header-action-search" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><circle cx="11" cy="11" r="7"></circle><line x1="16.2" y1="16.2" x2="20.5" y2="20.5"></line></svg>
                             <svg data-comment="header-action-user" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                            <svg data-comment="header-action-cart" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                            <span data-comment="header-cart-wrap" style="position:relative; display:inline-flex;"><svg data-comment="header-action-cart" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span class="cart-badge" data-comment="header-cart-badge" aria-hidden="true"></span></span>
                         </div>
                     </nav>
                     <button data-comment="header-burger" aria-label="Open menu" aria-expanded="false"><i class="ph ph-list"></i></button>
                 </div>
             </header>
 
-            <!-- BREADCRUMB -->
-            <nav data-comment="pdp-breadcrumb" style="background:#FFFFFF; border-bottom:1px solid var(--line-soft);">
-                <div data-comment="pdp-breadcrumb-inner" style="max-width:1320px; margin:0 auto; padding:30px 40px 22px; display:flex; align-items:center; gap:10px; font-family:var(--sans); font-size:13px; color:var(--muted); flex-wrap:wrap;">
-                    <a data-comment="pdp-breadcrumb-home" href="home.html" style="color:var(--muted); text-decoration:none;">Home</a>
-                    <i data-comment="pdp-breadcrumb-sep-1" class="ph ph-caret-right" style="font-size:11px; color:var(--subtle);"></i>
-                    <a data-comment="pdp-breadcrumb-shop" href="home.html#shop" style="color:var(--muted); text-decoration:none;">Shop</a>
-                    <i data-comment="pdp-breadcrumb-sep-2" class="ph ph-caret-right" style="font-size:11px; color:var(--subtle);"></i>
-                    <a data-comment="pdp-breadcrumb-cat" href="home.html#shop" style="color:var(--muted); text-decoration:none;">Apple Trees</a>
-                    <i data-comment="pdp-breadcrumb-sep-3" class="ph ph-caret-right" style="font-size:11px; color:var(--subtle);"></i>
-                    <span data-comment="pdp-breadcrumb-current" style="color:var(--ink); font-weight:600;">Liberty</span>
-                </div>
-            </nav>
 
-            <!-- PRODUCT MAIN -->
-            <section data-comment="pdp-main-section" style="background:#FFFFFF;">
-                <div data-comment="pdp-main-inner" style="max-width:1320px; margin:0 auto; padding:48px 40px 72px; display:grid; grid-template-columns:1.05fr 0.95fr; gap:64px; align-items:flex-start;">
+            <!-- ════════ MEMBERS HUB ════════ -->
+            <style>
+                /* Members Hub — photo-first community gallery. Colour comes from the
+                   photos; the UI stays light cream/paper with minimal green, per the
+                   lighten/elegant design direction. */
+                .mh-section { background: #ffffff; }
 
-                    <!-- GALLERY -->
-                    <div data-comment="pdp-gallery" style="position:sticky; top:120px;">
-                        <div data-comment="pdp-gallery-main" style="position:relative; border-radius:6px; overflow:hidden; border:1px solid var(--line-soft);">
-                            <div data-comment="pdp-gallery-main-img" style="aspect-ratio:1/1; background:url('assets/cat-apples.png') center/cover no-repeat;"></div>
-                            <span data-comment="pdp-gallery-badge" style="position:absolute; top:16px; left:16px; display:inline-flex; align-items:center; gap:6px; font-family:var(--sans); font-weight:600; font-size:12px; line-height:1; color:var(--g900); background:#fff; border:1px solid var(--line-soft); border-radius:6px; padding:7px 11px;">Sold out</span>
-                            <button type="button" data-comment="pdp-gallery-zoom" onclick="openPdpLightbox()" aria-label="View larger image" style="position:absolute; top:16px; right:16px; width:40px; height:40px; border:none; border-radius:999px; background:rgba(255,255,255,0.9); display:flex; align-items:center; justify-content:center; color:var(--ink2); cursor:pointer;"><i data-comment="pdp-gallery-zoom-icon" class="ph ph-magnifying-glass-plus" style="font-size:18px;"></i></button>
+                .mh-gallery { max-width: 1180px; margin: 0 auto; padding: 44px 40px 96px; }
+                .mh-gallery-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--line-soft); padding-bottom: 16px; margin-bottom: 30px; }
+                .mh-gallery-title { font-family: var(--display); font-weight: 600; font-size: 27px; color: var(--ink2); }
+                .mh-count { font-family: var(--sans); font-size: 13.5px; color: var(--subtle); letter-spacing: 0.02em; white-space: nowrap; }
+
+                /* Masonry via CSS columns — portrait and landscape frames each keep
+                   their own aspect ratio, so nothing gets cropped to a square. */
+                .mh-grid { column-count: 3; column-gap: 22px; }
+                .mh-card { break-inside: avoid; margin: 0 0 28px; cursor: pointer; }
+                .mh-frame { position: relative; width: 100%; border-radius:2px; background: linear-gradient(135deg, #e8e3d7, #ded7c8); display: flex; align-items: center; justify-content: center; color: rgba(21,20,15,0.13); overflow: hidden; transition: box-shadow 240ms cubic-bezier(0.22,1,0.36,1), transform 240ms cubic-bezier(0.22,1,0.36,1); }
+                .mh-frame i { font-size: 34px; }
+                .mh-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; border: 0; transition: transform 450ms cubic-bezier(0.2,0,0,1); }
+                .mh-card:hover .mh-frame { box-shadow: 0 12px 32px rgba(6,61,34,0.10); transform: translateY(-2px); }
+                .mh-card:hover .mh-frame img { transform: scale(1.045); }
+                .mh-frame--portrait { aspect-ratio: 4 / 5; }
+                .mh-frame--tall { aspect-ratio: 3 / 4; }
+                .mh-frame--land { aspect-ratio: 3 / 2; }
+                .mh-frame--wide { aspect-ratio: 16 / 10; }
+                .mh-frame--square { aspect-ratio: 1 / 1; }
+                .mh-cap { padding: 12px 2px 0; }
+                .mh-name { display: block; font-family: var(--sans); font-weight: 700; font-size: 14.5px; color: var(--ink); }
+                .mh-meta { display: block; font-family: var(--sans); font-size: 12.5px; color: var(--muted); margin-top: 3px; letter-spacing: 0.01em; }
+
+                @media (max-width: 1100px) { .mh-grid { column-count: 3; } }
+                @media (max-width: 760px) {
+                    .mh-grid { column-count: 2; }
+                    .mh-gallery { padding: 36px 22px 72px; }
+                    .mh-gallery-head { flex-direction: column; align-items: flex-start; gap: 6px; }
+                    .mh-gallery-title { font-size: 24px; }
+                }
+                @media (max-width: 460px) { .mh-grid { column-count: 1; } }
+
+                /* Featured Grower — editorial spotlight on one customer's garden.
+                   Warm cream band sets it apart from the page; landscape + portrait
+                   frames sit together so both orientations read as intentional. */
+                .fg-band { background: #ffffff; border-bottom: 1px solid var(--line-soft); }
+                .fg-inner { max-width: 1180px; margin: 0 auto; padding: 108px 40px; display: grid; grid-template-columns: 1.4fr 0.85fr; gap: 56px; align-items: center; }
+                .fg-visual { position: relative; }
+                .fg-photo { width: 100%; aspect-ratio: 5 / 4; object-fit: cover; border-radius:2px; display: block; }
+                .fg-avatar { position: absolute; right: -22px; bottom: -30px; width: 128px; height: 128px; border-radius: 50%; object-fit: cover; object-position: 50% 30%; border: 6px solid #ffffff; box-shadow: 0 16px 40px rgba(6,61,34,0.18); }
+                .fg-eyebrow { font-family: var(--sans); font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--g700); }
+                .fg-name { font-family: var(--display); font-weight: 600; font-size: 46px; line-height: 1.06; color: var(--ink); margin: 12px 0 0; }
+                .fg-meta { font-family: var(--sans); font-size: 13.5px; color: var(--muted); letter-spacing: 0.02em; margin-top: 10px; }
+                .fg-story { margin-top: 20px; }
+                .fg-story p { font-family: var(--sans); font-size: 16px; line-height: 1.7; color: var(--ink2); margin: 0 0 14px; }
+                .fg-quote { font-family: var(--display) !important; font-style: italic; font-size: 21px !important; line-height: 1.5 !important; color: var(--g800) !important; margin: 0 0 6px !important; }
+                .fg-cta { display: inline-flex; align-items: center; gap: 9px; margin-top: 26px; font-family: var(--sans); font-weight: 700; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; background: var(--c600); border: 1.5px solid var(--c600); border-radius: 2px; padding: 15px 32px; text-decoration: none; transition: background-color 150ms cubic-bezier(0.2,0,0,1), border-color 150ms cubic-bezier(0.2,0,0,1); }
+                .fg-cta:hover { background: var(--c700); border-color: var(--c700); }
+                .fg-cta i { font-size: 15px; }
+
+                /* Cart badge — red dot on the header cart icon once something is added. */
+                .cart-badge { position: absolute; top: -3px; right: -4px; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); border: 2px solid #fff; display: none; }
+                .cart-badge.on { display: block; }
+
+                /* Share your garden — full-bleed band with a background photo. Lead
+                   copy sits on the left over the photo; a compact upload form floats
+                   in a card on the right. The form is always visible; guests who try
+                   to publish get a small sign-in popup (no on-page role toggle). */
+                /* Background: roses in a basket; crop at 38% vertical so the blurred
+                   foliage fills the top half and the roses land near the middle.
+                   Two full-bleed panels side by side: a beige text panel (left) and a
+                   photo panel holding the form card (right). On mobile they stack,
+                   each full-width with its own background and even padding. */
+                .sg-band { position: relative; }
+                /* Full-bleed: override the global [data-comment$="-inner"] side padding
+                   so the two panels reach the screen edges. */
+                .sg-inner { display: grid; grid-template-columns: 1fr 1fr; padding: 0 !important; }
+
+                /* Left — beige text panel */
+                .sg-lead { background: var(--paper1); color: var(--ink); padding: 80px 7vw; display: flex; flex-direction: column; justify-content: center; }
+                .sg-lead-eyebrow { font-family: var(--sans); font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent-deep); }
+                .sg-lead-title { font-family: var(--display); font-weight: 600; font-size: 50px; line-height: 1.04; color: var(--ink); margin: 14px 0 0; }
+                .sg-lead-text { font-family: var(--sans); font-size: 16.5px; line-height: 1.65; color: var(--ink2); max-width: 460px; margin: 18px 0 0; }
+                /* Community stats — fills the panel and adds social proof */
+                .sg-lead-stats { display: flex; flex-wrap: wrap; gap: 26px 44px; margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--line); }
+                .sg-stat { display: flex; flex-direction: column; }
+                .sg-stat-num { font-family: var(--display); font-weight: 600; font-size: 34px; line-height: 1; color: var(--ink); white-space: nowrap; }
+                .sg-stat-label { font-family: var(--sans); font-size: 12.5px; line-height: 1.35; color: var(--muted); margin-top: 8px; letter-spacing: 0.03em; }
+
+                /* Right — photo panel holding the compact upload form */
+                .sg-form-col { background: #0e2a17 url("assets/sg-bg-6231864.jpg") center 52% / cover no-repeat; padding: 64px 7vw; display: flex; align-items: center; justify-content: center; }
+                .sg-card--form { width: 100%; max-width: 520px; background: #fffdf8; border: 1px solid var(--line-soft); border-radius:2px; padding: 30px; box-shadow: 0 24px 60px rgba(0,0,0,0.28); }
+                .sg-form-head { margin-bottom: 18px; }
+                .sg-title { font-family: var(--display); font-weight: 600; font-size: 26px; line-height: 1.1; color: var(--ink); }
+                .sg-text { font-family: var(--sans); font-size: 14px; line-height: 1.55; color: var(--muted); margin-top: 6px; }
+                .sg-drop { border: 2px dashed var(--line); border-radius:2px; background: var(--g050); padding: 22px; text-align: center; cursor: pointer; transition: border-color 200ms cubic-bezier(0.22,1,0.36,1), background-color 200ms cubic-bezier(0.22,1,0.36,1); }
+                .sg-drop:hover { border-color: var(--g300); background: #eef6ef; }
+                .sg-drop-icon { font-size: 26px; color: var(--g700); }
+                .sg-drop-title { font-family: var(--sans); font-weight: 700; font-size: 13.5px; color: var(--ink); margin-top: 6px; }
+                .sg-drop-hint { font-family: var(--sans); font-size: 12px; color: var(--subtle); margin-top: 3px; }
+                .sg-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+                .sg-field { display: flex; flex-direction: column; gap: 5px; }
+                .sg-field--full { grid-column: 1 / -1; }
+                .sg-flabel { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+                .sg-input, .sg-select, .sg-textarea { font-family: var(--sans); font-size: 13.5px; color: var(--ink2); background: #fff; border: 1px solid var(--line); border-radius:2px; padding: 9px 11px; width: 100%; }
+                .sg-input:focus, .sg-select:focus, .sg-textarea:focus { outline: none; border-color: var(--g700); }
+                .sg-textarea { resize: vertical; min-height: 60px; }
+                .sg-form-actions { margin-top: 18px; }
+                .sg-signin-note { display: flex; align-items: center; gap: 9px; margin-top: 16px; padding: 10px 13px; background: var(--c050); border: 1px solid var(--c200); border-radius:2px; font-family: var(--sans); font-size: 12.5px; line-height: 1.45; color: var(--c800); }
+                .sg-signin-note i { font-size: 16px; color: var(--c600); flex: none; }
+
+                /* Buttons follow the design system: rectangular, 2px radius, uppercase
+                   Mulish 13px / 0.1em tracking. Green (--g700) is the main path;
+                   coral (--c700) is reserved for conversion (e.g. Create account). */
+                .sg-btn { font-family: var(--sans); font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; border-radius:2px; padding: 15px 32px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 9px; border: 1.5px solid transparent; transition: background-color 150ms cubic-bezier(0.2,0,0,1), border-color 150ms cubic-bezier(0.2,0,0,1), color 150ms cubic-bezier(0.2,0,0,1); }
+                .sg-btn-primary { background: var(--g700); color: #EAF0E0; border-color: var(--g700); }
+                .sg-btn-primary:hover { background: var(--g800); border-color: var(--g800); }
+                .sg-btn-coral { background: var(--c600); color: #fff; border-color: var(--c600); }
+                .sg-btn-coral:hover { background: var(--c700); border-color: var(--c700); }
+                .sg-btn-secondary { background: transparent; color: var(--g700); border-color: var(--g700); }
+                .sg-btn-secondary:hover { background: var(--g700); color: #EAF0E0; border-color: var(--g700); }
+                .sg-btn--block { width: 100%; }
+
+                /* Guest-gate popup — shown when a signed-out visitor tries to publish */
+                .sg-modal-scrim { position: fixed; inset: 0; background: rgba(21,20,15,0.55); opacity: 0; pointer-events: none; transition: opacity 200ms ease; z-index: 1100; }
+                .sg-modal-scrim.open { opacity: 1; pointer-events: auto; }
+                .sg-modal { position: fixed; z-index: 1101; top: 50%; left: 50%; transform: translate(-50%,-46%); width: min(400px, 92vw); background: #fffdf8; border-radius: 6px; padding: 38px 32px 30px; text-align: center; box-shadow: 0 30px 80px rgba(0,0,0,0.35); opacity: 0; pointer-events: none; transition: opacity 220ms cubic-bezier(0.22,1,0.36,1), transform 220ms cubic-bezier(0.22,1,0.36,1); }
+                .sg-modal.open { opacity: 1; pointer-events: auto; transform: translate(-50%,-50%); }
+                .sg-modal-close { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; border-radius: 50%; background: transparent; border: 0; cursor: pointer; color: var(--muted); display: flex; align-items: center; justify-content: center; transition: background-color 200ms, color 200ms; }
+                .sg-modal-close:hover { background: var(--paper1); color: var(--ink); }
+                .sg-modal-close i { font-size: 18px; }
+                .sg-modal-icon { width: 54px; height: 54px; margin: 0 auto 16px; border-radius: 50%; background: var(--g050); color: var(--g700); display: flex; align-items: center; justify-content: center; }
+                .sg-modal-icon i { font-size: 27px; }
+                .sg-modal-title { font-family: var(--display); font-weight: 600; font-size: 25px; line-height: 1.15; color: var(--ink); }
+                .sg-modal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+
+                /* Gallery filters */
+                .mh-filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
+                .mh-filter { font-family: var(--sans); font-size: 13.5px; font-weight: 600; color: var(--ink2); background: #fff; border: 1px solid var(--line-soft); border-radius: 999px; padding: 9px 16px; cursor: pointer; }
+                .mh-filter:focus { outline: none; border-color: var(--g700); }
+
+                /* Lightbox */
+                .lb-scrim { position: fixed; inset: 0; background: rgba(21,20,15,0.55); opacity: 0; pointer-events: none; transition: opacity 200ms ease; z-index: 1000; }
+                .lb-scrim.open { opacity: 1; pointer-events: auto; }
+                .lb { position: fixed; z-index: 1001; top: 50%; left: 50%; transform: translate(-50%,-47%); width: min(920px, 92vw); max-height: 90vh; background: #fff; border-radius: 6px; overflow: hidden; display: grid; grid-template-columns: 1.3fr 1fr; opacity: 0; pointer-events: none; transition: opacity 220ms cubic-bezier(0.22,1,0.36,1), transform 220ms cubic-bezier(0.22,1,0.36,1); box-shadow: 0 30px 80px rgba(0,0,0,0.35); }
+                .lb.open { opacity: 1; pointer-events: auto; transform: translate(-50%,-50%); }
+                .lb-media { position: relative; background: linear-gradient(135deg, #e8e3d7, #dbd3c3); min-height: 440px; display: flex; align-items: center; justify-content: center; color: rgba(21,20,15,0.14); }
+                .lb-media i { font-size: 54px; }
+                .lb-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+                .lb-close { position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.92); border: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--ink2); z-index: 2; transition: background-color 200ms; }
+                .lb-close:hover { background: #fff; }
+                .lb-close i { font-size: 18px; }
+                .lb-info { padding: 36px 34px; display: flex; flex-direction: column; }
+                .lb-eyebrow { font-family: var(--sans); font-weight: 700; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--g700); }
+                .lb-name { font-family: var(--display); font-weight: 600; font-size: 32px; line-height: 1.1; color: var(--ink); margin-top: 10px; }
+                .lb-meta { font-family: var(--sans); font-size: 13px; color: var(--muted); letter-spacing: 0.02em; margin-top: 8px; }
+                .lb-caption { font-family: var(--sans); font-size: 15.5px; line-height: 1.65; color: var(--ink2); margin-top: 18px; }
+                .lb-actions { margin-top: auto; padding-top: 26px; }
+                .lb-prod { display: inline-flex; align-items: center; gap: 9px; font-family: var(--sans); font-weight: 700; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; background: var(--c600); border: 1.5px solid var(--c600); border-radius: 2px; padding: 15px 32px; text-decoration: none; transition: background-color 150ms cubic-bezier(0.2,0,0,1), border-color 150ms cubic-bezier(0.2,0,0,1); }
+                .lb-prod:hover { background: var(--c700); border-color: var(--c700); }
+                .lb-prod i { font-size: 15px; }
+                @media (max-width: 720px) {
+                    .lb { grid-template-columns: 1fr; max-height: 88vh; overflow-y: auto; }
+                    .lb-media { min-height: 240px; }
+                    .lb-info { padding: 26px 22px; }
+                    .lb-name { font-size: 26px; }
+                }
+                @media (max-width: 900px) {
+                    .sg-inner { grid-template-columns: 1fr; }
+                    .sg-lead { padding: 56px 22px; }
+                    .sg-form-col { padding: 48px 22px; }
+                    .sg-lead-title { font-size: 40px; }
+                    .sg-card--form { max-width: 560px; margin: 0 auto; }
+                }
+                @media (max-width: 620px) {
+                    .sg-lead { padding: 48px 20px; }
+                    .sg-form-col { padding: 40px 20px; }
+                    .sg-card--form { padding: 24px 20px; }
+                    .sg-lead-title { font-size: 34px; }
+                    .sg-fields { grid-template-columns: 1fr; }
+                }
+                @media (max-width: 900px) {
+                    .fg-inner { grid-template-columns: 1fr; gap: 36px; padding: 52px 22px; }
+                    .fg-avatar { width: 104px; height: 104px; right: 16px; bottom: -22px; }
+                }
+                @media (max-width: 560px) {
+                    .fg-name { font-size: 38px; }
+                    .fg-avatar { width: 92px; height: 92px; border-width: 5px; }
+                }
+            </style>
+
+            <section class="mh-section" data-comment="members-section">
+                <!-- Visually-hidden page heading (visible intro header removed; page opens on Featured Grower) -->
+                <h1 data-comment="members-intro-title" style="position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;">Members Hub</h1>
+
+                <!-- FEATURED GROWER — editorial spotlight -->
+                <div class="fg-band" data-comment="members-featured">
+                    <div class="fg-inner" data-comment="members-featured-inner">
+                        <div class="fg-visual" data-comment="members-featured-visual">
+                            <img class="fg-photo" src="assets/fg-main-33790936.jpg" alt="Sarah Mercer&rsquo;s apple orchard in Elmvale, Ontario" loading="lazy" data-comment="members-featured-photo">
+                            <img class="fg-avatar" src="assets/fg-grower-29043496.jpg" alt="Sarah Mercer" loading="lazy" data-comment="members-featured-avatar">
                         </div>
-                        <div data-comment="pdp-gallery-thumbs" style="display:flex; gap:12px; margin-top:14px;">
-                            <button data-comment="pdp-gallery-thumb-1" onclick="setPdpImage('assets/cat-apples.png', this)" style="width:84px; height:84px; border-radius:5px; overflow:hidden; border:2px solid var(--g700); padding:0; cursor:pointer; background:url('assets/cat-apples.png') center/cover no-repeat;" aria-label="Photo 1 — fruit"></button>
-                            <button data-comment="pdp-gallery-thumb-2" onclick="setPdpImage('assets/hero-blossom.png', this)" style="width:84px; height:84px; border-radius:5px; overflow:hidden; border:2px solid transparent; padding:0; cursor:pointer; background:url('assets/hero-blossom.png') center/cover no-repeat;" aria-label="Photo 2 — tree in fruit"></button>
-                            <button data-comment="pdp-gallery-thumb-3" onclick="setPdpImage('assets/about-orchard.png', this)" style="width:84px; height:84px; border-radius:5px; overflow:hidden; border:2px solid transparent; padding:0; cursor:pointer; background:url('assets/about-orchard.png') center/cover no-repeat;" aria-label="Photo 3 — young tree"></button>
+                        <div class="fg-text" data-comment="members-featured-text">
+                            <span class="fg-eyebrow" data-comment="members-featured-eyebrow">Featured grower &middot; July 2026</span>
+                            <h2 class="fg-name" data-comment="members-featured-name">Sarah Mercer</h2>
+                            <p class="fg-meta" data-comment="members-featured-meta">Elmvale, Ontario &middot; Zone 4 &middot; Growing since 2019</p>
+                            <div class="fg-story" data-comment="members-featured-story">
+                                <p class="fg-quote" data-comment="members-featured-quote">&ldquo;I chose varieties for our short season and never looked back.&rdquo;</p>
+                                <p data-comment="members-featured-story-1">Sarah started with three bare-root apples along the back fence in 2019. Six seasons later, her half-acre in Elmvale is a working little orchard &mdash; and every tree came from Whiffletree.</p>
+                                <p data-comment="members-featured-story-2">The Honeycrisp is finally fruiting, the cherries draw every robin in the county, and the kids can&rsquo;t keep their hands off the raspberries.</p>
+                            </div>
+                            <a class="fg-cta" href="product.html" data-comment="members-featured-cta">See Honeycrisp Apple <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
                         </div>
                     </div>
+                </div>
 
-                    <!-- BUY PANEL -->
-                    <div data-comment="pdp-buy">
-                        <div data-comment="pdp-buy-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:11.5px; letter-spacing:0.16em; text-transform:uppercase; color:var(--accent-deep);">Grafted on MM.106 · 1-year bare-root whip · #1 grade</div>
-
-                        <!-- FEATURE TAGS — house pill style (see index about-badges), scaled down -->
-                        <div data-comment="pdp-buy-tags" style="display:flex; flex-wrap:wrap; gap:8px; margin-top:18px;">
-                            <span data-comment="pdp-buy-tag-coldhardy" style="display:inline-flex; align-items:center; gap:6px; font-family:var(--sans); font-weight:600; font-size:12px; line-height:1; color:var(--g900); background:#fff; border:1px solid var(--line-soft); border-radius:6px; padding:7px 11px;"><i class="ph ph-snowflake" aria-hidden="true" style="font-size:13px; color:var(--g700);"></i>Cold-hardy</span>
-                            <span data-comment="pdp-buy-tag-scab" style="display:inline-flex; align-items:center; gap:6px; font-family:var(--sans); font-weight:600; font-size:12px; line-height:1; color:var(--g900); background:#fff; border:1px solid var(--line-soft); border-radius:6px; padding:7px 11px;"><i class="ph ph-shield-check" aria-hidden="true" style="font-size:13px; color:var(--g700);"></i>Scab-immune</span>
-                            <span data-comment="pdp-buy-tag-pollination" style="display:inline-flex; align-items:center; gap:6px; font-family:var(--sans); font-weight:600; font-size:12px; line-height:1; color:var(--g900); background:#fff; border:1px solid var(--line-soft); border-radius:6px; padding:7px 11px;"><i class="ph ph-arrows-left-right" aria-hidden="true" style="font-size:13px; color:var(--g700);"></i>Needs a pollenizer</span>
-                            <span data-comment="pdp-buy-tag-lowspray" style="display:inline-flex; align-items:center; gap:6px; font-family:var(--sans); font-weight:600; font-size:12px; line-height:1; color:var(--g900); background:#fff; border:1px solid var(--line-soft); border-radius:6px; padding:7px 11px;"><i class="ph ph-leaf" aria-hidden="true" style="font-size:13px; color:var(--g700);"></i>Low-spray</span>
-                        </div>
-
-                        <h1 data-comment="pdp-buy-title" style="font-family:var(--display); font-weight:500; font-size:52px; line-height:1.02; color:var(--ink); margin:16px 0 0;">Liberty</h1>
-
-                        <div data-comment="pdp-buy-price-row" style="display:flex; align-items:center; gap:14px; margin-top:18px;">
-                            <span data-comment="pdp-buy-price" style="font-family:var(--sans); font-weight:700; font-size:26px; color:var(--ink);">$44.95 CAD</span>
-                        </div>
-                        <div data-comment="pdp-buy-sku" style="font-family:var(--sans); font-size:12.5px; color:var(--subtle); margin-top:8px;">SKU: WT-APL-LIB</div>
-
-                        <button data-comment="pdp-buy-notify" data-component="button" style="margin-top:24px; width:100%; font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; color:#FFFFFF; background:var(--c600); border:none; border-radius:2px; padding:18px 24px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px;"><i data-comment="pdp-buy-notify-icon" class="ph ph-bell" style="font-size:18px;"></i> Notify me when available</button>
-
-                        <p data-comment="pdp-buy-short-desc" style="font-family:var(--sans); font-size:15.5px; line-height:1.7; color:var(--muted); margin:24px 0 0;">A reliable dessert apple for cold climates — juicy, sweet-tart fruit with a refreshing bite. Scab-immune and easy to grow, it's an ideal variety for a first orchard or low-spray, organic growing.</p>
-
-                        <!-- ORDERING WINDOW NOTE -->
-                        <div data-comment="pdp-buy-order-note" style="margin-top:24px; background:var(--paper1); border:1px solid var(--line); border-radius:6px; padding:16px 18px;">
-                            <div data-comment="pdp-buy-order-note-title" style="font-family:var(--display); font-weight:600; font-size:18px; color:var(--ink); line-height:1.25;">Ordering closed: mid-March to mid-fall</div>
-                            <p data-comment="pdp-buy-order-note-text" style="font-family:var(--sans); font-size:13px; line-height:1.55; color:var(--muted); margin:6px 0 0;">Bare-root trees ship only during dormancy. Sign up to be first to know when the next ordering window opens.</p>
-                            <div data-comment="pdp-buy-order-note-actions" style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
-                                <a data-comment="pdp-buy-order-learn" href="#pdp-grow-section" style="font-family:var(--sans); font-weight:700; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; color:var(--accent-deep); background:transparent; border:1.5px solid var(--accent); border-radius:2px; padding:9px 16px; text-decoration:none;">Learn more</a>
-                                <a data-comment="pdp-buy-order-updates" href="#gift" style="font-family:var(--sans); font-weight:700; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; color:#FFFFFF; background:var(--c600); border-radius:2px; padding:10px 16px; text-decoration:none;">Store updates sign up</a>
+                <!-- SHARE YOUR GARDEN — photo band; lead copy left, compact upload form right -->
+                <div class="sg-band" data-comment="members-share">
+                    <div class="sg-inner" data-comment="members-share-inner">
+                        <div class="sg-lead" data-comment="members-share-lead">
+                            <span class="sg-lead-eyebrow" data-comment="members-share-eyebrow">Grown by you</span>
+                            <h2 class="sg-lead-title" data-comment="members-share-title">Share your garden</h2>
+                            <p class="sg-lead-text" data-comment="members-share-text">Show the community how your Whiffletree trees and beds are coming along. Add a photo, tell us the variety, and it joins the growers&rsquo; gallery below for everyone to see.</p>
+                            <div class="sg-lead-stats" data-comment="members-share-stats">
+                                <div class="sg-stat" data-comment="members-share-stat-1"><span class="sg-stat-num" data-comment="members-share-stat-1-num">200+</span><span class="sg-stat-label" data-comment="members-share-stat-1-label">gardens shared</span></div>
+                                <div class="sg-stat" data-comment="members-share-stat-2"><span class="sg-stat-num" data-comment="members-share-stat-2-num">40+</span><span class="sg-stat-label" data-comment="members-share-stat-2-label">varieties grown</span></div>
+                                <div class="sg-stat" data-comment="members-share-stat-3"><span class="sg-stat-num" data-comment="members-share-stat-3-num">2&ndash;8</span><span class="sg-stat-label" data-comment="members-share-stat-3-label">Zones across Canada</span></div>
                             </div>
                         </div>
 
-                        <!-- RATING SCALES -->
-                        <div data-comment="pdp-scales" style="margin-top:30px; border-top:1px solid var(--line-soft); padding-top:28px; display:flex; flex-direction:column; gap:22px;">
-                            <div data-comment="pdp-scales-heading" style="font-family:var(--sans); font-weight:700; font-size:11.5px; letter-spacing:0.16em; text-transform:uppercase; color:var(--subtle);">Variety profile</div>
-
-                            <!-- Scale 1: hardiness -->
-                            <div data-comment="pdp-scale-hardiness" style="display:grid; grid-template-columns:140px 1fr; gap:18px; align-items:center;">
-                                <span data-comment="pdp-scale-hardiness-label" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink2);">Cold hardiness</span>
-                                <div data-comment="pdp-scale-hardiness-track">
-                                    <div data-comment="pdp-scale-hardiness-bar" style="position:relative; height:7px; border-radius:999px; background:var(--paper3);">
-                                        <div data-comment="pdp-scale-hardiness-fill" style="position:absolute; left:0; top:0; height:100%; width:85%; border-radius:999px; background:linear-gradient(90deg,var(--g500),var(--g700));"></div>
-                                        <div data-comment="pdp-scale-hardiness-dot" style="position:absolute; left:85%; top:50%; width:14px; height:14px; border-radius:999px; background:#FFFFFF; border:3px solid var(--g700); transform:translate(-50%,-50%);"></div>
-                                    </div>
-                                    <div data-comment="pdp-scale-hardiness-labels" style="display:flex; justify-content:space-between; margin-top:8px; font-family:var(--sans); font-size:11px; color:var(--subtle);">
-                                        <span data-comment="pdp-scale-hardiness-l1">Tender</span>
-                                        <span data-comment="pdp-scale-hardiness-l2">Moderate</span>
-                                        <span data-comment="pdp-scale-hardiness-l3">Hardy</span>
-                                        <span data-comment="pdp-scale-hardiness-l4" style="color:var(--g700); font-weight:700;">Very hardy</span>
-                                    </div>
+                        <div class="sg-form-col" data-comment="members-share-form-col">
+                        <form class="sg-card--form" data-comment="members-share-form" onsubmit="return false;">
+                            <div class="sg-form-head" data-comment="members-share-form-head">
+                                <h3 class="sg-title" data-comment="members-share-form-title">Add a photo</h3>
+                                <p class="sg-text" data-comment="members-share-form-text">Landscape or portrait &mdash; up to 8 photos.</p>
+                            </div>
+                            <div class="sg-drop" data-comment="members-share-drop">
+                                <div class="sg-drop-icon" data-comment="members-share-drop-icon"><i class="ph ph-image-square" aria-hidden="true"></i></div>
+                                <div class="sg-drop-title" data-comment="members-share-drop-title">Drag photos here, or browse</div>
+                                <div class="sg-drop-hint" data-comment="members-share-drop-hint">JPG or PNG</div>
+                            </div>
+                            <div class="sg-fields" data-comment="members-share-fields">
+                                <div class="sg-field" data-comment="members-share-field-variety">
+                                    <label class="sg-flabel" data-comment="members-share-field-variety-label">Variety</label>
+                                    <select class="sg-select" data-comment="members-share-field-variety-input"><option>Apple</option><option>Pear</option><option>Plum</option><option>Cherry</option><option>Peach</option><option>Apricot</option><option>Grape</option><option>Berries</option><option>Nut</option><option>Other</option></select>
+                                </div>
+                                <div class="sg-field" data-comment="members-share-field-zone">
+                                    <label class="sg-flabel" data-comment="members-share-field-zone-label">Hardiness zone</label>
+                                    <select class="sg-select" data-comment="members-share-field-zone-input"><option>Zone 2b</option><option>Zone 3</option><option>Zone 4</option><option>Zone 5</option><option>Zone 6</option><option>Zone 7</option><option>Zone 8</option></select>
+                                </div>
+                                <div class="sg-field" data-comment="members-share-field-season">
+                                    <label class="sg-flabel" data-comment="members-share-field-season-label">Season</label>
+                                    <select class="sg-select" data-comment="members-share-field-season-input"><option>Spring bloom</option><option>Summer</option><option>Autumn harvest</option><option>Winter</option></select>
+                                </div>
+                                <div class="sg-field" data-comment="members-share-field-location">
+                                    <label class="sg-flabel" data-comment="members-share-field-location-label">Location (optional)</label>
+                                    <input class="sg-input" type="text" placeholder="e.g. Elmvale, ON" data-comment="members-share-field-location-input">
+                                </div>
+                                <div class="sg-field sg-field--full" data-comment="members-share-field-note">
+                                    <label class="sg-flabel" data-comment="members-share-field-note-label">Tell us about it (optional)</label>
+                                    <textarea class="sg-textarea" placeholder="A line about this photo &mdash; what it is, how it&rsquo;s doing&hellip;" data-comment="members-share-field-note-input"></textarea>
                                 </div>
                             </div>
-
-                            <!-- Scale 2: difficulty -->
-                            <div data-comment="pdp-scale-difficulty" style="display:grid; grid-template-columns:140px 1fr; gap:18px; align-items:center;">
-                                <span data-comment="pdp-scale-difficulty-label" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink2);">Growing difficulty</span>
-                                <div data-comment="pdp-scale-difficulty-track">
-                                    <div data-comment="pdp-scale-difficulty-bar" style="position:relative; height:7px; border-radius:999px; background:var(--paper3);">
-                                        <div data-comment="pdp-scale-difficulty-fill" style="position:absolute; left:0; top:0; height:100%; width:22%; border-radius:999px; background:linear-gradient(90deg,var(--g500),var(--g700));"></div>
-                                        <div data-comment="pdp-scale-difficulty-dot" style="position:absolute; left:22%; top:50%; width:14px; height:14px; border-radius:999px; background:#FFFFFF; border:3px solid var(--g700); transform:translate(-50%,-50%);"></div>
-                                    </div>
-                                    <div data-comment="pdp-scale-difficulty-labels" style="display:flex; justify-content:space-between; margin-top:8px; font-family:var(--sans); font-size:11px; color:var(--subtle);">
-                                        <span data-comment="pdp-scale-difficulty-l1" style="color:var(--g700); font-weight:700;">Easy</span>
-                                        <span data-comment="pdp-scale-difficulty-l2">Moderate</span>
-                                        <span data-comment="pdp-scale-difficulty-l3">Hard</span>
-                                    </div>
-                                </div>
+                            <p class="sg-signin-note" data-comment="members-share-signin-note"><i class="ph ph-info" aria-hidden="true"></i> You&rsquo;ll need to sign in to publish a photo.</p>
+                            <div class="sg-form-actions" data-comment="members-share-form-actions">
+                                <button class="sg-btn sg-btn-primary sg-btn--block" type="button" onclick="membersOpenGate()" data-comment="members-share-submit">Publish to the gallery</button>
                             </div>
-
-                            <!-- Scale 3: disease resistance -->
-                            <div data-comment="pdp-scale-disease" style="display:grid; grid-template-columns:140px 1fr; gap:18px; align-items:center;">
-                                <span data-comment="pdp-scale-disease-label" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink2);">Disease resistance</span>
-                                <div data-comment="pdp-scale-disease-track">
-                                    <div data-comment="pdp-scale-disease-bar" style="position:relative; height:7px; border-radius:999px; background:var(--paper3);">
-                                        <div data-comment="pdp-scale-disease-fill" style="position:absolute; left:0; top:0; height:100%; width:92%; border-radius:999px; background:linear-gradient(90deg,var(--g500),var(--g700));"></div>
-                                        <div data-comment="pdp-scale-disease-dot" style="position:absolute; left:92%; top:50%; width:14px; height:14px; border-radius:999px; background:#FFFFFF; border:3px solid var(--g700); transform:translate(-50%,-50%);"></div>
-                                    </div>
-                                    <div data-comment="pdp-scale-disease-labels" style="display:flex; justify-content:space-between; margin-top:8px; font-family:var(--sans); font-size:11px; color:var(--subtle);">
-                                        <span data-comment="pdp-scale-disease-l1">Low</span>
-                                        <span data-comment="pdp-scale-disease-l2">Medium</span>
-                                        <span data-comment="pdp-scale-disease-l3" style="color:var(--g700); font-weight:700;">High</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Scale 4: yield / vigour -->
-                            <div data-comment="pdp-scale-yield" style="display:grid; grid-template-columns:140px 1fr; gap:18px; align-items:center;">
-                                <span data-comment="pdp-scale-yield-label" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink2);">Yield / vigour</span>
-                                <div data-comment="pdp-scale-yield-track">
-                                    <div data-comment="pdp-scale-yield-bar" style="position:relative; height:7px; border-radius:999px; background:var(--paper3);">
-                                        <div data-comment="pdp-scale-yield-fill" style="position:absolute; left:0; top:0; height:100%; width:78%; border-radius:999px; background:linear-gradient(90deg,var(--g500),var(--g700));"></div>
-                                        <div data-comment="pdp-scale-yield-dot" style="position:absolute; left:78%; top:50%; width:14px; height:14px; border-radius:999px; background:#FFFFFF; border:3px solid var(--g700); transform:translate(-50%,-50%);"></div>
-                                    </div>
-                                    <div data-comment="pdp-scale-yield-labels" style="display:flex; justify-content:space-between; margin-top:8px; font-family:var(--sans); font-size:11px; color:var(--subtle);">
-                                        <span data-comment="pdp-scale-yield-l1">Low</span>
-                                        <span data-comment="pdp-scale-yield-l2">Moderate</span>
-                                        <span data-comment="pdp-scale-yield-l3" style="color:var(--g700); font-weight:700;">Strong</span>
-                                        <span data-comment="pdp-scale-yield-l4">Very strong</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- ACCORDIONS -->
-                        <div data-comment="pdp-accordion" style="margin-top:30px; border-top:1px solid var(--line-soft);">
-                            <button type="button" data-comment="pdp-accordion-1-head" onclick="togglePdpAccordion(this)" aria-expanded="false" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px; background:none; border:none; border-bottom:1px solid var(--line-soft); padding:20px 0; cursor:pointer; text-align:left; font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink2);">More about Liberty <i data-comment="pdp-accordion-1-icon" class="ph ph-plus" style="font-size:16px; color:var(--g700);"></i></button>
-                            <div data-comment="pdp-accordion-1-body" style="display:none; padding:18px 0 22px; font-family:var(--sans); font-size:15px; line-height:1.7; color:var(--muted);">Liberty was bred at Cornell University for resistance to apple scab and other major diseases. The tree forms a rounded canopy and bears heavily and reliably from a young age. Fruit is medium-sized, deep red over a greenish ground, with crisp, juicy flesh and a balanced sweet-tart flavour.</div>
-
-                            <button type="button" data-comment="pdp-accordion-2-head" onclick="togglePdpAccordion(this)" aria-expanded="false" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px; background:none; border:none; border-bottom:1px solid var(--line-soft); padding:20px 0; cursor:pointer; text-align:left; font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink2);">Growing details <i data-comment="pdp-accordion-2-icon" class="ph ph-plus" style="font-size:16px; color:var(--g700);"></i></button>
-                            <div data-comment="pdp-accordion-2-body" style="display:none; padding:18px 0 22px; font-family:var(--sans); font-size:15px; line-height:1.7; color:var(--muted);">On MM.106 rootstock the tree grows 3–4 m tall, suited to a mid-sized garden. Plant in full sun in well-drained soil. Requires a pollination partner that flowers in the same period (flowering group 3). Hardy to zone 4.</div>
+                        </form>
                         </div>
                     </div>
                 </div>
-            </section>
 
-            <!-- TAGLINE BANNER -->
-            <section data-comment="pdp-tagline-section" style="background:var(--accent-deep);">
-                <div data-comment="pdp-tagline-inner" style="max-width:1100px; margin:0 auto; padding:34px 40px; text-align:center;">
-                    <p data-comment="pdp-tagline-text" style="font-family:var(--display); font-weight:500; font-size:26px; line-height:1.3; color:#FFFFFF; font-style:italic;">Let Liberty be the dependable start to your orchard — year after year, with none of the fuss.</p>
-                </div>
-            </section>
-
-            <!-- DESCRIPTION + GROWING + CHARACTERISTICS -->
-            <section data-comment="pdp-details-section" style="background:var(--paper1);">
-                <div data-comment="pdp-details-inner" style="max-width:1100px; margin:0 auto; padding:80px 40px;">
-
-                    <!-- Description -->
-                    <div data-comment="pdp-desc-block" style="display:grid; grid-template-columns:220px 1fr; gap:40px; padding-bottom:40px; border-bottom:1px solid var(--line);">
-                        <h2 data-comment="pdp-desc-title" style="font-family:var(--display); font-weight:600; font-size:28px; color:var(--ink); margin:0;">Description</h2>
-                        <div data-comment="pdp-desc-body">
-                            <p data-comment="pdp-desc-text" style="font-family:var(--sans); font-size:16px; line-height:1.75; color:var(--ink2); margin:0;">Liberty is a late-season dessert apple bred for resistance to scab and the four major apple diseases. The tree forms a rounded canopy and bears heavily and reliably from a young age. Fruit is medium-sized, deep red over a greenish ground; the flesh is crisp and juicy with a refreshing sweet-tart flavour. Excellent fresh, for juice and cider, and it stores well for two to three months when kept cool.</p>
-                            <div data-comment="pdp-desc-meta" style="font-family:var(--sans); font-size:12.5px; letter-spacing:0.04em; text-transform:uppercase; color:var(--subtle); margin-top:20px;">Breeder: Cornell University · Introduced 1978</div>
-                        </div>
-                    </div>
-
-                    <!-- Growing details -->
-                    <div id="pdp-grow-section" data-comment="pdp-grow-block" style="display:grid; grid-template-columns:220px 1fr; gap:40px; padding:40px 0; border-bottom:1px solid var(--line);">
-                        <h2 data-comment="pdp-grow-title" style="font-family:var(--display); font-weight:600; font-size:28px; color:var(--ink); margin:0;">Growing &amp; care</h2>
-                        <div data-comment="pdp-grow-body">
-                            <p data-comment="pdp-grow-text" style="font-family:var(--sans); font-size:16px; line-height:1.75; color:var(--ink2); margin:0;">On semi-dwarfing MM.106 rootstock the tree grows 3–4 m tall and wide — easy to harvest and maintain. Plant in full sun in well-drained soil; water regularly and train for shape in the early years. The variety is self-sterile, so it needs another apple variety nearby that flowers in the same period to set fruit. Thanks to its built-in disease resistance, Liberty is ideal for a low-spray, organic orchard.</p>
-                        </div>
-                    </div>
-
-                    <!-- Characteristics -->
-                    <div data-comment="pdp-specs-block" style="display:grid; grid-template-columns:220px 1fr; gap:40px; padding-top:40px;">
-                        <h2 data-comment="pdp-specs-title" style="font-family:var(--display); font-weight:600; font-size:28px; color:var(--ink); margin:0;">Characteristics</h2>
-                        <div data-comment="pdp-specs-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:22px 40px;">
-                            <div data-comment="pdp-specs-1"><div data-comment="pdp-specs-1-label" style="font-family:var(--sans); font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--subtle);">Type</div><div data-comment="pdp-specs-1-value" style="font-family:var(--sans); font-size:15.5px; color:var(--ink2); margin-top:5px;">Apple (Malus domestica)</div></div>
-                            <div data-comment="pdp-specs-2"><div data-comment="pdp-specs-2-label" style="font-family:var(--sans); font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--subtle);">Rootstock</div><div data-comment="pdp-specs-2-value" style="font-family:var(--sans); font-size:15.5px; color:var(--ink2); margin-top:5px;">MM.106 · semi-dwarfing</div></div>
-                            <div data-comment="pdp-specs-3"><div data-comment="pdp-specs-3-label" style="font-family:var(--sans); font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--subtle);">Mature size</div><div data-comment="pdp-specs-3-value" style="font-family:var(--sans); font-size:15.5px; color:var(--ink2); margin-top:5px;">3–4 m tall × 3–4 m wide</div></div>
-                            <div data-comment="pdp-specs-4"><div data-comment="pdp-specs-4-label" style="font-family:var(--sans); font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--subtle);">Hardiness zone</div><div data-comment="pdp-specs-4-value" style="font-family:var(--sans); font-size:15.5px; color:var(--ink2); margin-top:5px;">Zone 4+ (Canada) · USDA 4+</div></div>
-                            <div data-comment="pdp-specs-5"><div data-comment="pdp-specs-5-label" style="font-family:var(--sans); font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--subtle);">Ripening</div><div data-comment="pdp-specs-5-value" style="font-family:var(--sans); font-size:15.5px; color:var(--ink2); margin-top:5px;">Late September – early October</div></div>
-                            <div data-comment="pdp-specs-6"><div data-comment="pdp-specs-6-label" style="font-family:var(--sans); font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--subtle);">Pollination</div><div data-comment="pdp-specs-6-value" style="font-family:var(--sans); font-size:15.5px; color:var(--ink2); margin-top:5px;">Self-sterile · flowering group 3</div></div>
-                            <div data-comment="pdp-specs-7"><div data-comment="pdp-specs-7-label" style="font-family:var(--sans); font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--subtle);">Uses</div><div data-comment="pdp-specs-7-value" style="font-family:var(--sans); font-size:15.5px; color:var(--ink2); margin-top:5px;">Fresh eating · juice · cider · storage</div></div>
-                            <div data-comment="pdp-specs-8"><div data-comment="pdp-specs-8-label" style="font-family:var(--sans); font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--subtle);">Flavour notes</div><div data-comment="pdp-specs-8-value" style="font-family:var(--sans); font-size:15.5px; color:var(--ink2); margin-top:5px;">Sweet-tart · juicy · crisp</div></div>
-                            <div data-comment="pdp-specs-9"><div data-comment="pdp-specs-9-label" style="font-family:var(--sans); font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--subtle);">Bloom time</div><div data-comment="pdp-specs-9-value" style="font-family:var(--sans); font-size:15.5px; color:var(--ink2); margin-top:5px;">Mid-May</div></div>
-                            <div data-comment="pdp-specs-10"><div data-comment="pdp-specs-10-label" style="font-family:var(--sans); font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--subtle);">Tree</div><div data-comment="pdp-specs-10-value" style="font-family:var(--sans); font-size:15.5px; color:var(--ink2); margin-top:5px;">1-year · bare-root · #1 grade</div></div>
-                        </div>
+                <!-- GUEST GATE — sign-in popup shown when a signed-out visitor tries to publish -->
+                <div class="sg-modal-scrim" data-comment="members-gate-scrim" onclick="membersCloseGate()"></div>
+                <div class="sg-modal" role="dialog" aria-modal="true" aria-labelledby="members-gate-title" data-comment="members-gate" hidden>
+                    <button class="sg-modal-close" type="button" aria-label="Close" onclick="membersCloseGate()" data-comment="members-gate-close"><i class="ph ph-x" aria-hidden="true"></i></button>
+                    <div class="sg-modal-icon" data-comment="members-gate-icon"><i class="ph ph-leaf" aria-hidden="true"></i></div>
+                    <h2 class="sg-modal-title" id="members-gate-title" data-comment="members-gate-title">Sign in or create an account to publish.</h2>
+                    <div class="sg-modal-actions" data-comment="members-gate-actions">
+                        <a class="sg-btn sg-btn-coral sg-btn--block" href="#" data-comment="members-gate-create">Create an account</a>
+                        <a class="sg-btn sg-btn-secondary sg-btn--block" href="#" data-comment="members-gate-signin">Sign in</a>
                     </div>
                 </div>
-            </section>
-
-            <!-- EDITORIAL -->
-            <section data-comment="pdp-editorial-section" style="background:#FFFFFF;">
-                <div data-comment="pdp-editorial-inner" style="max-width:1320px; margin:0 auto; padding:96px 40px; display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;">
-                    <div data-comment="pdp-editorial-text">
-                        <div data-comment="pdp-editorial-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent-deep);">Liberty</div>
-                        <h2 data-comment="pdp-editorial-heading" style="font-family:var(--display); font-weight:500; font-size:40px; line-height:1.1; color:var(--ink); margin:14px 0 0;">Healthy, hardy, and grown with care in Canada — our trees are selected for their <em data-comment="pdp-editorial-heading-em" style="font-style:italic; color:var(--g700);">beauty, reliability, and strength</em>.</h2>
+                <div class="mh-gallery" data-comment="members-gallery">
+                    <div class="mh-gallery-head" data-comment="members-gallery-head">
+                        <h2 class="mh-gallery-title" data-comment="members-gallery-title">From our growers&rsquo; gardens</h2>
+                        <span class="mh-count" data-comment="members-gallery-count">Showing 14 of 200+ gardens</span>
                     </div>
-                    <div data-comment="pdp-editorial-media" style="position:relative; min-height:420px;">
-                        <div data-comment="pdp-editorial-img-1" style="position:absolute; right:0; top:0; width:74%; height:300px; border-radius:6px; background:url('assets/hero-blossom.png') center/cover no-repeat;"></div>
-                        <div data-comment="pdp-editorial-img-2" style="position:absolute; left:0; bottom:0; width:52%; height:260px; border-radius:6px; border:6px solid #FFFFFF; background:url('assets/about-orchard.png') center/cover no-repeat;"></div>
+                    <div class="mh-filters" data-comment="members-filters">
+                        <select class="mh-filter" data-comment="members-filter-variety" aria-label="Filter by variety" onchange="membersApplyFilters()"><option value="">All varieties</option><option value="apple">Apple</option><option value="pear">Pear</option><option value="plum">Plum</option><option value="cherry">Cherry</option><option value="peach">Peach</option><option value="apricot">Apricot</option><option value="grape">Grape</option><option value="berry">Berries</option></select>
+                        <select class="mh-filter" data-comment="members-filter-season" aria-label="Filter by season" onchange="membersApplyFilters()"><option value="">Any season</option><option value="spring">Spring</option><option value="summer">Summer</option><option value="autumn">Autumn</option></select>
+                        <select class="mh-filter" data-comment="members-filter-zone" aria-label="Filter by hardiness zone" onchange="membersApplyFilters()"><option value="">Any zone</option><option value="2b">Zone 2b</option><option value="3">Zone 3</option><option value="4">Zone 4</option><option value="5">Zone 5</option><option value="6">Zone 6</option></select>
+                    </div>
+                    <div class="mh-grid" data-comment="members-grid">
+                    <figure class="mh-card" data-comment="members-card-1" data-component="card" data-cat="apple" data-zone="4" data-season="autumn" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
+                        <div class="mh-frame mh-frame--portrait" data-comment="members-card-1-frame"><img src="assets/pexels-28601836.jpg" alt="Honeycrisp Apple in a Whiffletree grower&rsquo;s garden" loading="lazy" data-comment="members-card-1-img"></div>
+                        <figcaption class="mh-cap" data-comment="members-card-1-cap">
+                            <span class="mh-name" data-comment="members-card-1-name">Sarah M.</span>
+                            <span class="mh-meta" data-comment="members-card-1-meta">Honeycrisp Apple · Zone 4 · Autumn harvest</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="mh-card" data-comment="members-card-2" data-component="card" data-cat="pear" data-zone="5" data-season="summer" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
+                        <div class="mh-frame mh-frame--land" data-comment="members-card-2-frame"><img src="assets/pexels-17922976.jpg" alt="Bartlett Pear in a Whiffletree grower&rsquo;s garden" loading="lazy" data-comment="members-card-2-img"></div>
+                        <figcaption class="mh-cap" data-comment="members-card-2-cap">
+                            <span class="mh-name" data-comment="members-card-2-name">James &amp; Lena</span>
+                            <span class="mh-meta" data-comment="members-card-2-meta">Bartlett Pear · Zone 5 · Late summer</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="mh-card" data-comment="members-card-3" data-component="card" data-cat="cherry" data-zone="5" data-season="spring" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
+                        <div class="mh-frame mh-frame--square" data-comment="members-card-3-frame"><img src="assets/pexels-356269.jpg" alt="Montmorency Cherry in a Whiffletree grower&rsquo;s garden" loading="lazy" data-comment="members-card-3-img"></div>
+                        <figcaption class="mh-cap" data-comment="members-card-3-cap">
+                            <span class="mh-name" data-comment="members-card-3-name">The Okafor Family</span>
+                            <span class="mh-meta" data-comment="members-card-3-meta">Montmorency Cherry · Zone 5 · Spring bloom</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="mh-card" data-comment="members-card-4" data-component="card" data-cat="grape" data-zone="6" data-season="summer" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
+                        <div class="mh-frame mh-frame--tall" data-comment="members-card-4-frame"><img src="assets/pexels-15508429.jpg" alt="Reliance Grape in a Whiffletree grower&rsquo;s garden" loading="lazy" data-comment="members-card-4-img"></div>
+                        <figcaption class="mh-cap" data-comment="members-card-4-cap">
+                            <span class="mh-name" data-comment="members-card-4-name">Marc D.</span>
+                            <span class="mh-meta" data-comment="members-card-4-meta">Reliance Grape · Zone 6 · Late summer</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="mh-card" data-comment="members-card-5" data-component="card" data-cat="berry" data-zone="3" data-season="summer" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
+                        <div class="mh-frame mh-frame--wide" data-comment="members-card-5-frame"><img src="assets/pexels-895476.jpg" alt="Haskap ‘Aurora’ in a Whiffletree grower&rsquo;s garden" loading="lazy" data-comment="members-card-5-img"></div>
+                        <figcaption class="mh-cap" data-comment="members-card-5-cap">
+                            <span class="mh-name" data-comment="members-card-5-name">Priya S.</span>
+                            <span class="mh-meta" data-comment="members-card-5-meta">Haskap ‘Aurora’ · Zone 3 · Early summer</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="mh-card" data-comment="members-card-11" data-component="card" data-cat="apricot" data-zone="5" data-season="summer" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
+                        <div class="mh-frame mh-frame--tall" data-comment="members-card-11-frame"><img src="assets/pexels-13196329.jpg" alt="Patterson Apricot in a Whiffletree grower&rsquo;s garden" loading="lazy" data-comment="members-card-11-img"></div>
+                        <figcaption class="mh-cap" data-comment="members-card-11-cap">
+                            <span class="mh-name" data-comment="members-card-11-name">The Martins</span>
+                            <span class="mh-meta" data-comment="members-card-11-meta">Patterson Apricot · Zone 5 · Midsummer</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="mh-card" data-comment="members-card-12" data-component="card" data-cat="berry" data-zone="4" data-season="summer" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
+                        <div class="mh-frame mh-frame--square" data-comment="members-card-12-frame"><img src="assets/pexels-33115262.jpg" alt="Bluecrop Blueberry in a Whiffletree grower&rsquo;s garden" loading="lazy" data-comment="members-card-12-img"></div>
+                        <figcaption class="mh-cap" data-comment="members-card-12-cap">
+                            <span class="mh-name" data-comment="members-card-12-name">Nadia K.</span>
+                            <span class="mh-meta" data-comment="members-card-12-meta">Bluecrop Blueberry · Zone 4 · Summer</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="mh-card" data-comment="members-card-13" data-component="card" data-cat="apple" data-zone="5" data-season="autumn" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
+                        <div class="mh-frame mh-frame--land" data-comment="members-card-13-frame"><img src="assets/pexels-33790937.jpg" alt="4-in-1 Combo Apple in a Whiffletree grower&rsquo;s garden" loading="lazy" data-comment="members-card-13-img"></div>
+                        <figcaption class="mh-cap" data-comment="members-card-13-cap">
+                            <span class="mh-name" data-comment="members-card-13-name">Owen T.</span>
+                            <span class="mh-meta" data-comment="members-card-13-meta">4-in-1 Combo Apple · Zone 5 · Autumn harvest</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="mh-card" data-comment="members-card-14" data-component="card" data-cat="berry" data-zone="3" data-season="summer" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
+                        <div class="mh-frame mh-frame--portrait" data-comment="members-card-14-frame"><img src="assets/pexels-27176055.jpg" alt="Boyne Raspberry in a Whiffletree grower&rsquo;s garden" loading="lazy" data-comment="members-card-14-img"></div>
+                        <figcaption class="mh-cap" data-comment="members-card-14-cap">
+                            <span class="mh-name" data-comment="members-card-14-name">Rosa L.</span>
+                            <span class="mh-meta" data-comment="members-card-14-meta">Boyne Raspberry · Zone 3 · Summer</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="mh-card" data-comment="members-card-6" data-component="card" data-cat="plum" data-zone="4" data-season="autumn" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
+                        <div class="mh-frame mh-frame--portrait" data-comment="members-card-6-frame"><img src="assets/pexels-5779196.jpg" alt="Damson Plum in a Whiffletree grower&rsquo;s garden" loading="lazy" data-comment="members-card-6-img"></div>
+                        <figcaption class="mh-cap" data-comment="members-card-6-cap">
+                            <span class="mh-name" data-comment="members-card-6-name">Tom &amp; Wendy</span>
+                            <span class="mh-meta" data-comment="members-card-6-meta">Damson Plum · Zone 4 · Autumn harvest</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="mh-card" data-comment="members-card-7" data-component="card" data-cat="apple" data-zone="4" data-season="autumn" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
+                        <div class="mh-frame mh-frame--land" data-comment="members-card-7-frame"><img src="assets/pexels-5529540.jpg" alt="Liberty Apple in a Whiffletree grower&rsquo;s garden" loading="lazy" data-comment="members-card-7-img"></div>
+                        <figcaption class="mh-cap" data-comment="members-card-7-cap">
+                            <span class="mh-name" data-comment="members-card-7-name">The Beaulieu Orchard</span>
+                            <span class="mh-meta" data-comment="members-card-7-meta">Liberty Apple · Zone 4 · Autumn harvest</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="mh-card" data-comment="members-card-8" data-component="card" data-cat="peach" data-zone="6" data-season="summer" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
+                        <div class="mh-frame mh-frame--square" data-comment="members-card-8-frame"><img src="assets/pexels-5528990.jpg" alt="Reliance Peach in a Whiffletree grower&rsquo;s garden" loading="lazy" data-comment="members-card-8-img"></div>
+                        <figcaption class="mh-cap" data-comment="members-card-8-cap">
+                            <span class="mh-name" data-comment="members-card-8-name">Chen Garden</span>
+                            <span class="mh-meta" data-comment="members-card-8-meta">Reliance Peach · Zone 6 · Midsummer</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="mh-card" data-comment="members-card-9" data-component="card" data-cat="berry" data-zone="2b" data-season="summer" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
+                        <div class="mh-frame mh-frame--portrait" data-comment="members-card-9-frame"><img src="assets/pexels-31834386.jpg" alt="Northline Saskatoon in a Whiffletree grower&rsquo;s garden" loading="lazy" data-comment="members-card-9-img"></div>
+                        <figcaption class="mh-cap" data-comment="members-card-9-cap">
+                            <span class="mh-name" data-comment="members-card-9-name">Aiko R.</span>
+                            <span class="mh-meta" data-comment="members-card-9-meta">Northline Saskatoon · Zone 2b · Early summer</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="mh-card" data-comment="members-card-10" data-component="card" data-cat="pear" data-zone="5" data-season="autumn" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
+                        <div class="mh-frame mh-frame--wide" data-comment="members-card-10-frame"><img src="assets/pexels-5529545.jpg" alt="Bosc Pear in a Whiffletree grower&rsquo;s garden" loading="lazy" data-comment="members-card-10-img"></div>
+                        <figcaption class="mh-cap" data-comment="members-card-10-cap">
+                            <span class="mh-name" data-comment="members-card-10-name">Greg H.</span>
+                            <span class="mh-meta" data-comment="members-card-10-meta">Bosc Pear · Zone 5 · Autumn harvest</span>
+                        </figcaption>
+                    </figure>
                     </div>
                 </div>
+
+
             </section>
 
-            <!-- YOU MAY ALSO LIKE -->
-            <section data-comment="pdp-related-section" style="background:var(--paper1); border-top:1px solid var(--line-soft);">
-                <div data-comment="pdp-related-inner" style="max-width:1320px; margin:0 auto; padding:80px 40px;">
-                    <h2 data-comment="pdp-related-heading" style="font-family:var(--display); font-weight:500; font-size:38px; color:var(--ink); margin:0 0 36px;">You may also like</h2>
-                    <div data-comment="pdp-related-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:24px;">
-
-                        <a data-comment="pdp-related-card-1" href="#" data-component="card" style="text-decoration:none;">
-                            <div data-comment="pdp-related-card-1-media" style="position:relative; aspect-ratio:1/0.95; border-radius:5px; overflow:hidden; background:url('assets/cat-apples.png') center/cover no-repeat;"><span data-comment="pdp-related-card-1-badge" style="position:absolute; top:12px; left:12px; font-family:var(--sans); font-weight:700; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); background:rgba(255,255,255,0.92); border-radius:999px; padding:5px 11px;">Sold out</span></div>
-                            <div data-comment="pdp-related-card-1-title" style="font-family:var(--display); font-weight:600; font-size:20px; color:var(--ink); margin-top:14px;">Honeycrisp</div>
-                            <div data-comment="pdp-related-card-1-price" style="font-family:var(--sans); font-size:14px; color:var(--muted); margin-top:3px;">$46.95 CAD</div>
-                            <div data-comment="pdp-related-card-1-type" style="font-family:var(--sans); font-size:12.5px; color:var(--subtle); margin-top:2px;">Apple</div>
-                        </a>
-
-                        <a data-comment="pdp-related-card-2" href="#" data-component="card" style="text-decoration:none;">
-                            <div data-comment="pdp-related-card-2-media" style="position:relative; aspect-ratio:1/0.95; border-radius:5px; overflow:hidden; background:url('assets/cat-pears.png') center/cover no-repeat;"><span data-comment="pdp-related-card-2-badge" style="position:absolute; top:12px; left:12px; font-family:var(--sans); font-weight:700; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); background:rgba(255,255,255,0.92); border-radius:999px; padding:5px 11px;">Sold out</span></div>
-                            <div data-comment="pdp-related-card-2-title" style="font-family:var(--display); font-weight:600; font-size:20px; color:var(--ink); margin-top:14px;">Bartlett</div>
-                            <div data-comment="pdp-related-card-2-price" style="font-family:var(--sans); font-size:14px; color:var(--muted); margin-top:3px;">$44.95 CAD</div>
-                            <div data-comment="pdp-related-card-2-type" style="font-family:var(--sans); font-size:12.5px; color:var(--subtle); margin-top:2px;">Pear</div>
-                        </a>
-
-                        <a data-comment="pdp-related-card-3" href="#" data-component="card" style="text-decoration:none;">
-                            <div data-comment="pdp-related-card-3-media" style="position:relative; aspect-ratio:1/0.95; border-radius:5px; overflow:hidden; background:url('assets/cat-cherries.png') center/cover no-repeat;"><span data-comment="pdp-related-card-3-badge" style="position:absolute; top:12px; left:12px; font-family:var(--sans); font-weight:700; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); background:rgba(255,255,255,0.92); border-radius:999px; padding:5px 11px;">Sold out</span></div>
-                            <div data-comment="pdp-related-card-3-title" style="font-family:var(--display); font-weight:600; font-size:20px; color:var(--ink); margin-top:14px;">Montmorency</div>
-                            <div data-comment="pdp-related-card-3-price" style="font-family:var(--sans); font-size:14px; color:var(--muted); margin-top:3px;">$42.95 CAD</div>
-                            <div data-comment="pdp-related-card-3-type" style="font-family:var(--sans); font-size:12.5px; color:var(--subtle); margin-top:2px;">Cherry</div>
-                        </a>
-
-                        <a data-comment="pdp-related-card-4" href="#" data-component="card" style="text-decoration:none;">
-                            <div data-comment="pdp-related-card-4-media" style="position:relative; aspect-ratio:1/0.95; border-radius:5px; overflow:hidden; background:url('assets/cat-plums.jpg') center/cover no-repeat;"><span data-comment="pdp-related-card-4-badge" style="position:absolute; top:12px; left:12px; font-family:var(--sans); font-weight:700; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); background:rgba(255,255,255,0.92); border-radius:999px; padding:5px 11px;">Sold out</span></div>
-                            <div data-comment="pdp-related-card-4-title" style="font-family:var(--display); font-weight:600; font-size:20px; color:var(--ink); margin-top:14px;">Mount Royal</div>
-                            <div data-comment="pdp-related-card-4-price" style="font-family:var(--sans); font-size:14px; color:var(--muted); margin-top:3px;">$43.95 CAD</div>
-                            <div data-comment="pdp-related-card-4-type" style="font-family:var(--sans); font-size:12.5px; color:var(--subtle); margin-top:2px;">Plum</div>
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-            <!-- RESOURCES CTA BANNER -->
-            <section data-comment="pdp-resources-cta" style="background:var(--paper2); border-top:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft);">
-                <div data-comment="pdp-resources-cta-inner" style="max-width:1320px; margin:0 auto; padding:40px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;">
-                    <div data-comment="pdp-resources-cta-text" style="font-family:var(--display); font-weight:500; font-size:28px; color:var(--ink);">Learn more about our trees and orchard care tips</div>
-                    <a data-comment="pdp-resources-cta-link" href="home.html#resources" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:#FFFFFF; background:var(--c600); border-radius:2px; padding:15px 28px; text-decoration:none; white-space:nowrap;">View all resources</a>
-                </div>
-            </section>
-
-            <!-- PDP IMAGE LIGHTBOX -->
-            <div data-comment="pdp-lightbox" id="pdp-lightbox" role="dialog" aria-modal="true" aria-label="Product image viewer" onclick="if(event.target===this)closePdpLightbox()" style="position:fixed; inset:0; z-index:1100; display:none; align-items:center; justify-content:center; background:rgba(21,20,15,0.9); padding:40px;">
-                <button type="button" data-comment="pdp-lightbox-close" onclick="closePdpLightbox()" aria-label="Close" style="position:absolute; top:24px; right:24px; width:48px; height:48px; border:none; border-radius:999px; background:rgba(255,255,255,0.94); color:var(--ink); display:flex; align-items:center; justify-content:center; cursor:pointer;"><i class="ph ph-x" aria-hidden="true" style="font-size:22px;"></i></button>
-                <button type="button" data-comment="pdp-lightbox-prev" onclick="pdpLightboxNav(-1)" aria-label="Previous image" style="position:absolute; left:24px; top:50%; transform:translateY(-50%); width:48px; height:48px; border:none; border-radius:999px; background:rgba(255,255,255,0.94); color:var(--ink); display:flex; align-items:center; justify-content:center; cursor:pointer;"><i class="ph ph-caret-left" aria-hidden="true" style="font-size:22px;"></i></button>
-                <img data-comment="pdp-lightbox-img" alt="" style="max-width:min(90vw,1100px); max-height:86vh; object-fit:contain; border-radius:6px; box-shadow:0 24px 80px rgba(0,0,0,0.55);">
-                <button type="button" data-comment="pdp-lightbox-next" onclick="pdpLightboxNav(1)" aria-label="Next image" style="position:absolute; right:24px; top:50%; transform:translateY(-50%); width:48px; height:48px; border:none; border-radius:999px; background:rgba(255,255,255,0.94); color:var(--ink); display:flex; align-items:center; justify-content:center; cursor:pointer;"><i class="ph ph-caret-right" aria-hidden="true" style="font-size:22px;"></i></button>
-                <div data-comment="pdp-lightbox-counter" style="position:absolute; bottom:24px; left:50%; transform:translateX(-50%); font-family:var(--sans); font-weight:600; font-size:13px; letter-spacing:0.04em; color:#fff; background:rgba(21,20,15,0.6); border-radius:999px; padding:7px 16px;">1 / 1</div>
-            </div>
-
-            <!-- PDP INTERACTIONS -->
+            <!-- Members Hub — mock add-to-cart (prototype: confirmation only,
+                 mirrors the advisor's mock; PRODUCTION would POST to the real cart). -->
             <script>
-                /* Gallery image switcher */
-                function setPdpImage(src, el) {
-                    var main = document.querySelector('[data-comment="pdp-gallery-main-img"]');
-                    if (main) main.style.backgroundImage = "url('" + src + "')";
-                    document.querySelectorAll('[data-comment^="pdp-gallery-thumb-"]').forEach(function (t) {
-                        t.style.borderColor = 'transparent';
-                    });
-                    if (el) el.style.borderColor = 'var(--g700)';
+                function membersAddToCart(btn) {
+                    if (!btn || btn.classList.contains('added')) return;
+                    btn.classList.add('added');
+                    btn.setAttribute('aria-label', 'Added to cart');
+                    btn.innerHTML = '<i class="ph ph-check" aria-hidden="true"></i>';
+                    var badge = document.querySelector('[data-comment="header-cart-badge"]');
+                    if (badge) badge.classList.add('on');
                 }
 
-                /* Accordion toggles (More about / Growing details) */
-                function togglePdpAccordion(btn) {
-                    var body = btn.nextElementSibling;
-                    var open = btn.getAttribute('aria-expanded') !== 'true';
-                    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-                    if (body) body.style.display = open ? 'block' : 'none';
-                    var icon = btn.querySelector('i');
-                    if (icon) icon.className = open ? 'ph ph-minus' : 'ph ph-plus';
+                function membersOpenGate() {
+                    var scrim = document.querySelector('[data-comment="members-gate-scrim"]');
+                    var modal = document.querySelector('[data-comment="members-gate"]');
+                    if (!scrim || !modal) return;
+                    modal.hidden = false;
+                    void modal.offsetWidth; // reflow so the open transition runs
+                    scrim.classList.add('open');
+                    modal.classList.add('open');
+                    var closeBtn = modal.querySelector('[data-comment="members-gate-close"]');
+                    if (closeBtn) closeBtn.focus();
                 }
-
-                /* Image lightbox */
-                var pdpLbImages = [];
-                var pdpLbIndex = 0;
-                function pdpBgUrl(el) {
-                    var m = el ? (el.style.backgroundImage || '').match(/url\(['"]?(.*?)['"]?\)/) : null;
-                    return m ? m[1] : '';
-                }
-                function pdpGalleryThumbs() {
-                    return Array.prototype.slice.call(document.querySelectorAll('[data-comment^="pdp-gallery-thumb-"]'));
-                }
-                function pdpRenderLightbox() {
-                    var img = document.querySelector('[data-comment="pdp-lightbox-img"]');
-                    var counter = document.querySelector('[data-comment="pdp-lightbox-counter"]');
-                    var nav = pdpLbImages.length > 1;
-                    var src = pdpLbImages[pdpLbIndex] || '';
-                    if (img) img.src = src;
-                    if (counter) counter.textContent = (pdpLbIndex + 1) + ' / ' + pdpLbImages.length;
-                    ['pdp-lightbox-prev', 'pdp-lightbox-next'].forEach(function (c) {
-                        var b = document.querySelector('[data-comment="' + c + '"]');
-                        if (b) b.style.display = nav ? 'flex' : 'none';
-                    });
-                    /* Keep the main gallery in sync with the viewed image */
-                    pdpGalleryThumbs().forEach(function (t) {
-                        if (pdpBgUrl(t) === src) setPdpImage(src, t);
-                    });
-                }
-                function openPdpLightbox() {
-                    pdpLbImages = pdpGalleryThumbs().map(pdpBgUrl).filter(Boolean);
-                    if (!pdpLbImages.length) return;
-                    var cur = pdpBgUrl(document.querySelector('[data-comment="pdp-gallery-main-img"]'));
-                    pdpLbIndex = Math.max(0, pdpLbImages.indexOf(cur));
-                    pdpRenderLightbox();
-                    var lb = document.getElementById('pdp-lightbox');
-                    if (lb) lb.style.display = 'flex';
-                    document.body.style.overflow = 'hidden';
-                }
-                function closePdpLightbox() {
-                    var lb = document.getElementById('pdp-lightbox');
-                    if (lb) lb.style.display = 'none';
-                    document.body.style.overflow = '';
-                }
-                function pdpLightboxNav(dir) {
-                    if (pdpLbImages.length < 2) return;
-                    pdpLbIndex = (pdpLbIndex + dir + pdpLbImages.length) % pdpLbImages.length;
-                    pdpRenderLightbox();
+                function membersCloseGate() {
+                    var scrim = document.querySelector('[data-comment="members-gate-scrim"]');
+                    var modal = document.querySelector('[data-comment="members-gate"]');
+                    if (!scrim || !modal) return;
+                    scrim.classList.remove('open');
+                    modal.classList.remove('open');
+                    window.setTimeout(function () { modal.hidden = true; }, 220);
                 }
                 document.addEventListener('keydown', function (e) {
-                    var lb = document.getElementById('pdp-lightbox');
-                    if (!lb || lb.style.display === 'none') return;
-                    if (e.key === 'Escape') closePdpLightbox();
-                    else if (e.key === 'ArrowLeft') pdpLightboxNav(-1);
-                    else if (e.key === 'ArrowRight') pdpLightboxNav(1);
+                    if (e.key !== 'Escape') return;
+                    var modal = document.querySelector('[data-comment="members-gate"]');
+                    if (modal && modal.classList.contains('open')) membersCloseGate();
                 });
+
+                function mhFilterVal(dc) {
+                    var el = document.querySelector('[data-comment="' + dc + '"]');
+                    return el ? el.value : '';
+                }
+                function membersApplyFilters() {
+                    var v = mhFilterVal('members-filter-variety');
+                    var s = mhFilterVal('members-filter-season');
+                    var z = mhFilterVal('members-filter-zone');
+                    var shown = 0;
+                    document.querySelectorAll('.mh-card').forEach(function (c) {
+                        var ok = (!v || c.dataset.cat === v) && (!s || c.dataset.season === s) && (!z || c.dataset.zone === z);
+                        c.style.display = ok ? '' : 'none';
+                        if (ok) shown++;
+                    });
+                    var count = document.querySelector('[data-comment="members-gallery-count"]');
+                    if (count) count.textContent = (v || s || z)
+                        ? 'Showing ' + shown + ' of 14 gardens'
+                        : 'Showing 14 of 200+ gardens';
+                }
+
+                function openLightbox(card) {
+                    var name = card.querySelector('.mh-name').textContent;
+                    var meta = card.querySelector('.mh-meta').textContent;
+                    var variety = meta.split('\u00b7')[0].trim();
+                    document.getElementById('lb-name').textContent = name;
+                    document.getElementById('lb-meta').textContent = meta;
+                    document.getElementById('lb-caption').textContent = variety + ' growing in ' + name + '\u2019s garden. Shared with the Whiffletree community.';
+                    var cardImg = card.querySelector('.mh-frame img');
+                    var lbImg = document.getElementById('lb-img');
+                    if (cardImg) {
+                        lbImg.src = cardImg.src;
+                        lbImg.alt = cardImg.alt;
+                        lbImg.hidden = false;
+                    } else {
+                        lbImg.hidden = true;
+                    }
+                    document.getElementById('lb-prod-name').textContent = 'See ' + variety;
+                    document.querySelector('.lb-scrim').classList.add('open');
+                    var lb = document.querySelector('.lb');
+                    lb.classList.add('open');
+                    lb.setAttribute('aria-hidden', 'false');
+                    document.documentElement.style.overflow = 'hidden';
+                    document.addEventListener('keydown', lbEsc);
+                }
+                function closeLightbox() {
+                    document.querySelector('.lb-scrim').classList.remove('open');
+                    var lb = document.querySelector('.lb');
+                    lb.classList.remove('open');
+                    lb.setAttribute('aria-hidden', 'true');
+                    document.documentElement.style.overflow = '';
+                    document.removeEventListener('keydown', lbEsc);
+                }
+                function lbEsc(e) { if (e.key === 'Escape') closeLightbox(); }
             </script>
+
+            <!-- GALLERY LIGHTBOX -->
+            <div class="lb-scrim" data-comment="members-lightbox-scrim" onclick="closeLightbox()"></div>
+            <div class="lb" data-comment="members-lightbox" role="dialog" aria-modal="true" aria-label="Garden photo" aria-hidden="true">
+                <button class="lb-close" type="button" data-comment="members-lightbox-close" aria-label="Close" onclick="closeLightbox()"><i class="ph ph-x" aria-hidden="true"></i></button>
+                <div class="lb-media" data-comment="members-lightbox-media"><i class="ph ph-image" aria-hidden="true"></i><img id="lb-img" alt="" data-comment="members-lightbox-img" hidden></div>
+                <div class="lb-info" data-comment="members-lightbox-info">
+                    <span class="lb-eyebrow" data-comment="members-lightbox-eyebrow">From the community</span>
+                    <span class="lb-name" id="lb-name" data-comment="members-lightbox-name"></span>
+                    <span class="lb-meta" id="lb-meta" data-comment="members-lightbox-meta"></span>
+                    <p class="lb-caption" id="lb-caption" data-comment="members-lightbox-caption"></p>
+                    <div class="lb-actions" data-comment="members-lightbox-actions">
+                        <a class="lb-prod" id="lb-prod" href="product.html" data-comment="members-lightbox-prod"><span id="lb-prod-name"></span> <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+
             <!-- FAQ / CONTACT CTA -->
             <section id="contact" data-comment="contact-section" style="position:relative; overflow:hidden; background:#0e4c23;">
                 <!-- background photo (section has solid --g800 as fallback) -->
@@ -1281,12 +1500,12 @@
                 .adv-drawer { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 1002; background: var(--page, #ffffff); font-family: var(--sans); color: var(--ink2); display: flex; flex-direction: column; transform: translateY(100%); transition: transform 300ms cubic-bezier(0.22,1,0.36,1), opacity 200ms ease; pointer-events: none; }
                 .adv-drawer.open { transform: none; opacity: 1; pointer-events: auto; }
 
-                .adv-head { background: var(--g900); color: #eaf0e0; padding: 18px 20px; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
-                .adv-head-mark { width: 38px; height: 38px; border-radius: 2px; background: var(--paper1); color: var(--g900); display: flex; align-items: center; justify-content: center; font-size: 21px; }
+                .adv-head { background: var(--paper2); color: var(--ink); padding: 18px 20px; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+                .adv-head-mark { width: 38px; height: 38px; border-radius: 2px; background: var(--g700); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 21px; }
                 .adv-head-name { font-family: var(--display); font-size: 20px; font-weight: 600; line-height: 1.1; }
-                .adv-head-status { font-size: 12px; color: #a9c2b0; display: flex; align-items: center; gap: 6px; }
-                .adv-head-status .dot { width: 7px; height: 7px; border-radius: 999px; background: var(--g300); }
-                .adv-close { margin-left: auto; background: none; border: none; color: #a9c2b0; cursor: pointer; font-size: 22px; display: flex; }
+                .adv-head-status { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+                .adv-head-status .dot { width: 7px; height: 7px; border-radius: 999px; background: var(--g600); }
+                .adv-close { margin-left: auto; background: none; border: none; color: var(--muted); cursor: pointer; font-size: 22px; display: flex; }
                 .adv-close:hover { color: #fff; }
                 .adv-close:focus-visible { outline: 2px solid var(--g300); outline-offset: 2px; border-radius: 2px; }
 
@@ -1620,5 +1839,116 @@
                 })();
             </script>
             <!-- ════════ /AI VARIETY ADVISOR ════════ -->
+        <script data-comment="wt-dd-script">
+        (function () {
+            var registry = [];
+            function closeAll(except) { registry.forEach(function (d) { if (d.wrap !== except) d.close(); }); }
+            function enhance(sel) {
+                if (sel.dataset.wtEnhanced) return;
+                sel.dataset.wtEnhanced = '1';
+                var wrap = document.createElement('div');
+                wrap.className = 'wt-dd';
+                if (sel.classList.contains('mh-filter')) wrap.classList.add('wt-dd--pill');
+                else if (sel.classList.contains('sg-select')) wrap.classList.add('wt-dd--sm');
+                else if (sel.classList.contains('cat-select')) wrap.classList.add('wt-dd--sort');
+
+                var trigger = document.createElement('button');
+                trigger.type = 'button';
+                trigger.className = 'wt-dd-trigger';
+                trigger.setAttribute('aria-haspopup', 'listbox');
+                trigger.setAttribute('aria-expanded', 'false');
+                if (sel.getAttribute('aria-label')) trigger.setAttribute('aria-label', sel.getAttribute('aria-label'));
+                var labelEl = document.createElement('span');
+                labelEl.className = 'wt-dd-trigger-label';
+                var caret = document.createElement('i');
+                caret.className = 'ph ph-caret-down wt-dd-caret';
+                caret.setAttribute('aria-hidden', 'true');
+                trigger.appendChild(labelEl);
+                trigger.appendChild(caret);
+
+                var menu = document.createElement('div');
+                menu.className = 'wt-dd-menu';
+                menu.setAttribute('role', 'listbox');
+                var options = Array.prototype.slice.call(sel.options);
+                options.forEach(function (o, i) {
+                    var item = document.createElement('div');
+                    item.className = 'wt-dd-option';
+                    item.setAttribute('role', 'option');
+                    item.dataset.index = i;
+                    var t = document.createElement('span');
+                    t.textContent = o.textContent;
+                    var c = document.createElement('i');
+                    c.className = 'ph ph-check wt-dd-option-check';
+                    c.setAttribute('aria-hidden', 'true');
+                    item.appendChild(t);
+                    item.appendChild(c);
+                    item.addEventListener('click', function () { choose(i); closeMenu(); trigger.focus(); });
+                    menu.appendChild(item);
+                });
+
+                sel.parentNode.insertBefore(wrap, sel);
+                wrap.appendChild(sel);
+                wrap.appendChild(trigger);
+                wrap.appendChild(menu);
+                sel.classList.add('wt-dd-native');
+                sel.tabIndex = -1;
+
+                var activeIndex = -1;
+                function syncLabel() {
+                    var o = sel.options[sel.selectedIndex];
+                    labelEl.textContent = o ? o.textContent : '';
+                    for (var k = 0; k < menu.children.length; k++) {
+                        var on = (+menu.children[k].dataset.index === sel.selectedIndex);
+                        menu.children[k].classList.toggle('is-selected', on);
+                        menu.children[k].setAttribute('aria-selected', on ? 'true' : 'false');
+                    }
+                }
+                function choose(i) {
+                    if (sel.selectedIndex !== i) { sel.selectedIndex = i; sel.dispatchEvent(new Event('change', { bubbles: true })); }
+                    syncLabel();
+                }
+                function clearActive() { for (var k = 0; k < menu.children.length; k++) menu.children[k].classList.remove('is-active'); }
+                function setActive(i) {
+                    if (i < 0) i = 0;
+                    if (i > menu.children.length - 1) i = menu.children.length - 1;
+                    clearActive();
+                    var it = menu.children[i];
+                    if (it) { it.classList.add('is-active'); it.scrollIntoView({ block: 'nearest' }); }
+                    activeIndex = i;
+                }
+                function openMenu() {
+                    closeAll(wrap);
+                    wrap.classList.add('is-open');
+                    trigger.setAttribute('aria-expanded', 'true');
+                    setActive(sel.selectedIndex < 0 ? 0 : sel.selectedIndex);
+                }
+                function closeMenu() {
+                    wrap.classList.remove('is-open');
+                    trigger.setAttribute('aria-expanded', 'false');
+                    clearActive();
+                }
+                function isOpen() { return wrap.classList.contains('is-open'); }
+
+                trigger.addEventListener('click', function (e) { e.stopPropagation(); if (isOpen()) closeMenu(); else openMenu(); });
+                trigger.addEventListener('keydown', function (e) {
+                    if (e.key === 'ArrowDown') { e.preventDefault(); if (!isOpen()) openMenu(); else setActive(activeIndex + 1); }
+                    else if (e.key === 'ArrowUp') { e.preventDefault(); if (!isOpen()) openMenu(); else setActive(activeIndex - 1); }
+                    else if (e.key === 'Enter' || e.key === ' ') { if (isOpen()) { e.preventDefault(); if (activeIndex >= 0) { choose(activeIndex); closeMenu(); } } else { e.preventDefault(); openMenu(); } }
+                    else if (e.key === 'Escape') { if (isOpen()) { e.preventDefault(); closeMenu(); } }
+                    else if (e.key === 'Tab') { closeMenu(); }
+                });
+
+                syncLabel();
+                registry.push({ wrap: wrap, close: closeMenu });
+            }
+            document.addEventListener('click', function (e) { registry.forEach(function (d) { if (!d.wrap.contains(e.target)) d.close(); }); });
+            function initAll() {
+                var nodes = document.querySelectorAll('.cat-select, .sg-select, .mh-filter, [data-comment="forms-variety-select"]');
+                Array.prototype.forEach.call(nodes, enhance);
+            }
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAll);
+            else initAll();
+        })();
+        </script>
         </body>
 </html>
