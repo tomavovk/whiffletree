@@ -626,7 +626,7 @@
             min-width: 100%; width: max-content; max-width: min(340px, 92vw);
             background: #fff; border: 1.5px solid var(--line); border-radius: 2px;
             box-shadow: 0 14px 34px rgba(21,20,15,0.13);
-            padding: 5px; max-height: 288px; overflow-y: auto;
+            padding: 5px; max-height: 176px; overflow-y: auto;
             opacity: 0; transform: translateY(-4px); pointer-events: none;
             transition: opacity 150ms cubic-bezier(0.2,0,0,1), transform 150ms cubic-bezier(0.2,0,0,1);
         }
@@ -786,7 +786,7 @@
                    lighten/elegant design direction. */
                 .mh-section { background: #ffffff; }
 
-                .mh-gallery { max-width: 1180px; margin: 0 auto; padding: 44px 40px 96px; }
+                .mh-gallery { max-width: 1180px; margin: 0 auto; padding: 88px 40px 104px; }
                 .mh-gallery-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--line-soft); padding-bottom: 16px; margin-bottom: 30px; }
                 .mh-gallery-title { font-family: var(--display); font-weight: 600; font-size: 27px; color: var(--ink2); }
                 .mh-count { font-family: var(--sans); font-size: 13.5px; color: var(--subtle); letter-spacing: 0.02em; white-space: nowrap; }
@@ -812,7 +812,7 @@
                 @media (max-width: 1100px) { .mh-grid { column-count: 3; } }
                 @media (max-width: 760px) {
                     .mh-grid { column-count: 2; }
-                    .mh-gallery { padding: 36px 22px 72px; }
+                    .mh-gallery { padding: 60px 22px 80px; }
                     .mh-gallery-head { flex-direction: column; align-items: flex-start; gap: 6px; }
                     .mh-gallery-title { font-size: 24px; }
                 }
@@ -897,6 +897,8 @@
                 .sg-btn-coral:hover { background: var(--c700); border-color: var(--c700); }
                 .sg-btn-secondary { background: transparent; color: var(--g700); border-color: var(--g700); }
                 .sg-btn-secondary:hover { background: var(--g700); color: #EAF0E0; border-color: var(--g700); }
+                .sg-btn-coral-outline { background: transparent; color: var(--c600); border-color: var(--c600); }
+                .sg-btn-coral-outline:hover { background: var(--c600); color: #fff; border-color: var(--c600); }
                 .sg-btn--block { width: 100%; }
 
                 /* Guest-gate popup — shown when a signed-out visitor tries to publish */
@@ -913,7 +915,7 @@
                 .sg-modal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
 
                 /* Gallery filters */
-                .mh-filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
+                .mh-filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 44px; }
                 .mh-filter { font-family: var(--sans); font-size: 13.5px; font-weight: 600; color: var(--ink2); background: #fff; border: 1px solid var(--line-soft); border-radius: 999px; padding: 9px 16px; cursor: pointer; }
                 .mh-filter:focus { outline: none; border-color: var(--g700); }
 
@@ -965,11 +967,272 @@
                     .fg-name { font-size: 38px; }
                     .fg-avatar { width: 92px; height: 92px; border-width: 5px; }
                 }
+
+                /* ============================================================
+                   COMMUNITY FORUM — gate banner, discussion (text) cards,
+                   post-type filter, and the two-mode post popup (photo
+                   carousel / reading article) with comments + related.
+                   Builds on the existing .lb scrim/dialog. See
+                   docs/members-hub-forum-spec.md.
+                   ============================================================ */
+
+                /* --- Community join banner (top of page) — the #103 login gate,
+                   given an editorial treatment: green→cream→coral gradient tying
+                   both brand accents, garden-avatar social proof, serif headline. --- */
+                .mh-join { background:var(--paper0); border-bottom:1px solid var(--line); }
+                .mh-join-inner { max-width:1180px; margin:0 auto; padding:32px 40px; display:flex; align-items:center; justify-content:space-between; gap:24px 44px; flex-wrap:wrap; }
+                .mh-join-copy { min-width:0; flex:1 1 auto; }
+                .mh-join-proof { display:flex; align-items:center; gap:12px; }
+                .mh-join-avatars { display:inline-flex; }
+                .mh-join-av { width:36px; height:36px; border-radius:50%; border:2px solid #fff; background:var(--paper2) center/cover no-repeat; margin-left:-12px; box-shadow:0 1px 3px rgba(21,20,15,0.18); }
+                .mh-join-av:first-child { margin-left:0; }
+                .mh-join-av--count { display:flex; align-items:center; justify-content:center; background:var(--g700); color:#fff; font-family:var(--sans); font-weight:800; font-size:10.5px; letter-spacing:0.02em; }
+                .mh-join-proof-text { font-family:var(--sans); font-weight:700; font-size:11.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--g800); }
+                .mh-join-title { font-family:var(--display); font-weight:600; font-size:31px; line-height:1.1; color:var(--ink); margin:16px 0 0; max-width:none; white-space:nowrap; }
+                .mh-join-actions { display:flex; gap:12px; flex-wrap:wrap; flex:none; align-self:flex-end; }
+                @media (max-width:1180px){
+                    .mh-join-title { font-size:27px; white-space:normal; }
+                }
+                @media (max-width:900px){
+                    .mh-join-inner { padding:26px 22px; }
+                    .mh-join-actions { width:100%; }
+                    .mh-join-actions .sg-btn { flex:1 1 auto; }
+                }
+                @media (max-width:560px){
+                    .mh-join-title { font-size:24px; }
+                    .mh-join-proof-text { font-size:11px; }
+                }
+
+                /* --- Post-type filter (All / Photos / Discussions) --- */
+                .mh-type-tabs { display:inline-flex; gap:4px; background:var(--paper1); border:1px solid var(--line-soft); border-radius:999px; padding:4px; margin-right:auto; }
+                .mh-type-tab { font-family:var(--sans); font-size:13.5px; font-weight:700; color:var(--muted); background:transparent; border:0; border-radius:999px; padding:8px 16px; cursor:pointer; transition:background-color 150ms cubic-bezier(0.2,0,0,1), color 150ms cubic-bezier(0.2,0,0,1); }
+                .mh-type-tab.is-active { background:#fff; color:var(--g800); box-shadow:0 1px 3px rgba(21,20,15,0.10); }
+                .mh-type-tab:hover:not(.is-active){ color:var(--ink2); }
+
+                /* --- Discussion (text-only) teaser card in the feed (#104) --- */
+                .mh-card--post { background:var(--paper1); border:1px solid var(--line-soft); border-radius:2px; padding:22px 22px 20px; transition:box-shadow 240ms cubic-bezier(0.22,1,0.36,1), transform 240ms cubic-bezier(0.22,1,0.36,1); }
+                .mh-card--post:hover { box-shadow:0 12px 32px rgba(6,61,34,0.10); transform:translateY(-2px); }
+                .mh-post-topic { display:inline-flex; align-items:center; gap:6px; font-family:var(--sans); font-weight:700; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--g700); }
+                .mh-post-topic i { font-size:15px; }
+                .mh-post-title { font-family:var(--display); font-weight:600; font-size:24px; line-height:1.22; color:var(--ink); margin:10px 0 0; display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden; }
+                .mh-post-foot { display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-family:var(--sans); font-size:12.5px; color:var(--muted); margin-top:14px; }
+                .mh-post-foot .dot { color:var(--subtle); }
+                .mh-post-foot .rc { display:inline-flex; align-items:center; gap:5px; color:var(--g700); font-weight:700; }
+                .mh-post-foot .rc i { font-size:14px; }
+
+                /* --- Unified post popup — ONE template for every post. The only
+                   difference is whether it carries a photo carousel at the top;
+                   the text/article, comments and related always render the same. --- */
+                .lb { display:block; width:min(1080px,96vw); height:92vh; max-height:92vh; overflow:hidden; }
+                .lb-inner { display:flex; flex-direction:column; height:100%; }
+                .lbx-scroll { overflow-y:auto; -webkit-overflow-scrolling:touch; flex:1 1 auto; min-height:0; }
+
+                /* Photo carousel — a horizontal filmstrip on a light-beige band.
+                   Each photo fills the band height at its natural aspect (no crop) and
+                   sits one after another; the strip scrolls through horizontally
+                   (native scroll + snap), so many photos flow naturally. */
+                .lbx-hero { position:relative; width:100%; background:var(--paper1); overflow:hidden; flex:none; height:min(560px,60vh); }
+                .lbx-carousel { display:flex; height:100%; overflow:hidden; }
+                .lbx-track { display:flex; height:100%; will-change:transform; transition:transform 460ms cubic-bezier(.4,0,.2,1); }
+                .lbx-slide { flex:0 0 auto; height:100%; }
+                .lbx-slide img { height:100%; width:auto; display:block; }
+                .lbx-car-btn { position:absolute; top:50%; transform:translateY(-50%); width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,0.92); border:0; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--ink2); z-index:2; transition:background-color 200ms; }
+                .lbx-car-btn:hover { background:#fff; }
+                .lbx-car-btn i { font-size:19px; }
+                .lbx-car-prev { left:12px; } .lbx-car-next { right:12px; }
+                .lbx-dots { position:absolute; bottom:14px; left:50%; transform:translateX(-50%); display:flex; gap:7px; z-index:2; }
+                .lbx-dot { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.55); border:0; cursor:pointer; padding:0; transition:background-color 150ms; }
+                .lbx-dot.is-active { background:#fff; }
+                .lbx-count { position:absolute; top:14px; left:14px; z-index:2; font-family:var(--sans); font-size:12px; font-weight:700; color:#fff; background:rgba(21,20,15,0.55); border-radius:999px; padding:4px 10px; }
+
+                /* Article + top bar (shared by every post) */
+                .lbx-topbar { display:flex; align-items:center; gap:14px; padding:13px 22px; border-bottom:1px solid var(--line-soft); background:#fff; flex:none; }
+                .lbx-topbar-title { font-family:var(--display); font-weight:600; font-size:17px; color:var(--ink); flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+                .lbx-topbar-close { flex:none; width:36px; height:36px; border-radius:50%; background:transparent; border:0; cursor:pointer; color:var(--muted); display:flex; align-items:center; justify-content:center; transition:background-color 200ms, color 200ms; }
+                .lbx-topbar-close:hover { background:var(--paper1); color:var(--ink); }
+                .lbx-topbar-close i { font-size:19px; }
+                .lbx-progress { height:3px; background:var(--line-soft); flex:none; }
+                .lbx-progress > i { display:block; height:100%; width:0; background:var(--g600); transition:width 90ms linear; }
+                .lbx-article { max-width:68ch; margin:0 auto; padding:44px 24px 8px; }
+                .lbx-eyebrow { font-family:var(--sans); font-weight:700; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--g700); }
+                .lbx-title { font-family:var(--display); font-weight:600; font-size:38px; line-height:1.1; color:var(--ink); margin:12px 0 0; }
+                .lbx-title--sm { font-size:29px; }
+                .lbx-byline { font-family:var(--sans); font-size:13px; color:var(--muted); letter-spacing:0.02em; margin-top:12px; display:flex; align-items:center; gap:9px; flex-wrap:wrap; }
+                .lbx-byline .dot { color:var(--subtle); }
+                .lbx-byline-avatar { width:26px; height:26px; border-radius:50%; object-fit:cover; border:2px solid #fff; box-shadow:0 1px 3px rgba(21,20,15,0.22); flex:none; background:var(--paper2); }
+                .lbx-body { margin-top:24px; }
+                .lbx-body p { font-family:var(--sans); font-size:19px; line-height:1.7; color:var(--ink2); margin:0 0 1.9rem; }
+                .lbx-body h3 { font-family:var(--display); font-weight:600; font-size:26px; line-height:1.2; color:var(--ink); margin:2.4rem 0 0.4rem; }
+                .lbx-body .lbx-lead { font-weight:700; color:var(--ink); }
+                .lbx-body a { color:var(--accent-deep); text-decoration:underline; text-underline-offset:3px; }
+                .lbx-body ul { margin:0 0 1.9rem; padding-left:0; list-style:none; }
+                .lbx-body li { font-family:var(--sans); font-size:17px; line-height:1.6; color:var(--ink2); padding-left:26px; position:relative; margin-bottom:10px; }
+                .lbx-body li::before { content:"\2022"; position:absolute; left:9px; color:var(--g600); font-weight:700; }
+                .lbx-body li.chk::before { content:"\2713"; left:3px; color:var(--g600); }
+                .lbx-quote { font-family:var(--display); font-style:italic; font-size:23px; line-height:1.5; color:var(--g800); margin:0 0 1.9rem; padding-left:18px; border-left:3px solid var(--g200); }
+                .lbx-figure { margin:6px 0 2rem; }
+                .lbx-figure img { width:100%; border-radius:2px; display:block; }
+                .lbx-figure figcaption { font-family:var(--sans); font-size:12.5px; color:var(--muted); margin-top:8px; }
+
+                /* Product CTA (shared by both modes) */
+                .lbx-prod { display:inline-flex; align-items:center; gap:9px; margin-top:6px; font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#fff; background:var(--c600); border:1.5px solid var(--c600); border-radius:2px; padding:14px 28px; text-decoration:none; transition:background-color 150ms cubic-bezier(0.2,0,0,1), border-color 150ms cubic-bezier(0.2,0,0,1); }
+                .lbx-prod:hover { background:var(--c700); border-color:var(--c700); }
+                .lbx-prod i { font-size:15px; }
+
+                /* Comments (simple — one reply level, no votes) */
+                .lbx-comments { border-top:1px solid var(--line-soft); margin-top:30px; padding-top:26px; }
+                .lbx-comments.in-reading { max-width:68ch; margin-left:auto; margin-right:auto; padding-left:24px; padding-right:24px; }
+                .lbx-comments-head { font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); margin-bottom:18px; }
+                .lbx-comment { margin-bottom:20px; }
+                .lbx-comment-top { display:flex; align-items:center; gap:8px; }
+                .lbx-avatar { width:30px; height:30px; border-radius:50%; background:var(--g100); color:var(--g800); display:flex; align-items:center; justify-content:center; font-family:var(--sans); font-weight:700; font-size:11.5px; flex:none; }
+                .lbx-avatar-img { width:30px; height:30px; border-radius:50%; object-fit:cover; border:2px solid #fff; box-shadow:0 1px 2px rgba(21,20,15,0.18); flex:none; background:var(--paper2); }
+                .lbx-comment-author { font-family:var(--sans); font-weight:700; font-size:13.5px; color:var(--ink); }
+                .lbx-comment-date { font-family:var(--sans); font-size:12px; color:var(--subtle); }
+                .lbx-comment-text { font-family:var(--sans); font-size:14.5px; line-height:1.6; color:var(--ink2); margin:7px 0 0 38px; }
+                .lbx-replies { margin:12px 0 0 38px; padding-left:16px; border-left:2px solid var(--line-soft); }
+                .lbx-reply { margin-bottom:14px; }
+                .lbx-reply:last-child { margin-bottom:0; }
+                .lbx-reply-box { margin-top:6px; }
+                .lbx-reply-fake { display:flex; align-items:center; gap:10px; width:100%; text-align:left; font-family:var(--sans); font-size:14px; color:var(--subtle); background:#fff; border:1.5px solid var(--line); border-radius:2px; padding:12px 14px; cursor:pointer; transition:border-color 150ms; }
+                .lbx-reply-fake:hover { border-color:var(--subtle); }
+                .lbx-reply-fake i { color:var(--g700); font-size:16px; }
+
+                /* Related — "More from the community" */
+                .lbx-related { border-top:1px solid var(--line-soft); margin-top:30px; padding:26px 0 40px; }
+                .lbx-related.in-reading { max-width:68ch; margin-left:auto; margin-right:auto; padding:26px 24px 44px; }
+                .lbx-related-head { font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink); margin-bottom:16px; }
+                .lbx-related-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+                .lbx-rel-card { text-align:left; background:#fff; border:1px solid var(--line-soft); border-radius:2px; padding:16px; cursor:pointer; transition:box-shadow 200ms, transform 200ms; }
+                .lbx-rel-card:hover { box-shadow:0 8px 20px rgba(90,70,35,0.12); transform:translateY(-2px); }
+                .lbx-rel-topic { display:block; font-family:var(--sans); font-weight:700; font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; color:var(--g700); }
+                .lbx-rel-title { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; font-family:var(--display); font-weight:600; font-size:17px; line-height:1.2; color:var(--ink); margin-top:7px; }
+
+                /* Popup responsive */
+                @media (max-width:820px){
+                    .lb { width:100vw; height:100vh; max-height:100vh; border-radius:0; top:0; left:0; transform:none; }
+                    .lb.open { transform:none; }
+                    .lbx-hero { height:min(380px,50vh); }
+                    .lbx-article { padding:28px 20px 4px; }
+                    .lbx-title { font-size:29px; }
+                    .lbx-body p { font-size:17.5px; }
+                    .lbx-comments.in-reading, .lbx-related.in-reading { padding-left:20px; padding-right:20px; }
+                    .lbx-related-grid { grid-template-columns:1fr; }
+                }
+
+                /* --- Quick composer (inline, shrunk) --- */
+                .sg-card--quick .sg-form-head { margin-bottom:14px; }
+                .sg-quick-input { width:100%; font-family:var(--sans); font-size:15px; line-height:1.5; color:var(--ink2); background:#fff; border:1.5px solid var(--line); border-radius:2px; padding:13px 14px; min-height:84px; resize:vertical; }
+                .sg-quick-input::placeholder { color:var(--subtle); }
+                .sg-quick-input:focus { outline:none; border-color:var(--g700); }
+                .sg-quick-photos { display:inline-flex; align-items:center; gap:8px; margin-top:12px; font-family:var(--sans); font-weight:700; font-size:13px; color:var(--g800); background:none; border:0; padding:6px 0; cursor:pointer; transition:color 150ms cubic-bezier(0.2,0,0,1); }
+                .sg-quick-photos i { font-size:18px; }
+                .sg-quick-photos span { text-decoration:underline; text-decoration-color:transparent; text-underline-offset:3px; transition:text-decoration-color 150ms cubic-bezier(0.2,0,0,1); }
+                .sg-quick-photos:hover { color:var(--g700); }
+                .sg-quick-photos:hover span { text-decoration-color:currentColor; }
+                .sg-quick-actions { display:flex; gap:10px; margin-top:16px; }
+                .sg-quick-actions .sg-btn { flex:1 1 auto; padding:14px 18px; }
+
+                /* --- Compose popup (mirrors the viewer: photo zone → title → meta → body) --- */
+                .cmp-hero { padding:22px 24px 0; }
+                .cmp-hero .sg-drop { padding:30px; }
+                .cmp-article { padding-top:24px; }
+                .cmp-eyebrow-field { margin-bottom:2px; }
+                .cmp-title { width:100%; font-family:var(--display); font-weight:600; font-size:32px; line-height:1.15; color:var(--ink); background:transparent; border:0; border-bottom:1.5px solid var(--line); padding:6px 0 10px; margin:8px 0 18px; }
+                .cmp-title::placeholder { color:var(--subtle); }
+                .cmp-title:focus { outline:none; border-color:var(--g700); }
+                .cmp-body { width:100%; font-family:var(--sans); font-size:17px; line-height:1.7; color:var(--ink2); background:#fff; border:1.5px solid var(--line); border-radius:2px; padding:14px; min-height:180px; resize:vertical; margin-top:18px; }
+                .cmp-body::placeholder { color:var(--subtle); }
+                .cmp-body:focus { outline:none; border-color:var(--g700); }
+                .cmp-actions { margin-top:20px; }
+                @media (max-width:820px){ .cmp-title { font-size:26px; } .cmp-hero { padding:16px 20px 0; } }
+                .cmp-hint { display:flex; align-items:center; gap:7px; font-family:var(--sans); font-size:12.5px; color:var(--subtle); margin-top:12px; }
+                .cmp-hint i { color:var(--g600); font-size:15px; }
+
+                /* --- Rich-text composer (WYSIWYG → same block model as the reader) --- */
+                .cmp-editor { margin-top:18px; }
+                .cmp-toolbar { display:flex; flex-wrap:wrap; align-items:center; gap:3px; padding:6px; background:var(--paper1); border:1.5px solid var(--line); border-bottom:0; border-radius:2px 2px 0 0; position:sticky; top:0; z-index:2; }
+                .cmp-tool { display:inline-flex; align-items:center; justify-content:center; min-width:34px; height:34px; padding:0 9px; background:transparent; border:0; border-radius:2px; color:var(--ink2); font-family:var(--sans); font-weight:700; font-size:15px; line-height:1; cursor:pointer; transition:background-color 120ms cubic-bezier(0.2,0,0,1), color 120ms cubic-bezier(0.2,0,0,1); }
+                .cmp-tool i { font-size:18px; }
+                .cmp-tool:hover { background:var(--paper2); color:var(--ink); }
+                .cmp-tool.is-active { background:var(--g700); color:#fff; }
+                .cmp-tool-sep { width:1px; align-self:stretch; margin:5px 4px; background:var(--line); }
+                .cmp-rte { width:100%; font-family:var(--sans); font-size:17px; line-height:1.7; color:var(--ink2); background:#fff; border:1.5px solid var(--line); border-radius:0 0 2px 2px; padding:16px; min-height:200px; }
+                .cmp-rte:focus { outline:none; border-color:var(--g700); }
+                .cmp-rte:empty::before { content:attr(data-placeholder); color:var(--subtle); pointer-events:none; }
+                .cmp-rte > :first-child { margin-top:0; }
+                .cmp-rte p { margin:0 0 1rem; }
+                .cmp-rte h3 { font-family:var(--display); font-weight:600; font-size:24px; line-height:1.2; color:var(--ink); margin:1.6rem 0 0.4rem; }
+                .cmp-rte blockquote { font-family:var(--display); font-style:italic; font-size:21px; line-height:1.5; color:var(--g800); margin:0 0 1rem; padding-left:16px; border-left:3px solid var(--g200); }
+                .cmp-rte ul { margin:0 0 1rem; padding-left:0; list-style:none; }
+                .cmp-rte li { padding-left:26px; position:relative; margin-bottom:8px; }
+                .cmp-rte li::before { content:"\2022"; position:absolute; left:9px; color:var(--g600); font-weight:700; }
+                .cmp-rte ul.cmp-chk li::before { content:"\2713"; left:3px; }
+
+                /* --- Auth: gate secondary link, sign-up flow, signed-in chip, toast --- */
+                .sg-modal-sub { font-family:var(--sans); font-size:14px; line-height:1.5; color:var(--muted); margin-top:10px; }
+                .sg-modal-alt { font-family:var(--sans); font-size:13.5px; color:var(--muted); margin-top:4px; text-align:center; }
+                .sg-linkbtn { font-family:var(--sans); font-weight:700; font-size:inherit; color:var(--g700); background:none; border:0; padding:0; cursor:pointer; text-decoration:underline; text-underline-offset:3px; text-decoration-color:transparent; transition:text-decoration-color 150ms cubic-bezier(0.2,0,0,1); }
+                .sg-linkbtn:hover { text-decoration-color:currentColor; }
+
+                .mh-join-signed { display:inline-flex; align-items:center; gap:8px; font-family:var(--sans); font-weight:700; font-size:14px; color:var(--g800); }
+                .mh-join-signed i { color:var(--g600); font-size:18px; }
+
+                .signup-form { max-width:540px; margin:0 auto; padding:36px 24px 8px; }
+                .signup-intro { font-family:var(--sans); font-size:14.5px; line-height:1.6; color:var(--muted); margin-bottom:22px; }
+                .signup-sub { font-family:var(--display); font-weight:600; font-size:20px; color:var(--ink); margin:26px 0 14px; }
+                .signup-alt { font-family:var(--sans); font-size:13.5px; color:var(--muted); text-align:center; margin-top:16px; }
+                .signup-check { display:flex; align-items:center; gap:10px; font-family:var(--sans); font-size:14px; color:var(--ink2); margin:16px 0 4px; cursor:pointer; }
+                .signup-check input { width:17px; height:17px; accent-color:var(--g700); cursor:pointer; flex:none; }
+                .signup-ship { margin-top:6px; }
+                .signup-fine { font-family:var(--sans); font-size:12.5px; line-height:1.5; color:var(--subtle); margin-top:16px; }
+                @media (max-width:820px){ .signup-form { padding:26px 20px 8px; } }
+
+                /* Social auth providers (same set as Cart & Checkout: Google/Apple/Facebook) */
+                .auth-providers { display:flex; flex-direction:column; gap:10px; }
+                .auth-provider { display:flex; align-items:center; justify-content:center; gap:10px; width:100%; font-family:var(--sans); font-weight:700; font-size:14px; color:var(--ink); background:#fff; border:1.5px solid var(--line); border-radius:2px; padding:13px 16px; cursor:pointer; transition:border-color 150ms cubic-bezier(0.2,0,0,1), background-color 150ms cubic-bezier(0.2,0,0,1); }
+                .auth-provider:hover { border-color:var(--subtle); background:var(--paper0); }
+                .auth-provider i { font-size:20px; }
+                .auth-provider .auth-logo { width:19px; height:19px; flex:none; display:block; }
+                .auth-divider { display:flex; align-items:center; gap:14px; margin:18px 0; font-family:var(--sans); font-size:11.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--subtle); }
+                .auth-divider::before, .auth-divider::after { content:""; height:1px; background:var(--line-soft); flex:1; }
+
+                .lbx-reply-input { width:100%; font-family:var(--sans); font-size:14px; line-height:1.5; color:var(--ink2); background:#fff; border:1.5px solid var(--line); border-radius:2px; padding:11px 13px; min-height:70px; resize:vertical; }
+                .lbx-reply-input:focus { outline:none; border-color:var(--g700); }
+                .lbx-reply-actions { margin-top:10px; }
+                .lbx-reply-actions .sg-btn { padding:11px 22px; }
+
+                .mh-toast { position:fixed; left:50%; bottom:28px; transform:translateX(-50%) translateY(10px); display:flex; align-items:center; gap:10px; background:var(--ink); color:#fff; font-family:var(--sans); font-size:14px; font-weight:600; padding:13px 20px; border-radius:2px; box-shadow:0 14px 34px rgba(0,0,0,0.30); opacity:0; pointer-events:none; transition:opacity 220ms cubic-bezier(0.22,1,0.36,1), transform 220ms cubic-bezier(0.22,1,0.36,1); z-index:1200; }
+                .mh-toast.on { opacity:1; transform:translateX(-50%) translateY(0); }
+                .mh-toast i { color:var(--g300); font-size:18px; }
             </style>
 
             <section class="mh-section" data-comment="members-section">
                 <!-- Visually-hidden page heading (visible intro header removed; page opens on Featured Grower) -->
                 <h1 data-comment="members-intro-title" style="position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;">Members Hub</h1>
+
+                <!-- COMMUNITY JOIN BANNER — top of page (login gate #103, editorial treatment) -->
+                <div class="mh-join" data-comment="members-join">
+                    <div class="mh-join-inner" data-comment="members-join-inner">
+                        <div class="mh-join-copy" data-comment="members-join-copy">
+                            <div class="mh-join-proof" data-comment="members-join-proof">
+                                <span class="mh-join-avatars" aria-hidden="true">
+                                    <span class="mh-join-av" style="background-image:url('assets/pexels-28601836.jpg')"></span>
+                                    <span class="mh-join-av" style="background-image:url('assets/pexels-356269.jpg')"></span>
+                                    <span class="mh-join-av" style="background-image:url('assets/pexels-15508429.jpg')"></span>
+                                    <span class="mh-join-av" style="background-image:url('assets/pexels-27176055.jpg')"></span>
+                                    <span class="mh-join-av mh-join-av--count">200+</span>
+                                </span>
+                                <span class="mh-join-proof-text">Growers sharing</span>
+                            </div>
+                            <h2 class="mh-join-title" data-comment="members-join-title">Share your garden &mdash; learn from growers like you.</h2>
+                        </div>
+                        <div class="mh-join-actions" data-comment="members-join-actions">
+                            <button class="sg-btn sg-btn-coral" type="button" onclick="membersGateLogin()" data-comment="members-join-signin">Log in</button>
+                            <button class="sg-btn sg-btn-coral-outline" type="button" onclick="openSignup()" data-comment="members-join-create">Sign up</button>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- FEATURED GROWER — editorial spotlight -->
                 <div class="fg-band" data-comment="members-featured">
@@ -1007,41 +1270,19 @@
                         </div>
 
                         <div class="sg-form-col" data-comment="members-share-form-col">
-                        <form class="sg-card--form" data-comment="members-share-form" onsubmit="return false;">
+                        <form class="sg-card--form sg-card--quick" data-comment="members-share-form" onsubmit="return false;">
                             <div class="sg-form-head" data-comment="members-share-form-head">
-                                <h3 class="sg-title" data-comment="members-share-form-title">Add a photo</h3>
-                                <p class="sg-text" data-comment="members-share-form-text">Landscape or portrait &mdash; up to 8 photos.</p>
+                                <h3 class="sg-title" data-comment="members-share-form-title">Share with the community</h3>
+                                <p class="sg-text" data-comment="members-share-form-text">Ask a question, post an update, or show your garden.</p>
                             </div>
-                            <div class="sg-drop" data-comment="members-share-drop">
-                                <div class="sg-drop-icon" data-comment="members-share-drop-icon"><i class="ph ph-image-square" aria-hidden="true"></i></div>
-                                <div class="sg-drop-title" data-comment="members-share-drop-title">Drag photos here, or browse</div>
-                                <div class="sg-drop-hint" data-comment="members-share-drop-hint">JPG or PNG</div>
-                            </div>
-                            <div class="sg-fields" data-comment="members-share-fields">
-                                <div class="sg-field" data-comment="members-share-field-variety">
-                                    <label class="sg-flabel" data-comment="members-share-field-variety-label">Variety</label>
-                                    <select class="sg-select" data-comment="members-share-field-variety-input"><option>Apple</option><option>Pear</option><option>Plum</option><option>Cherry</option><option>Peach</option><option>Apricot</option><option>Grape</option><option>Berries</option><option>Nut</option><option>Other</option></select>
-                                </div>
-                                <div class="sg-field" data-comment="members-share-field-zone">
-                                    <label class="sg-flabel" data-comment="members-share-field-zone-label">Hardiness zone</label>
-                                    <select class="sg-select" data-comment="members-share-field-zone-input"><option>Zone 2b</option><option>Zone 3</option><option>Zone 4</option><option>Zone 5</option><option>Zone 6</option><option>Zone 7</option><option>Zone 8</option></select>
-                                </div>
-                                <div class="sg-field" data-comment="members-share-field-season">
-                                    <label class="sg-flabel" data-comment="members-share-field-season-label">Season</label>
-                                    <select class="sg-select" data-comment="members-share-field-season-input"><option>Spring bloom</option><option>Summer</option><option>Autumn harvest</option><option>Winter</option></select>
-                                </div>
-                                <div class="sg-field" data-comment="members-share-field-location">
-                                    <label class="sg-flabel" data-comment="members-share-field-location-label">Location (optional)</label>
-                                    <input class="sg-input" type="text" placeholder="e.g. Elmvale, ON" data-comment="members-share-field-location-input">
-                                </div>
-                                <div class="sg-field sg-field--full" data-comment="members-share-field-note">
-                                    <label class="sg-flabel" data-comment="members-share-field-note-label">Tell us about it (optional)</label>
-                                    <textarea class="sg-textarea" placeholder="A line about this photo &mdash; what it is, how it&rsquo;s doing&hellip;" data-comment="members-share-field-note-input"></textarea>
-                                </div>
-                            </div>
-                            <p class="sg-signin-note" data-comment="members-share-signin-note"><i class="ph ph-info" aria-hidden="true"></i> You&rsquo;ll need to sign in to publish a photo.</p>
-                            <div class="sg-form-actions" data-comment="members-share-form-actions">
-                                <button class="sg-btn sg-btn-primary sg-btn--block" type="button" onclick="membersOpenGate()" data-comment="members-share-submit">Publish to the gallery</button>
+                            <textarea class="sg-quick-input" data-comment="members-quick-input" placeholder="What&rsquo;s growing? Ask a question or share an update&hellip;"></textarea>
+                            <button type="button" class="sg-quick-photos" data-comment="members-quick-photos" onclick="membersPickPhotos()"><i class="ph ph-image-square" aria-hidden="true"></i> <span>Add photos</span></button>
+                            <input type="file" accept="image/*" multiple hidden data-comment="members-quick-file" onchange="membersPhotosPicked(this)">
+
+                            <p class="sg-signin-note" data-comment="members-share-signin-note"><i class="ph ph-info" aria-hidden="true"></i> You&rsquo;ll need to sign in or create an account to publish.</p>
+                            <div class="sg-quick-actions" data-comment="members-share-form-actions">
+                                <button class="sg-btn sg-btn-primary" type="button" onclick="membersQuickAdd()" data-comment="members-quick-add">Quick Add</button>
+                                <button class="sg-btn sg-btn-secondary" type="button" onclick="openCompose()" data-comment="members-add-more">Add more</button>
                             </div>
                         </form>
                         </div>
@@ -1053,18 +1294,27 @@
                 <div class="sg-modal" role="dialog" aria-modal="true" aria-labelledby="members-gate-title" data-comment="members-gate" hidden>
                     <button class="sg-modal-close" type="button" aria-label="Close" onclick="membersCloseGate()" data-comment="members-gate-close"><i class="ph ph-x" aria-hidden="true"></i></button>
                     <div class="sg-modal-icon" data-comment="members-gate-icon"><i class="ph ph-leaf" aria-hidden="true"></i></div>
-                    <h2 class="sg-modal-title" id="members-gate-title" data-comment="members-gate-title">Sign in or create an account to publish.</h2>
+                    <h2 class="sg-modal-title" id="members-gate-title" data-comment="members-gate-title">Log in to continue</h2>
+                    <p class="sg-modal-sub" data-comment="members-gate-sub">You need an account to post, comment, and share your garden.</p>
                     <div class="sg-modal-actions" data-comment="members-gate-actions">
-                        <a class="sg-btn sg-btn-coral sg-btn--block" href="#" data-comment="members-gate-create">Create an account</a>
-                        <a class="sg-btn sg-btn-secondary sg-btn--block" href="#" data-comment="members-gate-signin">Sign in</a>
+                        <button class="sg-btn sg-btn-primary sg-btn--block" type="button" onclick="membersGateLogin()" data-comment="members-gate-login">Log in</button>
+                        <p class="sg-modal-alt">New to Whiffletree? <button type="button" class="sg-linkbtn" onclick="openSignup()" data-comment="members-gate-signup">Sign up</button></p>
                     </div>
                 </div>
+                <!-- Mock toast — action feedback in the signed-in state -->
+                <div class="mh-toast" data-comment="members-toast" role="status" aria-live="polite"><i class="ph ph-check-circle" aria-hidden="true"></i> <span class="mh-toast-text"></span></div>
+
                 <div class="mh-gallery" data-comment="members-gallery">
                     <div class="mh-gallery-head" data-comment="members-gallery-head">
-                        <h2 class="mh-gallery-title" data-comment="members-gallery-title">From our growers&rsquo; gardens</h2>
-                        <span class="mh-count" data-comment="members-gallery-count">Showing 14 of 200+ gardens</span>
+                        <h2 class="mh-gallery-title" data-comment="members-gallery-title">From the community</h2>
+                        <span class="mh-count" data-comment="members-gallery-count">Showing 19 of 200+ posts</span>
                     </div>
                     <div class="mh-filters" data-comment="members-filters">
+                        <div class="mh-type-tabs" data-comment="members-type-tabs" role="tablist" aria-label="Filter by post type">
+                            <button class="mh-type-tab is-active" type="button" data-comment="members-type-all" onclick="membersSetType('all', this)">All</button>
+                            <button class="mh-type-tab" type="button" data-comment="members-type-photo" onclick="membersSetType('photo', this)">Photos</button>
+                            <button class="mh-type-tab" type="button" data-comment="members-type-discussion" onclick="membersSetType('discussion', this)">Discussions</button>
+                        </div>
                         <select class="mh-filter" data-comment="members-filter-variety" aria-label="Filter by variety" onchange="membersApplyFilters()"><option value="">All varieties</option><option value="apple">Apple</option><option value="pear">Pear</option><option value="plum">Plum</option><option value="cherry">Cherry</option><option value="peach">Peach</option><option value="apricot">Apricot</option><option value="grape">Grape</option><option value="berry">Berries</option></select>
                         <select class="mh-filter" data-comment="members-filter-season" aria-label="Filter by season" onchange="membersApplyFilters()"><option value="">Any season</option><option value="spring">Spring</option><option value="summer">Summer</option><option value="autumn">Autumn</option></select>
                         <select class="mh-filter" data-comment="members-filter-zone" aria-label="Filter by hardiness zone" onchange="membersApplyFilters()"><option value="">Any zone</option><option value="2b">Zone 2b</option><option value="3">Zone 3</option><option value="4">Zone 4</option><option value="5">Zone 5</option><option value="6">Zone 6</option></select>
@@ -1084,12 +1334,22 @@
                             <span class="mh-meta" data-comment="members-card-2-meta">Bartlett Pear · Zone 5 · Late summer</span>
                         </figcaption>
                     </figure>
+                    <figure class="mh-card mh-card--post" data-comment="members-card-d1" data-component="card" data-type="discussion" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
+                        <span class="mh-post-topic" data-comment="members-card-d1-topic"><i class="ph ph-scissors" aria-hidden="true"></i> Pruning</span>
+                        <h3 class="mh-post-title" data-comment="members-card-d1-title">When should I prune my young apple trees for the first time?</h3>
+                        <div class="mh-post-foot" data-comment="members-card-d1-foot"><span>Daniel R.</span><span class="dot">&middot;</span><span>June 2026</span><span class="dot">&middot;</span><span class="rc"><i class="ph ph-chat-circle" aria-hidden="true"></i> 6 replies</span></div>
+                    </figure>
                     <figure class="mh-card" data-comment="members-card-3" data-component="card" data-cat="cherry" data-zone="5" data-season="spring" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
                         <div class="mh-frame mh-frame--square" data-comment="members-card-3-frame"><img src="assets/pexels-356269.jpg" alt="Montmorency Cherry in a Whiffletree grower&rsquo;s garden" loading="lazy" data-comment="members-card-3-img"></div>
                         <figcaption class="mh-cap" data-comment="members-card-3-cap">
                             <span class="mh-name" data-comment="members-card-3-name">The Okafor Family</span>
                             <span class="mh-meta" data-comment="members-card-3-meta">Montmorency Cherry · Zone 5 · Spring bloom</span>
                         </figcaption>
+                    </figure>
+                    <figure class="mh-card mh-card--post" data-comment="members-card-d4" data-component="card" data-type="discussion" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
+                        <span class="mh-post-topic" data-comment="members-card-d4-topic"><i class="ph ph-basket" aria-hidden="true"></i> Harvest</span>
+                        <h3 class="mh-post-title" data-comment="members-card-d4-title">Best way to store a big apple harvest through the winter?</h3>
+                        <div class="mh-post-foot" data-comment="members-card-d4-foot"><span>Hannah W.</span><span class="dot">&middot;</span><span>October 2026</span><span class="dot">&middot;</span><span class="rc"><i class="ph ph-chat-circle" aria-hidden="true"></i> 5 replies</span></div>
                     </figure>
                     <figure class="mh-card" data-comment="members-card-4" data-component="card" data-cat="grape" data-zone="6" data-season="summer" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
                         <div class="mh-frame mh-frame--tall" data-comment="members-card-4-frame"><img src="assets/pexels-15508429.jpg" alt="Reliance Grape in a Whiffletree grower&rsquo;s garden" loading="lazy" data-comment="members-card-4-img"></div>
@@ -1105,6 +1365,11 @@
                             <span class="mh-meta" data-comment="members-card-5-meta">Haskap ‘Aurora’ · Zone 3 · Early summer</span>
                         </figcaption>
                     </figure>
+                    <figure class="mh-card mh-card--post" data-comment="members-card-d5" data-component="card" data-type="discussion" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
+                        <span class="mh-post-topic" data-comment="members-card-d5-topic"><i class="ph ph-leaf" aria-hidden="true"></i> Soil &amp; feeding</span>
+                        <h3 class="mh-post-title" data-comment="members-card-d5-title">What are you top-dressing your young trees with each spring?</h3>
+                        <div class="mh-post-foot" data-comment="members-card-d5-foot"><span>Marcus B.</span><span class="dot">&middot;</span><span>April 2026</span><span class="dot">&middot;</span><span class="rc"><i class="ph ph-chat-circle" aria-hidden="true"></i> 7 replies</span></div>
+                    </figure>
                     <figure class="mh-card" data-comment="members-card-11" data-component="card" data-cat="apricot" data-zone="5" data-season="summer" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
                         <div class="mh-frame mh-frame--tall" data-comment="members-card-11-frame"><img src="assets/pexels-13196329.jpg" alt="Patterson Apricot in a Whiffletree grower&rsquo;s garden" loading="lazy" data-comment="members-card-11-img"></div>
                         <figcaption class="mh-cap" data-comment="members-card-11-cap">
@@ -1118,6 +1383,11 @@
                             <span class="mh-name" data-comment="members-card-12-name">Nadia K.</span>
                             <span class="mh-meta" data-comment="members-card-12-meta">Bluecrop Blueberry · Zone 4 · Summer</span>
                         </figcaption>
+                    </figure>
+                    <figure class="mh-card mh-card--post" data-comment="members-card-d2" data-component="card" data-type="discussion" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
+                        <span class="mh-post-topic" data-comment="members-card-d2-topic"><i class="ph ph-paw-print" aria-hidden="true"></i> Pests &amp; wildlife</span>
+                        <h3 class="mh-post-title" data-comment="members-card-d2-title">Anyone else fighting off deer this spring? Here&rsquo;s what finally worked for us.</h3>
+                        <div class="mh-post-foot" data-comment="members-card-d2-foot"><span>Marguerite L.</span><span class="dot">&middot;</span><span>May 2026</span><span class="dot">&middot;</span><span class="rc"><i class="ph ph-chat-circle" aria-hidden="true"></i> 11 replies</span></div>
                     </figure>
                     <figure class="mh-card" data-comment="members-card-13" data-component="card" data-cat="apple" data-zone="5" data-season="autumn" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
                         <div class="mh-frame mh-frame--land" data-comment="members-card-13-frame"><img src="assets/pexels-33790937.jpg" alt="4-in-1 Combo Apple in a Whiffletree grower&rsquo;s garden" loading="lazy" data-comment="members-card-13-img"></div>
@@ -1146,6 +1416,11 @@
                             <span class="mh-name" data-comment="members-card-7-name">The Beaulieu Orchard</span>
                             <span class="mh-meta" data-comment="members-card-7-meta">Liberty Apple · Zone 4 · Autumn harvest</span>
                         </figcaption>
+                    </figure>
+                    <figure class="mh-card mh-card--post" data-comment="members-card-d3" data-component="card" data-type="discussion" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
+                        <span class="mh-post-topic" data-comment="members-card-d3-topic"><i class="ph ph-plant" aria-hidden="true"></i> Getting started</span>
+                        <h3 class="mh-post-title" data-comment="members-card-d3-title">First orchard in Zone 3 &mdash; which cold-hardy varieties should a beginner start with?</h3>
+                        <div class="mh-post-foot" data-comment="members-card-d3-foot"><span>Kevin O.</span><span class="dot">&middot;</span><span>April 2026</span><span class="dot">&middot;</span><span class="rc"><i class="ph ph-chat-circle" aria-hidden="true"></i> 8 replies</span></div>
                     </figure>
                     <figure class="mh-card" data-comment="members-card-8" data-component="card" data-cat="peach" data-zone="6" data-season="summer" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
                         <div class="mh-frame mh-frame--square" data-comment="members-card-8-frame"><img src="assets/pexels-5528990.jpg" alt="Reliance Peach in a Whiffletree grower&rsquo;s garden" loading="lazy" data-comment="members-card-8-img"></div>
@@ -1211,76 +1486,859 @@
                     if (modal && modal.classList.contains('open')) membersCloseGate();
                 });
 
+                /* ====================================================================
+                   COMMUNITY FEED \u2014 post data (prototype mock). Keyed by each card's
+                   data-comment. PRODUCTION would fetch these from the backend.
+                   ==================================================================== */
+                var MH_SIGNED_IN = false; /* flip to true to preview the signed-in state */
+                var MH_USER = { name: 'Alex Green', location: 'Elmvale, ON' }; /* mock account */
+                /* Placeholder grower faces (Pexels portraits). Assigned deterministically
+                   by author name so each person keeps the same avatar everywhere. */
+                var MH_FACES = ['assets/face-415829.jpg', 'assets/face-774909.jpg', 'assets/face-762020.jpg', 'assets/face-220453.jpg', 'assets/face-733872.jpg', 'assets/face-91227.jpg', 'assets/face-1043471.jpg', 'assets/face-1024311.jpg', 'assets/face-1130626.jpg', 'assets/face-3763188.jpg', 'assets/face-1181686.jpg', 'assets/face-936119.jpg'];
+                function mhFace(name) {
+                    var h = 0; name = name || '';
+                    for (var i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) >>> 0;
+                    return MH_FACES[h % MH_FACES.length];
+                }
+
+                var MH_POSTS = {
+                    "members-card-1": { type: "photo", topic: "Apple", title: "Six seasons in, the Honeycrisp is finally fruiting", author: "Sarah M.", date: "October 2026", meta: "Zone 4 \u00b7 Autumn harvest",
+                        images: ["assets/pexels-28601836.jpg", "assets/pexels-33790937.jpg", "assets/pexels-5529540.jpg"],
+                        body: ["We planted three bare-root apples along the back fence in 2019 and the Honeycrisp took its time \u2014 but this autumn it finally gave us more fruit than we could eat.", "Cold-hardy, crisp, and worth every year of waiting. The kids picked the first basket themselves."],
+                        product: { name: "Honeycrisp Apple", href: "product.html" },
+                        comments: [{ author: "James & Lena", date: "2 days ago", text: "That colour is unreal. How far apart did you plant them?", replies: [{ author: "Sarah M.", date: "1 day ago", text: "About 4 feet on M111 rootstock \u2014 plenty of room in hindsight." }] }, { author: "Greg H.", date: "yesterday", text: "Congrats! Ours is in year 3, hoping for the same." }] },
+                    "members-card-2": { type: "photo", topic: "Pear", title: "First real Bartlett harvest off the espalier", author: "James & Lena", date: "August 2026", meta: "Zone 5 \u00b7 Late summer",
+                        images: ["assets/pexels-17922976.jpg", "assets/pexels-5529545.jpg"],
+                        body: ["Trained flat against the south wall for four years and it finally paid off. Sweet, buttery, and the espalier keeps everything at picking height."],
+                        product: { name: "Bartlett Pear", href: "product.html" },
+                        comments: [{ author: "Aiko R.", date: "3 days ago", text: "The espalier form is gorgeous. Any guide you followed?" }] },
+                    "members-card-3": { type: "photo", topic: "Cherry", title: "Montmorency in full bloom \u2014 the whole yard smells like spring", author: "The Okafor Family", date: "May 2026", meta: "Zone 5 \u00b7 Spring bloom",
+                        images: ["assets/pexels-356269.jpg", "assets/pexels-895476.jpg"],
+                        body: ["Every robin in the county shows up for these. We net half and leave half for the birds \u2014 still plenty for pies."],
+                        product: { name: "Montmorency Cherry", href: "product.html" },
+                        comments: [] },
+                    "members-card-4": { type: "photo", topic: "Grape", title: "Reliance grapes loving the extra heat this year", author: "Marc D.", date: "September 2026", meta: "Zone 6 \u00b7 Late summer",
+                        images: ["assets/pexels-15508429.jpg", "assets/pexels-5779196.jpg"],
+                        body: ["Seedless, hardy, and the arbour gives us shade all summer. Third leaf and already a serious crop."],
+                        product: { name: "Reliance Grape", href: "product.html" },
+                        comments: [{ author: "Priya S.", date: "1 week ago", text: "How are you handling powdery mildew? Mine struggles in humidity." }] },
+                    "members-card-5": { type: "photo", topic: "Berries", title: "Haskap Aurora \u2014 our earliest berry every single year", author: "Priya S.", date: "June 2026", meta: "Zone 3 \u00b7 Early summer",
+                        images: ["assets/pexels-895476.jpg", "assets/pexels-31834386.jpg"],
+                        body: ["Ripe before the strawberries even flower. Tart, blue, and the bushes shrug off our Zone 3 winters like nothing."],
+                        product: { name: "Haskap \u2018Aurora\u2019", href: "product.html" },
+                        comments: [] },
+                    "members-card-11": { type: "photo", topic: "Apricot", title: "Patterson apricots ripening on the south fence", author: "The Martins", date: "July 2026", meta: "Zone 5 \u00b7 Midsummer",
+                        images: ["assets/pexels-13196329.jpg", "assets/pexels-5528990.jpg"],
+                        body: ["We gambled on apricots in Zone 5 and the sheltered fence line made all the difference. First real crop this year."],
+                        product: { name: "Patterson Apricot", href: "product.html" },
+                        comments: [{ author: "Owen T.", date: "5 days ago", text: "Brave move in Zone 5 \u2014 nicely done. Late frost ever an issue?" }] },
+                    "members-card-12": { type: "photo", topic: "Berries", title: "Bluecrop bushes absolutely loaded this summer", author: "Nadia K.", date: "July 2026", meta: "Zone 4 \u00b7 Summer",
+                        images: ["assets/pexels-33115262.jpg", "assets/pexels-895476.jpg"],
+                        body: ["Four bushes, one very happy family. Acidified the soil two seasons ago and the difference is night and day."],
+                        product: { name: "Bluecrop Blueberry", href: "product.html" },
+                        comments: [] },
+                    "members-card-13": { type: "photo", topic: "Apple", title: "One tree, four apples \u2014 the combo is thriving", author: "Owen T.", date: "October 2026", meta: "Zone 5 \u00b7 Autumn harvest",
+                        images: ["assets/pexels-33790937.jpg", "assets/pexels-28601836.jpg", "assets/pexels-5529540.jpg", "assets/pexels-5529545.jpg"],
+                        body: ["Perfect for our small lot \u2014 four varieties grafted on one trunk, ripening in sequence from September into October.", "Pollination sorts itself out and we get a long, staggered harvest instead of one big glut."],
+                        product: { name: "4-in-1 Combo Apple", href: "product.html" },
+                        comments: [{ author: "Sarah M.", date: "2 days ago", text: "This is genius for a small yard. Which four did you get?", replies: [{ author: "Owen T.", date: "1 day ago", text: "Honeycrisp, Liberty, Cortland and a Gala. The sequence is chef\u2019s kiss." }] }] },
+                    "members-card-14": { type: "photo", topic: "Berries", title: "Boyne raspberries taking over (we are not mad about it)", author: "Rosa L.", date: "July 2026", meta: "Zone 3 \u00b7 Summer",
+                        images: ["assets/pexels-27176055.jpg", "assets/pexels-895476.jpg"],
+                        body: ["Planted one short row three years ago. Now it is a hedge and the kids graze it like a snack bar all July."],
+                        product: { name: "Boyne Raspberry", href: "product.html" },
+                        comments: [] },
+                    "members-card-6": { type: "photo", topic: "Plum", title: "Damson plums \u2014 destined for jam", author: "Tom & Wendy", date: "September 2026", meta: "Zone 4 \u00b7 Autumn harvest",
+                        images: ["assets/pexels-5779196.jpg", "assets/pexels-13196329.jpg"],
+                        body: ["Too tart to eat off the tree, unbeatable in the pot. We put up two dozen jars this year."],
+                        product: { name: "Damson Plum", href: "product.html" },
+                        comments: [] },
+                    "members-card-7": { type: "photo", topic: "Apple", title: "Liberty apple \u2014 five years, zero spraying", author: "The Beaulieu Orchard", date: "October 2026", meta: "Zone 4 \u00b7 Autumn harvest",
+                        images: ["assets/pexels-5529540.jpg", "assets/pexels-28601836.jpg", "assets/pexels-33790937.jpg"],
+                        body: ["We chose Liberty specifically for scab resistance and it has never let us down. Clean fruit with no fuss, which is exactly what we wanted."],
+                        product: { name: "Liberty Apple", href: "product.html" },
+                        comments: [{ author: "Nadia K.", date: "4 days ago", text: "Disease-resistant varieties are the way. Adding Liberty to my list." }] },
+                    "members-card-8": { type: "photo", topic: "Peach", title: "Reliance peaches \u2014 yes, in our climate", author: "Chen Garden", date: "August 2026", meta: "Zone 6 \u00b7 Midsummer",
+                        images: ["assets/pexels-5528990.jpg", "assets/pexels-13196329.jpg"],
+                        body: ["The hardiest peach we could find, and it delivers. Soft, fragrant, gone within a week of picking."],
+                        product: { name: "Reliance Peach", href: "product.html" },
+                        comments: [] },
+                    "members-card-9": { type: "photo", topic: "Berries", title: "Northline Saskatoons \u2014 a prairie classic in Zone 2b", author: "Aiko R.", date: "June 2026", meta: "Zone 2b \u00b7 Early summer",
+                        images: ["assets/pexels-31834386.jpg", "assets/pexels-895476.jpg"],
+                        body: ["If it survives here it survives anywhere. Sweet, almond-note berries and completely bulletproof through our winters."],
+                        product: { name: "Northline Saskatoon", href: "product.html" },
+                        comments: [] },
+                    "members-card-10": { type: "photo", topic: "Pear", title: "Bosc pears \u2014 worth the wait every autumn", author: "Greg H.", date: "October 2026", meta: "Zone 5 \u00b7 Autumn harvest",
+                        images: ["assets/pexels-5529545.jpg", "assets/pexels-17922976.jpg"],
+                        body: ["Slow to establish, but now it is our most reliable tree. Russeted, spicy, and stores for months in the cold room."],
+                        product: { name: "Bosc Pear", href: "product.html" },
+                        comments: [{ author: "James & Lena", date: "6 days ago", text: "Bosc keeps so well. How cold is your cold room?" }] },
+
+                    "members-card-d1": { type: "discussion", topic: "Pruning", title: "When should I prune my young apple trees for the first time?", author: "Daniel R.", date: "June 2026", readTime: "4 min read",
+                        body: [
+                            { lead: "My apple trees went in as bare-root whips last spring and put on great growth this year. I do not want to shock them \u2014 when is the right time to make the first cuts, and how much?" },
+                            "Most of what I read says winter, but a couple of neighbours swear by a light summer trim. I am in Zone 5 on clay soil, and the trees are about waist-high above the graft.",
+                            { h: "What the community suggested" },
+                            "The short version from the replies below: wait for full dormancy, keep the first prune light, and prioritise structure over size.",
+                            { chk: ["Prune in late winter while fully dormant (February\u2013March here), before the buds swell.", "In year one, remove only what is broken, crossing, or growing below the graft.", "Pick 3\u20134 well-spaced scaffold branches plus a central leader \u2014 that becomes the frame for years to come.", "Never take more than about a quarter of the canopy in a single season."] },
+                            { h: "Why not autumn?" },
+                            "A few growers warned against fall cuts: fresh wounds heal slowly heading into the cold and can invite disease. Dormant late-winter pruning heals fast once growth resumes in spring.",
+                            { quote: "Prune for the tree you want in ten years, not the one in front of you." },
+                            "Thanks everyone \u2014 going to wait until February and keep it light."
+                        ],
+                        comments: [
+                            { author: "Margaret V.", date: "3 weeks ago", text: "Late winter, dormant, and go easy. Your job in year one is shaping the frame, not cropping it.", replies: [{ author: "Daniel R.", date: "3 weeks ago", text: "That makes sense \u2014 so central leader plus a few scaffolds and leave the rest?" }, { author: "Margaret V.", date: "3 weeks ago", text: "Exactly. Open, well-spaced scaffolds now save you years of correction later." }] },
+                            { author: "Owen T.", date: "2 weeks ago", text: "Whatever you do, seal nothing and never prune in the fall here. Learned that the hard way with canker." },
+                            { author: "Priya S.", date: "2 weeks ago", text: "Summer pruning has its place for size control once trees are established, but for a first-year whip stick to dormant.", replies: [{ author: "Daniel R.", date: "2 weeks ago", text: "Good to know for down the road \u2014 thanks!" }] }
+                        ] },
+                    "members-card-d2": { type: "discussion", topic: "Pests & wildlife", title: "Anyone else fighting off deer this spring? Here is what finally worked for us.", author: "Marguerite L.", date: "May 2026", readTime: "3 min read",
+                        body: [
+                            { lead: "After losing two young pears to browsing last year, we tried everything. Sharing what actually held up so nobody else has to relearn it the expensive way." },
+                            "For context we are rural, unfenced, with a serious deer population that treats the orchard like a salad bar from dusk onward.",
+                            { h: "What worked" },
+                            { chk: ["Individual wire cages on every young tree \u2014 boring, but the single most effective thing by far.", "A 5 ft welded-wire ring held off with stakes so they cannot browse through it.", "Rotating two different scent repellents every couple of weeks so they do not get used to one."] },
+                            { h: "What did not" },
+                            { ul: ["A single strand of fishing line \u2014 worked for about a week.", "Bar soap in the branches \u2014 they ignored it entirely.", "One repellent used all season \u2014 they acclimatise fast."] },
+                            "Curious what has worked for the rest of you, especially anyone who found a fence height that actually stops them jumping."
+                        ],
+                        comments: [
+                            { author: "Tom & Wendy", date: "1 month ago", text: "Cages on every trunk is the only thing that ever worked for us too. Eight feet of fence or nothing if you want to go perimeter.", replies: [{ author: "Marguerite L.", date: "1 month ago", text: "Eight feet is what I keep hearing. Cages it is for now." }] },
+                            { author: "Greg H.", date: "3 weeks ago", text: "Two dogs. Not a repellent recommendation, just the truth of my orchard." },
+                            { author: "Aiko R.", date: "3 weeks ago", text: "Rotating repellents is the key detail people miss. One scent stops working shockingly fast." }
+                        ] },
+                    "members-card-d3": { type: "discussion", topic: "Getting started", title: "First orchard in Zone 3 \u2014 which cold-hardy varieties should a beginner start with?", author: "Kevin O.", date: "April 2026", readTime: "5 min read",
+                        body: [
+                            { lead: "Breaking ground on our first orchard this year in Zone 3. I would rather plant a few things that reliably survive than gamble on tender varieties and lose them the first hard winter." },
+                            "Looking for a mix of tree fruit and berries, ideally things that do not need a second variety across the yard to set fruit. What would you plant if you were starting over?",
+                            { h: "The shortlist that kept coming up" },
+                            { ul: ["Apples: Honeycrisp and Liberty \u2014 hardy, and Liberty shrugs off scab.", "Cherries: Montmorency (sour) is far tougher here than any sweet cherry.", "Berries: Haskap and Saskatoon are basically unkillable and crop early.", "Raspberries: Boyne is the Zone 3 workhorse."] },
+                            "Plenty of these are on the site if you want a starting point \u2014 filter by hardiness zone.",
+                            { h: "Advice worth repeating" },
+                            "Almost everyone said the same thing: get your siting and soil right before you obsess over varieties. A hardy tree in a frost pocket still struggles.",
+                            { quote: "Plant the site first, the variety second." }
+                        ],
+                        product: { name: "cold-hardy varieties", href: "shop.html" },
+                        comments: [
+                            { author: "Priya S.", date: "1 month ago", text: "Haskap first, no question. Earliest fruit, zero winter damage, and they crop young.", replies: [{ author: "Kevin O.", date: "1 month ago", text: "Two on the list already after this thread \u2014 thanks!" }] },
+                            { author: "The Beaulieu Orchard", date: "1 month ago", text: "Liberty apple for a beginner every time. Disease resistance means far less to learn in year one." },
+                            { author: "Rosa L.", date: "3 weeks ago", text: "Do not sleep on Boyne raspberries. Fastest reward you will get while the trees are still establishing." }
+                        ] },
+                    "members-card-d4": { type: "discussion", topic: "Harvest", title: "Best way to store a big apple harvest through the winter?", author: "Hannah W.", date: "October 2026", readTime: "3 min read",
+                        body: [
+                            { lead: "Our Honeycrisp and Liberty both came in heavy this year and we are out of fridge space fast. How is everyone keeping apples crisp into the new year?" },
+                            "We do not have a proper root cellar — just an unheated garage that hovers near freezing. Wondering if that is good enough or if I am about to lose a bushel to rot.",
+                            { h: "What worked for others" },
+                            { chk: ["Cold and humid is the goal — around 0–4°C with high humidity keeps apples firm for months.", "Store only unbruised fruit; one bad apple really does spoil the batch.", "Keep apples away from potatoes and onions — the ethylene and odours transfer.", "Check monthly and pull any that start to soften."] },
+                            "Leaning toward insulating a corner of the garage now. Thanks all."
+                        ],
+                        comments: [
+                            { author: "Greg H.", date: "2 weeks ago", text: "Unheated garage works great here as long as it never dips below freezing. Wrap each apple in newspaper for the long keepers.", replies: [{ author: "Hannah W.", date: "2 weeks ago", text: "Newspaper — simple, will try it." }] },
+                            { author: "The Martins", date: "1 week ago", text: "Honeycrisp keeps for ages; Liberty we eat first, it softens sooner. Sort by variety and eat in order." }
+                        ] },
+                    "members-card-d5": { type: "discussion", topic: "Soil & feeding", title: "What are you top-dressing your young trees with each spring?", author: "Marcus B.", date: "April 2026", readTime: "4 min read",
+                        body: [
+                            { lead: "Third spring with my little orchard and I want to feed the trees properly without overdoing the nitrogen. Compost? Composted manure? A balanced fertiliser?" },
+                            "Soil here is heavy clay — decent, but slow to warm. The trees are healthy but growth was a touch modest last year.",
+                            { h: "The consensus from the replies" },
+                            { ul: ["A 5 cm ring of compost around the drip line, kept off the trunk.", "Composted manure in early spring if growth is weak — go easy; too much means leaves, not fruit.", "Mulch over top to hold moisture and feed the soil life.", "Skip high-nitrogen synthetics on fruiting trees unless a soil test says otherwise."] },
+                            { quote: "Feed the soil, not the tree." }
+                        ],
+                        comments: [
+                            { author: "Margaret V.", date: "3 weeks ago", text: "Compost + mulch, every year, nothing fancy. On clay the mulch matters as much as the feed." },
+                            { author: "Aiko R.", date: "2 weeks ago", text: "Careful with manure near stone fruit — I burned a young plum being too generous. A thin ring is plenty.", replies: [{ author: "Marcus B.", date: "2 weeks ago", text: "Good warning — I have two plums in. Will keep it light." }] }
+                        ] }
+                };
+
+                /* ---- Filters: variety / season / zone + post type ---- */
+                var mhType = 'all';
                 function mhFilterVal(dc) {
                     var el = document.querySelector('[data-comment="' + dc + '"]');
                     return el ? el.value : '';
+                }
+                function membersSetType(t, btn) {
+                    mhType = t;
+                    document.querySelectorAll('.mh-type-tab').forEach(function (b) { b.classList.toggle('is-active', b === btn); });
+                    membersApplyFilters();
                 }
                 function membersApplyFilters() {
                     var v = mhFilterVal('members-filter-variety');
                     var s = mhFilterVal('members-filter-season');
                     var z = mhFilterVal('members-filter-zone');
+                    var cards = document.querySelectorAll('.mh-card');
                     var shown = 0;
-                    document.querySelectorAll('.mh-card').forEach(function (c) {
-                        var ok = (!v || c.dataset.cat === v) && (!s || c.dataset.season === s) && (!z || c.dataset.zone === z);
+                    cards.forEach(function (c) {
+                        var ctype = c.dataset.type || 'photo';
+                        var typeOk = (mhType === 'all') || (ctype === mhType);
+                        var attrOk = (!v || c.dataset.cat === v) && (!s || c.dataset.season === s) && (!z || c.dataset.zone === z);
+                        var ok = typeOk && attrOk;
                         c.style.display = ok ? '' : 'none';
                         if (ok) shown++;
                     });
+                    var total = cards.length;
+                    var active = !!(v || s || z || mhType !== 'all');
                     var count = document.querySelector('[data-comment="members-gallery-count"]');
-                    if (count) count.textContent = (v || s || z)
-                        ? 'Showing ' + shown + ' of 14 gardens'
-                        : 'Showing 14 of 200+ gardens';
+                    if (count) count.textContent = active ? 'Showing ' + shown + ' of ' + total + ' posts' : 'Showing ' + total + ' of 200+ posts';
                 }
 
-                function openLightbox(card) {
-                    var name = card.querySelector('.mh-name').textContent;
-                    var meta = card.querySelector('.mh-meta').textContent;
-                    var variety = meta.split('\u00b7')[0].trim();
-                    document.getElementById('lb-name').textContent = name;
-                    document.getElementById('lb-meta').textContent = meta;
-                    document.getElementById('lb-caption').textContent = variety + ' growing in ' + name + '\u2019s garden. Shared with the Whiffletree community.';
-                    var cardImg = card.querySelector('.mh-frame img');
-                    var lbImg = document.getElementById('lb-img');
-                    if (cardImg) {
-                        lbImg.src = cardImg.src;
-                        lbImg.alt = cardImg.alt;
-                        lbImg.hidden = false;
-                    } else {
-                        lbImg.hidden = true;
-                    }
-                    document.getElementById('lb-prod-name').textContent = 'See ' + variety;
-                    document.querySelector('.lb-scrim').classList.add('open');
+                /* ---- Reply gate (#103): signed-out visitors get the sign-in popup ---- */
+                function membersReplyGate() { if (MH_SIGNED_IN) return; membersOpenGate(); }
+
+                /* ---- Composer: inline quick-add + full compose popup (mirrors viewer) ---- */
+                function membersQuickAdd() {
+                    var qi = document.querySelector('[data-comment="members-quick-input"]');
+                    var txt = qi ? qi.value.trim() : '';
+                    if (!txt) { if (qi) qi.focus(); return; }
+                    if (!MH_SIGNED_IN) { membersOpenGate(); return; }
+                    /* Derive a title from the first sentence/line; the whole note becomes the body. */
+                    var firstLine = txt.split(/\n/)[0].trim();
+                    var sentence = firstLine.match(/^[\s\S]*?[.!?](\s|$)/);
+                    var title = (sentence ? sentence[0] : firstLine).trim().replace(/[.!?]+$/, '');
+                    if (title.length > 90) title = title.slice(0, 88).replace(/\s+\S*$/, '') + '…';
+                    var paras = txt.split(/\n{2,}/).map(function (p) { return p.trim(); }).filter(Boolean);
+                    var body = paras.map(function (p, i) {
+                        var html = mhEsc(p).replace(/\n/g, '<br>');
+                        return i === 0 ? { lead: html } : html;
+                    });
+                    var id = mhAddPost({ type: 'discussion', topic: 'Getting started', title: mhEsc(title), author: MH_USER.name, date: 'Just now', meta: '', body: body, comments: [] }, null);
+                    if (qi) qi.value = '';
+                    membersToast('Posted to the community');
+                    openPost(id);
+                }
+                function membersComposePublish() {
+                    if (!MH_SIGNED_IN) { membersOpenGate(); return; }
                     var lb = document.querySelector('.lb');
+                    if (!lb) return;
+                    var titleEl = lb.querySelector('.cmp-title');
+                    var title = (titleEl ? titleEl.value : '').trim();
+                    if (!title) { if (titleEl) titleEl.focus(); membersToast('Add a title to publish'); return; }
+                    var selects = lb.querySelectorAll('.cmp-article .sg-select');
+                    var topic = selects[0] ? selects[0].value : 'From the community';
+                    var variety = selects[1] ? selects[1].value : '';
+                    var zone = selects[2] ? selects[2].value : '';
+                    var season = selects[3] ? selects[3].value : '';
+                    var ed = lb.querySelector('.cmp-rte');
+                    var body = ed ? cmpSerialize(ed) : [];
+                    var metaBits = [];
+                    if (variety) metaBits.push(variety);
+                    if (zone) metaBits.push(zone);
+                    if (season) metaBits.push(season);
+                    var id = mhAddPost({
+                        type: 'discussion', topic: topic, title: mhEsc(title), author: MH_USER.name,
+                        date: 'Just now', meta: metaBits.join(' · '), body: body, comments: []
+                    }, { variety: variety, zone: zone, season: season });
+                    membersToast('Published to the gallery');
+                    openPost(id);
+                }
+                /* ---- Create a post: register data + drop a card into the gallery ---- */
+                var mhPostSeq = 0;
+                function mhTopicIcon(t) {
+                    var m = { 'Show your garden': 'ph-camera', 'Getting started': 'ph-plant', 'Pruning': 'ph-scissors', 'Pests & wildlife': 'ph-paw-print', 'Harvest': 'ph-basket', 'Planting': 'ph-shovel', 'Soil & feeding': 'ph-leaf' };
+                    return m[t] || 'ph-chat-circle';
+                }
+                function mhCatSlug(v) { if (!v) return ''; v = v.toLowerCase(); return v === 'berries' ? 'berry' : v; }
+                function mhZoneSlug(z) { var m = String(z || '').match(/(\d+)/); return m ? m[1] : ''; }
+                function mhSeasonSlug(s) {
+                    s = String(s || '').toLowerCase();
+                    if (s.indexOf('spring') >= 0) return 'spring';
+                    if (s.indexOf('summer') >= 0) return 'summer';
+                    if (s.indexOf('autumn') >= 0 || s.indexOf('fall') >= 0) return 'autumn';
+                    if (s.indexOf('winter') >= 0) return 'winter';
+                    return '';
+                }
+                function mhAddPost(post, attrs) {
+                    mhPostSeq++;
+                    var id = 'members-card-new-' + mhPostSeq;
+                    MH_POSTS[id] = post;
+                    var grid = document.querySelector('[data-comment="members-grid"]');
+                    if (grid) {
+                        var fig = document.createElement('figure');
+                        fig.className = 'mh-card mh-card--post';
+                        fig.setAttribute('data-comment', id);
+                        fig.setAttribute('data-component', 'card');
+                        fig.setAttribute('data-type', 'discussion');
+                        fig.setAttribute('tabindex', '0');
+                        fig.setAttribute('role', 'button');
+                        fig.setAttribute('onclick', 'openLightbox(this)');
+                        fig.setAttribute('onkeydown', "if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}");
+                        if (attrs) {
+                            var cat = mhCatSlug(attrs.variety); if (cat) fig.setAttribute('data-cat', cat);
+                            var z = mhZoneSlug(attrs.zone); if (z) fig.setAttribute('data-zone', z);
+                            var s = mhSeasonSlug(attrs.season); if (s) fig.setAttribute('data-season', s);
+                        }
+                        fig.innerHTML = '<span class="mh-post-topic"><i class="ph ' + mhTopicIcon(post.topic) + '" aria-hidden="true"></i> ' + mhEsc(post.topic) + '</span>'
+                            + '<h3 class="mh-post-title">' + post.title + '</h3>'
+                            + '<div class="mh-post-foot"><span>' + mhEsc(post.author) + '</span><span class="dot">·</span><span>' + post.date + '</span><span class="dot">·</span><span class="rc"><i class="ph ph-chat-circle" aria-hidden="true"></i> 0 replies</span></div>';
+                        grid.insertBefore(fig, grid.firstChild);
+                    }
+                    if (typeof membersApplyFilters === 'function') membersApplyFilters();
+                    return id;
+                }
+                /* ---- Rich-text composer: toolbar commands + serialise to the block model ---- */
+                function mhEsc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+                function cmpCurrentEl() {
+                    var sel = window.getSelection();
+                    if (!sel || !sel.rangeCount) return null;
+                    var n = sel.getRangeAt(0).startContainer;
+                    return n.nodeType === 3 ? n.parentElement : n;
+                }
+                function cmpClosest(tag) {
+                    var el = cmpCurrentEl();
+                    while (el && el !== document.body) { if (el.tagName === tag) return el; el = el.parentElement; }
+                    return null;
+                }
+                function cmpBlockTag() {
+                    var el = cmpCurrentEl();
+                    while (el && el !== document.body && !/^(P|DIV|H1|H2|H3|H4|BLOCKQUOTE|LI)$/.test(el.tagName)) el = el.parentElement;
+                    return el ? el.tagName : '';
+                }
+                function cmpBlock(tag) {
+                    var cur = cmpBlockTag();
+                    document.execCommand('formatBlock', false, cur === tag.toUpperCase() ? 'p' : tag);
+                }
+                function cmpList(chk) {
+                    var ul = cmpClosest('UL');
+                    if (ul) {
+                        var isChk = ul.classList.contains('cmp-chk');
+                        if (isChk === chk) document.execCommand('insertUnorderedList'); /* same kind → turn the list off */
+                        else ul.classList.toggle('cmp-chk', chk);                       /* convert bullet ↔ checklist */
+                        return;
+                    }
+                    document.execCommand('insertUnorderedList');
+                    ul = cmpClosest('UL');
+                    if (ul && chk) ul.classList.add('cmp-chk');
+                }
+                function cmpTool(e, cmd) {
+                    e.preventDefault(); /* keep the selection/focus in the editor */
+                    var ed = document.querySelector('.cmp-rte');
+                    if (!ed) return false;
+                    ed.focus();
+                    if (cmd === 'bold' || cmd === 'italic') document.execCommand(cmd, false, null);
+                    else if (cmd === 'h') cmpBlock('h3');
+                    else if (cmd === 'quote') cmpBlock('blockquote');
+                    else if (cmd === 'ul') cmpList(false);
+                    else if (cmd === 'chk') cmpList(true);
+                    cmpSyncToolbar();
+                    return false;
+                }
+                function cmpSyncToolbar() {
+                    var tb = document.querySelector('.cmp-toolbar');
+                    if (!tb) return;
+                    var blk = cmpBlockTag(), ul = cmpClosest('UL');
+                    function set(cmd, on) { var b = tb.querySelector('[data-cmd="' + cmd + '"]'); if (b) b.classList.toggle('is-active', !!on); }
+                    var bold = false, ital = false;
+                    try { bold = document.queryCommandState('bold'); ital = document.queryCommandState('italic'); } catch (e) { }
+                    set('bold', bold);
+                    set('italic', ital);
+                    set('h', blk === 'H1' || blk === 'H2' || blk === 'H3');
+                    set('quote', blk === 'BLOCKQUOTE');
+                    set('ul', ul && !ul.classList.contains('cmp-chk'));
+                    set('chk', ul && ul.classList.contains('cmp-chk'));
+                }
+                function cmpInlineHTML(node) {
+                    var out = '';
+                    Array.prototype.forEach.call(node.childNodes, function (c) {
+                        if (c.nodeType === 3) { out += mhEsc(c.textContent); return; }
+                        if (c.nodeType !== 1) return;
+                        if (c.tagName === 'BR') { out += '<br>'; return; }
+                        var inner = cmpInlineHTML(c);
+                        if (c.tagName === 'STRONG' || c.tagName === 'B') out += inner ? '<strong>' + inner + '</strong>' : '';
+                        else if (c.tagName === 'EM' || c.tagName === 'I') out += inner ? '<em>' + inner + '</em>' : '';
+                        else out += inner;
+                    });
+                    return out;
+                }
+                function cmpSerialize(editor) {
+                    var blocks = [], leadDone = false;
+                    function pushPara(html) {
+                        if (!html.replace(/<br\s*\/?>/g, '').trim()) return;
+                        if (!leadDone) { blocks.push({ lead: html }); leadDone = true; }
+                        else blocks.push(html);
+                    }
+                    Array.prototype.forEach.call(editor.childNodes, function (node) {
+                        if (node.nodeType === 3) { if (node.textContent.trim()) pushPara(mhEsc(node.textContent)); return; }
+                        if (node.nodeType !== 1) return;
+                        var tag = node.tagName;
+                        if (tag === 'H1' || tag === 'H2' || tag === 'H3' || tag === 'H4') { var h = cmpInlineHTML(node); if (h.trim()) blocks.push({ h: h }); }
+                        else if (tag === 'BLOCKQUOTE') { var q = cmpInlineHTML(node); if (q.trim()) blocks.push({ quote: q }); }
+                        else if (tag === 'UL' || tag === 'OL') {
+                            var items = [];
+                            Array.prototype.forEach.call(node.children, function (li) { if (li.tagName === 'LI') { var x = cmpInlineHTML(li); if (x.trim()) items.push(x); } });
+                            if (items.length) blocks.push(node.classList.contains('cmp-chk') ? { chk: items } : { ul: items });
+                        }
+                        else pushPara(cmpInlineHTML(node));
+                    });
+                    return blocks;
+                }
+                function membersPickPhotos() {
+                    var f = document.querySelector('[data-comment="members-quick-file"]');
+                    if (f) f.click(); /* opens the native file picker */
+                }
+                function membersPhotosPicked(input) {
+                    var n = input.files ? input.files.length : 0;
+                    if (!n) return;
+                    /* Photos chosen — continue into the full composer to add details & publish. */
+                    membersToast(n === 1 ? '1 photo added' : n + ' photos added');
+                    openCompose();
+                    input.value = ''; /* reset so re-picking the same file re-fires change */
+                }
+
+                /* ---- Auth (mock): log in / sign up / sign out + signed-in UI ---- */
+                function membersToast(msg) {
+                    var t = document.querySelector('[data-comment="members-toast"]');
+                    if (!t) return;
+                    t.querySelector('.mh-toast-text').textContent = msg;
+                    t.classList.add('on');
+                    window.clearTimeout(t._timer);
+                    t._timer = window.setTimeout(function () { t.classList.remove('on'); }, 2600);
+                }
+                function membersApplyAuth() {
+                    document.querySelectorAll('.sg-signin-note').forEach(function (n) { n.style.display = MH_SIGNED_IN ? 'none' : ''; });
+                    var ja = document.querySelector('[data-comment="members-join-actions"]');
+                    if (ja) {
+                        ja.innerHTML = MH_SIGNED_IN
+                            ? '<span class="mh-join-signed"><i class="ph ph-check-circle" aria-hidden="true"></i> Signed in as ' + MH_USER.name + '</span> <button type="button" class="sg-linkbtn" onclick="membersLogout()">Log out</button>'
+                            : '<button class="sg-btn sg-btn-coral" type="button" onclick="membersGateLogin()" data-comment="members-join-signin">Log in</button><button class="sg-btn sg-btn-coral-outline" type="button" onclick="openSignup()" data-comment="members-join-create">Sign up</button>';
+                    }
+                }
+                function membersGateLogin() {
+                    MH_SIGNED_IN = true;
+                    membersCloseGate();
+                    var lb = document.querySelector('.lb');
+                    if (lb && lb.classList.contains('open')) closePost();
+                    membersApplyAuth();
+                    membersToast('You’re signed in as ' + MH_USER.name);
+                }
+                function membersLogout() {
+                    MH_SIGNED_IN = false;
+                    membersApplyAuth();
+                    membersToast('Signed out');
+                }
+                function mhAddrFields() {
+                    function opts(a) { return a.map(function (o) { return '<option>' + o + '</option>'; }).join(''); }
+                    var provinces = ['Ontario', 'Quebec', 'British Columbia', 'Alberta', 'Manitoba', 'Saskatchewan', 'Nova Scotia', 'New Brunswick', 'Newfoundland and Labrador', 'Prince Edward Island', 'Northwest Territories', 'Nunavut', 'Yukon'];
+                    return '<div class="sg-fields">'
+                        + '<div class="sg-field sg-field--full"><label class="sg-flabel">Street address</label><input class="sg-input" type="text"></div>'
+                        + '<div class="sg-field sg-field--full"><label class="sg-flabel">Apartment, suite, etc. (optional)</label><input class="sg-input" type="text"></div>'
+                        + '<div class="sg-field"><label class="sg-flabel">City / Town</label><input class="sg-input" type="text" placeholder="e.g. Elmvale"></div>'
+                        + '<div class="sg-field"><label class="sg-flabel">Province</label><select class="sg-select">' + opts(provinces) + '</select></div>'
+                        + '<div class="sg-field"><label class="sg-flabel">Postal code</label><input class="sg-input" type="text" placeholder="A1A 1A1"></div>'
+                        + '<div class="sg-field"><label class="sg-flabel">Country</label><select class="sg-select"><option>Canada</option></select></div>'
+                        + '</div>';
+                }
+                function mhRenderSignup() {
+                    function opts(a) { return a.map(function (o) { return '<option>' + o + '</option>'; }).join(''); }
+                    var zones = ['Zone 2b', 'Zone 3', 'Zone 4', 'Zone 5', 'Zone 6', 'Zone 7', 'Zone 8'];
+                    return '<div class="lb-inner">'
+                        + '<div class="lbx-topbar"><span class="lbx-topbar-title">Create your account</span>'
+                        + '<button class="lbx-topbar-close" data-lb-close type="button" aria-label="Close" onclick="closePost()"><i class="ph ph-x" aria-hidden="true"></i></button></div>'
+                        + '<div class="lbx-scroll"><div class="signup-form">'
+                        + '<p class="signup-intro">Join the Whiffletree growers’ community. One account is all you need — the same details power your posts and a faster checkout, so you won’t re-enter them at the cart.</p>'
+                        + '<div class="auth-providers">'
+                        +   '<button type="button" class="auth-provider auth-provider--google" onclick="membersSocialAuth(\'Google\')"><svg class="auth-logo" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.28-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg> Continue with Google</button>'
+                        +   '<button type="button" class="auth-provider auth-provider--apple" onclick="membersSocialAuth(\'Apple\')"><svg class="auth-logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="#000000" d="M17.05 12.53c-.03-2.53 2.07-3.75 2.16-3.81-1.18-1.72-3.01-1.96-3.66-1.98-1.56-.16-3.04.92-3.83.92-.79 0-2.01-.9-3.31-.87-1.7.03-3.27 1-4.15 2.53-1.77 3.07-.45 7.62 1.27 10.11.84 1.22 1.84 2.59 3.15 2.54 1.26-.05 1.74-.82 3.27-.82 1.52 0 1.95.82 3.28.79 1.36-.02 2.22-1.24 3.05-2.47.96-1.42 1.36-2.79 1.38-2.86-.03-.01-2.65-1.02-2.68-4.05zM14.63 4.84c.7-.85 1.17-2.02 1.04-3.19-1.01.04-2.23.67-2.95 1.52-.65.75-1.21 1.95-1.06 3.1 1.12.09 2.27-.57 2.97-1.43z"/></svg> Continue with Apple</button>'
+                        +   '<button type="button" class="auth-provider auth-provider--facebook" onclick="membersSocialAuth(\'Facebook\')"><svg class="auth-logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="#1877F2" d="M24 12c0-6.63-5.37-12-12-12S0 5.37 0 12c0 5.99 4.39 10.95 10.13 11.85v-8.38H7.08V12h3.05V9.41c0-3.01 1.79-4.68 4.53-4.68 1.31 0 2.68.24 2.68.24v2.95h-1.51c-1.49 0-1.95.93-1.95 1.87V12h3.33l-.53 3.47h-2.8v8.38C19.61 22.95 24 17.99 24 12z"/><path fill="#FFFFFF" d="M16.68 15.47 17.21 12h-3.33V9.79c0-.94.46-1.87 1.95-1.87h1.51V4.97s-1.37-.24-2.68-.24c-2.74 0-4.53 1.67-4.53 4.68V12H7.08v3.47h3.05v8.38a12.1 12.1 0 0 0 3.75 0v-8.38h2.8z"/></svg> Continue with Facebook</button>'
+                        + '</div>'
+                        + '<div class="auth-divider">or sign up with email</div>'
+                        + '<h3 class="signup-sub">Your details</h3>'
+                        + '<div class="sg-fields">'
+                        +   '<div class="sg-field"><label class="sg-flabel">First name</label><input class="sg-input" type="text"></div>'
+                        +   '<div class="sg-field"><label class="sg-flabel">Last name</label><input class="sg-input" type="text"></div>'
+                        +   '<div class="sg-field"><label class="sg-flabel">Email</label><input class="sg-input" type="email" placeholder="you@email.com"></div>'
+                        +   '<div class="sg-field"><label class="sg-flabel">Phone</label><input class="sg-input" type="tel" placeholder="(519) 555-0134"></div>'
+                        +   '<div class="sg-field"><label class="sg-flabel">Password</label><input class="sg-input" type="password" placeholder="At least 8 characters"></div>'
+                        +   '<div class="sg-field"><label class="sg-flabel">Hardiness zone (optional)</label><select class="sg-select">' + opts(zones) + '</select></div>'
+                        + '</div>'
+                        + '<h3 class="signup-sub">Billing address</h3>'
+                        + mhAddrFields()
+                        + '<label class="signup-check"><input type="checkbox" id="ship-same" checked onchange="membersToggleShipping(this)"> Shipping address is the same as billing</label>'
+                        + '<div class="signup-ship" data-ship hidden>'
+                        +   '<h3 class="signup-sub">Shipping address</h3>'
+                        +   mhAddrFields()
+                        + '</div>'
+                        + '<p class="signup-fine">We only ship within Canada (CFIA rules), and no fruit trees or grape vines to BC.</p>'
+                        + '<div class="cmp-actions"><button class="sg-btn sg-btn-primary sg-btn--block" type="button" onclick="membersSignupSubmit()">Create account</button></div>'
+                        + '<p class="signup-alt">Already have an account? <button type="button" class="sg-linkbtn" onclick="membersGateLogin()">Log in</button></p>'
+                        + '</div></div></div>';
+                }
+                function membersToggleShipping(cb) {
+                    var s = document.querySelector('[data-ship]');
+                    if (s) s.hidden = cb.checked;
+                }
+                function openSignup() {
+                    var lb = document.querySelector('.lb');
+                    if (!lb) return;
+                    membersCloseGate();
+                    document.removeEventListener('keydown', lbKey);
+                    lb._carPrev = lb._carNext = null;
+                    lb.className = 'lb is-signup';
+                    lb.innerHTML = mhRenderSignup();
+                    if (window.wtEnhance) window.wtEnhance(lb);
+                    lb.setAttribute('aria-label', 'Create your account');
+                    document.querySelector('.lb-scrim').classList.add('open');
+                    void lb.offsetWidth;
                     lb.classList.add('open');
                     lb.setAttribute('aria-hidden', 'false');
                     document.documentElement.style.overflow = 'hidden';
-                    document.addEventListener('keydown', lbEsc);
+                    var sc = lb.querySelector('.lbx-scroll'); if (sc) sc.scrollTop = 0;
+                    var first = lb.querySelector('.signup-form input'); if (first) first.focus();
+                    document.addEventListener('keydown', lbKey);
                 }
-                function closeLightbox() {
-                    document.querySelector('.lb-scrim').classList.remove('open');
+                function membersSocialAuth(provider) {
+                    MH_SIGNED_IN = true;
                     var lb = document.querySelector('.lb');
-                    lb.classList.remove('open');
-                    lb.setAttribute('aria-hidden', 'true');
-                    document.documentElement.style.overflow = '';
-                    document.removeEventListener('keydown', lbEsc);
+                    if (lb && lb.classList.contains('open')) closePost();
+                    membersCloseGate();
+                    membersApplyAuth();
+                    membersToast('Signed in with ' + provider);
                 }
-                function lbEsc(e) { if (e.key === 'Escape') closeLightbox(); }
+                function membersSignupSubmit() {
+                    var first = document.querySelector('.signup-form input');
+                    if (first && first.value.trim()) MH_USER = { name: first.value.trim(), location: MH_USER.location };
+                    MH_SIGNED_IN = true;
+                    closePost();
+                    membersApplyAuth();
+                    membersToast('Account created — you’re all set');
+                }
+                function membersPostReply(btn) {
+                    var box = btn.closest('.lbx-reply-box');
+                    var ta = box.querySelector('.lbx-reply-input');
+                    if (!ta || !ta.value.trim()) { if (ta) ta.focus(); return; }
+                    var section = box.closest('.lbx-comments');
+                    var el = document.createElement('div');
+                    el.className = 'lbx-comment';
+                    el.innerHTML = '<div class="lbx-comment-top"><img class="lbx-avatar-img" src="' + mhFace(MH_USER.name) + '" alt="">'
+                        + '<span class="lbx-comment-author">' + MH_USER.name + '</span><span class="lbx-comment-date">Just now</span></div>'
+                        + '<p class="lbx-comment-text"></p>';
+                    el.querySelector('.lbx-comment-text').textContent = ta.value.trim();
+                    section.insertBefore(el, box);
+                    ta.value = '';
+                    membersToast('Reply posted');
+                }
+                function mhRenderCompose(prefill) {
+                    function opts(a) { return a.map(function (o) { return '<option>' + o + '</option>'; }).join(''); }
+                    var topics = ['Show your garden', 'Getting started', 'Pruning', 'Pests & wildlife', 'Harvest', 'Planting'];
+                    var varieties = ['Apple', 'Pear', 'Plum', 'Cherry', 'Peach', 'Apricot', 'Grape', 'Berries', 'Nut', 'Other'];
+                    var zones = ['Zone 2b', 'Zone 3', 'Zone 4', 'Zone 5', 'Zone 6', 'Zone 7', 'Zone 8'];
+                    var seasons = ['Spring bloom', 'Summer', 'Autumn harvest', 'Winter'];
+                    var body = (prefill && prefill.trim())
+                        ? prefill.trim().split(/\n{2,}/).map(function (p) { return '<p>' + mhEsc(p.trim()).replace(/\n/g, '<br>') + '</p>'; }).join('')
+                        : '';
+                    return '<div class="lb-inner">'
+                        + '<div class="lbx-topbar"><span class="lbx-topbar-title">New post</span>'
+                        + '<button class="lbx-topbar-close" data-lb-close type="button" aria-label="Close" onclick="closePost()"><i class="ph ph-x" aria-hidden="true"></i></button></div>'
+                        + '<div class="lbx-scroll">'
+                        + '<div class="cmp-hero"><div class="sg-drop"><div class="sg-drop-icon"><i class="ph ph-image-square" aria-hidden="true"></i></div><div class="sg-drop-title">Drag photos here, or browse</div><div class="sg-drop-hint">Landscape or portrait — up to 8 · JPG or PNG</div></div></div>'
+                        + '<div class="lbx-article cmp-article">'
+                        + '<div class="sg-field cmp-eyebrow-field"><label class="sg-flabel">Topic</label><select class="sg-select">' + opts(topics) + '</select></div>'
+                        + '<input class="cmp-title" type="text" placeholder="Add a title…">'
+                        + '<div class="sg-fields">'
+                        +   '<div class="sg-field"><label class="sg-flabel">Variety</label><select class="sg-select">' + opts(varieties) + '</select></div>'
+                        +   '<div class="sg-field"><label class="sg-flabel">Hardiness zone</label><select class="sg-select">' + opts(zones) + '</select></div>'
+                        +   '<div class="sg-field"><label class="sg-flabel">Season</label><select class="sg-select">' + opts(seasons) + '</select></div>'
+                        + '</div>'
+                        + '<p class="cmp-hint"><i class="ph ph-map-pin" aria-hidden="true"></i> Location is added automatically from your account.</p>'
+                        + '<div class="cmp-editor">'
+                        +   '<div class="cmp-toolbar" role="toolbar" aria-label="Formatting">'
+                        +     '<button class="cmp-tool" type="button" data-cmd="bold" title="Bold" aria-label="Bold" onmousedown="return cmpTool(event,\'bold\')"><i class="ph ph-text-b" aria-hidden="true"></i></button>'
+                        +     '<button class="cmp-tool" type="button" data-cmd="italic" title="Italic" aria-label="Italic" onmousedown="return cmpTool(event,\'italic\')"><i class="ph ph-text-italic" aria-hidden="true"></i></button>'
+                        +     '<span class="cmp-tool-sep" aria-hidden="true"></span>'
+                        +     '<button class="cmp-tool" type="button" data-cmd="h" title="Heading" aria-label="Heading" onmousedown="return cmpTool(event,\'h\')"><i class="ph ph-text-h" aria-hidden="true"></i></button>'
+                        +     '<button class="cmp-tool" type="button" data-cmd="quote" title="Quote" aria-label="Quote" onmousedown="return cmpTool(event,\'quote\')"><i class="ph ph-quotes" aria-hidden="true"></i></button>'
+                        +     '<span class="cmp-tool-sep" aria-hidden="true"></span>'
+                        +     '<button class="cmp-tool" type="button" data-cmd="ul" title="Bulleted list" aria-label="Bulleted list" onmousedown="return cmpTool(event,\'ul\')"><i class="ph ph-list-bullets" aria-hidden="true"></i></button>'
+                        +     '<button class="cmp-tool" type="button" data-cmd="chk" title="Checklist" aria-label="Checklist" onmousedown="return cmpTool(event,\'chk\')"><i class="ph ph-list-checks" aria-hidden="true"></i></button>'
+                        +   '</div>'
+                        +   '<div class="cmp-rte" contenteditable="true" data-comment="members-compose-body" data-placeholder="Write your post — tell the community about it…">' + body + '</div>'
+                        + '</div>'
+                        + '<p class="sg-signin-note"><i class="ph ph-info" aria-hidden="true"></i> You’ll need to sign in or create an account to publish.</p>'
+                        + '<div class="cmp-actions"><button class="sg-btn sg-btn-primary sg-btn--block" type="button" onclick="membersComposePublish()">Publish to the gallery</button></div>'
+                        + '</div></div></div>';
+                }
+                function openCompose() {
+                    var lb = document.querySelector('.lb');
+                    if (!lb) return;
+                    document.removeEventListener('keydown', lbKey);
+                    lb._carPrev = lb._carNext = null;
+                    var qi = document.querySelector('[data-comment="members-quick-input"]');
+                    lb.className = 'lb is-compose';
+                    lb.innerHTML = mhRenderCompose(qi ? qi.value : '');
+                    if (window.wtEnhance) window.wtEnhance(lb);
+                    lb.setAttribute('aria-label', 'New post');
+                    document.querySelector('.lb-scrim').classList.add('open');
+                    void lb.offsetWidth;
+                    lb.classList.add('open');
+                    lb.setAttribute('aria-hidden', 'false');
+                    document.documentElement.style.overflow = 'hidden';
+                    var sc = lb.querySelector('.lbx-scroll'); if (sc) sc.scrollTop = 0;
+                    var ed = lb.querySelector('.cmp-rte');
+                    if (ed) {
+                        try { document.execCommand('defaultParagraphSeparator', false, 'p'); } catch (e) { }
+                        ed.addEventListener('keyup', cmpSyncToolbar);
+                        ed.addEventListener('mouseup', cmpSyncToolbar);
+                    }
+                    var first = lb.querySelector('.cmp-title'); if (first) first.focus();
+                    document.addEventListener('keydown', lbKey);
+                }
+
+                /* ---- Renderers ---- */
+                function mhInitials(name) {
+                    return (name || '').split(/[\s&]+/).filter(Boolean).map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase();
+                }
+                function mhRenderBody(body) {
+                    if (!body) return '';
+                    return body.map(function (b) {
+                        if (typeof b === 'string') return '<p>' + b + '</p>';
+                        if (b.lead) return '<p class="lbx-lead">' + b.lead + '</p>';
+                        if (b.h) return '<h3>' + b.h + '</h3>';
+                        if (b.quote) return '<blockquote class="lbx-quote">' + b.quote + '</blockquote>';
+                        if (b.ul) return '<ul>' + b.ul.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>';
+                        if (b.chk) return '<ul>' + b.chk.map(function (x) { return '<li class="chk">' + x + '</li>'; }).join('') + '</ul>';
+                        if (b.img) return '<figure class="lbx-figure"><img src="' + b.img + '" alt="' + (b.alt || '') + '" loading="lazy">' + (b.cap ? '<figcaption>' + b.cap + '</figcaption>' : '') + '</figure>';
+                        return '';
+                    }).join('');
+                }
+                function mhProd(post) {
+                    return post.product ? '<a class="lbx-prod" href="' + post.product.href + '" data-comment="members-lightbox-prod">See ' + post.product.name + ' <i class="ph ph-arrow-right" aria-hidden="true"></i></a>' : '';
+                }
+                function mhRenderComments(post, reading) {
+                    var list = post.comments || [];
+                    var count = list.reduce(function (n, c) { return n + 1 + ((c.replies || []).length); }, 0);
+                    function block(c, isReply) {
+                        var replies = (c.replies || []).map(function (r) { return block(r, true); }).join('');
+                        return '<div class="' + (isReply ? 'lbx-reply' : 'lbx-comment') + '">'
+                            + '<div class="lbx-comment-top"><img class="lbx-avatar-img" src="' + mhFace(c.author) + '" alt="">'
+                            + '<span class="lbx-comment-author">' + c.author + '</span>'
+                            + '<span class="lbx-comment-date">' + c.date + '</span></div>'
+                            + '<p class="lbx-comment-text">' + c.text + '</p>'
+                            + (replies ? '<div class="lbx-replies">' + replies + '</div>' : '')
+                            + '</div>';
+                    }
+                    var items = list.map(function (c) { return block(c, false); }).join('');
+                    var reply = MH_SIGNED_IN
+                        ? '<div class="lbx-reply-box"><textarea class="lbx-reply-input" placeholder="Add a reply\u2026"></textarea><div class="lbx-reply-actions"><button class="sg-btn sg-btn-primary" type="button" onclick="membersPostReply(this)">Post reply</button></div></div>'
+                        : '<div class="lbx-reply-box"><button class="lbx-reply-fake" type="button" onclick="membersReplyGate()"><i class="ph ph-chat-circle" aria-hidden="true"></i> <span>Add a reply\u2026</span></button></div>';
+                    return '<section class="lbx-comments' + (reading ? ' in-reading' : '') + '">'
+                        + '<div class="lbx-comments-head">' + count + (count === 1 ? ' reply' : ' replies') + '</div>'
+                        + items + reply + '</section>';
+                }
+                function mhRenderRelated(id) {
+                    var cur = MH_POSTS[id];
+                    var keys = Object.keys(MH_POSTS).filter(function (k) { return k !== id; });
+                    keys.sort(function (a, b) {
+                        var av = MH_POSTS[a].type !== cur.type ? 0 : 1;
+                        var bv = MH_POSTS[b].type !== cur.type ? 0 : 1;
+                        return av - bv;
+                    });
+                    var cards = keys.slice(0, 2).map(function (k) {
+                        var p = MH_POSTS[k];
+                        return '<button class="lbx-rel-card" type="button" onclick="openPost(\'' + k + '\')">'
+                            + '<span class="lbx-rel-topic">' + (p.topic || 'Community') + '</span>'
+                            + '<span class="lbx-rel-title">' + p.title + '</span></button>';
+                    }).join('');
+                    return '<section class="lbx-related in-reading"><h3 class="lbx-related-head">More from the community</h3><div class="lbx-related-grid">' + cards + '</div></section>';
+                }
+                /* One template for every post. Carousel is shown only when the post
+                   carries images; the article (text), comments and related always
+                   render identically \u2014 with or without a photo, with or without body. */
+                function mhRenderPost(id, post) {
+                    var imgs = post.images || [];
+                    var hero = '';
+                    if (imgs.length) {
+                        var slides = imgs.map(function (src, k) { return '<div class="lbx-slide"><img src="' + src + '" alt="' + post.title + ' \u2014 photo ' + (k + 1) + '"></div>'; }).join('');
+                        var nav = '';
+                        if (imgs.length > 1) {
+                            nav = '<button class="lbx-car-btn lbx-car-prev" type="button" aria-label="Previous photo"><i class="ph ph-caret-left" aria-hidden="true"></i></button>'
+                                + '<button class="lbx-car-btn lbx-car-next" type="button" aria-label="Next photo"><i class="ph ph-caret-right" aria-hidden="true"></i></button>';
+                            /* Dots only when few photos; with many, the counter carries position. */
+                            if (imgs.length <= 6) {
+                                var dots = imgs.map(function (_, k) { return '<button class="lbx-dot' + (k === 0 ? ' is-active' : '') + '" type="button" aria-label="Photo ' + (k + 1) + '"></button>'; }).join('');
+                                nav += '<div class="lbx-dots">' + dots + '</div>';
+                            }
+                        }
+                        hero = '<div class="lbx-hero">'
+                            + '<div class="lbx-carousel">' + slides + '</div>'
+                            + (imgs.length > 1 ? '<span class="lbx-count">1 / ' + imgs.length + '</span>' : '')
+                            + nav
+                            + '</div>';
+                    }
+                    var byline = post.author + '<span class="dot">\u00b7</span>' + post.date;
+                    if (post.meta) byline += '<span class="dot">\u00b7</span>' + post.meta;
+                    if (post.readTime) byline += '<span class="dot">\u00b7</span>' + post.readTime;
+                    var body = (post.body && post.body.length) ? '<div class="lbx-body">' + mhRenderBody(post.body) + '</div>' : '';
+                    var article = '<article class="lbx-article">'
+                        + '<span class="lbx-eyebrow">' + (post.topic || 'From the community') + '</span>'
+                        + '<h1 class="lbx-title">' + post.title + '</h1>'
+                        + '<div class="lbx-byline"><img class="lbx-byline-avatar" src="' + mhFace(post.author) + '" alt=""><span>' + byline + '</span></div>'
+                        + body
+                        + (post.product ? '<div style="margin-top:8px">' + mhProd(post) + '</div>' : '')
+                        + '</article>';
+                    return '<div class="lb-inner">'
+                        + '<div class="lbx-topbar"><span class="lbx-topbar-title">' + post.title + '</span>'
+                        + '<button class="lbx-topbar-close" data-lb-close type="button" aria-label="Close" onclick="closePost()"><i class="ph ph-x" aria-hidden="true"></i></button></div>'
+                        + '<div class="lbx-progress"><i data-lb-progress></i></div>'
+                        + '<div class="lbx-scroll">' + hero + article + mhRenderComments(post, true) + mhRenderRelated(id) + '</div>'
+                        + '</div>';
+                }
+
+                /* ---- Open / close the post popup ---- */
+                function openLightbox(card) { openPost(card.getAttribute('data-comment')); }
+                function openPost(id) {
+                    var post = MH_POSTS[id];
+                    var lb = document.querySelector('.lb');
+                    if (!post || !lb) return;
+                    document.removeEventListener('keydown', lbKey);
+                    lb.className = 'lb is-post';
+                    lb.innerHTML = mhRenderPost(id, post);
+                    lb.setAttribute('aria-label', post.title);
+                    document.querySelector('.lb-scrim').classList.add('open');
+                    void lb.offsetWidth; /* reflow so the open transition runs on (re)open */
+                    lb.classList.add('open');
+                    lb.setAttribute('aria-hidden', 'false');
+                    document.documentElement.style.overflow = 'hidden';
+                    mhInitProgress(lb);
+                    if ((post.images || []).length) mhInitCarousel(lb, post);
+                    var scroll = lb.querySelector('.lbx-scroll'); if (scroll) scroll.scrollTop = 0;
+                    var cb = lb.querySelector('[data-lb-close]'); if (cb) cb.focus();
+                    document.addEventListener('keydown', lbKey);
+                }
+                function closePost() {
+                    var lb = document.querySelector('.lb');
+                    var scrim = document.querySelector('.lb-scrim');
+                    if (scrim) scrim.classList.remove('open');
+                    if (lb) { lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true'); }
+                    document.documentElement.style.overflow = '';
+                    document.removeEventListener('keydown', lbKey);
+                    if (lb && lb._carResize) { window.removeEventListener('resize', lb._carResize); lb._carResize = null; }
+                    window.setTimeout(function () { if (lb && !lb.classList.contains('open')) { lb.innerHTML = ''; lb.className = 'lb'; } }, 240);
+                }
+                function lbKey(e) {
+                    var gate = document.querySelector('[data-comment="members-gate"]');
+                    if (e.key === 'Escape') {
+                        if (gate && gate.classList.contains('open')) return; /* let the gate popup handle its own Esc */
+                        closePost();
+                        return;
+                    }
+                    var lb = document.querySelector('.lb');
+                    if (!lb) return;
+                    if (e.key === 'ArrowLeft' && lb._carPrev) lb._carPrev();
+                    else if (e.key === 'ArrowRight' && lb._carNext) lb._carNext();
+                }
+
+                /* ---- Photo carousel ---- */
+                function mhInitCarousel(lb, post) {
+                    lb._carPrev = lb._carNext = null;
+                    if (lb._carResize) { window.removeEventListener('resize', lb._carResize); lb._carResize = null; }
+                    var scroller = lb.querySelector('.lbx-carousel');
+                    if (!scroller) return;
+                    var real = Array.prototype.slice.call(scroller.querySelectorAll('.lbx-slide'));
+                    var n = real.length;
+                    if (n === 0) return;
+                    var count = lb.querySelector('.lbx-count');
+                    var dots = lb.querySelectorAll('.lbx-dot');
+                    var loop = n > 1;
+
+                    /* Move the real slides into a transform track. For >1 photo we bookend
+                       the track with a clone of the last and first slide, so paging past
+                       either end slides onto a matching image and then jumps back
+                       invisibly — an endless carousel where the last wraps to the first. */
+                    var track = document.createElement('div');
+                    track.className = 'lbx-track';
+                    real.forEach(function (s) { track.appendChild(s); });
+                    if (loop) {
+                        var head = real[n - 1].cloneNode(true);
+                        var tail = real[0].cloneNode(true);
+                        head.setAttribute('aria-hidden', 'true');
+                        tail.setAttribute('aria-hidden', 'true');
+                        track.insertBefore(head, track.firstChild);
+                        track.appendChild(tail);
+                    }
+                    scroller.appendChild(track);
+                    var domSlides = Array.prototype.slice.call(track.children);
+                    var index = loop ? 1 : 0;            /* DOM index of the shown slide */
+                    var DUR = 460;                       /* keep in sync with .lbx-track transition */
+                    var wrapTimer = null;
+                    function realIndex() { return loop ? (((index - 1) % n) + n) % n : index; }
+                    function offsetFor(i) {
+                        var s = domSlides[i];
+                        return s.offsetLeft - (scroller.clientWidth - s.offsetWidth) / 2;
+                    }
+                    function place(animate) {
+                        track.style.transition = animate ? '' : 'none';
+                        track.style.transform = 'translateX(' + (-offsetFor(index)) + 'px)';
+                        if (!animate) { void track.offsetHeight; track.style.transition = ''; }
+                    }
+                    function sync() {
+                        var ri = realIndex();
+                        if (count) count.textContent = (ri + 1) + ' / ' + n;
+                        dots.forEach(function (d, di) { d.classList.toggle('is-active', di === ri); });
+                    }
+                    /* Collapse a clone bookend onto its real twin without animating —
+                       the clone shows the same photo, so the swap is invisible. */
+                    function normalizeNow() {
+                        if (!loop) return false;
+                        if (index === 0) { index = n; place(false); return true; }
+                        if (index === n + 1) { index = 1; place(false); return true; }
+                        return false;
+                    }
+                    /* Don't lean on transitionend alone — it never fires when motion is
+                       reduced (or disabled), which would strand us on a clone. A timer is
+                       the reliable path; transitionend just makes the reset feel snappier. */
+                    function scheduleWrap() {
+                        if (!loop || (index !== 0 && index !== n + 1)) return;
+                        window.clearTimeout(wrapTimer);
+                        wrapTimer = window.setTimeout(function () { wrapTimer = null; normalizeNow(); sync(); }, DUR + 40);
+                    }
+                    function step(dir) {
+                        window.clearTimeout(wrapTimer); wrapTimer = null;
+                        normalizeNow();                  /* if parked on a clone, snap to its real twin first */
+                        index += dir;
+                        place(true); sync();
+                        scheduleWrap();
+                    }
+                    function toReal(ri) {
+                        window.clearTimeout(wrapTimer); wrapTimer = null;
+                        normalizeNow();
+                        index = loop ? ri + 1 : ri;
+                        place(true); sync();
+                    }
+                    track.addEventListener('transitionend', function (e) {
+                        if (e.propertyName !== 'transform' || !wrapTimer) return;
+                        window.clearTimeout(wrapTimer); wrapTimer = null;
+                        normalizeNow(); sync();
+                    });
+                    lb._carPrev = function () { step(-1); };
+                    lb._carNext = function () { step(1); };
+                    var prev = lb.querySelector('.lbx-car-prev'), next = lb.querySelector('.lbx-car-next');
+                    if (prev) prev.onclick = lb._carPrev;
+                    if (next) next.onclick = lb._carNext;
+                    dots.forEach(function (d, di) { d.onclick = function () { toReal(di); }; });
+                    lb._carResize = function () { place(false); };
+                    window.addEventListener('resize', lb._carResize);
+                    /* Re-centre once any not-yet-loaded photo settles its width. */
+                    domSlides.forEach(function (s) {
+                        var im = s.querySelector('img');
+                        if (im && !im.complete) im.addEventListener('load', function () { place(false); });
+                    });
+                    place(false); sync();
+                }
+
+                /* ---- Reading progress bar ---- */
+                function mhInitProgress(lb) {
+                    lb._carPrev = lb._carNext = null;
+                    var scroll = lb.querySelector('.lbx-scroll');
+                    var bar = lb.querySelector('[data-lb-progress]');
+                    if (!scroll || !bar) return;
+                    function upd() { var max = scroll.scrollHeight - scroll.clientHeight; bar.style.width = (max > 0 ? (scroll.scrollTop / max) * 100 : 0) + '%'; }
+                    scroll.addEventListener('scroll', upd);
+                    upd();
+                }
+
+                /* Reflect the (mock) auth state on load. */
+                membersApplyAuth();
             </script>
 
-            <!-- GALLERY LIGHTBOX -->
-            <div class="lb-scrim" data-comment="members-lightbox-scrim" onclick="closeLightbox()"></div>
-            <div class="lb" data-comment="members-lightbox" role="dialog" aria-modal="true" aria-label="Garden photo" aria-hidden="true">
-                <button class="lb-close" type="button" data-comment="members-lightbox-close" aria-label="Close" onclick="closeLightbox()"><i class="ph ph-x" aria-hidden="true"></i></button>
-                <div class="lb-media" data-comment="members-lightbox-media"><i class="ph ph-image" aria-hidden="true"></i><img id="lb-img" alt="" data-comment="members-lightbox-img" hidden></div>
-                <div class="lb-info" data-comment="members-lightbox-info">
-                    <span class="lb-eyebrow" data-comment="members-lightbox-eyebrow">From the community</span>
-                    <span class="lb-name" id="lb-name" data-comment="members-lightbox-name"></span>
-                    <span class="lb-meta" id="lb-meta" data-comment="members-lightbox-meta"></span>
-                    <p class="lb-caption" id="lb-caption" data-comment="members-lightbox-caption"></p>
-                    <div class="lb-actions" data-comment="members-lightbox-actions">
-                        <a class="lb-prod" id="lb-prod" href="product.html" data-comment="members-lightbox-prod"><span id="lb-prod-name"></span> <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
-                    </div>
-                </div>
-            </div>
+            <!-- COMMUNITY POST POPUP — photo carousel / reading article (JS-rendered into .lb) -->
+            <div class="lb-scrim" data-comment="members-lightbox-scrim" onclick="closePost()"></div>
+            <div class="lb" data-comment="members-lightbox" role="dialog" aria-modal="true" aria-label="Community post" aria-hidden="true"></div>
 
             <!-- FAQ / CONTACT CTA -->
             <section id="contact" data-comment="contact-section" style="position:relative; overflow:hidden; background:#0e4c23;">
@@ -1942,10 +3000,15 @@
                 registry.push({ wrap: wrap, close: closeMenu });
             }
             document.addEventListener('click', function (e) { registry.forEach(function (d) { if (!d.wrap.contains(e.target)) d.close(); }); });
-            function initAll() {
-                var nodes = document.querySelectorAll('.cat-select, .sg-select, .mh-filter, [data-comment="forms-variety-select"]');
+            function enhanceIn(root) {
+                var scope = (root && root.querySelectorAll) ? root : document;
+                var nodes = scope.querySelectorAll('.cat-select, .sg-select, .mh-filter, [data-comment="forms-variety-select"]');
                 Array.prototype.forEach.call(nodes, enhance);
             }
+            /* Exposed so JS-rendered popups (compose / signup) can enhance their
+               freshly-injected <select>s — otherwise they fall back to native. */
+            window.wtEnhance = enhanceIn;
+            function initAll() { enhanceIn(document); }
             if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAll);
             else initAll();
         })();
