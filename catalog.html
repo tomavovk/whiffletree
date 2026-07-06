@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Whiffletree Farm &amp; Nursery — Shop All Plants</title>
+        <title>Whiffletree Farm &amp; Nursery — Catalogue</title>
 
         <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -342,233 +342,201 @@
                     var(--paper2);
                 border-bottom: 1px solid var(--line);
             }
+            /* ============================================================
+               CATALOGUE (PDF) PAGE
+               ============================================================ */
 
-            /* Sort + filter toolbar */
-            .cat-select {
+            /* Title-band intro line */
+            [data-comment="catalog-intro"] {
                 font-family: var(--sans);
-                font-weight: 600;
-                font-size: 14px;
-                color: var(--ink2);
-                background: #fff;
-                border: 1px solid var(--line);
-                border-radius:2px;
-                padding: 11px 40px 11px 16px;
-                cursor: pointer;
-                appearance: none;
-                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2314682a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-                background-repeat: no-repeat;
-                background-position: right 14px center;
+                font-size: 16px;
+                line-height: 1.6;
+                color: var(--muted);
+                margin: 14px auto 0;
+                max-width: 54ch;
             }
-            .cat-select:hover { border-color: var(--g700); }
 
-            /* Mobile "Filters" toggle (hidden on desktop) */
-            [data-comment="catalog-filter-toggle"] {
-                display: none;
+            /* Featured (hero) — cover + download */
+            [data-comment="catalogue-featured"] {
+                display: grid;
+                grid-template-columns: 300px 1fr;
+                gap: 56px;
                 align-items: center;
-                gap: 9px;
-                font-family: var(--sans);
-                font-weight: 700;
-                font-size: 14px;
-                color: var(--g900);
-                background: #fff;
-                border: 1px solid var(--line);
-                border-radius:2px;
-                padding: 11px 18px;
-                cursor: pointer;
             }
-            [data-comment="catalog-filter-toggle"]:hover { border-color: var(--g700); }
-
-            /* Active-filter chips */
-            .cat-chip {
+            .cat-cover {
+                display: block;
+                width: 100%;
+                height: auto;
+                border: 1px solid var(--line);
+                border-radius: 2px;
+                box-shadow: 0 18px 40px -18px rgba(20, 20, 15, 0.38);
+            }
+            .cat-status {
                 display: inline-flex;
                 align-items: center;
                 gap: 8px;
                 font-family: var(--sans);
-                font-weight: 600;
-                font-size: 13px;
-                color: var(--g900);
-                background: var(--g100);
-                border: 1px solid var(--g200);
-                border-radius: 999px;
-                padding: 7px 8px 7px 14px;
-                cursor: pointer;
-            }
-            .cat-chip:hover { background: var(--g050); border-color: var(--g300); }
-            .cat-chip i { font-size: 14px; color: var(--g700); }
-
-            /* Sidebar filter group accordions */
-            .cat-fgroup { border-bottom: 1px solid var(--line-soft); }
-            .cat-fgroup-head {
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 12px;
-                background: none;
-                border: none;
-                cursor: pointer;
-                padding: 18px 2px;
-                font-family: var(--sans);
                 font-weight: 700;
-                font-size: 13px;
-                letter-spacing: 0.12em;
-                text-transform: uppercase;
+                font-size: 12px;
+                letter-spacing: 0.04em;
+                color: var(--accent-deep);
+                background: var(--c050);
+                border: 1px solid var(--c100);
+                border-radius: 999px;
+                padding: 7px 14px;
+            }
+            .cat-status i { font-size: 14px; }
+            .cat-feat-title {
+                font-family: var(--display);
+                font-weight: 500;
+                font-size: 42px;
+                line-height: 1.06;
                 color: var(--ink);
+                margin: 16px 0 0;
             }
-            .cat-fgroup-head .cat-fcaret {
-                flex: none;
-                color: var(--g700);
-                transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+            .cat-feat-text {
+                font-family: var(--sans);
+                font-size: 16.5px;
+                line-height: 1.7;
+                color: var(--muted);
+                margin: 16px 0 0;
+                max-width: 54ch;
             }
-            .cat-fgroup.collapsed .cat-fcaret { transform: rotate(-90deg); }
-            .cat-fgroup-body {
-                display: flex;
-                flex-direction: column;
-                gap: 2px;
-                padding: 0 2px 18px;
-            }
-            .cat-fgroup.collapsed .cat-fgroup-body { display: none; }
-
-            .cat-opt {
+            .cat-dl-row {
                 display: flex;
                 align-items: center;
-                gap: 11px;
-                font-family: var(--sans);
-                font-size: 14.5px;
-                color: var(--ink2);
-                padding: 7px 0;
-                cursor: pointer;
-                user-select: none;
+                gap: 16px;
+                flex-wrap: wrap;
+                margin-top: 26px;
             }
-            .cat-opt:hover { color: var(--g700); }
-            .cat-opt input {
-                width: 17px;
-                height: 17px;
-                flex: none;
-                accent-color: var(--g700);
-                cursor: pointer;
-            }
-
-            /* Price range inputs */
-            .cat-price-row {
-                display: flex;
+            .cat-dl-btn {
+                display: inline-flex;
                 align-items: center;
                 gap: 10px;
-                padding-top: 4px;
-            }
-            .cat-price-input {
-                flex: 1;
-                min-width: 0;
                 font-family: var(--sans);
-                font-size: 14px;
-                color: var(--ink2);
-                background: #fff;
-                border: 1px solid var(--line);
-                border-radius:2px;
-                padding: 10px 12px;
-            }
-            .cat-price-input:focus { outline: none; border-color: var(--g700); }
-            .cat-price-dash { color: var(--subtle); }
-
-            /* Product card */
-            .cat-card {
-                display: flex;
-                flex-direction: column;
+                font-weight: 700;
+                font-size: 13px;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: #fff;
+                background: var(--c600);
+                border-radius: 4px;
+                padding: 16px 30px;
                 text-decoration: none;
             }
-            .cat-card-media {
-                position: relative;
-                aspect-ratio: 1 / 0.96;
-                border-radius:2px;
-                overflow: hidden;
-                background: var(--paper2);
+            .cat-dl-btn i { font-size: 18px; }
+            .cat-dl-btn:hover {
+                background: var(--accent-deep);
+                transform: translateY(-1px);
+                box-shadow: 0 6px 16px rgba(158, 44, 32, 0.24);
             }
-            .cat-card-img {
-                position: absolute;
-                inset: 0;
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-                transition: transform 450ms cubic-bezier(0.2, 0, 0, 1);
+            .cat-dl-note { font-family: var(--sans); font-size: 13px; color: var(--subtle); }
+
+            /* Archive — past catalogues */
+            [data-comment="catalogue-archive"] {
+                margin-top: 80px;
+                padding-top: 44px;
+                border-top: 1px solid var(--line-soft);
             }
-            .cat-card:hover .cat-card-img { transform: scale(1.045); }
-            /* House pill style (matches the former card feature tags) */
-            .cat-badge {
-                position: absolute;
-                top: 12px;
-                left: 12px;
-                display: inline-flex;
-                align-items: center;
-                gap: 5px;
-                font-family: var(--sans);
-                font-weight: 600;
-                font-size: 11px;
-                line-height: 1;
-                color: var(--g900);
-                background: #fff;
-                border: 1px solid var(--line-soft);
-                border-radius: 6px;
-                padding: 5px 9px;
-            }
-            .cat-badge--out { background: #fff; }
-            .cat-badge--new { color: #fff; background: var(--accent); border-color: transparent; }
-            .cat-card-title {
+            .cat-section-title {
                 font-family: var(--display);
                 font-weight: 600;
-                font-size: 22px;
-                line-height: 1.15;
+                font-size: 32px;
+                line-height: 1.1;
                 color: var(--ink);
-                margin-top: 14px;
-                transition: color 240ms cubic-bezier(0.22, 1, 0.36, 1);
+                margin: 0;
             }
-            .cat-card:hover .cat-card-title { color: var(--g700); }
-            .cat-card-price {
+            .cat-section-sub {
                 font-family: var(--sans);
-                font-weight: 700;
-                font-size: 16px;
-                color: var(--g700);
-                margin-top: 8px;
-            }
-            .cat-card-type {
-                font-family: var(--sans);
-                font-size: 13px;
+                font-size: 15.5px;
+                line-height: 1.6;
                 color: var(--muted);
-                margin-top: 5px;
+                margin: 10px 0 0;
             }
-            /* Pagination */
-            .cat-page-btn {
-                min-width: 42px;
-                height: 42px;
+            .cat-archive-grid {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 12px;
+                margin-top: 26px;
+            }
+            .cat-archive-link {
                 display: inline-flex;
                 align-items: center;
-                justify-content: center;
+                gap: 9px;
                 font-family: var(--sans);
-                font-weight: 700;
-                font-size: 14px;
+                font-weight: 600;
+                font-size: 15px;
                 color: var(--ink2);
                 background: #fff;
                 border: 1px solid var(--line);
-                border-radius:2px;
+                border-radius: 2px;
+                padding: 12px 18px;
                 text-decoration: none;
-                cursor: pointer;
-                padding: 0 12px;
             }
-            .cat-page-btn:hover { border-color: var(--g700); color: var(--g700); }
-            .cat-page-btn.active {
-                background: var(--g900);
-                border-color: var(--g900);
-                color: #fff;
+            .cat-archive-link i { font-size: 17px; color: var(--g700); }
+            .cat-archive-link:hover {
+                border-color: var(--g700);
+                color: var(--g900);
+                background: var(--g050);
             }
 
-            /* Mobile drawer scrim */
-            [data-comment="catalog-scrim"] {
-                display: none;
-                position: fixed;
-                inset: 0;
-                background: rgba(21, 20, 15, 0.45);
-                z-index: 45;
+            /* Notify band — leads into the shared newsletter */
+            [data-comment="catalogue-notify"] {
+                background: var(--g050);
+                border-top: 1px solid var(--line-soft);
             }
-
+            [data-comment="catalogue-notify-inner"] {
+                max-width: 760px;
+                margin: 0 auto;
+                padding: 56px 40px;
+                text-align: center;
+            }
+            .cat-notify-pill {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                font-family: var(--sans);
+                font-weight: 700;
+                font-size: 11.5px;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                color: var(--g800);
+                background: var(--g100);
+                border-radius: 999px;
+                padding: 7px 15px;
+            }
+            .cat-notify-title {
+                font-family: var(--display);
+                font-weight: 500;
+                font-size: 34px;
+                line-height: 1.1;
+                color: var(--g900);
+                margin: 16px 0 0;
+            }
+            .cat-notify-text {
+                font-family: var(--sans);
+                font-size: 16px;
+                line-height: 1.7;
+                color: var(--muted);
+                margin: 12px auto 0;
+                max-width: 52ch;
+            }
+            .cat-notify-jump {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                font-family: var(--sans);
+                font-weight: 700;
+                font-size: 13px;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: var(--g700);
+                text-decoration: none;
+                margin-top: 20px;
+            }
+            .cat-notify-jump:hover { color: var(--g900); }
+            .cat-notify-jump i { transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1); }
+            .cat-notify-jump:hover i { transform: translateY(3px); }
             /* ============================================================
                RESPONSIVE
                ============================================================ */
@@ -586,30 +554,19 @@
                 cursor: pointer;
             }
 
-            /* Catalog grid columns */
-            [data-comment="catalog-grid"] {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 28px 24px;
-            }
-
-            @media (min-width: 1280px) {  /* xl */
-                [data-comment="catalog-grid"] { grid-template-columns: repeat(4, 1fr); }
-            }
-
             /* ---- Tablet ---- */
             @media (max-width: 1024px) {
                 [data-comment="header-inner"] { padding-left: 28px !important; padding-right: 28px !important; }
                 [data-comment="catalog-titleband-inner"],
                 [data-comment="catalog-shell"],
+                [data-comment="catalogue-notify-inner"],
                 [data-comment="newsletter-inner"],
                 [data-comment="footer-inner"] { padding-left: 28px !important; padding-right: 28px !important; }
-                [data-comment="catalog-grid"] { grid-template-columns: repeat(2, 1fr) !important; }
             }
 
             /* ---- Mobile & small tablet ---- */
             @media (max-width: 900px) {
-                /* Header → hamburger */
+                /* Header -> hamburger */
                 [data-comment="header-burger"] { display: inline-flex; }
                 [data-comment="header-inner"] { justify-content: flex-end !important; min-height: 72px; padding-top: 12px !important; padding-bottom: 12px !important; }
                 [data-comment="header-logo-link"] { left: 16px !important; top: 13px !important; }
@@ -630,28 +587,13 @@
                 [data-comment="header-inner"],
                 [data-comment="catalog-titleband-inner"],
                 [data-comment="catalog-shell"],
+                [data-comment="catalogue-notify-inner"],
                 [data-comment="newsletter-inner"],
                 [data-comment="footer-inner"] { padding-left: 20px !important; padding-right: 20px !important; }
 
-                /* Catalog: sidebar becomes an off-canvas drawer */
-                [data-comment="catalog-body"] { grid-template-columns: 1fr !important; gap: 0 !important; }
-                [data-comment="catalog-sidebar"] {
-                    position: fixed !important; top: 0; bottom: 0; left: 0;
-                    width: 86%; max-width: 360px;
-                    background: #fff; z-index: 50;
-                    padding: 20px 22px 40px !important;
-                    overflow-y: auto;
-                    transform: translateX(-100%);
-                    transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
-                    box-shadow: 0 0 40px rgba(0,0,0,0.2);
-                    border: none !important;
-                }
-                [data-comment="page-root"].filters-open [data-comment="catalog-sidebar"] { transform: none; }
-                [data-comment="page-root"].filters-open [data-comment="catalog-scrim"] { display: block; }
-                [data-comment="catalog-sidebar-close"] { display: inline-flex !important; }
-                [data-comment="catalog-filter-toggle"] { display: inline-flex !important; }
-
-                [data-comment="catalog-grid"] { grid-template-columns: repeat(2, 1fr) !important; gap: 18px 16px !important; }
+                /* Featured hero -> stack */
+                [data-comment="catalogue-featured"] { grid-template-columns: 1fr !important; gap: 28px !important; }
+                .cat-cover { max-width: 280px; }
 
                 /* Newsletter + footer stacking */
                 [data-comment="newsletter-inner"] { grid-template-columns: 1fr !important; gap: 28px !important; }
@@ -661,10 +603,11 @@
 
                 /* Heading downsizing */
                 [data-comment="catalog-title"] { font-size: 38px !important; }
+                .cat-feat-title { font-size: 34px !important; }
                 [data-comment="newsletter-heading"] { font-size: 32px !important; }
             }
 
-            /* Mega nav → inline accordion on mobile */
+            /* Mega nav -> inline accordion on mobile */
             @media (max-width: 900px) {
                 .nav-item { display: block; }
                 .nav-trigger {
@@ -699,81 +642,13 @@
                 .np-link { padding: 8px 0; }
             }
 
-            /* Sidebar close button — hidden on desktop */
-            [data-comment="catalog-sidebar-close"] {
-                display: none;
-                align-items: center;
-                justify-content: center;
-                background: none;
-                border: none;
-                color: var(--ink);
-                font-size: 26px;
-                line-height: 1;
-                padding: 4px;
-                cursor: pointer;
-            }
-
             /* ---- Small phones ---- */
             @media (max-width: 560px) {
-                [data-comment="catalog-grid"] { grid-template-columns: 1fr !important; }
                 [data-comment="footer-columns"] { grid-template-columns: 1fr !important; }
-                [data-comment="catalog-toolbar"] { flex-wrap: wrap; }
+                .cat-feat-title { font-size: 30px !important; }
+                .cat-section-title { font-size: 27px !important; }
             }
         </style>
-    <style data-comment="wt-dd-styles">
-        /* ===== Custom dropdown — progressively enhances native <select> =====
-           Trigger keeps each context's field/pill look; the open list is styled
-           to match our form fields site-wide. */
-        .wt-dd { position: relative; }
-        .wt-dd-native {
-            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-            overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
-            opacity: 0; pointer-events: none;
-        }
-        .wt-dd-trigger {
-            display: flex; align-items: center; gap: 10px; width: 100%;
-            font-family: var(--sans); font-size: 15px; color: var(--ink);
-            background: #fff; border: 1.5px solid var(--line); border-radius: 2px;
-            padding: 13px 15px; cursor: pointer; text-align: left;
-            transition: border-color 150ms cubic-bezier(0.2,0,0,1), box-shadow 150ms cubic-bezier(0.2,0,0,1);
-        }
-        .wt-dd-trigger:hover { border-color: var(--subtle); }
-        .wt-dd.is-open .wt-dd-trigger,
-        .wt-dd-trigger:focus-visible {
-            border-color: var(--g600);
-            box-shadow: 0 0 0 3px rgba(38,139,57,0.15);
-            outline: none;
-        }
-        .wt-dd-trigger-label { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .wt-dd-caret { flex: none; font-size: 15px; color: var(--muted); transition: transform 180ms cubic-bezier(0.2,0,0,1); }
-        .wt-dd.is-open .wt-dd-caret { transform: rotate(180deg); }
-        .wt-dd-menu {
-            position: absolute; top: calc(100% + 6px); left: 0; z-index: 90;
-            min-width: 100%; width: max-content; max-width: min(340px, 92vw);
-            background: #fff; border: 1.5px solid var(--line); border-radius: 2px;
-            box-shadow: 0 14px 34px rgba(21,20,15,0.13);
-            padding: 5px; max-height: 288px; overflow-y: auto;
-            opacity: 0; transform: translateY(-4px); pointer-events: none;
-            transition: opacity 150ms cubic-bezier(0.2,0,0,1), transform 150ms cubic-bezier(0.2,0,0,1);
-        }
-        .wt-dd.is-open .wt-dd-menu { opacity: 1; transform: translateY(0); pointer-events: auto; }
-        .wt-dd-option {
-            display: flex; align-items: center; justify-content: space-between; gap: 12px;
-            font-family: var(--sans); font-size: 14px; line-height: 1.3; color: var(--ink2);
-            padding: 10px 12px; border-radius: 2px; cursor: pointer; white-space: nowrap;
-        }
-        .wt-dd-option:hover, .wt-dd-option.is-active { background: var(--paper1); color: var(--ink); }
-        .wt-dd-option.is-selected { color: var(--ink); font-weight: 700; }
-        .wt-dd-option-check { flex: none; font-size: 15px; color: var(--g600); opacity: 0; }
-        .wt-dd-option.is-selected .wt-dd-option-check { opacity: 1; }
-        /* Context variants — trigger matches where it lives */
-        .wt-dd--sm .wt-dd-trigger { font-size: 13.5px; color: var(--ink2); padding: 9px 11px; }
-        .wt-dd--sort .wt-dd-trigger { font-size: 14px; font-weight: 600; color: var(--ink2); padding: 11px 16px; }
-        .wt-dd--pill .wt-dd-trigger {
-            font-size: 13.5px; font-weight: 600; color: var(--ink2);
-            border: 1px solid var(--line-soft); border-radius: 999px; padding: 9px 16px;
-        }
-    </style>
     </head>
     <body>
         <div data-comment="page-root" style="background:#ffffff; font-family:var(--sans); color:var(--ink2); font-size:16px; line-height:1.6;">
@@ -794,50 +669,50 @@
                                 <div class="np-inner">
                                     <div class="np-top">
                                         <span class="np-eyebrow">Explore the nursery</span>
-                                        <a class="np-pill" href="catalog.html">See all categories</a>
+                                        <a class="np-pill" href="shop.html">See all categories</a>
                                     </div>
                                     <div class="np-grid np-grid--4">
                                         <div class="np-col">
                                             <span class="np-col-head">Trees</span>
-                                            <a class="np-link" href="catalog.html?category=apples">Apple</a>
-                                            <a class="np-link" href="catalog.html?category=pears">Pear</a>
-                                            <a class="np-link" href="catalog.html?category=plums">Plum</a>
-                                            <a class="np-link" href="catalog.html?category=peaches">Peach</a>
-                                            <a class="np-link" href="catalog.html?category=cherries">Cherry</a>
-                                            <a class="np-link" href="catalog.html?category=apricots">Apricot</a>
-                                            <a class="np-link" href="catalog.html?category=nuts">Nut</a>
-                                            <a class="np-link" href="catalog.html">Combo Trees</a>
-                                            <a class="np-seeall" href="catalog.html?group=trees">See all trees <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                                            <a class="np-link" href="shop.html?category=apples">Apple</a>
+                                            <a class="np-link" href="shop.html?category=pears">Pear</a>
+                                            <a class="np-link" href="shop.html?category=plums">Plum</a>
+                                            <a class="np-link" href="shop.html?category=peaches">Peach</a>
+                                            <a class="np-link" href="shop.html?category=cherries">Cherry</a>
+                                            <a class="np-link" href="shop.html?category=apricots">Apricot</a>
+                                            <a class="np-link" href="shop.html?category=nuts">Nut</a>
+                                            <a class="np-link" href="shop.html">Combo Trees</a>
+                                            <a class="np-seeall" href="shop.html?group=trees">See all trees <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
                                         </div>
                                         <div class="np-col">
                                             <span class="np-col-head">Shrubs &amp; Plants</span>
-                                            <a class="np-link" href="catalog.html?category=grapes">Grape</a>
-                                            <a class="np-link" href="catalog.html?category=haskap">Haskap</a>
-                                            <a class="np-link" href="catalog.html?category=shrubs">Kiwi</a>
-                                            <a class="np-link" href="catalog.html?category=shrubs">Rhubarb</a>
-                                            <a class="np-link" href="catalog.html?category=shrubs">Fig</a>
-                                            <a class="np-link" href="catalog.html?category=shrubs">Sea Buckthorn</a>
-                                            <a class="np-link" href="catalog.html?category=shrubs">Asparagus</a>
-                                            <a class="np-link" href="catalog.html?category=shrubs">Goumi</a>
-                                            <a class="np-seeall" href="catalog.html?category=shrubs">See all shrubs &amp; plants <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                                            <a class="np-link" href="shop.html?category=grapes">Grape</a>
+                                            <a class="np-link" href="shop.html?category=haskap">Haskap</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Kiwi</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Rhubarb</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Fig</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Sea Buckthorn</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Asparagus</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Goumi</a>
+                                            <a class="np-seeall" href="shop.html?category=shrubs">See all shrubs &amp; plants <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
                                         </div>
                                         <div class="np-col">
                                             <span class="np-col-head">Berries</span>
-                                            <a class="np-link" href="catalog.html?category=blueberry">Blueberry</a>
-                                            <a class="np-link" href="catalog.html?category=haskap">Haskap</a>
-                                            <a class="np-link" href="catalog.html?category=currant">Currant</a>
-                                            <a class="np-link" href="catalog.html?category=gooseberry">Gooseberry</a>
-                                            <a class="np-link" href="catalog.html?category=blackberry">Blackberry</a>
-                                            <a class="np-link" href="catalog.html?category=elderberry">Elderberry</a>
-                                            <a class="np-seeall" href="catalog.html?group=berries">See all berries <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                                            <a class="np-link" href="shop.html?category=blueberry">Blueberry</a>
+                                            <a class="np-link" href="shop.html?category=haskap">Haskap</a>
+                                            <a class="np-link" href="shop.html?category=currant">Currant</a>
+                                            <a class="np-link" href="shop.html?category=gooseberry">Gooseberry</a>
+                                            <a class="np-link" href="shop.html?category=blackberry">Blackberry</a>
+                                            <a class="np-link" href="shop.html?category=elderberry">Elderberry</a>
+                                            <a class="np-seeall" href="shop.html?group=berries">See all berries <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
                                         </div>
                                         <div class="np-col">
                                             <span class="np-col-head">More</span>
-                                            <a class="np-link" href="catalog.html?category=roses">Roses</a>
-                                            <a class="np-link" href="catalog.html">Collector's Corner</a>
-                                            <a class="np-link" href="catalog.html?category=supplies">Orchard Supplies</a>
-                                            <a class="np-link" href="catalog.html">Reference Books</a>
-                                            <a class="np-link" href="catalog.html">Gift Certificates</a>
+                                            <a class="np-link" href="shop.html?category=roses">Roses</a>
+                                            <a class="np-link" href="shop.html">Collector's Corner</a>
+                                            <a class="np-link" href="shop.html?category=supplies">Orchard Supplies</a>
+                                            <a class="np-link" href="shop.html">Reference Books</a>
+                                            <a class="np-link" href="shop.html">Gift Certificates</a>
                                         </div>
                                     </div>
                                 </div>
@@ -903,555 +778,62 @@
                 </div>
             </header>
 
-            <!-- CATALOG -->
-            <main data-comment="catalog-root">
+            <!-- CATALOGUE -->
+            <main data-comment="catalogue-root">
 
                 <!-- TITLE BAND -->
                 <section data-comment="catalog-titleband">
-                    <div data-comment="catalog-titleband-inner" style="max-width:1600px; margin:0 auto; padding:32px 40px; text-align:center;">
-                        <h1 data-comment="catalog-title" style="font-family:var(--display); font-weight:500; font-size:52px; line-height:1.04; color:var(--ink); margin:0;">Shop all Trees</h1>
+                    <div data-comment="catalog-titleband-inner" style="max-width:1100px; margin:0 auto; padding:36px 40px; text-align:center;">
+                        <h1 data-comment="catalog-title" style="font-family:var(--display); font-weight:500; font-size:52px; line-height:1.04; color:var(--ink); margin:0;">Catalogue</h1>
+                        <p data-comment="catalog-intro">Browse and download our full plant catalogue — every variety, description, and price in one printable PDF.</p>
                     </div>
                 </section>
 
                 <!-- SHELL -->
-                <div data-comment="catalog-shell" style="max-width:1600px; margin:0 auto; padding:40px 40px 96px;">
+                <div data-comment="catalog-shell" style="max-width:1100px; margin:0 auto; padding:56px 40px 88px;">
 
-                    <!-- TOOLBAR -->
-                    <div data-comment="catalog-toolbar" style="display:flex; align-items:center; justify-content:space-between; gap:18px; padding-bottom:22px; border-bottom:1px solid var(--line-soft);">
-                        <div data-comment="catalog-toolbar-left" style="display:flex; align-items:center; gap:16px;">
-                            <button data-comment="catalog-filter-toggle" type="button" aria-label="Show filters"><i class="ph ph-sliders-horizontal" style="font-size:18px;"></i>Filters</button>
-                            <span data-comment="catalog-count" style="font-family:var(--sans); font-size:14px; color:var(--muted);">16 products</span>
+                    <!-- FEATURED — the 2026 catalogue -->
+                    <section data-comment="catalogue-featured">
+                        <div data-comment="catalogue-featured-cover">
+                            <img class="cat-cover" data-comment="catalogue-cover-img" src="assets/catalogue-cover-2026.jpg" alt="Whiffletree 2026 print catalogue cover">
                         </div>
-                        <label data-comment="catalog-sort-label" style="display:inline-flex; align-items:center; gap:10px; font-family:var(--sans); font-size:13px; font-weight:600; color:var(--muted);">
-                            Sort
-                            <select data-comment="catalog-sort" class="cat-select" aria-label="Sort products">
-                                <option value="featured">Featured</option>
-                                <option value="az">Alphabetically, A–Z</option>
-                                <option value="za">Alphabetically, Z–A</option>
-                                <option value="price-asc">Price, low to high</option>
-                                <option value="price-desc">Price, high to low</option>
-                            </select>
-                        </label>
-                    </div>
-
-                    <!-- ACTIVE FILTER CHIPS -->
-                    <div data-comment="catalog-chips" style="display:none; align-items:center; flex-wrap:wrap; gap:10px; padding-top:18px;">
-                        <span data-comment="catalog-chips-label" style="font-family:var(--sans); font-size:13px; font-weight:700; color:var(--ink);">Active:</span>
-                        <div data-comment="catalog-chips-list" style="display:inline-flex; flex-wrap:wrap; gap:10px;"></div>
-                        <button data-comment="catalog-chips-clear" type="button" style="font-family:var(--sans); font-size:13px; font-weight:700; color:var(--accent); background:none; border:none; cursor:pointer; text-decoration:underline; text-underline-offset:3px;">Clear all</button>
-                    </div>
-
-                    <!-- BODY: sidebar + grid -->
-                    <div data-comment="catalog-body" style="display:grid; grid-template-columns:268px 1fr; gap:48px; margin-top:30px; align-items:start;">
-
-                        <!-- SIDEBAR FILTERS -->
-                        <aside data-comment="catalog-sidebar" style="position:sticky; top:120px;">
-                            <div data-comment="catalog-sidebar-head" style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding-bottom:10px;">
-                                <span data-comment="catalog-sidebar-title" style="font-family:var(--display); font-weight:600; font-size:24px; color:var(--ink);">Filter</span>
-                                <button data-comment="catalog-sidebar-close" type="button" aria-label="Close filters"><i class="ph ph-x"></i></button>
+                        <div data-comment="catalogue-featured-info">
+                            <span class="cat-status" data-comment="catalogue-status"><i class="ph-fill ph-file-pdf" aria-hidden="true"></i>Print sold out · PDF free to download</span>
+                            <h2 class="cat-feat-title" data-comment="catalogue-featured-title">The 2026 catalogue</h2>
+                            <p class="cat-feat-text" data-comment="catalogue-featured-text">Our print run sold out faster than ever this year — but the full 2026 catalogue is yours to download, free. Every tree, shrub, and berry we grow, with hardiness notes and pricing. We’re already hard at work on next year’s edition.</p>
+                            <div class="cat-dl-row" data-comment="catalogue-download-row">
+                                <a class="cat-dl-btn" data-comment="catalogue-download-btn" href="https://cdn.whiffletreefarmandnursery.ca/images/2026/02/260217-WhiffletreeCatalog_2026-web.pdf" target="_blank" rel="noopener"><i class="ph ph-download-simple" aria-hidden="true"></i>Download PDF</a>
+                                <span class="cat-dl-note" data-comment="catalogue-download-note">PDF · opens in a new tab</span>
                             </div>
-
-                            <!-- Availability -->
-                            <div class="cat-fgroup" data-fgroup>
-                                <button class="cat-fgroup-head" data-comment="catalog-filter-availability-head" type="button" aria-expanded="true">Availability <svg class="cat-fcaret" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-                                <div class="cat-fgroup-body" data-comment="catalog-filter-availability-body">
-                                    <label class="cat-opt" data-comment="catalog-filter-stock-instock"><input type="checkbox" data-comment="catalog-filter-stock-instock-input" data-filter="stock" value="in">In stock</label>
-                                    <label class="cat-opt" data-comment="catalog-filter-stock-soldout"><input type="checkbox" data-comment="catalog-filter-stock-soldout-input" data-filter="stock" value="out">Sold out</label>
-                                </div>
-                            </div>
-
-                            <!-- Category -->
-                            <div class="cat-fgroup" data-fgroup>
-                                <button class="cat-fgroup-head" data-comment="catalog-filter-category-head" type="button" aria-expanded="true">Category <svg class="cat-fcaret" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-                                <div class="cat-fgroup-body" data-comment="catalog-filter-category-body">
-                                    <label class="cat-opt" data-comment="catalog-filter-cat-apples"><input type="checkbox" data-comment="catalog-filter-cat-apples-input" data-filter="category" value="apples">Apples</label>
-                                    <label class="cat-opt" data-comment="catalog-filter-cat-pears"><input type="checkbox" data-comment="catalog-filter-cat-pears-input" data-filter="category" value="pears">Pears</label>
-                                    <label class="cat-opt" data-comment="catalog-filter-cat-plums"><input type="checkbox" data-comment="catalog-filter-cat-plums-input" data-filter="category" value="plums">Plums</label>
-                                    <label class="cat-opt" data-comment="catalog-filter-cat-cherries"><input type="checkbox" data-comment="catalog-filter-cat-cherries-input" data-filter="category" value="cherries">Cherries</label>
-                                    <label class="cat-opt" data-comment="catalog-filter-cat-peaches"><input type="checkbox" data-comment="catalog-filter-cat-peaches-input" data-filter="category" value="peaches">Peaches</label>
-                                    <label class="cat-opt" data-comment="catalog-filter-cat-apricots"><input type="checkbox" data-comment="catalog-filter-cat-apricots-input" data-filter="category" value="apricots">Apricots</label>
-                                    <label class="cat-opt" data-comment="catalog-filter-cat-nuts"><input type="checkbox" data-comment="catalog-filter-cat-nuts-input" data-filter="category" value="nuts">Nut trees</label>
-                                    <label class="cat-opt" data-comment="catalog-filter-cat-grapes"><input type="checkbox" data-comment="catalog-filter-cat-grapes-input" data-filter="category" value="grapes">Grapes</label>
-                                    <label class="cat-opt" data-comment="catalog-filter-cat-blueberry"><input type="checkbox" data-comment="catalog-filter-cat-blueberry-input" data-filter="category" value="blueberry">Blueberries</label>
-                                    <label class="cat-opt" data-comment="catalog-filter-cat-haskap"><input type="checkbox" data-comment="catalog-filter-cat-haskap-input" data-filter="category" value="haskap">Haskap</label>
-                                    <label class="cat-opt" data-comment="catalog-filter-cat-currant"><input type="checkbox" data-comment="catalog-filter-cat-currant-input" data-filter="category" value="currant">Currants</label>
-                                    <label class="cat-opt" data-comment="catalog-filter-cat-gooseberry"><input type="checkbox" data-comment="catalog-filter-cat-gooseberry-input" data-filter="category" value="gooseberry">Gooseberries</label>
-                                    <label class="cat-opt" data-comment="catalog-filter-cat-blackberry"><input type="checkbox" data-comment="catalog-filter-cat-blackberry-input" data-filter="category" value="blackberry">Blackberries</label>
-                                    <label class="cat-opt" data-comment="catalog-filter-cat-elderberry"><input type="checkbox" data-comment="catalog-filter-cat-elderberry-input" data-filter="category" value="elderberry">Elderberries</label>
-                                    <label class="cat-opt" data-comment="catalog-filter-cat-shrubs"><input type="checkbox" data-comment="catalog-filter-cat-shrubs-input" data-filter="category" value="shrubs">Other shrubs</label>
-                                    <label class="cat-opt" data-comment="catalog-filter-cat-roses"><input type="checkbox" data-comment="catalog-filter-cat-roses-input" data-filter="category" value="roses">Roses</label>
-                                    <label class="cat-opt" data-comment="catalog-filter-cat-supplies"><input type="checkbox" data-comment="catalog-filter-cat-supplies-input" data-filter="category" value="supplies">Orchard supplies</label>
-                                </div>
-                            </div>
-
-                            <!-- Hardiness zone -->
-                            <div class="cat-fgroup" data-fgroup>
-                                <button class="cat-fgroup-head" data-comment="catalog-filter-zone-head" type="button" aria-expanded="true">Hardiness zone <svg class="cat-fcaret" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-                                <div class="cat-fgroup-body" data-comment="catalog-filter-zone-body">
-                                    <label class="cat-opt" data-comment="catalog-filter-zone-3"><input type="checkbox" data-comment="catalog-filter-zone-3-input" data-filter="zone" value="3">Zone 3</label>
-                                    <label class="cat-opt" data-comment="catalog-filter-zone-4"><input type="checkbox" data-comment="catalog-filter-zone-4-input" data-filter="zone" value="4">Zone 4</label>
-                                    <label class="cat-opt" data-comment="catalog-filter-zone-5"><input type="checkbox" data-comment="catalog-filter-zone-5-input" data-filter="zone" value="5">Zone 5</label>
-                                </div>
-                            </div>
-
-                            <!-- Harvest -->
-                            <div class="cat-fgroup" data-fgroup>
-                                <button class="cat-fgroup-head" data-comment="catalog-filter-harvest-head" type="button" aria-expanded="true">Harvest <svg class="cat-fcaret" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-                                <div class="cat-fgroup-body" data-comment="catalog-filter-harvest-body">
-                                    <label class="cat-opt" data-comment="catalog-filter-harvest-jul"><input type="checkbox" data-comment="catalog-filter-harvest-jul-input" data-filter="harvest" value="jul">July</label>
-                                    <label class="cat-opt" data-comment="catalog-filter-harvest-aug"><input type="checkbox" data-comment="catalog-filter-harvest-aug-input" data-filter="harvest" value="aug">August</label>
-                                    <label class="cat-opt" data-comment="catalog-filter-harvest-sep"><input type="checkbox" data-comment="catalog-filter-harvest-sep-input" data-filter="harvest" value="sep">September</label>
-                                    <label class="cat-opt" data-comment="catalog-filter-harvest-oct"><input type="checkbox" data-comment="catalog-filter-harvest-oct-input" data-filter="harvest" value="oct">October</label>
-                                </div>
-                            </div>
-
-                            <!-- Characteristics -->
-                            <div class="cat-fgroup" data-fgroup>
-                                <button class="cat-fgroup-head" data-comment="catalog-filter-chars-head" type="button" aria-expanded="true">Characteristics <svg class="cat-fcaret" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-                                <div class="cat-fgroup-body" data-comment="catalog-filter-chars-body">
-                                    <label class="cat-opt" data-comment="catalog-filter-char-coldhardy"><input type="checkbox" data-comment="catalog-filter-char-coldhardy-input" data-filter="chars" value="cold-hardy">Cold-hardy</label>
-                                    <label class="cat-opt" data-comment="catalog-filter-char-disease"><input type="checkbox" data-comment="catalog-filter-char-disease-input" data-filter="chars" value="disease-resistant">Disease-resistant</label>
-                                    <label class="cat-opt" data-comment="catalog-filter-char-selffertile"><input type="checkbox" data-comment="catalog-filter-char-selffertile-input" data-filter="chars" value="self-fertile">Self-fertile</label>
-                                    <label class="cat-opt" data-comment="catalog-filter-char-pollenizer"><input type="checkbox" data-comment="catalog-filter-char-pollenizer-input" data-filter="chars" value="needs-pollenizer">Needs a pollenizer</label>
-                                </div>
-                            </div>
-
-                            <!-- Price -->
-                            <div class="cat-fgroup" data-fgroup>
-                                <button class="cat-fgroup-head" data-comment="catalog-filter-price-head" type="button" aria-expanded="true">Price <svg class="cat-fcaret" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
-                                <div class="cat-fgroup-body" data-comment="catalog-filter-price-body">
-                                    <div class="cat-price-row">
-                                        <input class="cat-price-input" data-comment="catalog-filter-price-min" data-filter="price-min" type="number" min="0" placeholder="$ Min" aria-label="Minimum price">
-                                        <span class="cat-price-dash" data-comment="catalog-filter-price-dash">–</span>
-                                        <input class="cat-price-input" data-comment="catalog-filter-price-max" data-filter="price-max" type="number" min="0" placeholder="$ Max" aria-label="Maximum price">
-                                    </div>
-                                </div>
-                            </div>
-                        </aside>
-
-                        <!-- PRODUCT AREA -->
-                        <div data-comment="catalog-main">
-                            <div data-comment="catalog-grid">
-                                <a class="cat-card" data-comment="catalog-product-1" href="product.html" data-index="1" data-name="Bancroft Apple" data-category="apples" data-zone="3" data-harvest="oct" data-stock="out" data-price="" data-chars="needs-pollenizer cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-1-media"><div class="cat-card-img" data-comment="catalog-product-1-image" style="background-image:url('assets/cat-apples.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-1-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-1-title">Bancroft Apple</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-1-price">Call for price</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-1-type">Apple tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-2" href="product.html" data-index="2" data-name="Mother Apple" data-category="apples" data-zone="5" data-harvest="oct" data-stock="out" data-price="39.95" data-chars="disease-resistant needs-pollenizer">
-                                    <div class="cat-card-media" data-comment="catalog-product-2-media"><div class="cat-card-img" data-comment="catalog-product-2-image" style="background-image:url('assets/cat-apples.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-2-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-2-title">Mother Apple</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-2-price">$39.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-2-type">Apple tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-3" href="product.html" data-index="3" data-name="Mollies Delicious Apple" data-category="apples" data-zone="5" data-harvest="sep" data-stock="out" data-price="39.95" data-chars="disease-resistant needs-pollenizer">
-                                    <div class="cat-card-media" data-comment="catalog-product-3-media"><div class="cat-card-img" data-comment="catalog-product-3-image" style="background-image:url('assets/cat-apples.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-3-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-3-title">Mollies Delicious Apple</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-3-price">$39.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-3-type">Apple tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-4" href="product.html" data-index="4" data-name="Harcourt Apple" data-category="apples" data-zone="3" data-harvest="aug" data-stock="out" data-price="39.95" data-chars="needs-pollenizer cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-4-media"><div class="cat-card-img" data-comment="catalog-product-4-image" style="background-image:url('assets/cat-apples.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-4-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-4-title">Harcourt Apple</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-4-price">$39.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-4-type">Apple tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-5" href="product.html" data-index="5" data-name="Enterprise Apple" data-category="apples" data-zone="4" data-harvest="oct" data-stock="out" data-price="39.95" data-chars="disease-resistant needs-pollenizer">
-                                    <div class="cat-card-media" data-comment="catalog-product-5-media"><div class="cat-card-img" data-comment="catalog-product-5-image" style="background-image:url('assets/cat-apples.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-5-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-5-title">Enterprise Apple</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-5-price">$39.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-5-type">Apple tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-6" href="product.html" data-index="6" data-name="Spigold Apple" data-category="apples" data-zone="3" data-harvest="oct" data-stock="out" data-price="39.95" data-chars="needs-pollenizer cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-6-media"><div class="cat-card-img" data-comment="catalog-product-6-image" style="background-image:url('assets/cat-apples.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-6-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-6-title">Spigold Apple</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-6-price">$39.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-6-type">Apple tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-7" href="product.html" data-index="7" data-name="Nika Russian Pear" data-category="pears" data-zone="3" data-harvest="sep" data-stock="out" data-price="39.95" data-chars="disease-resistant cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-7-media"><div class="cat-card-img" data-comment="catalog-product-7-image" style="background-image:url('assets/cat-pears.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-7-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-7-title">Nika Russian Pear</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-7-price">$39.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-7-type">Pear tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-8" href="product.html" data-index="8" data-name="Harrow Delight European Pear" data-category="pears" data-zone="4" data-harvest="aug" data-stock="out" data-price="39.95" data-chars="disease-resistant needs-pollenizer">
-                                    <div class="cat-card-media" data-comment="catalog-product-8-media"><div class="cat-card-img" data-comment="catalog-product-8-image" style="background-image:url('assets/cat-pears.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-8-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-8-title">Harrow Delight European Pear</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-8-price">$39.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-8-type">Pear tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-9" href="product.html" data-index="9" data-name="Shinsui Asian Pear" data-category="pears" data-zone="5" data-harvest="aug" data-stock="out" data-price="39.95" data-chars="disease-resistant">
-                                    <div class="cat-card-media" data-comment="catalog-product-9-media"><div class="cat-card-img" data-comment="catalog-product-9-image" style="background-image:url('assets/cat-pears.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-9-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-9-title">Shinsui Asian Pear</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-9-price">$39.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-9-type">Pear tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-10" href="product.html" data-index="10" data-name="Potomac European Pear" data-category="pears" data-zone="4" data-harvest="sep" data-stock="out" data-price="39.95" data-chars="disease-resistant needs-pollenizer">
-                                    <div class="cat-card-media" data-comment="catalog-product-10-media"><div class="cat-card-img" data-comment="catalog-product-10-image" style="background-image:url('assets/cat-pears.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-10-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-10-title">Potomac European Pear</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-10-price">$39.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-10-type">Pear tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-11" href="product.html" data-index="11" data-name="Memory Of Anzin Russian Pear" data-category="pears" data-zone="2" data-harvest="sep" data-stock="out" data-price="39.95" data-chars="disease-resistant needs-pollenizer cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-11-media"><div class="cat-card-img" data-comment="catalog-product-11-image" style="background-image:url('assets/cat-pears.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-11-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-11-title">Memory Of Anzin Russian Pear</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-11-price">$39.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-11-type">Pear tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-12" href="product.html" data-index="12" data-name="Marshal Zukov Russian Pear (Not Available This Season)" data-category="pears" data-zone="2" data-harvest="sep" data-stock="out" data-price="39.95" data-chars="disease-resistant needs-pollenizer cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-12-media"><div class="cat-card-img" data-comment="catalog-product-12-image" style="background-image:url('assets/cat-pears.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-12-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-12-title">Marshal Zukov Russian Pear (Not Available This Season)</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-12-price">$39.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-12-type">Pear tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-13" href="product.html" data-index="13" data-name="Canwood American Hybrid Plum" data-category="plums" data-zone="3" data-harvest="sep" data-stock="out" data-price="46.95" data-chars="needs-pollenizer cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-13-media"><div class="cat-card-img" data-comment="catalog-product-13-image" style="background-image:url('assets/cat-plums.jpg');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-13-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-13-title">Canwood American Hybrid Plum</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-13-price">$46.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-13-type">Plum tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-14" href="product.html" data-index="14" data-name="Underwood American Hybrid Plum" data-category="plums" data-zone="3" data-harvest="aug" data-stock="out" data-price="46.95" data-chars="needs-pollenizer cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-14-media"><div class="cat-card-img" data-comment="catalog-product-14-image" style="background-image:url('assets/cat-plums.jpg');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-14-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-14-title">Underwood American Hybrid Plum</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-14-price">$46.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-14-type">Plum tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-15" href="product.html" data-index="15" data-name="Superior American Hybrid Plum" data-category="plums" data-zone="3" data-harvest="sep" data-stock="out" data-price="46.95" data-chars="disease-resistant needs-pollenizer cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-15-media"><div class="cat-card-img" data-comment="catalog-product-15-image" style="background-image:url('assets/cat-plums.jpg');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-15-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-15-title">Superior American Hybrid Plum</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-15-price">$46.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-15-type">Plum tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-16" href="product.html" data-index="16" data-name="Patterson&#x27;S Pride American Hybrid Plum" data-category="plums" data-zone="2" data-harvest="sep" data-stock="out" data-price="46.95" data-chars="needs-pollenizer cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-16-media"><div class="cat-card-img" data-comment="catalog-product-16-image" style="background-image:url('assets/cat-plums.jpg');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-16-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-16-title">Patterson&#x27;S Pride American Hybrid Plum</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-16-price">$46.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-16-type">Plum tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-17" href="product.html" data-index="17" data-name="Shiro Japanese Plum" data-category="plums" data-zone="5" data-harvest="aug" data-stock="out" data-price="46.95" data-chars="">
-                                    <div class="cat-card-media" data-comment="catalog-product-17-media"><div class="cat-card-img" data-comment="catalog-product-17-image" style="background-image:url('assets/cat-plums.jpg');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-17-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-17-title">Shiro Japanese Plum</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-17-price">$46.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-17-type">Plum tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-18" href="product.html" data-index="18" data-name="Obilinaja Japanese Plum" data-category="plums" data-zone="5" data-harvest="aug" data-stock="out" data-price="46.95" data-chars="needs-pollenizer cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-18-media"><div class="cat-card-img" data-comment="catalog-product-18-image" style="background-image:url('assets/cat-plums.jpg');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-18-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-18-title">Obilinaja Japanese Plum</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-18-price">$46.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-18-type">Plum tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-19" href="product.html" data-index="19" data-name="White Gold&amp;reg; Sweet Cherry" data-category="cherries" data-zone="4" data-harvest="jul" data-stock="out" data-price="49.95" data-chars="self-fertile cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-19-media"><div class="cat-card-img" data-comment="catalog-product-19-image" style="background-image:url('assets/cat-cherries.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-19-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-19-title">White Gold&amp;reg; Sweet Cherry</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-19-price">$49.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-19-type">Cherry tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-20" href="product.html" data-index="20" data-name="Stella Sweet Cherry" data-category="cherries" data-zone="4" data-harvest="jul" data-stock="out" data-price="49.95" data-chars="self-fertile cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-20-media"><div class="cat-card-img" data-comment="catalog-product-20-image" style="background-image:url('assets/cat-cherries.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-20-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-20-title">Stella Sweet Cherry</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-20-price">$49.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-20-type">Cherry tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-21" href="product.html" data-index="21" data-name="Sandra Rose Sweet Cherry" data-category="cherries" data-zone="4" data-harvest="jul" data-stock="out" data-price="49.95" data-chars="disease-resistant self-fertile">
-                                    <div class="cat-card-media" data-comment="catalog-product-21-media"><div class="cat-card-img" data-comment="catalog-product-21-image" style="background-image:url('assets/cat-cherries.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-21-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-21-title">Sandra Rose Sweet Cherry</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-21-price">$49.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-21-type">Cherry tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-22" href="product.html" data-index="22" data-name="Lapins Sweet Cherry" data-category="cherries" data-zone="4" data-harvest="jul" data-stock="out" data-price="49.95" data-chars="disease-resistant self-fertile needs-pollenizer">
-                                    <div class="cat-card-media" data-comment="catalog-product-22-media"><div class="cat-card-img" data-comment="catalog-product-22-image" style="background-image:url('assets/cat-cherries.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-22-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-22-title">Lapins Sweet Cherry</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-22-price">$49.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-22-type">Cherry tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-23" href="product.html" data-index="23" data-name="Ebonypearl&amp;reg; Sweet Cherry" data-category="cherries" data-zone="4" data-harvest="jul" data-stock="out" data-price="49.95" data-chars="disease-resistant needs-pollenizer">
-                                    <div class="cat-card-media" data-comment="catalog-product-23-media"><div class="cat-card-img" data-comment="catalog-product-23-image" style="background-image:url('assets/cat-cherries.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-23-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-23-title">Ebonypearl&amp;reg; Sweet Cherry</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-23-price">$49.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-23-type">Cherry tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-24" href="product.html" data-index="24" data-name="Black Pearl&amp;reg; Sweet Cherry" data-category="cherries" data-zone="4" data-harvest="jul" data-stock="out" data-price="49.95" data-chars="disease-resistant needs-pollenizer cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-24-media"><div class="cat-card-img" data-comment="catalog-product-24-image" style="background-image:url('assets/cat-cherries.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-24-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-24-title">Black Pearl&amp;reg; Sweet Cherry</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-24-price">$49.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-24-type">Cherry tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-25" href="product.html" data-index="25" data-name="Saturn Peento Peach" data-category="peaches" data-zone="4" data-harvest="aug" data-stock="out" data-price="49.95" data-chars="self-fertile cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-25-media"><div class="cat-card-img" data-comment="catalog-product-25-image" style="background-image:url('assets/cat-peaches.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-25-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-25-title">Saturn Peento Peach</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-25-price">$49.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-25-type">Peach tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-26" href="product.html" data-index="26" data-name="Crimson Rocket Columnar Peach" data-category="peaches" data-zone="5" data-harvest="sep" data-stock="out" data-price="49.95" data-chars="self-fertile">
-                                    <div class="cat-card-media" data-comment="catalog-product-26-media"><div class="cat-card-img" data-comment="catalog-product-26-image" style="background-image:url('assets/cat-peaches.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-26-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-26-title">Crimson Rocket Columnar Peach</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-26-price">$49.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-26-type">Peach tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-27" href="product.html" data-index="27" data-name="Polly White Flesh Peach" data-category="peaches" data-zone="4" data-harvest="sep" data-stock="out" data-price="49.95" data-chars="disease-resistant self-fertile">
-                                    <div class="cat-card-media" data-comment="catalog-product-27-media"><div class="cat-card-img" data-comment="catalog-product-27-image" style="background-image:url('assets/cat-peaches.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-27-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-27-title">Polly White Flesh Peach</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-27-price">$49.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-27-type">Peach tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-28" href="product.html" data-index="28" data-name="Redstar Peach" data-category="peaches" data-zone="4" data-harvest="aug" data-stock="out" data-price="49.95" data-chars="disease-resistant self-fertile cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-28-media"><div class="cat-card-img" data-comment="catalog-product-28-image" style="background-image:url('assets/cat-peaches.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-28-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-28-title">Redstar Peach</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-28-price">$49.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-28-type">Peach tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-29" href="product.html" data-index="29" data-name="Raritan Rose White Flesh Peach" data-category="peaches" data-zone="5" data-harvest="aug" data-stock="out" data-price="49.95" data-chars="disease-resistant self-fertile">
-                                    <div class="cat-card-media" data-comment="catalog-product-29-media"><div class="cat-card-img" data-comment="catalog-product-29-image" style="background-image:url('assets/cat-peaches.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-29-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-29-title">Raritan Rose White Flesh Peach</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-29-price">$49.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-29-type">Peach tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-30" href="product.html" data-index="30" data-name="Reliance Peach" data-category="peaches" data-zone="4" data-harvest="aug" data-stock="out" data-price="49.95" data-chars="disease-resistant self-fertile cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-30-media"><div class="cat-card-img" data-comment="catalog-product-30-image" style="background-image:url('assets/cat-peaches.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-30-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-30-title">Reliance Peach</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-30-price">$49.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-30-type">Peach tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-31" href="product.html" data-index="31" data-name="Sugar Pearls White-Fleshed Apricot" data-category="apricots" data-zone="4" data-harvest="aug" data-stock="out" data-price="51.95" data-chars="disease-resistant needs-pollenizer">
-                                    <div class="cat-card-media" data-comment="catalog-product-31-media"><div class="cat-card-img" data-comment="catalog-product-31-image" style="background-image:url('assets/cat-apricots.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-31-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-31-title">Sugar Pearls White-Fleshed Apricot</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-31-price">$51.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-31-type">Apricot tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-32" href="product.html" data-index="32" data-name="Precious Apricot" data-category="apricots" data-zone="3" data-harvest="jul" data-stock="out" data-price="51.95" data-chars="disease-resistant self-fertile cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-32-media"><div class="cat-card-img" data-comment="catalog-product-32-image" style="background-image:url('assets/cat-apricots.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-32-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-32-title">Precious Apricot</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-32-price">$51.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-32-type">Apricot tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-33" href="product.html" data-index="33" data-name="Debbie&#x27;S Gold Apricot" data-category="apricots" data-zone="3" data-harvest="jul" data-stock="out" data-price="51.95" data-chars="self-fertile cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-33-media"><div class="cat-card-img" data-comment="catalog-product-33-image" style="background-image:url('assets/cat-apricots.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-33-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-33-title">Debbie&#x27;S Gold Apricot</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-33-price">$51.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-33-type">Apricot tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-34" href="product.html" data-index="34" data-name="Ac&amp;trade;Haroblush Apricot" data-category="apricots" data-zone="4" data-harvest="jul" data-stock="out" data-price="51.95" data-chars="disease-resistant self-fertile">
-                                    <div class="cat-card-media" data-comment="catalog-product-34-media"><div class="cat-card-img" data-comment="catalog-product-34-image" style="background-image:url('assets/cat-apricots.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-34-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-34-title">Ac&amp;trade;Haroblush Apricot</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-34-price">$51.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-34-type">Apricot tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-35" href="product.html" data-index="35" data-name="Hoyt Montrose Apricot" data-category="apricots" data-zone="4" data-harvest="aug" data-stock="out" data-price="51.95" data-chars="disease-resistant cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-35-media"><div class="cat-card-img" data-comment="catalog-product-35-image" style="background-image:url('assets/cat-apricots.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-35-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-35-title">Hoyt Montrose Apricot</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-35-price">$51.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-35-type">Apricot tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-36" href="product.html" data-index="36" data-name="Westcot Apricot" data-category="apricots" data-zone="2" data-harvest="jul" data-stock="out" data-price="51.95" data-chars="self-fertile cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-36-media"><div class="cat-card-img" data-comment="catalog-product-36-image" style="background-image:url('assets/cat-apricots.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-36-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-36-title">Westcot Apricot</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-36-price">$51.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-36-type">Apricot tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-37" href="product.html" data-index="37" data-name="Butternut" data-category="nuts" data-zone="3" data-harvest="oct" data-stock="out" data-price="29.95" data-chars="cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-37-media"><div class="cat-card-img" data-comment="catalog-product-37-image" style="background-image:url('assets/cat-nuts.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-37-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-37-title">Butternut</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-37-price">$29.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-37-type">Nut tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-38" href="product.html" data-index="38" data-name="Buartnut" data-category="nuts" data-zone="4" data-harvest="oct" data-stock="out" data-price="39.95" data-chars="disease-resistant">
-                                    <div class="cat-card-media" data-comment="catalog-product-38-media"><div class="cat-card-img" data-comment="catalog-product-38-image" style="background-image:url('assets/cat-nuts.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-38-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-38-title">Buartnut</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-38-price">$39.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-38-type">Nut tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-39" href="product.html" data-index="39" data-name="Ginko Nut - Not Available This Season" data-category="nuts" data-zone="4" data-harvest="oct" data-stock="out" data-price="56.95" data-chars="disease-resistant">
-                                    <div class="cat-card-media" data-comment="catalog-product-39-media"><div class="cat-card-img" data-comment="catalog-product-39-image" style="background-image:url('assets/cat-nuts.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-39-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-39-title">Ginko Nut - Not Available This Season</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-39-price">$56.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-39-type">Nut tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-40" href="product.html" data-index="40" data-name="Frank Hazelnut" data-category="nuts" data-zone="2" data-harvest="aug" data-stock="out" data-price="46.95" data-chars="cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-40-media"><div class="cat-card-img" data-comment="catalog-product-40-image" style="background-image:url('assets/cat-nuts.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-40-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-40-title">Frank Hazelnut</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-40-price">$46.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-40-type">Nut tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-41" href="product.html" data-index="41" data-name="Gene Hazelnut" data-category="nuts" data-zone="5" data-harvest="sep" data-stock="out" data-price="46.95" data-chars="disease-resistant">
-                                    <div class="cat-card-media" data-comment="catalog-product-41-media"><div class="cat-card-img" data-comment="catalog-product-41-image" style="background-image:url('assets/cat-nuts.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-41-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-41-title">Gene Hazelnut</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-41-price">$46.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-41-type">Nut tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-42" href="product.html" data-index="42" data-name="Aldara&amp;trade; Hazelnut" data-category="nuts" data-zone="3" data-harvest="aug" data-stock="out" data-price="46.95" data-chars="disease-resistant cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-42-media"><div class="cat-card-img" data-comment="catalog-product-42-image" style="background-image:url('assets/cat-nuts.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-42-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-42-title">Aldara&amp;trade; Hazelnut</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-42-price">$46.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-42-type">Nut tree</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-43" href="product.html" data-index="43" data-name="Vanessa Seedless Grape" data-category="grapes" data-zone="5" data-harvest="sep" data-stock="out" data-price="21.95" data-chars="self-fertile cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-43-media"><div class="cat-card-img" data-comment="catalog-product-43-image" style="background-image:url('assets/cat-grapes.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-43-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-43-title">Vanessa Seedless Grape</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-43-price">$21.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-43-type">Grape vine</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-44" href="product.html" data-index="44" data-name="Jupiter Seedless Grape" data-category="grapes" data-zone="6" data-harvest="sep" data-stock="out" data-price="21.95" data-chars="disease-resistant self-fertile">
-                                    <div class="cat-card-media" data-comment="catalog-product-44-media"><div class="cat-card-img" data-comment="catalog-product-44-image" style="background-image:url('assets/cat-grapes.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-44-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-44-title">Jupiter Seedless Grape</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-44-price">$21.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-44-type">Grape vine</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-45" href="product.html" data-index="45" data-name="Mars Seedless Grape" data-category="grapes" data-zone="5" data-harvest="sep" data-stock="out" data-price="21.95" data-chars="disease-resistant self-fertile">
-                                    <div class="cat-card-media" data-comment="catalog-product-45-media"><div class="cat-card-img" data-comment="catalog-product-45-image" style="background-image:url('assets/cat-grapes.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-45-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-45-title">Mars Seedless Grape</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-45-price">$21.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-45-type">Grape vine</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-46" href="product.html" data-index="46" data-name="Trollhaugen Seedless Grape" data-category="grapes" data-zone="4" data-harvest="sep" data-stock="out" data-price="21.95" data-chars="self-fertile">
-                                    <div class="cat-card-media" data-comment="catalog-product-46-media"><div class="cat-card-img" data-comment="catalog-product-46-image" style="background-image:url('assets/cat-grapes.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-46-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-46-title">Trollhaugen Seedless Grape</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-46-price">$21.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-46-type">Grape vine</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-47" href="product.html" data-index="47" data-name="Somerset Seedless Grape" data-category="grapes" data-zone="4" data-harvest="aug" data-stock="out" data-price="21.95" data-chars="disease-resistant self-fertile cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-47-media"><div class="cat-card-img" data-comment="catalog-product-47-image" style="background-image:url('assets/cat-grapes.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-47-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-47-title">Somerset Seedless Grape</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-47-price">$21.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-47-type">Grape vine</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-48" href="product.html" data-index="48" data-name="Magenta Seedless Grape" data-category="grapes" data-zone="4" data-harvest="sep" data-stock="out" data-price="21.95" data-chars="self-fertile cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-48-media"><div class="cat-card-img" data-comment="catalog-product-48-image" style="background-image:url('assets/cat-grapes.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-48-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-48-title">Magenta Seedless Grape</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-48-price">$21.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-48-type">Grape vine</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-49" href="product.html" data-index="49" data-name="Ruby Carpet Low Bush Blueberry" data-category="blueberry" data-zone="3" data-harvest="jul" data-stock="out" data-price="24.95" data-chars="self-fertile cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-49-media"><div class="cat-card-img" data-comment="catalog-product-49-image" style="background-image:url('assets/cat-shrubs.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-49-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-49-title">Ruby Carpet Low Bush Blueberry</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-49-price">$24.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-49-type">Blueberry bush</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-50" href="product.html" data-index="50" data-name="Brunswick Low Bush Blueberry" data-category="blueberry" data-zone="3" data-harvest="jul" data-stock="out" data-price="24.95" data-chars="self-fertile cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-50-media"><div class="cat-card-img" data-comment="catalog-product-50-image" style="background-image:url('assets/cat-shrubs.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-50-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-50-title">Brunswick Low Bush Blueberry</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-50-price">$24.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-50-type">Blueberry bush</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-51" href="product.html" data-index="51" data-name="Cabernet Splash&amp;trade; Half High Blueberry (Vacbri 1)" data-category="blueberry" data-zone="4" data-harvest="jul" data-stock="out" data-price="46.95" data-chars="self-fertile">
-                                    <div class="cat-card-media" data-comment="catalog-product-51-media"><div class="cat-card-img" data-comment="catalog-product-51-image" style="background-image:url('assets/cat-shrubs.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-51-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-51-title">Cabernet Splash&amp;trade; Half High Blueberry (Vacbri 1)</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-51-price">$46.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-51-type">Blueberry bush</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-52" href="product.html" data-index="52" data-name="Red Lake Currant" data-category="currant" data-zone="3" data-harvest="jul" data-stock="out" data-price="23.95" data-chars="self-fertile cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-52-media"><div class="cat-card-img" data-comment="catalog-product-52-image" style="background-image:url('assets/cat-shrubs.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-52-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-52-title">Red Lake Currant</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-52-price">$23.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-52-type">Currant bush</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-53" href="product.html" data-index="53" data-name="Rovada Currant" data-category="currant" data-zone="3" data-harvest="aug" data-stock="out" data-price="23.95" data-chars="disease-resistant self-fertile cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-53-media"><div class="cat-card-img" data-comment="catalog-product-53-image" style="background-image:url('assets/cat-shrubs.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-53-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-53-title">Rovada Currant</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-53-price">$23.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-53-type">Currant bush</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-54" href="product.html" data-index="54" data-name="Pink Champagne Currant" data-category="currant" data-zone="3" data-harvest="jul" data-stock="out" data-price="23.95" data-chars="disease-resistant self-fertile cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-54-media"><div class="cat-card-img" data-comment="catalog-product-54-image" style="background-image:url('assets/cat-shrubs.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-54-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-54-title">Pink Champagne Currant</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-54-price">$23.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-54-type">Currant bush</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-55" href="product.html" data-index="55" data-name="Natchez Thornless Blackberry" data-category="blackberry" data-zone="5" data-harvest="jul" data-stock="out" data-price="11.95" data-chars="disease-resistant self-fertile cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-55-media"><div class="cat-card-img" data-comment="catalog-product-55-image" style="background-image:url('assets/cat-shrubs.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-55-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-55-title">Natchez Thornless Blackberry</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-55-price">$11.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-55-type">Blackberry cane</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-56" href="product.html" data-index="56" data-name="Prime Ark Freedom Thornless Blackberry" data-category="blackberry" data-zone="4" data-harvest="sep" data-stock="out" data-price="11.95" data-chars="self-fertile">
-                                    <div class="cat-card-media" data-comment="catalog-product-56-media"><div class="cat-card-img" data-comment="catalog-product-56-image" style="background-image:url('assets/cat-shrubs.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-56-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-56-title">Prime Ark Freedom Thornless Blackberry</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-56-price">$11.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-56-type">Blackberry cane</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-57" href="product.html" data-index="57" data-name="Chester Blackberry" data-category="blackberry" data-zone="4" data-harvest="aug" data-stock="out" data-price="" data-chars="disease-resistant self-fertile cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-57-media"><div class="cat-card-img" data-comment="catalog-product-57-image" style="background-image:url('assets/cat-shrubs.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-57-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-57-title">Chester Blackberry</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-57-price">Call for price</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-57-type">Blackberry cane</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-58" href="product.html" data-index="58" data-name="Jeanne Gooseberry" data-category="gooseberry" data-zone="" data-harvest="" data-stock="out" data-price="23.95" data-chars="disease-resistant">
-                                    <div class="cat-card-media" data-comment="catalog-product-58-media"><div class="cat-card-img" data-comment="catalog-product-58-image" style="background-image:url('assets/cat-shrubs.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-58-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-58-title">Jeanne Gooseberry</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-58-price">$23.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-58-type">Gooseberry bush</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-59" href="product.html" data-index="59" data-name="Hinnimaki Yellow Gooseberry" data-category="gooseberry" data-zone="" data-harvest="" data-stock="out" data-price="23.95" data-chars="disease-resistant">
-                                    <div class="cat-card-media" data-comment="catalog-product-59-media"><div class="cat-card-img" data-comment="catalog-product-59-image" style="background-image:url('assets/cat-shrubs.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-59-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-59-title">Hinnimaki Yellow Gooseberry</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-59-price">$23.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-59-type">Gooseberry bush</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-60" href="product.html" data-index="60" data-name="Black Jostaberry Gooseberry" data-category="gooseberry" data-zone="" data-harvest="" data-stock="out" data-price="28.95" data-chars="disease-resistant">
-                                    <div class="cat-card-media" data-comment="catalog-product-60-media"><div class="cat-card-img" data-comment="catalog-product-60-image" style="background-image:url('assets/cat-shrubs.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-60-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-60-title">Black Jostaberry Gooseberry</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-60-price">$28.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-60-type">Gooseberry bush</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-61" href="product.html" data-index="61" data-name="Boreal Beauty Haskap" data-category="haskap" data-zone="2" data-harvest="jul" data-stock="out" data-price="23.95" data-chars="cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-61-media"><div class="cat-card-img" data-comment="catalog-product-61-image" style="background-image:url('assets/cat-shrubs.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-61-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-61-title">Boreal Beauty Haskap</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-61-price">$23.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-61-type">Haskap bush</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-62" href="product.html" data-index="62" data-name="Boreal Beast Haskap" data-category="haskap" data-zone="2" data-harvest="jul" data-stock="out" data-price="23.95" data-chars="cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-62-media"><div class="cat-card-img" data-comment="catalog-product-62-image" style="background-image:url('assets/cat-shrubs.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-62-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-62-title">Boreal Beast Haskap</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-62-price">$23.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-62-type">Haskap bush</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-63" href="product.html" data-index="63" data-name="Boreal Blizzard Haskap" data-category="haskap" data-zone="2" data-harvest="jul" data-stock="out" data-price="23.95" data-chars="cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-63-media"><div class="cat-card-img" data-comment="catalog-product-63-image" style="background-image:url('assets/cat-shrubs.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-63-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-63-title">Boreal Blizzard Haskap</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-63-price">$23.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-63-type">Haskap bush</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-64" href="product.html" data-index="64" data-name="Korsor Elderberry" data-category="elderberry" data-zone="4" data-harvest="sep" data-stock="out" data-price="26.95" data-chars="disease-resistant">
-                                    <div class="cat-card-media" data-comment="catalog-product-64-media"><div class="cat-card-img" data-comment="catalog-product-64-image" style="background-image:url('assets/cat-shrubs.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-64-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-64-title">Korsor Elderberry</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-64-price">$26.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-64-type">Elderberry bush</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-65" href="product.html" data-index="65" data-name="Haschberg Elderberry" data-category="elderberry" data-zone="4" data-harvest="sep" data-stock="out" data-price="26.95" data-chars="">
-                                    <div class="cat-card-media" data-comment="catalog-product-65-media"><div class="cat-card-img" data-comment="catalog-product-65-image" style="background-image:url('assets/cat-shrubs.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-65-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-65-title">Haschberg Elderberry</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-65-price">$26.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-65-type">Elderberry bush</div>
-                                </a>
-                                <a class="cat-card" data-comment="catalog-product-66" href="product.html" data-index="66" data-name="Ranch Elderberry" data-category="elderberry" data-zone="3" data-harvest="aug" data-stock="out" data-price="21.95" data-chars="cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-66-media"><div class="cat-card-img" data-comment="catalog-product-66-image" style="background-image:url('assets/cat-shrubs.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-66-badge">Sold out</span></div>
-                                    <div class="cat-card-title" data-comment="catalog-product-66-title">Ranch Elderberry</div>
-                                    <div class="cat-card-price" data-comment="catalog-product-66-price">$21.95 CAD</div>
-                                    <div class="cat-card-type" data-comment="catalog-product-66-type">Elderberry bush</div>
-                                </a>
-                            </div>
-
-                            <!-- EMPTY STATE -->
-                            <div data-comment="catalog-empty" style="display:none; text-align:center; padding:80px 20px;">
-                                <i data-comment="catalog-empty-icon" class="ph-light ph-leaf" style="font-size:54px; color:var(--g300);"></i>
-                                <div data-comment="catalog-empty-title" style="font-family:var(--display); font-weight:600; font-size:28px; color:var(--ink); margin-top:18px;">No matches found</div>
-                                <p data-comment="catalog-empty-text" style="font-family:var(--sans); font-size:15px; color:var(--muted); margin:10px auto 0; max-width:42ch;">Try removing a filter or two to see more of the nursery.</p>
-                                <button data-comment="catalog-empty-clear" type="button" style="margin-top:22px; font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; color:#fff; background:var(--c600); border:none; border-radius:2px; padding:13px 26px; cursor:pointer;">Clear all filters</button>
-                            </div>
-
-                            <!-- PAGINATION -->
-                            <nav data-comment="catalog-pagination" style="display:flex; align-items:center; justify-content:center; gap:8px; margin-top:56px;">
-                                <span data-comment="catalog-page-prev" class="cat-page-btn" style="opacity:0.5; cursor:default;"><i class="ph ph-caret-left"></i></span>
-                                <span data-comment="catalog-page-1" class="cat-page-btn active">1</span>
-                                <a data-comment="catalog-page-2" class="cat-page-btn" href="#">2</a>
-                                <a data-comment="catalog-page-3" class="cat-page-btn" href="#">3</a>
-                                <a data-comment="catalog-page-next" class="cat-page-btn" href="#"><i class="ph ph-caret-right"></i></a>
-                            </nav>
                         </div>
-                    </div>
+                    </section>
+
+                    <!-- ARCHIVE — past catalogues -->
+                    <section data-comment="catalogue-archive">
+                        <h2 class="cat-section-title" data-comment="catalogue-archive-title">Past catalogues</h2>
+                        <p class="cat-section-sub" data-comment="catalogue-archive-sub">Missed a year? Every past edition is still here, free to download.</p>
+                        <div class="cat-archive-grid" data-comment="catalogue-archive-grid">
+                            <a class="cat-archive-link" data-comment="catalogue-archive-2025" href="https://cdn.whiffletreefarmandnursery.ca/images/2025/01/250130-WhiffletreeCatalog_2025-web-679d251b29719.pdf" target="_blank" rel="noopener"><i class="ph ph-file-pdf" aria-hidden="true"></i>2025</a>
+                            <a class="cat-archive-link" data-comment="catalogue-archive-2024" href="https://cdn.whiffletreefarmandnursery.ca/images/2024/02/WhiffletreeCatalog_2024-fnl.pdf" target="_blank" rel="noopener"><i class="ph ph-file-pdf" aria-hidden="true"></i>2024</a>
+                            <a class="cat-archive-link" data-comment="catalogue-archive-2022" href="https://cdn.whiffletreefarmandnursery.ca/images/2022/03/220323-WhiffletreeCatalog_2022-web.pdf" target="_blank" rel="noopener"><i class="ph ph-file-pdf" aria-hidden="true"></i>2022</a>
+                            <a class="cat-archive-link" data-comment="catalogue-archive-2021" href="https://cdn.whiffletreefarmandnursery.ca/images/2021/10/210212_WhiffletreeCatalog_2021_Email.pdf" target="_blank" rel="noopener"><i class="ph ph-file-pdf" aria-hidden="true"></i>2021</a>
+                            <a class="cat-archive-link" data-comment="catalogue-archive-2020" href="https://cdn.whiffletreefarmandnursery.ca/images/2021/12/whiffletree_2020catalog_page.pdf" target="_blank" rel="noopener"><i class="ph ph-file-pdf" aria-hidden="true"></i>2020</a>
+                            <a class="cat-archive-link" data-comment="catalogue-archive-2019" href="https://cdn.whiffletreefarmandnursery.ca/images/2021/12/Whiffletree_Catalogue.pdf" target="_blank" rel="noopener"><i class="ph ph-file-pdf" aria-hidden="true"></i>2019</a>
+                            <a class="cat-archive-link" data-comment="catalogue-archive-2018" href="https://cdn.whiffletreefarmandnursery.ca/images/2021/12/WhiffleTreeCatalog_18-02-08-web.pdf" target="_blank" rel="noopener"><i class="ph ph-file-pdf" aria-hidden="true"></i>2018</a>
+                            <a class="cat-archive-link" data-comment="catalogue-archive-2017" href="https://cdn.whiffletreefarmandnursery.ca/images/2021/12/whiffletree_catalogue_17-02-10-1.pdf" target="_blank" rel="noopener"><i class="ph ph-file-pdf" aria-hidden="true"></i>2017</a>
+                        </div>
+                    </section>
                 </div>
 
-                <!-- Mobile drawer scrim -->
-                <div data-comment="catalog-scrim"></div>
+                <!-- NOTIFY — leads into the shared newsletter -->
+                <section data-comment="catalogue-notify">
+                    <div data-comment="catalogue-notify-inner">
+                        <span class="cat-notify-pill" data-comment="catalogue-notify-pill"><i class="ph ph-envelope-simple" aria-hidden="true"></i>Print orders closed for the season</span>
+                        <h2 class="cat-notify-title" data-comment="catalogue-notify-title">Want a printed copy next season?</h2>
+                        <p class="cat-notify-text" data-comment="catalogue-notify-text">Mailed catalogues are sold out for 2026. Join our mailing list and we’ll email you the moment print orders reopen — no need to check back.</p>
+                        <a class="cat-notify-jump" data-comment="catalogue-notify-jump" href="#gift">Join the list below <i class="ph ph-arrow-down" aria-hidden="true"></i></a>
+                    </div>
+                </section>
             </main>
 
             <!-- FAQ / CONTACT CTA -->
@@ -1504,11 +886,11 @@
                         <div data-comment="footer-col-products">
                             <div data-comment="footer-col-products-title" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">Products</div>
                             <div data-comment="footer-col-products-links" style="display:flex; flex-direction:column; gap:11px; font-family:var(--sans); font-size:14.5px;">
-                                <a data-comment="footer-products-link-1" href="catalog.html" style="color:var(--ink2); text-decoration:none;">All products</a>
-                                <a data-comment="footer-products-link-2" href="catalog.html?category=apples" style="color:var(--ink2); text-decoration:none;">Trees</a>
-                                <a data-comment="footer-products-link-3" href="catalog.html?category=shrubs" style="color:var(--ink2); text-decoration:none;">Small fruit</a>
-                                <a data-comment="footer-products-link-4" href="catalog.html?category=supplies" style="color:var(--ink2); text-decoration:none;">Orchard supplies</a>
-                                <a data-comment="footer-products-link-5" href="catalog.html" style="color:var(--ink2); text-decoration:none;">Reference books</a>
+                                <a data-comment="footer-products-link-1" href="shop.html" style="color:var(--ink2); text-decoration:none;">All products</a>
+                                <a data-comment="footer-products-link-2" href="shop.html?category=apples" style="color:var(--ink2); text-decoration:none;">Trees</a>
+                                <a data-comment="footer-products-link-3" href="shop.html?category=shrubs" style="color:var(--ink2); text-decoration:none;">Small fruit</a>
+                                <a data-comment="footer-products-link-4" href="shop.html?category=supplies" style="color:var(--ink2); text-decoration:none;">Orchard supplies</a>
+                                <a data-comment="footer-products-link-5" href="shop.html" style="color:var(--ink2); text-decoration:none;">Reference books</a>
                             </div>
                         </div>
                         <div data-comment="footer-col-downloads">
@@ -1618,201 +1000,6 @@
                         a.addEventListener('click', closeMobile);
                     });
                 }
-            })();
-
-            /* ============================================================
-               Catalog controller — filter accordions, live filtering,
-               sorting, active-filter chips, empty state, mobile drawer.
-               ============================================================ */
-            (function () {
-                var pageRoot = document.querySelector('[data-comment="page-root"]');
-                var grid = document.querySelector('[data-comment="catalog-grid"]');
-                if (!grid) return;
-
-                var cards = Array.prototype.slice.call(grid.querySelectorAll('.cat-card'));
-
-                var countEl = document.querySelector('[data-comment="catalog-count"]');
-                var emptyEl = document.querySelector('[data-comment="catalog-empty"]');
-                var pagerEl = document.querySelector('[data-comment="catalog-pagination"]');
-                var chipsRow = document.querySelector('[data-comment="catalog-chips"]');
-                var chipsList = document.querySelector('[data-comment="catalog-chips-list"]');
-                var sortSel = document.querySelector('[data-comment="catalog-sort"]');
-                var checks = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"][data-filter]'));
-                var priceMin = document.querySelector('[data-comment="catalog-filter-price-min"]');
-                var priceMax = document.querySelector('[data-comment="catalog-filter-price-max"]');
-
-                /* Human-readable labels for active-filter chips */
-                var LABELS = {
-                    stock: { in: 'In stock', out: 'Sold out' },
-                    category: { apples: 'Apples', pears: 'Pears', plums: 'Plums', cherries: 'Cherries', peaches: 'Peaches', apricots: 'Apricots', nuts: 'Nut trees', grapes: 'Grapes', blueberry: 'Blueberries', haskap: 'Haskap', currant: 'Currants', gooseberry: 'Gooseberries', blackberry: 'Blackberries', elderberry: 'Elderberries', shrubs: 'Other shrubs', roses: 'Roses', supplies: 'Orchard supplies' },
-                    zone: { '3': 'Zone 3', '4': 'Zone 4', '5': 'Zone 5' },
-                    harvest: { jul: 'July', aug: 'August', sep: 'September', oct: 'October' },
-                    chars: { 'cold-hardy': 'Cold-hardy', 'disease-resistant': 'Disease-resistant', 'self-fertile': 'Self-fertile', 'needs-pollenizer': 'Needs a pollenizer' }
-                };
-
-                /* Nav "See all …" links use ?group=… to pre-select several categories at once. */
-                var GROUPS = {
-                    trees:   { label: 'Trees',   cats: ['apples', 'pears', 'plums', 'cherries', 'peaches', 'apricots', 'nuts'] },
-                    berries: { label: 'Berries', cats: ['blueberry', 'haskap', 'currant', 'gooseberry', 'blackberry', 'elderberry'] }
-                };
-
-                function activeBy(type) {
-                    return checks.filter(function (c) { return c.dataset.filter === type && c.checked; })
-                                 .map(function (c) { return c.value; });
-                }
-
-                function cardMatches(card) {
-                    var stock = activeBy('stock');
-                    var cats = activeBy('category');
-                    var zones = activeBy('zone');
-                    var harv = activeBy('harvest');
-                    var chars = activeBy('chars');
-                    var min = parseFloat(priceMin.value);
-                    var max = parseFloat(priceMax.value);
-                    var price = parseFloat(card.dataset.price);
-                    var cChars = (card.dataset.chars || '').split(/\s+/).filter(Boolean);
-
-                    if (stock.length && stock.indexOf(card.dataset.stock) === -1) return false;
-                    if (cats.length && cats.indexOf(card.dataset.category) === -1) return false;
-                    if (zones.length && zones.indexOf(card.dataset.zone) === -1) return false;
-                    if (harv.length && harv.indexOf(card.dataset.harvest) === -1) return false;
-                    if (chars.length && !chars.every(function (ch) { return cChars.indexOf(ch) !== -1; })) return false;
-                    if (!isNaN(min) && price < min) return false;
-                    if (!isNaN(max) && price > max) return false;
-                    return true;
-                }
-
-                function sortCards(visible) {
-                    var mode = sortSel ? sortSel.value : 'featured';
-                    var arr = visible.slice();
-                    arr.sort(function (a, b) {
-                        if (mode === 'az') return a.dataset.name.localeCompare(b.dataset.name);
-                        if (mode === 'za') return b.dataset.name.localeCompare(a.dataset.name);
-                        if (mode === 'price-asc') return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
-                        if (mode === 'price-desc') return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
-                        return parseInt(a.dataset.index, 10) - parseInt(b.dataset.index, 10);
-                    });
-                    arr.forEach(function (c) { grid.appendChild(c); });
-                }
-
-                function renderChips() {
-                    chipsList.innerHTML = '';
-                    var any = false;
-                    checks.forEach(function (c) {
-                        if (!c.checked) return;
-                        any = true;
-                        var label = (LABELS[c.dataset.filter] && LABELS[c.dataset.filter][c.value]) || c.value;
-                        var chip = document.createElement('button');
-                        chip.type = 'button';
-                        chip.className = 'cat-chip';
-                        chip.setAttribute('data-comment', 'catalog-chip-' + c.dataset.filter + '-' + c.value);
-                        chip.innerHTML = label + ' <i class="ph ph-x" aria-hidden="true"></i>';
-                        chip.addEventListener('click', function () { c.checked = false; apply(); });
-                        chipsList.appendChild(chip);
-                    });
-                    if (priceMin.value || priceMax.value) {
-                        any = true;
-                        var pLabel = '$' + (priceMin.value || '0') + ' – $' + (priceMax.value || '∞');
-                        var pChip = document.createElement('button');
-                        pChip.type = 'button';
-                        pChip.className = 'cat-chip';
-                        pChip.setAttribute('data-comment', 'catalog-chip-price');
-                        pChip.innerHTML = pLabel + ' <i class="ph ph-x" aria-hidden="true"></i>';
-                        pChip.addEventListener('click', function () { priceMin.value = ''; priceMax.value = ''; apply(); });
-                        chipsList.appendChild(pChip);
-                    }
-                    chipsRow.style.display = any ? 'flex' : 'none';
-                }
-
-                function apply() {
-                    var visible = [];
-                    cards.forEach(function (card) {
-                        var ok = cardMatches(card);
-                        card.style.display = ok ? '' : 'none';
-                        if (ok) visible.push(card);
-                    });
-                    sortCards(visible);
-                    if (countEl) countEl.textContent = visible.length + (visible.length === 1 ? ' product' : ' products');
-                    if (emptyEl) emptyEl.style.display = visible.length ? 'none' : 'block';
-                    if (pagerEl) pagerEl.style.display = visible.length ? 'flex' : 'none';
-                    renderChips();
-                }
-
-                checks.forEach(function (c) { c.addEventListener('change', apply); });
-                if (priceMin) priceMin.addEventListener('input', apply);
-                if (priceMax) priceMax.addEventListener('input', apply);
-                if (sortSel) sortSel.addEventListener('change', apply);
-
-                function clearAll() {
-                    checks.forEach(function (c) { c.checked = false; });
-                    priceMin.value = '';
-                    priceMax.value = '';
-                    if (sortSel) sortSel.value = 'featured';
-                    apply();
-                }
-                var clearBtn = document.querySelector('[data-comment="catalog-chips-clear"]');
-                var emptyClear = document.querySelector('[data-comment="catalog-empty-clear"]');
-                if (clearBtn) clearBtn.addEventListener('click', clearAll);
-                if (emptyClear) emptyClear.addEventListener('click', clearAll);
-
-                /* Filter group accordions */
-                document.querySelectorAll('.cat-fgroup-head').forEach(function (head) {
-                    head.addEventListener('click', function () {
-                        var group = head.closest('[data-fgroup]');
-                        var collapsed = group.classList.toggle('collapsed');
-                        head.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
-                    });
-                });
-
-                /* Mobile filter drawer */
-                var toggle = document.querySelector('[data-comment="catalog-filter-toggle"]');
-                var closeBtn = document.querySelector('[data-comment="catalog-sidebar-close"]');
-                var scrim = document.querySelector('[data-comment="catalog-scrim"]');
-                function openDrawer() { pageRoot.classList.add('filters-open'); }
-                function closeDrawer() { pageRoot.classList.remove('filters-open'); }
-                if (toggle) toggle.addEventListener('click', openDrawer);
-                if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
-                if (scrim) scrim.addEventListener('click', closeDrawer);
-                document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeDrawer(); });
-
-                /* Cosmetic pagination — no real paging, keep on one view */
-                document.querySelectorAll('[data-comment^="catalog-page-"]').forEach(function (el) {
-                    if (el.tagName === 'A') el.addEventListener('click', function (e) { e.preventDefault(); });
-                });
-
-                /* Deep link from the nav: pre-select the category passed via
-                   ?category=… (single) or ?group=… (several) and reflect it
-                   in the heading + breadcrumb. */
-                (function () {
-                    var params = new URLSearchParams(window.location.search);
-                    var cat = params.get('category');
-                    var grp = params.get('group');
-
-                    function boxFor(value) {
-                        return checks.filter(function (c) { return c.dataset.filter === 'category' && c.value === value; })[0];
-                    }
-                    function reflect(label) {
-                        var title = document.querySelector('[data-comment="catalog-title"]');
-                        var crumb = document.querySelector('[data-comment="catalog-breadcrumb-current"]');
-                        if (title) title.textContent = label;
-                        if (crumb) crumb.textContent = label;
-                        document.title = 'Whiffletree Farm & Nursery — ' + label;
-                    }
-
-                    if (grp && GROUPS[grp]) {
-                        var any = false;
-                        GROUPS[grp].cats.forEach(function (v) { var b = boxFor(v); if (b) { b.checked = true; any = true; } });
-                        if (any) reflect(GROUPS[grp].label);
-                        return;
-                    }
-                    if (!cat) return;
-                    var box = boxFor(cat);
-                    if (!box) return;
-                    box.checked = true;
-                    reflect((LABELS.category && LABELS.category[cat]) || cat);
-                })();
-
-                apply();
             })();
         </script>
                 <!-- ════════ AI VARIETY ADVISOR (customer chat widget) ════════ -->
@@ -2037,7 +1224,7 @@
                                 <div class="adv-offline-icon" data-comment="advisor-offline-icon"><i class="ph ph-plant" aria-hidden="true"></i></div>
                                 <div class="adv-offline-title" data-comment="advisor-offline-title">The advisor is resting</div>
                                 <div class="adv-offline-text" data-comment="advisor-offline-text">Our variety advisor is offline right now. You can still browse all 70+ varieties and we'll be back soon.</div>
-                                <a class="adv-offline-cta" data-comment="advisor-offline-cta" href="catalog.html"><i class="ph ph-tree" aria-hidden="true"></i> Browse the catalogue</a>
+                                <a class="adv-offline-cta" data-comment="advisor-offline-cta" href="shop.html"><i class="ph ph-tree" aria-hidden="true"></i> Browse the catalogue</a>
                             </div>`;
                             return;
                         }
@@ -2176,116 +1363,5 @@
                 })();
             </script>
             <!-- ════════ /AI VARIETY ADVISOR ════════ -->
-        <script data-comment="wt-dd-script">
-        (function () {
-            var registry = [];
-            function closeAll(except) { registry.forEach(function (d) { if (d.wrap !== except) d.close(); }); }
-            function enhance(sel) {
-                if (sel.dataset.wtEnhanced) return;
-                sel.dataset.wtEnhanced = '1';
-                var wrap = document.createElement('div');
-                wrap.className = 'wt-dd';
-                if (sel.classList.contains('mh-filter')) wrap.classList.add('wt-dd--pill');
-                else if (sel.classList.contains('sg-select')) wrap.classList.add('wt-dd--sm');
-                else if (sel.classList.contains('cat-select')) wrap.classList.add('wt-dd--sort');
-
-                var trigger = document.createElement('button');
-                trigger.type = 'button';
-                trigger.className = 'wt-dd-trigger';
-                trigger.setAttribute('aria-haspopup', 'listbox');
-                trigger.setAttribute('aria-expanded', 'false');
-                if (sel.getAttribute('aria-label')) trigger.setAttribute('aria-label', sel.getAttribute('aria-label'));
-                var labelEl = document.createElement('span');
-                labelEl.className = 'wt-dd-trigger-label';
-                var caret = document.createElement('i');
-                caret.className = 'ph ph-caret-down wt-dd-caret';
-                caret.setAttribute('aria-hidden', 'true');
-                trigger.appendChild(labelEl);
-                trigger.appendChild(caret);
-
-                var menu = document.createElement('div');
-                menu.className = 'wt-dd-menu';
-                menu.setAttribute('role', 'listbox');
-                var options = Array.prototype.slice.call(sel.options);
-                options.forEach(function (o, i) {
-                    var item = document.createElement('div');
-                    item.className = 'wt-dd-option';
-                    item.setAttribute('role', 'option');
-                    item.dataset.index = i;
-                    var t = document.createElement('span');
-                    t.textContent = o.textContent;
-                    var c = document.createElement('i');
-                    c.className = 'ph ph-check wt-dd-option-check';
-                    c.setAttribute('aria-hidden', 'true');
-                    item.appendChild(t);
-                    item.appendChild(c);
-                    item.addEventListener('click', function () { choose(i); closeMenu(); trigger.focus(); });
-                    menu.appendChild(item);
-                });
-
-                sel.parentNode.insertBefore(wrap, sel);
-                wrap.appendChild(sel);
-                wrap.appendChild(trigger);
-                wrap.appendChild(menu);
-                sel.classList.add('wt-dd-native');
-                sel.tabIndex = -1;
-
-                var activeIndex = -1;
-                function syncLabel() {
-                    var o = sel.options[sel.selectedIndex];
-                    labelEl.textContent = o ? o.textContent : '';
-                    for (var k = 0; k < menu.children.length; k++) {
-                        var on = (+menu.children[k].dataset.index === sel.selectedIndex);
-                        menu.children[k].classList.toggle('is-selected', on);
-                        menu.children[k].setAttribute('aria-selected', on ? 'true' : 'false');
-                    }
-                }
-                function choose(i) {
-                    if (sel.selectedIndex !== i) { sel.selectedIndex = i; sel.dispatchEvent(new Event('change', { bubbles: true })); }
-                    syncLabel();
-                }
-                function clearActive() { for (var k = 0; k < menu.children.length; k++) menu.children[k].classList.remove('is-active'); }
-                function setActive(i) {
-                    if (i < 0) i = 0;
-                    if (i > menu.children.length - 1) i = menu.children.length - 1;
-                    clearActive();
-                    var it = menu.children[i];
-                    if (it) { it.classList.add('is-active'); it.scrollIntoView({ block: 'nearest' }); }
-                    activeIndex = i;
-                }
-                function openMenu() {
-                    closeAll(wrap);
-                    wrap.classList.add('is-open');
-                    trigger.setAttribute('aria-expanded', 'true');
-                    setActive(sel.selectedIndex < 0 ? 0 : sel.selectedIndex);
-                }
-                function closeMenu() {
-                    wrap.classList.remove('is-open');
-                    trigger.setAttribute('aria-expanded', 'false');
-                    clearActive();
-                }
-                function isOpen() { return wrap.classList.contains('is-open'); }
-
-                trigger.addEventListener('click', function (e) { e.stopPropagation(); if (isOpen()) closeMenu(); else openMenu(); });
-                trigger.addEventListener('keydown', function (e) {
-                    if (e.key === 'ArrowDown') { e.preventDefault(); if (!isOpen()) openMenu(); else setActive(activeIndex + 1); }
-                    else if (e.key === 'ArrowUp') { e.preventDefault(); if (!isOpen()) openMenu(); else setActive(activeIndex - 1); }
-                    else if (e.key === 'Enter' || e.key === ' ') { if (isOpen()) { e.preventDefault(); if (activeIndex >= 0) { choose(activeIndex); closeMenu(); } } else { e.preventDefault(); openMenu(); } }
-                    else if (e.key === 'Escape') { if (isOpen()) { e.preventDefault(); closeMenu(); } }
-                    else if (e.key === 'Tab') { closeMenu(); }
-                });
-
-                syncLabel();
-                registry.push({ wrap: wrap, close: closeMenu });
-            }
-            document.addEventListener('click', function (e) { registry.forEach(function (d) { if (!d.wrap.contains(e.target)) d.close(); }); });
-            function initAll() {
-                var nodes = document.querySelectorAll('.cat-select, .sg-select, .mh-filter, [data-comment="forms-variety-select"]');
-                Array.prototype.forEach.call(nodes, enhance);
-            }
-            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAll);
-            else initAll();
-        })();
-        </script>
         </body>
 </html>
