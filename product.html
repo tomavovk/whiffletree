@@ -744,10 +744,12 @@
 
                     <!-- GALLERY -->
                     <div data-comment="pdp-gallery" style="position:sticky; top:120px;">
-                        <div data-comment="pdp-gallery-main" style="position:relative; border-radius:6px; overflow:hidden; border:1px solid var(--line-soft);">
+                        <div data-comment="pdp-gallery-main" style="position:relative; border-radius:2px; overflow:hidden; border:1px solid var(--line-soft);">
                             <div data-comment="pdp-gallery-main-img" style="aspect-ratio:1/1; background:url('assets/cat-apples.png') center/cover no-repeat;"></div>
-                            <span data-comment="pdp-gallery-badge" style="position:absolute; top:16px; left:16px; display:inline-flex; align-items:center; gap:6px; font-family:var(--sans); font-weight:600; font-size:12px; line-height:1; color:var(--g900); background:#fff; border:1px solid var(--line-soft); border-radius:6px; padding:7px 11px;">Sold out</span>
+                            <span data-comment="pdp-gallery-badge" style="position:absolute; top:16px; left:16px; display:inline-flex; align-items:center; gap:6px; font-family:var(--sans); font-weight:600; font-size:12px; line-height:1; color:var(--g900); background:#fff; border:1px solid var(--line-soft); border-radius:2px; padding:7px 11px;">Sold out</span>
                             <button type="button" data-comment="pdp-gallery-zoom" onclick="openPdpLightbox()" aria-label="View larger image" style="position:absolute; top:16px; right:16px; width:40px; height:40px; border:none; border-radius:999px; background:rgba(255,255,255,0.9); display:flex; align-items:center; justify-content:center; color:var(--ink2); cursor:pointer;"><i data-comment="pdp-gallery-zoom-icon" class="ph ph-magnifying-glass-plus" style="font-size:18px;"></i></button>
+                            <button type="button" data-comment="pdp-gallery-prev" onclick="pdpGalleryNav(-1)" aria-label="Previous image" style="position:absolute; left:16px; top:50%; transform:translateY(-50%); width:40px; height:40px; border:none; border-radius:999px; background:rgba(255,255,255,0.9); display:flex; align-items:center; justify-content:center; color:var(--ink2); cursor:pointer;"><i class="ph ph-caret-left" aria-hidden="true" style="font-size:19px;"></i></button>
+                            <button type="button" data-comment="pdp-gallery-next" onclick="pdpGalleryNav(1)" aria-label="Next image" style="position:absolute; right:16px; top:50%; transform:translateY(-50%); width:40px; height:40px; border:none; border-radius:999px; background:rgba(255,255,255,0.9); display:flex; align-items:center; justify-content:center; color:var(--ink2); cursor:pointer;"><i class="ph ph-caret-right" aria-hidden="true" style="font-size:19px;"></i></button>
                         </div>
                         <div data-comment="pdp-gallery-thumbs" style="display:flex; gap:12px; margin-top:14px;">
                             <button data-comment="pdp-gallery-thumb-1" onclick="setPdpImage('assets/cat-apples.png', this)" style="width:84px; height:84px; border-radius:5px; overflow:hidden; border:2px solid var(--g700); padding:0; cursor:pointer; background:url('assets/cat-apples.png') center/cover no-repeat;" aria-label="Photo 1 — fruit"></button>
@@ -762,10 +764,10 @@
 
                         <!-- FEATURE TAGS — house pill style (see index about-badges), scaled down -->
                         <div data-comment="pdp-buy-tags" style="display:flex; flex-wrap:wrap; gap:8px; margin-top:18px;">
-                            <span data-comment="pdp-buy-tag-coldhardy" style="display:inline-flex; align-items:center; gap:6px; font-family:var(--sans); font-weight:600; font-size:12px; line-height:1; color:var(--g900); background:#fff; border:1px solid var(--line-soft); border-radius:6px; padding:7px 11px;"><i class="ph ph-snowflake" aria-hidden="true" style="font-size:13px; color:var(--g700);"></i>Cold-hardy</span>
-                            <span data-comment="pdp-buy-tag-scab" style="display:inline-flex; align-items:center; gap:6px; font-family:var(--sans); font-weight:600; font-size:12px; line-height:1; color:var(--g900); background:#fff; border:1px solid var(--line-soft); border-radius:6px; padding:7px 11px;"><i class="ph ph-shield-check" aria-hidden="true" style="font-size:13px; color:var(--g700);"></i>Scab-immune</span>
-                            <span data-comment="pdp-buy-tag-pollination" style="display:inline-flex; align-items:center; gap:6px; font-family:var(--sans); font-weight:600; font-size:12px; line-height:1; color:var(--g900); background:#fff; border:1px solid var(--line-soft); border-radius:6px; padding:7px 11px;"><i class="ph ph-arrows-left-right" aria-hidden="true" style="font-size:13px; color:var(--g700);"></i>Needs a pollenizer</span>
-                            <span data-comment="pdp-buy-tag-lowspray" style="display:inline-flex; align-items:center; gap:6px; font-family:var(--sans); font-weight:600; font-size:12px; line-height:1; color:var(--g900); background:#fff; border:1px solid var(--line-soft); border-radius:6px; padding:7px 11px;"><i class="ph ph-leaf" aria-hidden="true" style="font-size:13px; color:var(--g700);"></i>Low-spray</span>
+                            <span data-comment="pdp-buy-tag-coldhardy" style="display:inline-flex; align-items:center; gap:6px; font-family:var(--sans); font-weight:600; font-size:12px; line-height:1; color:var(--g900); background:#fff; border:1px solid var(--line-soft); border-radius:2px; padding:7px 11px;"><i class="ph ph-snowflake" aria-hidden="true" style="font-size:13px; color:var(--g700);"></i>Cold-hardy</span>
+                            <span data-comment="pdp-buy-tag-scab" style="display:inline-flex; align-items:center; gap:6px; font-family:var(--sans); font-weight:600; font-size:12px; line-height:1; color:var(--g900); background:#fff; border:1px solid var(--line-soft); border-radius:2px; padding:7px 11px;"><i class="ph ph-shield-check" aria-hidden="true" style="font-size:13px; color:var(--g700);"></i>Scab-immune</span>
+                            <span data-comment="pdp-buy-tag-pollination" style="display:inline-flex; align-items:center; gap:6px; font-family:var(--sans); font-weight:600; font-size:12px; line-height:1; color:var(--g900); background:#fff; border:1px solid var(--line-soft); border-radius:2px; padding:7px 11px;"><i class="ph ph-arrows-left-right" aria-hidden="true" style="font-size:13px; color:var(--g700);"></i>Needs a pollenizer</span>
+                            <span data-comment="pdp-buy-tag-lowspray" style="display:inline-flex; align-items:center; gap:6px; font-family:var(--sans); font-weight:600; font-size:12px; line-height:1; color:var(--g900); background:#fff; border:1px solid var(--line-soft); border-radius:2px; padding:7px 11px;"><i class="ph ph-leaf" aria-hidden="true" style="font-size:13px; color:var(--g700);"></i>Low-spray</span>
                         </div>
 
                         <h1 data-comment="pdp-buy-title" style="font-family:var(--display); font-weight:500; font-size:52px; line-height:1.02; color:var(--ink); margin:16px 0 0;">Liberty</h1>
@@ -780,7 +782,7 @@
                         <p data-comment="pdp-buy-short-desc" style="font-family:var(--sans); font-size:15.5px; line-height:1.7; color:var(--muted); margin:24px 0 0;">A reliable dessert apple for cold climates — juicy, sweet-tart fruit with a refreshing bite. Scab-immune and easy to grow, it's an ideal variety for a first orchard or low-spray, organic growing.</p>
 
                         <!-- ORDERING WINDOW NOTE -->
-                        <div data-comment="pdp-buy-order-note" style="margin-top:24px; background:var(--paper1); border:1px solid var(--line); border-radius:6px; padding:16px 18px;">
+                        <div data-comment="pdp-buy-order-note" style="margin-top:24px; background:var(--paper1); border:1px solid var(--line); border-radius:2px; padding:16px 18px;">
                             <div data-comment="pdp-buy-order-note-title" style="font-family:var(--display); font-weight:600; font-size:18px; color:var(--ink); line-height:1.25;">Ordering closed: mid-March to mid-fall</div>
                             <p data-comment="pdp-buy-order-note-text" style="font-family:var(--sans); font-size:13px; line-height:1.55; color:var(--muted); margin:6px 0 0;">Bare-root trees ship only during dormancy. Sign up to be first to know when the next ordering window opens.</p>
                             <div data-comment="pdp-buy-order-note-actions" style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
@@ -873,9 +875,9 @@
             </section>
 
             <!-- TAGLINE BANNER -->
-            <section data-comment="pdp-tagline-section" style="background:var(--accent-deep);">
+            <section data-comment="pdp-tagline-section" style="background:var(--paper2);">
                 <div data-comment="pdp-tagline-inner" style="max-width:1100px; margin:0 auto; padding:34px 40px; text-align:center;">
-                    <p data-comment="pdp-tagline-text" style="font-family:var(--display); font-weight:500; font-size:26px; line-height:1.3; color:#FFFFFF; font-style:italic;">Let Liberty be the dependable start to your orchard — year after year, with none of the fuss.</p>
+                    <p data-comment="pdp-tagline-text" style="font-family:var(--display); font-weight:500; font-size:26px; line-height:1.3; color:var(--ink); font-style:italic;">Let Liberty be the dependable start to your orchard — year after year, with none of the fuss.</p>
                 </div>
             </section>
 
@@ -927,8 +929,8 @@
                         <h2 data-comment="pdp-editorial-heading" style="font-family:var(--display); font-weight:500; font-size:40px; line-height:1.1; color:var(--ink); margin:14px 0 0;">Healthy, hardy, and grown with care in Canada — our trees are selected for their <em data-comment="pdp-editorial-heading-em" style="font-style:italic; color:var(--g700);">beauty, reliability, and strength</em>.</h2>
                     </div>
                     <div data-comment="pdp-editorial-media" style="position:relative; min-height:420px;">
-                        <div data-comment="pdp-editorial-img-1" style="position:absolute; right:0; top:0; width:74%; height:300px; border-radius:6px; background:url('assets/hero-blossom.png') center/cover no-repeat;"></div>
-                        <div data-comment="pdp-editorial-img-2" style="position:absolute; left:0; bottom:0; width:52%; height:260px; border-radius:6px; border:6px solid #FFFFFF; background:url('assets/about-orchard.png') center/cover no-repeat;"></div>
+                        <div data-comment="pdp-editorial-img-1" style="position:absolute; right:0; top:0; width:74%; height:300px; border-radius:2px; background:url('assets/hero-blossom.png') center/cover no-repeat;"></div>
+                        <div data-comment="pdp-editorial-img-2" style="position:absolute; left:0; bottom:0; width:52%; height:260px; border-radius:2px; border:6px solid #FFFFFF; background:url('assets/about-orchard.png') center/cover no-repeat;"></div>
                     </div>
                 </div>
             </section>
@@ -982,7 +984,7 @@
             <div data-comment="pdp-lightbox" id="pdp-lightbox" role="dialog" aria-modal="true" aria-label="Product image viewer" onclick="if(event.target===this)closePdpLightbox()" style="position:fixed; inset:0; z-index:1100; display:none; align-items:center; justify-content:center; background:rgba(21,20,15,0.9); padding:40px;">
                 <button type="button" data-comment="pdp-lightbox-close" onclick="closePdpLightbox()" aria-label="Close" style="position:absolute; top:24px; right:24px; width:48px; height:48px; border:none; border-radius:999px; background:rgba(255,255,255,0.94); color:var(--ink); display:flex; align-items:center; justify-content:center; cursor:pointer;"><i class="ph ph-x" aria-hidden="true" style="font-size:22px;"></i></button>
                 <button type="button" data-comment="pdp-lightbox-prev" onclick="pdpLightboxNav(-1)" aria-label="Previous image" style="position:absolute; left:24px; top:50%; transform:translateY(-50%); width:48px; height:48px; border:none; border-radius:999px; background:rgba(255,255,255,0.94); color:var(--ink); display:flex; align-items:center; justify-content:center; cursor:pointer;"><i class="ph ph-caret-left" aria-hidden="true" style="font-size:22px;"></i></button>
-                <img data-comment="pdp-lightbox-img" alt="" style="max-width:min(90vw,1100px); max-height:86vh; object-fit:contain; border-radius:6px; box-shadow:0 24px 80px rgba(0,0,0,0.55);">
+                <img data-comment="pdp-lightbox-img" alt="" style="max-width:min(90vw,1100px); max-height:86vh; object-fit:contain; border-radius:2px; box-shadow:0 24px 80px rgba(0,0,0,0.55);">
                 <button type="button" data-comment="pdp-lightbox-next" onclick="pdpLightboxNav(1)" aria-label="Next image" style="position:absolute; right:24px; top:50%; transform:translateY(-50%); width:48px; height:48px; border:none; border-radius:999px; background:rgba(255,255,255,0.94); color:var(--ink); display:flex; align-items:center; justify-content:center; cursor:pointer;"><i class="ph ph-caret-right" aria-hidden="true" style="font-size:22px;"></i></button>
                 <div data-comment="pdp-lightbox-counter" style="position:absolute; bottom:24px; left:50%; transform:translateX(-50%); font-family:var(--sans); font-weight:600; font-size:13px; letter-spacing:0.04em; color:#fff; background:rgba(21,20,15,0.6); border-radius:999px; padding:7px 16px;">1 / 1</div>
             </div>
@@ -998,6 +1000,39 @@
                     });
                     if (el) el.style.borderColor = 'var(--g700)';
                 }
+
+                /* Inline gallery arrows — flip the main image through the thumbnails */
+                function pdpGalleryNav(dir) {
+                    var thumbs = pdpGalleryThumbs();
+                    if (thumbs.length < 2) return;
+                    var srcs = thumbs.map(pdpBgUrl);
+                    var cur = pdpBgUrl(document.querySelector('[data-comment="pdp-gallery-main-img"]'));
+                    var idx = srcs.indexOf(cur);
+                    if (idx < 0) idx = 0;
+                    idx = (idx + dir + thumbs.length) % thumbs.length;
+                    setPdpImage(srcs[idx], thumbs[idx]);
+                }
+
+                /* Touch swipe on the main gallery photo (mobile) */
+                (function () {
+                    var frame = document.querySelector('[data-comment="pdp-gallery-main"]');
+                    if (!frame) return;
+                    var x0 = null, y0 = null;
+                    frame.addEventListener('touchstart', function (e) {
+                        var t = e.changedTouches[0];
+                        x0 = t.clientX; y0 = t.clientY;
+                    }, { passive: true });
+                    frame.addEventListener('touchend', function (e) {
+                        if (x0 === null) return;
+                        var t = e.changedTouches[0];
+                        var dx = t.clientX - x0, dy = t.clientY - y0;
+                        x0 = y0 = null;
+                        /* horizontal swipe only, min 40px, and mostly horizontal */
+                        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+                            pdpGalleryNav(dx < 0 ? 1 : -1);
+                        }
+                    }, { passive: true });
+                })();
 
                 /* Accordion toggles (More about / Growing details) */
                 function togglePdpAccordion(btn) {
