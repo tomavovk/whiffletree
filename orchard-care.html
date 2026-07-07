@@ -16,7 +16,115 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/light/style.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
-        <link rel="stylesheet" href="assets/wt-account.css" />
+        <style data-inlined="wt-account.css">
+/* ============================================================================
+   Whiffletree — shared Account component (login popover + signup modal + toast)
+   Self-contained; relies only on the site's :root design tokens (with fallbacks).
+   Loaded on every page; JS auto-wires the header Account icon.
+   Prefix: .wta-  ·  State is mocked and persisted in localStorage.
+   ========================================================================== */
+
+.wta-anchor { position: relative; display: inline-flex; }
+
+/* ---- Login modal (centered dialog over a dimmed backdrop) ---- */
+.wta-pop {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -46%);
+    width: min(408px, 94vw); max-height: 92vh; overflow-y: auto;
+    background: #fffdf8; border: 1px solid var(--line, #d2cabb); border-radius: 6px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+    padding: 30px 30px 28px; text-align: left;
+    opacity: 0; pointer-events: none;
+    transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1), transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 1301;
+}
+.wta-pop.on { opacity: 1; transform: translate(-50%, -50%); pointer-events: auto; }
+.wta-pop-close {
+    position: absolute; top: 14px; right: 14px; width: 34px; height: 34px; border-radius: 50%;
+    background: transparent; border: 0; cursor: pointer; color: var(--muted, #57544e);
+    display: flex; align-items: center; justify-content: center; transition: background-color 200ms, color 200ms;
+}
+.wta-pop-close:hover { background: var(--paper1, #f0ebe2); color: var(--ink, #15140f); }
+.wta-pop-close i { font-size: 18px; }
+.wta-pop-head { margin-bottom: 16px; padding-right: 28px; }
+.wta-pop-title { font-family: var(--display, Georgia, serif); font-weight: 600; font-size: 22px; line-height: 1.1; color: var(--ink, #15140f); margin: 0; }
+.wta-pop-sub { font-family: var(--sans, sans-serif); font-size: 13px; line-height: 1.5; color: var(--muted, #57544e); margin: 5px 0 0; }
+.wta-pop-alt { font-family: var(--sans, sans-serif); font-size: 13px; color: var(--muted, #57544e); text-align: center; margin: 14px 0 0; }
+
+/* ---- Social providers ---- */
+.wta-providers { display: flex; flex-direction: column; gap: 10px; }
+.wta-provider {
+    display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
+    font-family: var(--sans, sans-serif); font-weight: 700; font-size: 14px; color: var(--ink, #15140f);
+    background: #fff; border: 1.5px solid var(--line, #d2cabb); border-radius: 2px; padding: 13px 16px; cursor: pointer;
+    transition: border-color 150ms cubic-bezier(0.2, 0, 0, 1), background-color 150ms cubic-bezier(0.2, 0, 0, 1);
+}
+.wta-provider:hover { border-color: var(--subtle, #939089); background: var(--paper0, #faf7f1); }
+.wta-provider .wta-logo { width: 19px; height: 19px; flex: none; display: block; }
+/* Compact: icon-only, three in a row (popover + login modal) */
+.wta-providers--compact { flex-direction: row; gap: 10px; }
+.wta-providers--compact .wta-provider { flex: 1; padding: 13px 0; gap: 0; }
+.wta-providers--compact .wta-provider .wta-logo { width: 22px; height: 22px; }
+
+.wta-divider { display: flex; align-items: center; gap: 14px; margin: 16px 0; font-family: var(--sans, sans-serif); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--subtle, #939089); }
+.wta-divider::before, .wta-divider::after { content: ""; height: 1px; background: var(--line-soft, #e3ddd1); flex: 1; }
+
+/* ---- Form fields ---- */
+.wta-form { display: flex; flex-direction: column; gap: 12px; }
+.wta-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.wta-field { display: flex; flex-direction: column; gap: 5px; }
+.wta-field--full { grid-column: 1 / -1; }
+.wta-label { font-family: var(--sans, sans-serif); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted, #57544e); }
+.wta-input, .wta-select { font-family: var(--sans, sans-serif); font-size: 13.5px; color: var(--ink2, #262521); background: #fff; border: 1px solid var(--line, #d2cabb); border-radius: 2px; padding: 10px 12px; width: 100%; }
+.wta-input:focus, .wta-select:focus { outline: none; border-color: var(--g700, #14682a); }
+.wta-forgot { align-self: flex-start; font-size: 12.5px; margin-top: -2px; margin-bottom: 12px; }
+
+/* ---- Buttons ---- */
+.wta-btn { font-family: var(--sans, sans-serif); font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; padding: 14px 24px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 9px; border: 1.5px solid transparent; transition: background-color 150ms cubic-bezier(0.2, 0, 0, 1), border-color 150ms cubic-bezier(0.2, 0, 0, 1), color 150ms cubic-bezier(0.2, 0, 0, 1); }
+.wta-btn--block { width: 100%; }
+.wta-btn-primary { background: var(--g700, #14682a); color: #eaf0e0; border-color: var(--g700, #14682a); }
+.wta-btn-primary:hover { background: var(--g800, #0e4c23); border-color: var(--g800, #0e4c23); }
+.wta-btn-secondary { background: transparent; color: var(--g700, #14682a); border-color: var(--g700, #14682a); }
+.wta-btn-secondary:hover { background: var(--g700, #14682a); color: #eaf0e0; }
+.wta-linkbtn { font-family: var(--sans, sans-serif); font-weight: 700; font-size: inherit; color: var(--g700, #14682a); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: transparent; transition: text-decoration-color 150ms cubic-bezier(0.2, 0, 0, 1); }
+.wta-linkbtn:hover { text-decoration-color: currentColor; }
+
+/* ---- Signed-in account menu ---- */
+.wta-menu-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; padding-bottom: 16px; border-bottom: 1px solid var(--line-soft, #e3ddd1); }
+.wta-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex: none; background: var(--paper1, #f0ebe2); }
+.wta-id { display: flex; flex-direction: column; min-width: 0; }
+.wta-hello { font-family: var(--sans, sans-serif); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--subtle, #939089); }
+.wta-name { font-family: var(--display, Georgia, serif); font-weight: 600; font-size: 18px; color: var(--ink, #15140f); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wta-menu { display: flex; flex-direction: column; }
+.wta-menu-item { display: flex; align-items: center; gap: 11px; font-family: var(--sans, sans-serif); font-size: 14px; font-weight: 600; color: var(--ink2, #262521); text-decoration: none; padding: 10px 8px; border-radius: 3px; transition: background-color 130ms cubic-bezier(0.2, 0, 0, 1), color 130ms cubic-bezier(0.2, 0, 0, 1); }
+.wta-menu-item i { font-size: 19px; color: var(--g600, #2f7d3f); }
+.wta-menu-item:hover { background: var(--paper1, #f0ebe2); color: var(--ink, #15140f); }
+.wta-menu-foot { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line-soft, #e3ddd1); }
+
+/* ---- Signup modal (full registration) ---- */
+.wta-scrim { position: fixed; inset: 0; background: rgba(21, 20, 15, 0.55); opacity: 0; pointer-events: none; transition: opacity 200ms ease; z-index: 1300; }
+.wta-scrim.on { opacity: 1; pointer-events: auto; }
+.wta-modal { position: fixed; z-index: 1301; top: 50%; left: 50%; transform: translate(-50%, -46%); width: min(560px, 94vw); max-height: 92vh; overflow: hidden; background: #fffdf8; border-radius: 6px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35); opacity: 0; pointer-events: none; transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1), transform 220ms cubic-bezier(0.22, 1, 0.36, 1); display: flex; flex-direction: column; }
+.wta-modal.on { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%); }
+.wta-modal-bar { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1px solid var(--line-soft, #e3ddd1); flex: none; }
+.wta-modal-bar-title { font-family: var(--display, Georgia, serif); font-weight: 600; font-size: 20px; color: var(--ink, #15140f); }
+.wta-modal-close { width: 34px; height: 34px; border-radius: 50%; background: transparent; border: 0; cursor: pointer; color: var(--muted, #57544e); display: flex; align-items: center; justify-content: center; transition: background-color 200ms, color 200ms; }
+.wta-modal-close:hover { background: var(--paper1, #f0ebe2); color: var(--ink, #15140f); }
+.wta-modal-close i { font-size: 18px; }
+.wta-modal-scroll { overflow-y: auto; padding: 26px 32px 30px; }
+.wta-intro { font-family: var(--sans, sans-serif); font-size: 14.5px; line-height: 1.6; color: var(--muted, #57544e); margin: 0 0 22px; }
+.wta-sub { font-family: var(--display, Georgia, serif); font-weight: 600; font-size: 20px; color: var(--ink, #15140f); margin: 26px 0 14px; }
+.wta-check { display: flex; align-items: center; gap: 10px; font-family: var(--sans, sans-serif); font-size: 14px; color: var(--ink2, #262521); margin: 16px 0 4px; cursor: pointer; }
+.wta-check input { width: 17px; height: 17px; accent-color: var(--g700, #14682a); cursor: pointer; flex: none; }
+.wta-fine { font-family: var(--sans, sans-serif); font-size: 12.5px; line-height: 1.5; color: var(--subtle, #939089); margin: 16px 0 0; }
+.wta-modal-actions { margin-top: 22px; }
+.wta-modal-alt { font-family: var(--sans, sans-serif); font-size: 13.5px; color: var(--muted, #57544e); text-align: center; margin: 16px 0 0; }
+@media (max-width: 560px) { .wta-modal-scroll { padding: 22px 20px 26px; } .wta-fields { grid-template-columns: 1fr; } }
+
+/* ---- Toast ---- */
+.wta-toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%) translateY(10px); display: flex; align-items: center; gap: 10px; background: var(--ink, #15140f); color: #fff; font-family: var(--sans, sans-serif); font-size: 14px; font-weight: 600; padding: 13px 20px; border-radius: 2px; box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3); opacity: 0; pointer-events: none; transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1), transform 220ms cubic-bezier(0.22, 1, 0.36, 1); z-index: 1400; }
+.wta-toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
+.wta-toast i { color: var(--g300, #8fce9b); font-size: 18px; }
+        </style>
 
         <style>
             /* Reset */
@@ -1051,6 +1159,258 @@
             })();
         </script>
             <!-- Account popover: provided by shared component (assets/wt-account.js) -->
-        <script src="assets/wt-account.js"></script>
+        <script data-inlined="wt-account.js">
+/* ============================================================================
+   Whiffletree — shared Account component
+   Wires the header Account icon on every page to a login popover; sign-up is a
+   dedicated page (register.html), reached via openSignup().
+   Auth is a localStorage-backed MOCK (no backend) so state persists across pages.
+   Exposes window.WTAccount for page-specific code (e.g. Members Hub) to consume.
+   ========================================================================== */
+(function () {
+    'use strict';
+
+    var LS_KEY = 'wtAccount';
+    var ACCOUNT_URL = 'account.html'; /* signed-in destination (page built separately) */
+    var listeners = [];
+    var state = load();
+
+    function goAccount() { window.location.href = ACCOUNT_URL; }
+
+    function load() {
+        try {
+            var s = JSON.parse(localStorage.getItem(LS_KEY));
+            if (s && typeof s.signedIn === 'boolean') return s;
+        } catch (e) { }
+        return { signedIn: false, user: { name: '', email: '' } };
+    }
+    function persist() { try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { } }
+    function notify() { listeners.forEach(function (cb) { try { cb(state); } catch (e) { } }); }
+
+    function deriveName(email) {
+        var local = (email || '').split('@')[0];
+        if (!local) return 'Whiffletree Member';
+        return local.split(/[._\-+]/).filter(Boolean).map(function (w) {
+            return w.charAt(0).toUpperCase() + w.slice(1);
+        }).join(' ');
+    }
+    function avatarFor(name) {
+        var seed = encodeURIComponent((name || 'WT').trim() || 'WT');
+        return 'https://api.dicebear.com/7.x/initials/svg?seed=' + seed + '&backgroundColor=14682a&textColor=ffffff';
+    }
+
+    /* ---- SVG logos ---- */
+    var G = '<svg class="wta-logo" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.28-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>';
+    var A = '<svg class="wta-logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="#000000" d="M17.05 12.53c-.03-2.53 2.07-3.75 2.16-3.81-1.18-1.72-3.01-1.96-3.66-1.98-1.56-.16-3.04.92-3.83.92-.79 0-2.01-.9-3.31-.87-1.7.03-3.27 1-4.15 2.53-1.77 3.07-.45 7.62 1.27 10.11.84 1.22 1.84 2.59 3.15 2.54 1.26-.05 1.74-.82 3.27-.82 1.52 0 1.95.82 3.28.79 1.36-.02 2.22-1.24 3.05-2.47.96-1.42 1.36-2.79 1.38-2.86-.03-.01-2.65-1.02-2.68-4.05zM14.63 4.84c.7-.85 1.17-2.02 1.04-3.19-1.01.04-2.23.67-2.95 1.52-.65.75-1.21 1.95-1.06 3.1 1.12.09 2.27-.57 2.97-1.43z"/></svg>';
+    var F = '<svg class="wta-logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="#1877F2" d="M24 12c0-6.63-5.37-12-12-12S0 5.37 0 12c0 5.99 4.39 10.95 10.13 11.85v-8.38H7.08V12h3.05V9.41c0-3.01 1.79-4.68 4.53-4.68 1.31 0 2.68.24 2.68.24v2.95h-1.51c-1.49 0-1.95.93-1.95 1.87V12h3.33l-.53 3.47h-2.8v8.38C19.61 22.95 24 17.99 24 12z"/><path fill="#FFFFFF" d="M16.68 15.47 17.21 12h-3.33V9.79c0-.94.46-1.87 1.95-1.87h1.51V4.97s-1.37-.24-2.68-.24c-2.74 0-4.53 1.67-4.53 4.68V12H7.08v3.47h3.05v8.38a12.1 12.1 0 0 0 3.75 0v-8.38h2.8z"/></svg>';
+
+    function providers(compact) {
+        function btn(provider, logo) {
+            return '<button type="button" class="wta-provider" data-wta-action="social" data-wta-provider="' + provider + '"'
+                + (compact ? ' aria-label="Continue with ' + provider + '" title="Continue with ' + provider + '"' : '')
+                + '>' + logo + (compact ? '' : ' Continue with ' + provider) + '</button>';
+        }
+        return '<div class="wta-providers' + (compact ? ' wta-providers--compact' : '') + '">'
+            + btn('Google', G) + btn('Apple', A) + btn('Facebook', F) + '</div>';
+    }
+
+    function loginFormHTML() {
+        return providers(true)
+            + '<div class="wta-divider">or</div>'
+            + '<form class="wta-form" data-wta-loginform onsubmit="return false;">'
+            +   '<div class="wta-field wta-field--full"><label class="wta-label">Email</label><input class="wta-input" type="email" data-wta-email placeholder="you@email.com"></div>'
+            +   '<div class="wta-field wta-field--full"><label class="wta-label">Password</label><input class="wta-input" type="password" placeholder="Your password"></div>'
+            +   '<button type="button" class="wta-linkbtn wta-forgot" data-wta-action="forgot">Forgot password?</button>'
+            +   '<button type="submit" class="wta-btn wta-btn-primary wta-btn--block" data-wta-action="email-login">Log in</button>'
+            + '</form>';
+    }
+
+    function popHTML() {
+        if (state.signedIn) {
+            var name = state.user.name || 'Whiffletree Member';
+            return '<div class="wta-menu-head">'
+                +   '<img class="wta-avatar" src="' + avatarFor(name) + '" alt="">'
+                +   '<div class="wta-id"><span class="wta-hello">Signed in as</span><span class="wta-name">' + esc(name) + '</span></div>'
+                + '</div>'
+                + '<nav class="wta-menu">'
+                +   '<a class="wta-menu-item" href="#"><i class="ph ph-user-circle" aria-hidden="true"></i> My account</a>'
+                +   '<a class="wta-menu-item" href="members.html"><i class="ph ph-images-square" aria-hidden="true"></i> My posts</a>'
+                +   '<a class="wta-menu-item" href="#"><i class="ph ph-package" aria-hidden="true"></i> Orders</a>'
+                + '</nav>'
+                + '<div class="wta-menu-foot"><button type="button" class="wta-btn wta-btn-secondary wta-btn--block" data-wta-action="logout"><i class="ph ph-sign-out" aria-hidden="true"></i> Log out</button></div>';
+        }
+        return '<button type="button" class="wta-pop-close" aria-label="Close" data-wta-action="close-login"><i class="ph ph-x" aria-hidden="true"></i></button>'
+            + '<div class="wta-pop-head"><h2 class="wta-pop-title">Log in</h2><p class="wta-pop-sub">Post, comment, and check out faster.</p></div>'
+            + loginFormHTML()
+            + '<p class="wta-pop-alt">New to Whiffletree? <button type="button" class="wta-linkbtn" data-wta-action="open-signup">Sign up</button></p>';
+    }
+
+    function esc(s) { var d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
+
+    /* ---- DOM refs ---- */
+    var icon, anchor, pop, scrim, toastEl, toastTimer, returnFocus = null;
+
+    function build() {
+        icon = document.querySelector('[data-comment="header-action-user"]');
+        if (!icon || icon.dataset.wtaInit) return false;
+        icon.dataset.wtaInit = '1';
+
+        anchor = document.createElement('span');
+        anchor.className = 'wta-anchor';
+        icon.parentNode.insertBefore(anchor, icon);
+        anchor.appendChild(icon);
+
+        /* Dimmed backdrop + centered login dialog live at the body root so they
+           overlay the whole page and can't be clipped by header stacking. */
+        scrim = document.createElement('div');
+        scrim.className = 'wta-scrim';
+        scrim.setAttribute('data-wta-action', 'overlay-close');
+        document.body.appendChild(scrim);
+
+        pop = document.createElement('div');
+        pop.className = 'wta-pop';
+        pop.setAttribute('role', 'dialog');
+        pop.setAttribute('aria-modal', 'true');
+        pop.setAttribute('aria-label', 'Log in');
+        pop.setAttribute('aria-hidden', 'true');
+        pop.setAttribute('data-comment', 'header-account-pop');
+        document.body.appendChild(pop);
+
+        icon.setAttribute('role', 'button');
+        icon.setAttribute('tabindex', '0');
+        icon.setAttribute('aria-haspopup', 'dialog');
+        icon.setAttribute('aria-expanded', 'false');
+        icon.setAttribute('aria-label', 'Account');
+        icon.style.cursor = 'pointer';
+        icon.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); togglePop(); });
+        icon.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); togglePop(); } });
+
+        toastEl = document.createElement('div');
+        toastEl.className = 'wta-toast';
+        toastEl.setAttribute('role', 'status');
+        toastEl.setAttribute('aria-live', 'polite');
+        toastEl.innerHTML = '<i class="ph ph-check-circle" aria-hidden="true"></i> <span class="wta-toast-text"></span>';
+        document.body.appendChild(toastEl);
+
+        wireEnhance(); /* enhance popover selects if the page has a custom dropdown enhancer */
+        renderPop();
+        return true;
+    }
+
+    function renderPop() { if (pop) pop.innerHTML = popHTML(); }
+    function wireEnhance() { /* login popover has no custom selects — nothing to enhance by default */ }
+
+    /* ---- Login modal open/close ---- */
+    function openPop() {
+        if (!pop) return;
+        if (state.signedIn) { goAccount(); return; } /* signed in → straight to account, no menu */
+        returnFocus = document.activeElement;
+        renderPop();
+        if (scrim) scrim.classList.add('on');
+        pop.classList.add('on');
+        pop.setAttribute('aria-hidden', 'false');
+        icon.setAttribute('aria-expanded', 'true');
+        document.documentElement.style.overflow = 'hidden';
+        document.addEventListener('keydown', popKey);
+        var f = pop.querySelector('input, a, button');
+        if (f) f.focus();
+    }
+    function closePop() {
+        if (!pop || !pop.classList.contains('on')) return;
+        pop.classList.remove('on');
+        if (scrim) scrim.classList.remove('on');
+        pop.setAttribute('aria-hidden', 'true');
+        icon.setAttribute('aria-expanded', 'false');
+        document.documentElement.style.overflow = '';
+        document.removeEventListener('keydown', popKey);
+        if (returnFocus && document.contains(returnFocus)) { try { returnFocus.focus(); } catch (e) { } }
+        returnFocus = null;
+    }
+    function togglePop() { if (state.signedIn) { goAccount(); return; } if (pop.classList.contains('on')) closePop(); else openPop(); }
+    function popKey(e) {
+        if (e.key === 'Escape') { closePop(); if (icon.focus) icon.focus(); return; }
+        if (e.key !== 'Tab') return;
+        var f = pop.querySelectorAll('a[href], button, input, select, textarea');
+        if (!f.length) return;
+        var first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+
+    /* ---- Signup: go to the dedicated page ----
+       Registration is a long, multi-section form, so it lives on its own page
+       (register.html) rather than a dismissable modal — a stray backdrop click
+       or Esc must never wipe a half-filled form. We remember the current page
+       in ?next= so the user is returned here after signing up. */
+    function openSignup() {
+        closePop();
+        var here = (location.pathname.split('/').pop() || 'home.html');
+        if (/^register\.html$/i.test(here)) return; /* already here — no-op */
+        location.href = 'register.html?next=' + encodeURIComponent(here);
+    }
+    /* ---- Toast ---- */
+    function toast(msg) {
+        if (!toastEl) return;
+        toastEl.querySelector('.wta-toast-text').textContent = msg;
+        toastEl.classList.add('on');
+        window.clearTimeout(toastTimer);
+        toastTimer = window.setTimeout(function () { toastEl.classList.remove('on'); }, 2600);
+    }
+
+    /* ---- Auth actions (mock) ---- */
+    function login(user) {
+        state.signedIn = true;
+        state.user = { name: (user && user.name) || 'Whiffletree Member', email: (user && user.email) || '' };
+        persist(); closePop(); renderPop(); notify();
+        toast('You’re signed in as ' + state.user.name);
+    }
+    function socialLogin(provider) {
+        state.signedIn = true;
+        if (!state.user.name) state.user = { name: 'Alex Green', email: '' };
+        persist(); closePop(); renderPop(); notify();
+        goAccount(); /* land the user in their account */
+    }
+    function emailLogin() {
+        var email = (pop.querySelector('[data-wta-email]') || {}).value || '';
+        login({ name: email ? deriveName(email) : 'Alex Green', email: email });
+        goAccount();
+    }
+    function logout() {
+        state.signedIn = false;
+        state.user = { name: '', email: '' };
+        persist(); closePop(); renderPop(); notify();
+        toast('Signed out');
+    }
+
+    /* ---- Delegated events ---- */
+    document.addEventListener('click', function (e) {
+        var el = e.target.closest ? e.target.closest('[data-wta-action]') : null;
+        if (!el) return;
+        var action = el.getAttribute('data-wta-action');
+        if (action === 'social') { e.preventDefault(); socialLogin(el.getAttribute('data-wta-provider')); }
+        else if (action === 'email-login') { e.preventDefault(); emailLogin(); }
+        else if (action === 'forgot') { e.preventDefault(); closePop(); window.location.href = 'forgot-password.html'; }
+        else if (action === 'open-signup') { e.preventDefault(); openSignup(); }
+        else if (action === 'logout') { e.preventDefault(); logout(); }
+        else if (action === 'close-login' || action === 'overlay-close') { e.preventDefault(); closePop(); }
+    });
+
+    /* ---- Public API ---- */
+    window.WTAccount = {
+        isSignedIn: function () { return state.signedIn; },
+        getUser: function () { return { name: state.user.name, email: state.user.email }; },
+        onChange: function (cb) { listeners.push(cb); return function () { listeners = listeners.filter(function (f) { return f !== cb; }); }; },
+        login: login,
+        logout: logout,
+        openLogin: openPop,
+        closeLogin: closePop,
+        openSignup: openSignup,
+        refresh: renderPop
+    };
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+    else build();
+})();
+        </script>
         </body>
 </html>
