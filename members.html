@@ -2853,6 +2853,11 @@
                 .adv-fab:focus-visible { outline: 3px solid var(--g300); outline-offset: 3px; }
                 .adv-fab-mark { position: relative; width: 30px; height: 30px; border-radius: 999px; background: var(--paper1); color: var(--g700); display: flex; align-items: center; justify-content: center; font-size: 18px; }
                 .adv-fab-pulse { position: absolute; top: -3px; right: -4px; width: 11px; height: 11px; border-radius: 3px; background: var(--accent); border: 2px solid #fff; }
+                /* adv-fab-collapse: icon-only in the corner on narrow viewports so it never covers form CTAs */
+                @media (max-width: 640px) {
+                    .adv-fab { padding: 0; width: 54px; height: 54px; gap: 0; justify-content: center; border-radius: 999px; font-size: 0; }
+                    .adv-fab-mark { width: 34px; height: 34px; }
+                }
 
                 /* ─── Header link (green chip) ─── */
                 .adv-header-link { display: inline-flex; align-items: center; gap: 7px; font-family: var(--sans); font-weight: 700; font-size: 15px; color: var(--g700); background: var(--g050); border: 1px solid var(--g100); border-radius: 2px; padding: 8px 14px; cursor: pointer; align-self: center; }
