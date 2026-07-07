@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/light/style.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+        <link rel="stylesheet" href="assets/wt-account.css" />
 
         <style>
             /* Reset */
@@ -667,18 +668,15 @@
                                         <div class="np-col">
                                             <span class="np-col-head">More</span>
                                             <a class="np-link" href="shop.html?category=roses">Roses</a>
-                                            <a class="np-link" href="shop.html">Collector's Corner</a>
+                                            <a class="np-link" href="shop.html?category=collector">Collector's Corner</a>
                                             <a class="np-link" href="shop.html?category=supplies">Orchard Supplies</a>
-                                            <a class="np-link" href="shop.html">Reference Books</a>
+                                            <a class="np-link" href="shop.html?category=books">Reference Books</a>
                                             <a class="np-link" href="shop.html">Gift Certificates</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- CATALOGUE — standalone link -->
-                        <a class="nav-link" data-comment="header-nav-link-catalogue" href="catalog.html" style="color: var(--muted); text-decoration: none; align-self: center; height: 24px; flex-grow: 0">Catalogue</a>
 
                         <!-- MEMBERS HUB — standalone link -->
                         <a class="nav-link" data-comment="header-nav-link-members" href="members.html" style="color: var(--muted); text-decoration: none; align-self: center; height: 24px; flex-grow: 0">Members Hub</a>
@@ -691,15 +689,15 @@
                                     <div class="np-grid np-grid--2">
                                         <div class="np-col">
                                             <span class="np-col-head">Learn</span>
-                                            <a class="np-link" href="#">Workshops</a>
-                                            <a class="np-link" href="#">Orchard Care</a>
-                                            <a class="np-link" href="#">Product FAQ</a>
+                                            <a class="np-link" href="workshops.html">Workshops</a>
+                                            <a class="np-link" href="orchard-care.html">Orchard Care</a>
                                         </div>
                                         <div class="np-col">
                                             <span class="np-col-head">Guides</span>
-                                            <a class="np-link" href="#">Bee Guide <span class="np-tag">PDF</span></a>
-                                            <a class="np-link" href="#">Planting Guide <span class="np-tag">PDF</span></a>
-                                            <a class="np-link" href="#">Irrigation Brochure <span class="np-tag">PDF</span></a>
+                                            <a class="np-link" href="catalog.html">2026 Catalogue</a>
+                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2025/06/250325-Whiffletree_BeeGuide-web.pdf" target="_blank" rel="noopener">Bee Guide <span class="np-tag">PDF</span></a>
+                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2026/03/260317-Whiffletree_PlantingGuide-web.pdf" target="_blank" rel="noopener">Planting Guide <span class="np-tag">PDF</span></a>
+                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2021/10/210212_Whiffltree_IrrigationBrochure_1.pdf" target="_blank" rel="noopener">Irrigation Brochure <span class="np-tag">PDF</span></a>
                                         </div>
                                     </div>
                                 </div>
@@ -716,6 +714,7 @@
                                             <span class="np-col-head">About</span>
                                             <a class="np-link" href="#">About Us</a>
                                             <a class="np-link" href="#">Guarantee Policy</a>
+                                            <a class="np-link" href="#">Product FAQ</a>
                                         </div>
                                     </div>
                                 </div>
@@ -728,7 +727,7 @@
                         <div data-comment="header-actions" style="display:flex; align-items:center; gap:20px; padding-left:8px; color:var(--muted);">
                             <svg data-comment="header-action-search" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><circle cx="11" cy="11" r="7"></circle><line x1="16.2" y1="16.2" x2="20.5" y2="20.5"></line></svg>
                             <svg data-comment="header-action-user" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                            <svg data-comment="header-action-cart" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                            <span data-comment="header-cart-wrap" style="position:relative; display:inline-flex;"><svg data-comment="header-action-cart" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span class="cart-badge" data-comment="header-cart-badge" aria-hidden="true"></span></span>
                         </div>
                     </nav>
                     <button data-comment="header-burger" aria-label="Open menu" aria-expanded="false"><i class="ph ph-list"></i></button>
@@ -913,12 +912,12 @@
                         </div>
 
                         <div data-comment="resources-tile-grid" style="display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; align-content: start; width: 100%; height: 561px">
-                            <a data-comment="resources-tile-1" href="#" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; background: linear-gradient(135deg, #ffffff 0%, #EDE7DB 100%); border: 1px solid #F1EEE7; border-radius: 4px; padding: 22px; aspect-ratio: 1/1; justify-content: center; text-align: center; width: 100%; height: 180px"><i data-comment="resources-tile-1-icon" class="ph-light ph-book-bookmark" style="font-size:54px; color:#9A7B4F;"></i><div data-comment="resources-tile-1-text"><div data-comment="resources-tile-1-title" style="font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink);">Catalogue</div><div data-comment="resources-tile-1-subtitle" style="font-family:var(--sans); font-size:13px; color:var(--muted); margin-top:4px;">Browse the full range</div></div></a>
-                            <a data-comment="resources-tile-2" href="#" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; background: linear-gradient(135deg, #ffffff 0%, #EDE7DB 100%); border: 1px solid #F1EEE7; border-radius: 4px; padding: 22px; aspect-ratio: 1/1; justify-content: center; text-align: center; width: 100%; height: 180px"><i data-comment="resources-tile-2-icon" class="ph-light ph-chalkboard-teacher" style="font-size:54px; color:#9A7B4F;"></i><div data-comment="resources-tile-2-text"><div data-comment="resources-tile-2-title" style="font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink);">Workshops</div><div data-comment="resources-tile-2-subtitle" style="font-family:var(--sans); font-size:13px; color:var(--muted); margin-top:4px;">Learn from our growers</div></div></a>
-                            <a data-comment="resources-tile-3" href="#" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; background: linear-gradient(135deg, #ffffff 0%, #EDE7DB 100%); border: 1px solid #F1EEE7; border-radius: 4px; padding: 22px; aspect-ratio: 1/1; justify-content: center; text-align: center; width: 100%; height: 180px"><i data-comment="resources-tile-3-icon" class="ph-light ph-scissors" style="font-size:54px; color:#9A7B4F;"></i><div data-comment="resources-tile-3-text"><div data-comment="resources-tile-3-title" style="font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink);">Orchard care</div><div data-comment="resources-tile-3-subtitle" style="font-family:var(--sans); font-size:13px; color:var(--muted); margin-top:4px;">Planting &amp; pruning tips</div></div></a>
-                            <a data-comment="resources-tile-4" href="#" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; background: linear-gradient(135deg, #ffffff 0%, #EDE7DB 100%); border: 1px solid #F1EEE7; border-radius: 4px; padding: 22px; aspect-ratio: 1/1; justify-content: center; text-align: center; width: 100%; height: 180px"><i data-comment="resources-tile-4-icon" class="ph-light ph-bug" style="font-size:54px; color:#9A7B4F;"></i><div data-comment="resources-tile-4-text"><div data-comment="resources-tile-4-title" style="font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink);">Bee guide</div><div data-comment="resources-tile-4-subtitle" style="font-family:var(--sans); font-size:13px; color:var(--muted); margin-top:4px;">PDF download</div></div></a>
-                            <a data-comment="resources-tile-5" href="#" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; background: linear-gradient(135deg, #ffffff 0%, #EDE7DB 100%); border: 1px solid #F1EEE7; border-radius: 4px; padding: 22px; aspect-ratio: 1/1; justify-content: center; text-align: center; width: 100%; height: 180px"><i data-comment="resources-tile-5-icon" class="ph-light ph-shovel" style="font-size:54px; color:#9A7B4F;"></i><div data-comment="resources-tile-5-text"><div data-comment="resources-tile-5-title" style="font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink);">Planting guide</div><div data-comment="resources-tile-5-subtitle" style="font-family:var(--sans); font-size:13px; color:var(--muted); margin-top:4px;">PDF download</div></div></a>
-                            <a data-comment="resources-tile-6" href="#" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; background: linear-gradient(135deg, #ffffff 0%, #EDE7DB 100%); border: 1px solid #F1EEE7; border-radius: 4px; padding: 22px; aspect-ratio: 1/1; justify-content: center; text-align: center; width: 100%; height: 180px"><i data-comment="resources-tile-6-icon" class="ph-light ph-drop" style="font-size:54px; color:#9A7B4F;"></i><div data-comment="resources-tile-6-text"><div data-comment="resources-tile-6-title" style="font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink);">Irrigation</div><div data-comment="resources-tile-6-subtitle" style="font-family:var(--sans); font-size:13px; color:var(--muted); margin-top:4px;">PDF brochure</div></div></a>
+                            <a data-comment="resources-tile-1" href="catalog.html" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; background: linear-gradient(135deg, #ffffff 0%, #EDE7DB 100%); border: 1px solid #F1EEE7; border-radius: 4px; padding: 22px; aspect-ratio: 1/1; justify-content: center; text-align: center; width: 100%; height: 180px"><i data-comment="resources-tile-1-icon" class="ph-light ph-book-bookmark" style="font-size:54px; color:#9A7B4F;"></i><div data-comment="resources-tile-1-text"><div data-comment="resources-tile-1-title" style="font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink);">Catalogue</div><div data-comment="resources-tile-1-subtitle" style="font-family:var(--sans); font-size:13px; color:var(--muted); margin-top:4px;">Browse the full range</div></div></a>
+                            <a data-comment="resources-tile-2" href="workshops.html" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; background: linear-gradient(135deg, #ffffff 0%, #EDE7DB 100%); border: 1px solid #F1EEE7; border-radius: 4px; padding: 22px; aspect-ratio: 1/1; justify-content: center; text-align: center; width: 100%; height: 180px"><i data-comment="resources-tile-2-icon" class="ph-light ph-chalkboard-teacher" style="font-size:54px; color:#9A7B4F;"></i><div data-comment="resources-tile-2-text"><div data-comment="resources-tile-2-title" style="font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink);">Workshops</div><div data-comment="resources-tile-2-subtitle" style="font-family:var(--sans); font-size:13px; color:var(--muted); margin-top:4px;">Learn from our growers</div></div></a>
+                            <a data-comment="resources-tile-3" href="orchard-care.html" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; background: linear-gradient(135deg, #ffffff 0%, #EDE7DB 100%); border: 1px solid #F1EEE7; border-radius: 4px; padding: 22px; aspect-ratio: 1/1; justify-content: center; text-align: center; width: 100%; height: 180px"><i data-comment="resources-tile-3-icon" class="ph-light ph-scissors" style="font-size:54px; color:#9A7B4F;"></i><div data-comment="resources-tile-3-text"><div data-comment="resources-tile-3-title" style="font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink);">Orchard care</div><div data-comment="resources-tile-3-subtitle" style="font-family:var(--sans); font-size:13px; color:var(--muted); margin-top:4px;">Planting &amp; pruning tips</div></div></a>
+                            <a data-comment="resources-tile-4" href="https://cdn.whiffletreefarmandnursery.ca/images/2025/06/250325-Whiffletree_BeeGuide-web.pdf" target="_blank" rel="noopener" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; background: linear-gradient(135deg, #ffffff 0%, #EDE7DB 100%); border: 1px solid #F1EEE7; border-radius: 4px; padding: 22px; aspect-ratio: 1/1; justify-content: center; text-align: center; width: 100%; height: 180px"><i data-comment="resources-tile-4-icon" class="ph-light ph-bug" style="font-size:54px; color:#9A7B4F;"></i><div data-comment="resources-tile-4-text"><div data-comment="resources-tile-4-title" style="font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink);">Bee guide</div><div data-comment="resources-tile-4-subtitle" style="font-family:var(--sans); font-size:13px; color:var(--muted); margin-top:4px;">PDF download</div></div></a>
+                            <a data-comment="resources-tile-5" href="https://cdn.whiffletreefarmandnursery.ca/images/2026/03/260317-Whiffletree_PlantingGuide-web.pdf" target="_blank" rel="noopener" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; background: linear-gradient(135deg, #ffffff 0%, #EDE7DB 100%); border: 1px solid #F1EEE7; border-radius: 4px; padding: 22px; aspect-ratio: 1/1; justify-content: center; text-align: center; width: 100%; height: 180px"><i data-comment="resources-tile-5-icon" class="ph-light ph-shovel" style="font-size:54px; color:#9A7B4F;"></i><div data-comment="resources-tile-5-text"><div data-comment="resources-tile-5-title" style="font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink);">Planting guide</div><div data-comment="resources-tile-5-subtitle" style="font-family:var(--sans); font-size:13px; color:var(--muted); margin-top:4px;">PDF download</div></div></a>
+                            <a data-comment="resources-tile-6" href="https://cdn.whiffletreefarmandnursery.ca/images/2021/10/210212_Whiffltree_IrrigationBrochure_1.pdf" target="_blank" rel="noopener" style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-decoration: none; background: linear-gradient(135deg, #ffffff 0%, #EDE7DB 100%); border: 1px solid #F1EEE7; border-radius: 4px; padding: 22px; aspect-ratio: 1/1; justify-content: center; text-align: center; width: 100%; height: 180px"><i data-comment="resources-tile-6-icon" class="ph-light ph-drop" style="font-size:54px; color:#9A7B4F;"></i><div data-comment="resources-tile-6-text"><div data-comment="resources-tile-6-title" style="font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink);">Irrigation</div><div data-comment="resources-tile-6-subtitle" style="font-family:var(--sans); font-size:13px; color:var(--muted); margin-top:4px;">PDF brochure</div></div></a>
                         </div>
                     </div>
                 </div>
@@ -984,10 +983,10 @@
                         <div data-comment="footer-col-downloads">
                             <div data-comment="footer-col-downloads-title" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">Downloads</div>
                             <div data-comment="footer-col-downloads-links" style="display:flex; flex-direction:column; gap:11px; font-family:var(--sans); font-size:14.5px;">
-                                <a data-comment="footer-downloads-link-1" href="#" style="color:var(--ink2); text-decoration:none;">Catalogue</a>
-                                <a data-comment="footer-downloads-link-2" href="#" style="color:var(--ink2); text-decoration:none;">Planting guide</a>
-                                <a data-comment="footer-downloads-link-3" href="#" style="color:var(--ink2); text-decoration:none;">Irrigation brochure</a>
-                                <a data-comment="footer-downloads-link-4" href="#" style="color:var(--ink2); text-decoration:none;">Bee guide</a>
+                                <a data-comment="footer-downloads-link-1" href="catalog.html" style="color:var(--ink2); text-decoration:none;">Catalogue</a>
+                                <a data-comment="footer-downloads-link-2" href="https://cdn.whiffletreefarmandnursery.ca/images/2026/03/260317-Whiffletree_PlantingGuide-web.pdf" target="_blank" rel="noopener" style="color:var(--ink2); text-decoration:none;">Planting guide</a>
+                                <a data-comment="footer-downloads-link-3" href="https://cdn.whiffletreefarmandnursery.ca/images/2021/10/210212_Whiffltree_IrrigationBrochure_1.pdf" target="_blank" rel="noopener" style="color:var(--ink2); text-decoration:none;">Irrigation brochure</a>
+                                <a data-comment="footer-downloads-link-4" href="https://cdn.whiffletreefarmandnursery.ca/images/2025/06/250325-Whiffletree_BeeGuide-web.pdf" target="_blank" rel="noopener" style="color:var(--ink2); text-decoration:none;">Bee guide</a>
                             </div>
                         </div>
                         <div data-comment="footer-col-links">
@@ -1129,7 +1128,7 @@
                 .adv-fab:hover { background: var(--g800); transform: translateY(-2px); }
                 .adv-fab:focus-visible { outline: 3px solid var(--g300); outline-offset: 3px; }
                 .adv-fab-mark { position: relative; width: 30px; height: 30px; border-radius: 999px; background: var(--paper1); color: var(--g700); display: flex; align-items: center; justify-content: center; font-size: 18px; }
-                .adv-fab-pulse { position: absolute; top: -3px; right: -3px; width: 12px; height: 12px; border-radius: 999px; background: var(--accent); border: 2px solid #fff; }
+                .adv-fab-pulse { position: absolute; top: -3px; right: -4px; width: 11px; height: 11px; border-radius: 3px; background: var(--accent); border: 2px solid #fff; }
 
                 /* ─── Header link (green chip) ─── */
                 .adv-header-link { display: inline-flex; align-items: center; gap: 7px; font-family: var(--sans); font-weight: 700; font-size: 15px; color: var(--g700); background: var(--g050); border: 1px solid var(--g100); border-radius: 2px; padding: 8px 14px; cursor: pointer; align-self: center; }
@@ -1408,6 +1407,7 @@
                         if (!btn || btn.classList.contains('added')) return;
                         btn.classList.add('added');
                         btn.innerHTML = '<i class="ph ph-check" aria-hidden="true"></i> Added to cart';
+                        if (window.wtCart) window.wtCart.add(btn);
                     }
 
                     // ── Open / close + focus trap ──
@@ -1481,5 +1481,80 @@
                 })();
             </script>
             <!-- ════════ /AI VARIETY ADVISOR ════════ -->
+            <!-- Account popover: provided by shared component (assets/wt-account.js) -->
+        <script src="assets/wt-account.js"></script>
+
+            <!-- ============================================================
+                 SHARED CART FEEDBACK (byte-identical on every page)
+                 Red-dot badge + minimal fly-to-cart via Motion One.
+                 Any add-to-cart entry point calls window.wtCart.add(sourceEl).
+                 Count persists across pages in localStorage.
+                 ============================================================ -->
+            <style data-comment="wt-cart-style">
+                .cart-badge { position: absolute; top: -3px; right: -4px; width: 11px; height: 11px; border-radius: 3px; background: var(--accent, #c1502e); border: 2px solid #fff; display: none; }
+                .cart-badge.on { display: block; }
+                .wt-fly-token { position: fixed; top: 0; left: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--accent, #c1502e); box-shadow: 0 2px 8px rgba(21, 20, 15, 0.28); pointer-events: none; z-index: 4000; }
+                @media (prefers-reduced-motion: reduce) { .wt-fly-token { display: none !important; } }
+            </style>
+            <script data-comment="wt-cart-script">
+                (function () {
+                    var KEY = 'wt_cart_count';
+                    function get() { try { return parseInt(localStorage.getItem(KEY), 10) || 0; } catch (e) { return 0; } }
+                    function save(n) { try { localStorage.setItem(KEY, String(n)); } catch (e) {} }
+                    function badge() { return document.querySelector('[data-comment="header-cart-badge"]'); }
+                    function icon() { return document.querySelector('[data-comment="header-action-cart"]'); }
+                    function reduced() { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }
+                    function motion() { return window.__wtMotion && window.__wtMotion.animate; }
+                    function showBadge() { var b = badge(); if (b) b.classList.add('on'); }
+                    function popBadge() {
+                        var b = badge(); if (!b) return;
+                        b.classList.add('on');
+                        var a = motion();
+                        if (a && !reduced()) { try { a(b, { scale: [0, 1.35, 1] }, { duration: 0.42, ease: [0.22, 1, 0.36, 1] }); } catch (e) {} }
+                    }
+                    /* Minimal token that arcs from the add button to the header cart icon. */
+                    function fly(src) {
+                        var a = motion(), ic = icon();
+                        if (!a || reduced() || !src || !ic) return Promise.resolve();
+                        var s = src.getBoundingClientRect(), t = ic.getBoundingClientRect();
+                        if (!t.width || !t.height || !s.width) return Promise.resolve(); /* cart hidden (mobile) → skip flight */
+                        var x0 = s.left + s.width / 2, y0 = s.top + s.height / 2;
+                        var x1 = t.left + t.width / 2, y1 = t.top + t.height / 2;
+                        var lift = Math.min(70, Math.abs(y0 - y1) * 0.18 + 24);
+                        var tok = document.createElement('span');
+                        tok.className = 'wt-fly-token'; tok.style.transform = 'translate(' + x0 + 'px, ' + y0 + 'px)';
+                        document.body.appendChild(tok);
+                        var done = function () { if (tok.parentNode) tok.parentNode.removeChild(tok); };
+                        setTimeout(done, 900); /* safety cleanup if the animation is throttled/never finishes */
+                        try {
+                            var anim = a(tok, {
+                                x: [x0, (x0 + x1) / 2, x1],
+                                y: [y0, (y0 + y1) / 2 - lift, y1],
+                                scale: [1, 0.9, 0.28],
+                                opacity: [1, 1, 0.4]
+                            }, { duration: 0.52, ease: [0.22, 1, 0.36, 1] });
+                            var fin = (anim && anim.finished) ? anim.finished : Promise.resolve();
+                            return fin.then(done, done);
+                        } catch (e) { done(); return Promise.resolve(); }
+                    }
+                    window.wtCart = {
+                        count: get,
+                        add: function (src) {
+                            save(get() + 1);
+                            var settled = false;
+                            function pop() { if (settled) return; settled = true; popBadge(); }
+                            fly(src).then(pop, pop);
+                            setTimeout(pop, 650); /* the badge always updates, even if the flight is throttled or unsupported */
+                        },
+                        refresh: function () { if (get() > 0) showBadge(); }
+                    };
+                    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', window.wtCart.refresh);
+                    else window.wtCart.refresh();
+                })();
+            </script>
+            <script type="module" data-comment="wt-motion-module">
+                import { animate } from 'https://cdn.jsdelivr.net/npm/motion@11/+esm';
+                window.__wtMotion = { animate: animate };
+            </script>
         </body>
 </html>

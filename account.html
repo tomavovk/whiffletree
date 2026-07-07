@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>My Account — Whiffletree Farm &amp; Nursery</title>
+
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700&amp;family=Mulish:wght@300;400;500;600;700;800&amp;display=swap"
+            rel="stylesheet" />
+
+        <!-- Phosphor icons (CDN) -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/light/style.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+        <link rel="stylesheet" href="assets/wt-account.css" />
+        <link rel="stylesheet" href="assets/wt-fields.css" />
+
+        <style>
+            /* Reset */
+            *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+            html, body { margin: 0; padding: 0; }
+            body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+            /* Design tokens (site) */
+            :root {
+                --display: "Cormorant Garamond", Georgia, serif;
+                --sans: "Mulish", ui-sans-serif, system-ui, sans-serif;
+                --ink: #15140f;
+                --ink2: #262521;
+                --muted: #57544e;
+                --subtle: #939089;
+                --paper0: #faf8f3;
+                --paper1: #f0ebe2;
+                --paper2: #e6e0d4;
+                --paper3: #dad3c5;
+                --line: #d2cabb;
+                --line-soft: #e3ddd1;
+                --line-neutral: #d5d4d0;
+                --g900: #093f1e;
+                --g800: #0e4c23;
+                --g700: #14682a;
+                --g600: #268b39;
+                --g500: #2f9b3c;
+                --g300: #85ac81;
+                --g200: #c1d8b6;
+                --g100: #e6f1db;
+                --g050: #f1f8ea;
+                --success: #1c7a45;
+                --warning: #b5772a;
+                --error: #e5202c;
+                --c900: #521c13;
+                --c800: #6e2519;
+                --c700: #8f3122;
+                --c600: #b23e2c;
+                --c500: #d75640;
+                --c300: #ee917d;
+                --c200: #f5bcaf;
+                --c100: #fbdfd7;
+                --c050: #fdf1ec;
+                --accent: var(--c500);
+                --accent-deep: var(--c700);
+                --accent-soft: var(--c100);
+            }
+
+            body { font-family: var(--sans); color: var(--ink2); background: var(--paper0); font-size: 16px; line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
+            [data-comment="page-root"] { display: flex; flex-direction: column; flex: 1; overflow-x: clip; }
+
+            /* Shared transitions */
+            a, button, [data-comment^="header-action-"] {
+                transition: color 240ms cubic-bezier(0.22,1,0.36,1), background-color 240ms cubic-bezier(0.22,1,0.36,1), border-color 240ms cubic-bezier(0.22,1,0.36,1), box-shadow 240ms cubic-bezier(0.22,1,0.36,1), transform 240ms cubic-bezier(0.22,1,0.36,1);
+            }
+            a i[class*="ph-arrow-right"] { display: inline-block; transition: transform 240ms cubic-bezier(0.22,1,0.36,1); }
+            a:hover i[class*="ph-arrow-right"] { transform: translateX(3px); }
+
+            /* ---- Header ---- */
+            [data-comment^="header-nav-link-"]:hover { color: var(--accent-deep) !important; text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 2px; }
+            [data-comment^="header-action-"] { box-sizing: content-box; padding: 7px; margin: -7px; border-radius: 4px; }
+            [data-comment^="header-action-"]:hover { color: var(--accent-deep) !important; background: rgba(158,44,32,0.1); cursor: pointer; }
+
+            /* Mega navigation */
+            .nav-item { display: inline-flex; align-items: center; align-self: center; }
+            .nav-trigger { font-family: var(--sans); font-weight: 600; font-size: 15px; color: var(--muted); background: none; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0; line-height: 1; position: relative; text-decoration: none; }
+            .nav-trigger:hover, .nav-item.open .nav-trigger { text-decoration: none; }
+            .nav-trigger::after { content: ""; position: absolute; left: 0; right: 18px; bottom: -5px; height: 2px; background: currentColor; opacity: 0; transition: opacity 200ms cubic-bezier(0.22,1,0.36,1); }
+            .nav-trigger:hover::after, .nav-item.open .nav-trigger::after { opacity: 1; }
+            .nav-caret { display: block; flex: none; transition: transform 240ms cubic-bezier(0.22,1,0.36,1); }
+            .nav-item.open .nav-trigger { color: var(--accent-deep); }
+            .nav-item.open .nav-trigger .nav-caret { transform: rotate(180deg); }
+            .nav-panel { position: absolute; left: 0; right: 0; top: 100%; background: #ffffff; border-top: 1px solid var(--line); box-shadow: 0 16px 24px -20px rgba(20,20,15,0.14); display: none; z-index: 30; }
+            .nav-item.open .nav-panel { display: block; animation: navPanelIn 200ms cubic-bezier(0.22,1,0.36,1); }
+            @keyframes navPanelIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+            .np-inner { padding: 32px 40px 40px; }
+            .np-top { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-bottom: 18px; margin-bottom: 26px; border-bottom: 1px solid var(--line-soft); }
+            .np-eyebrow { font-family: var(--sans); font-weight: 700; font-size: 12.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--subtle); }
+            .np-pill { font-family: var(--sans); font-weight: 700; font-size: 14px; color: #ffffff; background: var(--accent); padding: 11px 22px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
+            .np-pill:hover { background: var(--accent-deep); }
+            .np-grid { display: grid; gap: 30px 28px; }
+            .np-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+            .np-grid--2 { grid-template-columns: repeat(2, minmax(0, 240px)); }
+            .np-grid--1 { grid-template-columns: minmax(0, 280px); }
+            .np-col { display: flex; flex-direction: column; align-items: flex-start; }
+            .np-col-head { font-family: var(--sans); font-weight: 700; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--subtle); margin-bottom: 12px; }
+            .np-link { font-family: var(--sans); font-weight: 600; font-size: 15.5px; color: var(--muted); text-decoration: none; padding: 7px 0; display: inline-flex; align-items: baseline; }
+            .np-link:hover { color: var(--accent-deep) !important; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 2px; }
+            .np-tag { font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; color: var(--subtle); margin-left: 8px; }
+            .np-seeall { margin-top: 14px; font-family: var(--sans); font-weight: 700; font-size: 14px; color: var(--accent); text-decoration: none; display: inline-flex; align-items: center; gap: 7px; }
+            .np-seeall:hover { color: var(--accent-deep) !important; }
+
+            a:focus-visible, button:focus-visible, [data-comment^="header-action-"]:focus-visible { outline: 2px solid var(--g500); outline-offset: 3px; border-radius: 4px; }
+
+            /* Hamburger */
+            [data-comment="header-burger"] { display: none; align-self: center; background: none; border: none; color: var(--g700); font-size: 30px; line-height: 1; padding: 4px; cursor: pointer; }
+
+            /* ============================================================
+               ACCOUNT DASHBOARD ("app" surface — no footer)
+               ============================================================ */
+            .acct-shell { flex: 1; padding: 48px 40px 72px; }
+            .acct-wrap { max-width: 1160px; margin: 0 auto; }
+
+            .acct-crumbs { display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 600; letter-spacing: 0.02em; color: var(--subtle); margin-bottom: 20px; }
+            .acct-crumbs a { color: var(--subtle); text-decoration: none; }
+            .acct-crumbs a:hover { color: var(--accent-deep); }
+            .acct-crumbs i { font-size: 13px; }
+
+            .acct-grid { display: grid; grid-template-columns: 288px minmax(0, 1fr); gap: 28px; align-items: start; }
+
+            /* ---- Sidebar ---- */
+            .acct-side { position: sticky; top: 96px; display: flex; flex-direction: column; gap: 16px; }
+            .acct-id { background: #fff; border: 1px solid var(--line); border-radius: 4px; padding: 22px 22px; display: flex; align-items: center; gap: 15px; }
+            .acct-id img { width: 56px; height: 56px; border-radius: 50%; flex: none; background: var(--paper1); }
+            .acct-id-name { font-family: var(--display); font-weight: 600; font-size: 23px; line-height: 1.1; color: var(--ink); }
+            .acct-badge { display: inline-block; margin-top: 6px; font-family: var(--sans); font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c700); background: var(--c050); border: 1px solid var(--c100); padding: 3px 10px; border-radius: 999px; }
+
+            .acct-nav { background: #fff; border: 1px solid var(--line); border-radius: 4px; padding: 8px; display: flex; flex-direction: column; gap: 2px; }
+            .acct-navlink { display: flex; align-items: center; gap: 12px; width: 100%; font-family: var(--sans); font-size: 15px; font-weight: 600; color: var(--ink2); background: none; border: 0; text-align: left; text-decoration: none; padding: 13px 14px; border-radius: 3px; cursor: pointer; }
+            .acct-navlink > i:first-child { font-size: 20px; color: var(--g600); flex: none; }
+            .acct-navlink .acct-chev { margin-left: auto; font-size: 15px; color: var(--subtle); }
+            .acct-navlink:hover { background: var(--paper1); color: var(--ink); }
+            .acct-navlink.is-active { background: var(--g700); color: #eaf0e0; }
+            .acct-navlink.is-active > i:first-child, .acct-navlink.is-active .acct-chev { color: #eaf0e0; }
+            .acct-nav-sep { height: 1px; background: var(--line-soft); margin: 6px 8px; }
+            .acct-logout { color: var(--c700); }
+            .acct-logout > i:first-child { color: var(--c500); }
+            .acct-logout:hover { background: var(--c050); color: var(--c800); }
+
+            /* ---- Panels ---- */
+            .acct-panels { min-width: 0; }
+            .acct-panel { display: none; background: #fff; border: 1px solid var(--line); border-radius: 4px; padding: 34px 36px 36px; box-shadow: 0 20px 50px -30px rgba(21,20,15,0.18); }
+            .acct-panel.is-active { display: block; }
+            .acct-phead { padding-bottom: 20px; margin-bottom: 26px; border-bottom: 1px solid var(--line-soft); }
+            .acct-phead h1 { font-family: var(--display); font-weight: 600; font-size: 30px; line-height: 1.1; color: var(--ink); }
+            .acct-phead p { margin-top: 4px; font-size: 14px; color: var(--muted); }
+
+            .acct-actions-row { display: flex; justify-content: flex-end; margin-top: 26px; }
+
+            /* Reuse .wta-form / .wta-fields / .wta-field / .wta-label / .wta-input for forms */
+            .acct-panel .wta-input { padding: 12px 13px; font-size: 14px; }
+            .acct-panel .wta-fields { gap: 18px 20px; }
+            .acct-panel .wta-label { margin-bottom: 1px; }
+
+            /* ---- Payment methods ---- */
+            .acct-pm-label { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 4px 0 12px; }
+            .acct-pm-label span { font-size: 14px; color: var(--muted); }
+            .acct-pm-label strong { color: var(--ink); }
+            .acct-pm-hint { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; color: var(--subtle); text-transform: uppercase; }
+            .acct-pm-group { display: flex; flex-direction: column; gap: 12px; }
+            .acct-pm-subhead { margin: 22px 0 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--subtle); }
+            .acct-card-row { display: flex; align-items: center; gap: 14px; background: var(--paper0); border: 1px solid var(--line); border-radius: 4px; padding: 15px 16px; }
+            .acct-card-row.is-default { border-color: var(--g600); box-shadow: 0 0 0 1px var(--g600) inset; background: #fff; }
+            .acct-card-row.dragging { opacity: 0.45; }
+            .acct-card-row.drag-over { border-color: var(--g600); border-style: dashed; }
+            .acct-drag { color: var(--subtle); cursor: grab; font-size: 19px; display: flex; flex: none; }
+            .acct-card-row:active .acct-drag { cursor: grabbing; }
+            .acct-brand { flex: none; width: 46px; height: 30px; border-radius: 3px; border: 1px solid var(--line); background: #fff; display: flex; align-items: center; justify-content: center; }
+            .acct-brand svg { display: block; width: 30px; height: auto; }
+            .acct-card-num { font-family: var(--sans); font-weight: 700; font-size: 15px; color: var(--ink2); letter-spacing: 0.06em; }
+            .acct-card-meta { font-size: 12.5px; color: var(--subtle); }
+            .acct-card-spacer { margin-left: auto; }
+            .acct-card-del { background: none; border: 0; color: var(--subtle); cursor: pointer; font-size: 19px; padding: 6px; border-radius: 4px; display: flex; }
+            .acct-card-del:hover { color: var(--c600); background: var(--c050); }
+            .acct-addcard { margin-top: 26px; padding-top: 24px; border-top: 1px solid var(--line-soft); }
+            .acct-addcard h2 { font-family: var(--display); font-weight: 600; font-size: 21px; color: var(--ink); margin-bottom: 16px; }
+
+            /* ---- Orders ---- */
+            .acct-orders { border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+            .acct-otable { width: 100%; border-collapse: collapse; }
+            .acct-otable th { font-family: var(--sans); font-weight: 700; font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--subtle); text-align: left; padding: 14px 18px; background: var(--paper0); border-bottom: 1px solid var(--line); }
+            .acct-otable th.num, .acct-otable td.num { text-align: right; }
+            .acct-orow-head { cursor: pointer; }
+            .acct-orow-head > td { padding: 18px 18px; border-bottom: 1px solid var(--line-soft); font-size: 14.5px; color: var(--ink2); }
+            .acct-orow-head:hover > td { background: var(--paper0); }
+            .acct-order.open .acct-orow-head > td { background: var(--paper1); }
+            .acct-order:last-child .acct-orow-head > td { border-bottom: 0; }
+            .acct-ono { font-weight: 800; color: var(--ink); }
+            .acct-ototal { font-weight: 800; color: var(--ink); }
+            .acct-ocaret { color: var(--subtle); font-size: 16px; transition: transform 200ms cubic-bezier(0.22,1,0.36,1); display: inline-block; }
+            .acct-order.open .acct-ocaret { transform: rotate(180deg); }
+            .acct-status { display: inline-flex; align-items: center; gap: 6px; font-family: var(--sans); font-weight: 800; font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; }
+            .acct-status.pending { color: var(--warning); background: #fbf1e2; }
+            .acct-status.shipped { color: #2563a8; background: #e8f0fa; }
+            .acct-status.delivered { color: var(--success); background: var(--g050); }
+            .acct-orow-detail { display: none; }
+            .acct-order.open .acct-orow-detail { display: table-row; }
+            .acct-orow-detail > td { padding: 0 18px 22px; background: var(--paper1); border-bottom: 1px solid var(--line-soft); }
+            .acct-order:last-child .acct-orow-detail > td { border-bottom: 0; }
+            .acct-oship { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px 20px; background: #fff; border: 1px solid var(--line-soft); border-radius: 4px; padding: 16px 18px; margin: 6px 0 16px; }
+            .acct-oship dt { font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--subtle); margin-bottom: 3px; }
+            .acct-oship dd { font-size: 14px; font-weight: 600; color: var(--ink2); }
+            .acct-oitems { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--line-soft); border-radius: 4px; overflow: hidden; }
+            .acct-oitems th { font-size: 10.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--subtle); text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line-soft); }
+            .acct-oitems th.num, .acct-oitems td.num { text-align: right; }
+            .acct-oitems td { padding: 13px 14px; border-bottom: 1px solid var(--line-soft); font-size: 14px; }
+            .acct-oitems tr:last-child td { border-bottom: 0; }
+            .acct-oitem-prod { display: flex; align-items: center; gap: 13px; }
+            .acct-oitem-thumb { width: 46px; height: 46px; border-radius: 3px; object-fit: cover; flex: none; background: var(--paper2); }
+            .acct-oitem-name { font-weight: 700; color: var(--ink); }
+            .acct-oitem-variant { font-size: 12.5px; color: var(--subtle); }
+
+            /* ---- Guest (signed-out) state ---- */
+            .acct-guest { display: none; max-width: 460px; margin: 40px auto; background: #fff; border: 1px solid var(--line); border-radius: 4px; padding: 44px 40px; text-align: center; box-shadow: 0 24px 60px -34px rgba(21,20,15,0.24); }
+            .acct-guest i.acct-guest-icon { font-size: 48px; color: var(--subtle); }
+            .acct-guest h1 { font-family: var(--display); font-weight: 600; font-size: 30px; margin: 12px 0 6px; color: var(--ink); }
+            .acct-guest p { color: var(--muted); font-size: 15px; line-height: 1.55; margin: 0 auto 26px; max-width: 360px; }
+
+            .acct-empty { text-align: center; padding: 8px 0 4px; color: var(--muted); }
+
+            /* ---- Responsive ---- */
+            @media (max-width: 900px) {
+                [data-comment="header-burger"] { display: inline-flex; }
+                [data-comment="header-inner"] { justify-content: flex-end !important; min-height: 72px; padding-top: 12px !important; padding-bottom: 12px !important; }
+                [data-comment="header-logo-link"] { left: 16px !important; top: 13px !important; }
+                [data-comment="header-logo"] { height: 46px !important; width: auto !important; }
+                [data-comment="header-nav"] { position: absolute; top: 100%; left: 0; right: 0; flex-direction: column !important; align-items: stretch !important; gap: 0 !important; align-self: stretch !important; background: #fff; border-bottom: 1px solid var(--line); box-shadow: 0 16px 30px rgba(0,0,0,0.12); padding: 6px 0; display: none !important; }
+                [data-comment="header-root"].nav-open [data-comment="header-nav"] { display: flex !important; }
+                [data-comment^="header-nav-link-"] { padding: 14px 20px !important; height: auto !important; border-bottom: 1px solid var(--line-soft); }
+                [data-comment="header-actions"] { padding: 16px 20px !important; gap: 28px !important; justify-content: flex-start; }
+                .nav-item { display: block; }
+                .nav-trigger { width: 100%; height: auto; justify-content: space-between; padding: 14px 20px !important; font-size: 15px; border-bottom: 1px solid var(--line-soft); }
+                .nav-trigger::after { display: none; }
+                .nav-panel { position: static; box-shadow: none; border-top: none; background: var(--g050); }
+                .nav-item.open .nav-panel { animation: none; }
+                .np-inner { padding: 6px 20px 14px; }
+                .np-top { flex-direction: column; align-items: flex-start; gap: 14px; margin-bottom: 16px; padding-bottom: 16px; }
+                .np-grid, .np-grid--4, .np-grid--2, .np-grid--1 { grid-template-columns: 1fr !important; gap: 20px; }
+                .np-col-head { margin-bottom: 6px; }
+                .np-link { padding: 8px 0; }
+
+                .acct-shell { padding: 28px 20px 56px; }
+                .acct-grid { grid-template-columns: 1fr; gap: 20px; }
+                .acct-side { position: static; }
+                .acct-panel { padding: 26px 20px 28px; }
+                .acct-oship { grid-template-columns: 1fr 1fr; }
+            }
+            @media (max-width: 560px) {
+                .wta-fields { grid-template-columns: 1fr !important; }
+                .acct-otable th.hide-sm, .acct-otable td.hide-sm { display: none; }
+                .acct-phead h1 { font-size: 26px; }
+                .acct-oitem-thumb { display: none; }
+            }
+
+            /* Unified subtle radius for header (matches site) */
+            [data-comment="page-root"] [data-comment] { border-radius: 2px; }
+        </style>
+    </head>
+    <body>
+        <div data-comment="page-root" style="background:var(--paper0);">
+
+            <!-- ANNOUNCEMENT -->
+            <div data-comment="announcement-bar" style="background:var(--paper2); color:var(--ink); font-family:var(--sans); font-weight:500; font-size:12.5px; text-align:center; padding:10px 20px; line-height:1.5; border-bottom:1px solid var(--line);">Due to CFIA regulations we cannot ship plants outside of Canada, or fruit trees &amp; grape vines to BC.</div>
+
+            <!-- NAV -->
+            <header data-comment="header-root" style="background:#FFFFFF; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:20;">
+                <div data-comment="header-inner" style="max-width: none; width: 100%; margin: 0; padding: 16px 40px; display: flex; align-items: center; justify-content: flex-end; padding-top: 20px; padding-bottom: 20px">
+                    <a data-comment="header-logo-link" href="home.html" style="position: absolute; left: 28px; top: 11px; z-index: 40; display: block;"><img data-comment="header-logo" src="assets/whiffletree-logo.png" alt="Whiffletree Farm &amp; Nursery" style="height: 75px; width: 239px; display: block;"></a>
+                    <nav data-comment="header-nav" style="display: flex; align-items: center; gap: 28px; font-family: var(--sans); font-weight: 600; font-size: 15px; color: var(--muted); align-self: flex-end">
+
+                        <!-- SHOP ALL -->
+                        <div class="nav-item" data-nav-item>
+                            <button class="nav-trigger" data-comment="header-nav-link-shop" data-nav-trigger="shop" aria-expanded="false" aria-controls="nav-panel-shop" aria-haspopup="true">Shop all <svg class="nav-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                            <div class="nav-panel" id="nav-panel-shop" data-comment="nav-panel-shop" role="region" aria-label="Shop by category">
+                                <div class="np-inner">
+                                    <div class="np-top">
+                                        <span class="np-eyebrow">Explore the nursery</span>
+                                        <a class="np-pill" href="shop.html">See all categories</a>
+                                    </div>
+                                    <div class="np-grid np-grid--4">
+                                        <div class="np-col">
+                                            <span class="np-col-head">Trees</span>
+                                            <a class="np-link" href="shop.html?category=apples">Apple</a>
+                                            <a class="np-link" href="shop.html?category=pears">Pear</a>
+                                            <a class="np-link" href="shop.html?category=plums">Plum</a>
+                                            <a class="np-link" href="shop.html?category=peaches">Peach</a>
+                                            <a class="np-link" href="shop.html?category=cherries">Cherry</a>
+                                            <a class="np-link" href="shop.html?category=apricots">Apricot</a>
+                                            <a class="np-link" href="shop.html?category=nuts">Nut</a>
+                                            <a class="np-link" href="shop.html">Combo Trees</a>
+                                            <a class="np-seeall" href="shop.html">See all trees <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                                        </div>
+                                        <div class="np-col">
+                                            <span class="np-col-head">Shrubs &amp; Plants</span>
+                                            <a class="np-link" href="shop.html?category=grapes">Grape</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Haskap</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Kiwi</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Rhubarb</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Fig</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Sea Buckthorn</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Asparagus</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Goumi</a>
+                                            <a class="np-seeall" href="shop.html?category=shrubs">See all shrubs &amp; plants <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                                        </div>
+                                        <div class="np-col">
+                                            <span class="np-col-head">Berries</span>
+                                            <a class="np-link" href="shop.html?category=shrubs">Blueberry</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Raspberry</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Strawberry</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Currant</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Saskatoon Berry</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Elderberry</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Gooseberry</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Blackberry</a>
+                                            <a class="np-seeall" href="shop.html?category=shrubs">See all berries <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                                        </div>
+                                        <div class="np-col">
+                                            <span class="np-col-head">More</span>
+                                            <a class="np-link" href="shop.html?category=roses">Roses</a>
+                                            <a class="np-link" href="shop.html?category=collector">Collector's Corner</a>
+                                            <a class="np-link" href="shop.html?category=supplies">Orchard Supplies</a>
+                                            <a class="np-link" href="shop.html?category=books">Reference Books</a>
+                                            <a class="np-link" href="shop.html">Gift Certificates</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- MEMBERS HUB -->
+                        <a class="nav-link" data-comment="header-nav-link-members" href="members.html" style="color: var(--muted); text-decoration: none; align-self: center; height: 24px; flex-grow: 0">Members Hub</a>
+
+                        <!-- RESOURCES -->
+                        <div class="nav-item" data-nav-item>
+                            <button class="nav-trigger" data-comment="header-nav-link-resources" data-nav-trigger="resources" aria-expanded="false" aria-controls="nav-panel-resources" aria-haspopup="true">Resources <svg class="nav-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                            <div class="nav-panel" id="nav-panel-resources" data-comment="nav-panel-resources" role="region" aria-label="Resources">
+                                <div class="np-inner">
+                                    <div class="np-grid np-grid--2">
+                                        <div class="np-col">
+                                            <span class="np-col-head">Learn</span>
+                                            <a class="np-link" href="workshops.html">Workshops</a>
+                                            <a class="np-link" href="orchard-care.html">Orchard Care</a>
+                                        </div>
+                                        <div class="np-col">
+                                            <span class="np-col-head">Guides</span>
+                                            <a class="np-link" href="catalog.html">2026 Catalogue</a>
+                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2025/06/250325-Whiffletree_BeeGuide-web.pdf" target="_blank" rel="noopener">Bee Guide <span class="np-tag">PDF</span></a>
+                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2026/03/260317-Whiffletree_PlantingGuide-web.pdf" target="_blank" rel="noopener">Planting Guide <span class="np-tag">PDF</span></a>
+                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2021/10/210212_Whiffltree_IrrigationBrochure_1.pdf" target="_blank" rel="noopener">Irrigation Brochure <span class="np-tag">PDF</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- INFO -->
+                        <div class="nav-item" data-nav-item>
+                            <button class="nav-trigger" data-comment="header-nav-link-info" data-nav-trigger="info" aria-expanded="false" aria-controls="nav-panel-info" aria-haspopup="true">Info <svg class="nav-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                            <div class="nav-panel" id="nav-panel-info" data-comment="nav-panel-info" role="region" aria-label="Information">
+                                <div class="np-inner">
+                                    <div class="np-grid np-grid--1">
+                                        <div class="np-col">
+                                            <span class="np-col-head">About</span>
+                                            <a class="np-link" href="#">About Us</a>
+                                            <a class="np-link" href="#">Guarantee Policy</a>
+                                            <a class="np-link" href="#">Product FAQ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CONTACT -->
+                        <a class="nav-link" data-comment="header-nav-link-contact" href="home.html#contact" style="color: var(--muted); text-decoration: none; align-self: center; height: 24px; flex-grow: 0">Contact</a>
+
+                        <div data-comment="header-actions" style="display:flex; align-items:center; gap:20px; padding-left:8px; color:var(--muted);">
+                            <svg data-comment="header-action-search" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><circle cx="11" cy="11" r="7"></circle><line x1="16.2" y1="16.2" x2="20.5" y2="20.5"></line></svg>
+                            <svg data-comment="header-action-user" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            <span data-comment="header-cart-wrap" style="position:relative; display:inline-flex;"><svg data-comment="header-action-cart" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span class="cart-badge" data-comment="header-cart-badge" aria-hidden="true"></span></span>
+                        </div>
+                    </nav>
+                    <button data-comment="header-burger" aria-label="Open menu" aria-expanded="false"><i class="ph ph-list"></i></button>
+                </div>
+            </header>
+
+            <!-- ACCOUNT SURFACE -->
+            <main class="acct-shell">
+                <div class="acct-wrap">
+
+                    <!-- Signed-out -->
+                    <div class="acct-guest" data-acct-guest>
+                        <i class="ph-light ph-user-circle acct-guest-icon" aria-hidden="true"></i>
+                        <h1>You’re not signed in</h1>
+                        <p>Log in to manage your details, payment methods, and orders.</p>
+                        <button type="button" class="wta-btn wta-btn-primary" data-acct-login>Log in</button>
+                    </div>
+
+                    <!-- Signed-in dashboard -->
+                    <div class="acct-app" data-acct-app style="display:none;">
+                        <nav class="acct-crumbs" aria-label="Breadcrumb">
+                            <a href="home.html">Home</a>
+                            <i class="ph ph-caret-right" aria-hidden="true"></i>
+                            <span>My Account</span>
+                        </nav>
+
+                        <div class="acct-grid">
+                            <!-- Sidebar -->
+                            <aside class="acct-side">
+                                <div class="acct-id">
+                                    <img data-acct-avatar src="" alt="" />
+                                    <div>
+                                        <div class="acct-id-name" data-acct-name>Whiffletree Member</div>
+                                        <span class="acct-badge">Member</span>
+                                    </div>
+                                </div>
+                                <div class="acct-nav" role="tablist" aria-label="Account sections">
+                                    <button type="button" class="acct-navlink is-active" data-acct-tab="details" role="tab" aria-selected="true"><i class="ph-fill ph-user-circle acct-navicon" data-icon="user-circle" aria-hidden="true"></i> Account details <i class="ph ph-caret-right acct-chev" aria-hidden="true"></i></button>
+                                    <button type="button" class="acct-navlink" data-acct-tab="payment" role="tab" aria-selected="false"><i class="ph-light ph-credit-card acct-navicon" data-icon="credit-card" aria-hidden="true"></i> Payment Methods <i class="ph ph-caret-right acct-chev" aria-hidden="true"></i></button>
+                                    <button type="button" class="acct-navlink" data-acct-tab="orders" role="tab" aria-selected="false"><i class="ph-light ph-package acct-navicon" data-icon="package" aria-hidden="true"></i> Your Orders <i class="ph ph-caret-right acct-chev" aria-hidden="true"></i></button>
+                                    <div class="acct-nav-sep" aria-hidden="true"></div>
+                                    <button type="button" class="acct-navlink acct-logout" data-acct-logout><i class="ph-light ph-sign-out" aria-hidden="true"></i> Log out</button>
+                                </div>
+                            </aside>
+
+                            <!-- Panels -->
+                            <div class="acct-panels">
+
+                                <!-- Account details -->
+                                <section class="acct-panel is-active" data-acct-panel="details" role="tabpanel" aria-label="Account details">
+                                    <div class="acct-phead">
+                                        <h1>Account details</h1>
+                                        <p>Manage your profile and shipping information</p>
+                                    </div>
+                                    <form class="wta-form" data-acct-details onsubmit="return false;">
+                                        <div class="wta-fields">
+                                            <div class="wta-field"><label class="wta-label">Name</label><input class="wta-input" type="text" data-acct-field="name" value="Alex Green"></div>
+                                            <div class="wta-field"><label class="wta-label">Email</label><input class="wta-input" type="email" data-acct-field="email" value="alex.green@email.com"></div>
+                                            <div class="wta-field"><label class="wta-label">Phone</label><div class="wtf-phone" data-wt-phone data-country="ca"><input type="tel" value="(705) 645-4444"></div></div>
+                                            <div class="wta-field"><label class="wta-label">Country</label><select class="wta-select" data-wt-select="country" data-wt-geo="acct" data-wt-value="Canada"><option>Canada</option><option>United States</option></select></div>
+                                            <div class="wta-field"><label class="wta-label">Province</label><select class="wta-select" data-wt-select="region" data-wt-geo="acct" data-wt-value="Ontario"></select></div>
+                                            <div class="wta-field"><label class="wta-label">City</label><select class="wta-select" data-wt-select="city" data-wt-geo="acct" data-wt-search data-wt-value="Bracebridge"></select><input class="wta-input" type="text" data-wt-city-text placeholder="City / Town" style="display:none;"></div>
+                                            <div class="wta-field wta-field--full"><label class="wta-label">Address Line 1</label><input class="wta-input" type="text" value="1436 Muskoka Road 118 W"></div>
+                                            <div class="wta-field wta-field--full"><label class="wta-label">Address Line 2</label><input class="wta-input" type="text" placeholder="Apt, suite, unit…"></div>
+                                            <div class="wta-field wta-field--full"><label class="wta-label">Postal Code</label><input class="wta-input" type="text" value="P1L 1W8"></div>
+                                        </div>
+                                        <div class="acct-actions-row">
+                                            <button type="submit" class="wta-btn wta-btn-primary" data-acct-save>Save changes</button>
+                                        </div>
+                                    </form>
+                                </section>
+
+                                <!-- Payment Methods -->
+                                <section class="acct-panel" data-acct-panel="payment" role="tabpanel" aria-label="Payment methods">
+                                    <div class="acct-phead">
+                                        <h1>Payment Methods</h1>
+                                        <p>Manage your saved payment cards</p>
+                                    </div>
+
+                                    <div class="acct-pm-label">
+                                        <span>Default card: <strong data-acct-default>•••• 4242</strong></span>
+                                        <span class="acct-pm-hint">Drag to reorder</span>
+                                    </div>
+
+                                    <div class="acct-pm-group" data-acct-cards>
+                                        <div class="acct-card-row is-default" draggable="true" data-card="4242">
+                                            <span class="acct-drag" aria-hidden="true"><i class="ph ph-dots-six-vertical"></i></span>
+                                            <span class="acct-brand"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Visa"><path fill="#1434CB" d="M9.112 8.262L5.97 15.758H3.92L2.374 9.775c-.094-.368-.175-.503-.461-.658C1.446 8.864.677 8.626 0 8.478l.046-.216h3.3a.904.904 0 0 1 .894.764l.817 4.338 2.018-5.102zm8.033 5.049c.008-1.979-2.736-2.088-2.717-2.972.006-.269.262-.555.822-.628a3.66 3.66 0 0 1 1.913.336l.34-1.59a5.207 5.207 0 0 0-1.814-.333c-1.917 0-3.266 1.019-3.278 2.478-.011 1.079.963 1.68 1.698 2.04.756.367 1.01.603 1.006.931-.005.504-.602.725-1.16.734-.975.015-1.54-.263-1.992-.473l-.351 1.642c.453.208 1.289.39 2.156.398 2.037 0 3.37-1.006 3.377-2.565m5.061 2.446H24l-1.565-7.496h-1.656a.883.883 0 0 0-.826.55l-2.909 6.946h2.036l.405-1.12h2.488zm-2.163-2.656l1.02-2.815.588 2.815zm-8.16-4.839l-1.604 7.495H8.34l1.605-7.495z"/></svg></span>
+                                            <div>
+                                                <div class="acct-card-num">•••• •••• •••• 4242</div>
+                                                <div class="acct-card-meta">Expires 09/28</div>
+                                            </div>
+                                            <span class="acct-card-spacer"></span>
+                                            <button type="button" class="acct-card-del" aria-label="Remove card ending 4242" data-acct-delcard><i class="ph ph-trash" aria-hidden="true"></i></button>
+                                        </div>
+                                        <div class="acct-card-row" draggable="true" data-card="0089">
+                                            <span class="acct-drag" aria-hidden="true"><i class="ph ph-dots-six-vertical"></i></span>
+                                            <span class="acct-brand"><svg viewBox="0 0 40 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mastercard"><circle cx="15" cy="12" r="9" fill="#EB001B"/><circle cx="25" cy="12" r="9" fill="#F79E1B"/><path fill="#FF5F00" d="M20 4.52a9 9 0 0 0 0 14.96 9 9 0 0 0 0-14.96z"/></svg></span>
+                                            <div>
+                                                <div class="acct-card-num">•••• •••• •••• 0089</div>
+                                                <div class="acct-card-meta">Expires 03/27</div>
+                                            </div>
+                                            <span class="acct-card-spacer"></span>
+                                            <button type="button" class="acct-card-del" aria-label="Remove card ending 0089" data-acct-delcard><i class="ph ph-trash" aria-hidden="true"></i></button>
+                                        </div>
+                                        <div class="acct-card-row" draggable="true" data-card="0045">
+                                            <span class="acct-drag" aria-hidden="true"><i class="ph ph-dots-six-vertical"></i></span>
+                                            <span class="acct-brand"><svg viewBox="0 0 40 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mastercard"><circle cx="15" cy="12" r="9" fill="#EB001B"/><circle cx="25" cy="12" r="9" fill="#F79E1B"/><path fill="#FF5F00" d="M20 4.52a9 9 0 0 0 0 14.96 9 9 0 0 0 0-14.96z"/></svg></span>
+                                            <div>
+                                                <div class="acct-card-num">•••• •••• •••• 0045</div>
+                                                <div class="acct-card-meta">Expires 11/26</div>
+                                            </div>
+                                            <span class="acct-card-spacer"></span>
+                                            <button type="button" class="acct-card-del" aria-label="Remove card ending 0045" data-acct-delcard><i class="ph ph-trash" aria-hidden="true"></i></button>
+                                        </div>
+                                    </div>
+
+                                    <div class="acct-addcard">
+                                        <h2>Add a new card</h2>
+                                        <form class="wta-form" data-acct-addcard onsubmit="return false;">
+                                            <div class="wta-field wta-field--full"><label class="wta-label">Card number</label><input class="wta-input" type="text" inputmode="numeric" placeholder="4141 3893 1093 5901"></div>
+                                            <div class="wta-fields">
+                                                <div class="wta-field"><label class="wta-label">Expiry</label><input class="wta-input" type="text" placeholder="MM / YY"></div>
+                                                <div class="wta-field"><label class="wta-label">CVV</label><input class="wta-input" type="text" inputmode="numeric" placeholder="123"></div>
+                                            </div>
+                                            <div class="acct-actions-row">
+                                                <button type="submit" class="wta-btn wta-btn-secondary" data-acct-addcard-btn><i class="ph ph-plus" aria-hidden="true"></i> Add card</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </section>
+
+                                <!-- Your Orders -->
+                                <section class="acct-panel" data-acct-panel="orders" role="tabpanel" aria-label="Your orders">
+                                    <div class="acct-phead">
+                                        <h1>Your Orders</h1>
+                                        <p>View and track your purchase history</p>
+                                    </div>
+
+                                    <div class="acct-orders">
+                                        <table class="acct-otable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Order #</th>
+                                                    <th class="hide-sm">Date</th>
+                                                    <th class="num hide-sm">Subtotal</th>
+                                                    <th class="num hide-sm">Tax</th>
+                                                    <th class="num">Total</th>
+                                                    <th>Status</th>
+                                                    <th aria-label="Expand"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody data-acct-orders>
+                                                <!-- Order 1 -->
+                                                <tr class="acct-order open" data-acct-order>
+                                                    <td colspan="7" style="padding:0; border:0;">
+                                                        <table style="width:100%; border-collapse:collapse;">
+                                                            <tbody>
+                                                                <tr class="acct-orow-head" data-acct-order-toggle>
+                                                                    <td class="acct-ono">#WT-10428</td>
+                                                                    <td class="hide-sm">Apr 18, 2026</td>
+                                                                    <td class="num hide-sm">$248.00</td>
+                                                                    <td class="num hide-sm">$32.24</td>
+                                                                    <td class="num acct-ototal">$280.24</td>
+                                                                    <td><span class="acct-status pending"><i class="ph-fill ph-clock" aria-hidden="true"></i> Pending</span></td>
+                                                                    <td class="num"><i class="ph ph-caret-down acct-ocaret" aria-hidden="true"></i></td>
+                                                                </tr>
+                                                                <tr class="acct-orow-detail">
+                                                                    <td colspan="7">
+                                                                        <dl class="acct-oship">
+                                                                            <div><dt>Delivery</dt><dd>Pickup</dd></div>
+                                                                            <div><dt>Postal Code</dt><dd>P1L 1W8</dd></div>
+                                                                            <div><dt>Address</dt><dd>1436 Muskoka Rd 118 W</dd></div>
+                                                                            <div><dt>Ready Date</dt><dd>Apr 25, 2026</dd></div>
+                                                                        </dl>
+                                                                        <table class="acct-oitems">
+                                                                            <thead><tr><th>Product</th><th class="num">Price</th><th class="num">Qty</th><th class="num">Total</th></tr></thead>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-apples.png" alt=""><div><div class="acct-oitem-name">Honeycrisp Apple</div><div class="acct-oitem-variant">Semi-dwarf · Bare root</div></div></div></td>
+                                                                                    <td class="num">$62.00</td><td class="num">2</td><td class="num">$124.00</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-pears.png" alt=""><div><div class="acct-oitem-name">Bartlett Pear</div><div class="acct-oitem-variant">Standard · Bare root</div></div></div></td>
+                                                                                    <td class="num">$58.00</td><td class="num">1</td><td class="num">$58.00</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-supplies.png" alt=""><div><div class="acct-oitem-name">Tree Guard Kit</div><div class="acct-oitem-variant">Spiral · 5-pack</div></div></div></td>
+                                                                                    <td class="num">$33.00</td><td class="num">2</td><td class="num">$66.00</td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <!-- Order 2 -->
+                                                <tr class="acct-order" data-acct-order>
+                                                    <td colspan="7" style="padding:0; border:0;">
+                                                        <table style="width:100%; border-collapse:collapse;">
+                                                            <tbody>
+                                                                <tr class="acct-orow-head" data-acct-order-toggle>
+                                                                    <td class="acct-ono">#WT-10310</td>
+                                                                    <td class="hide-sm">Mar 2, 2026</td>
+                                                                    <td class="num hide-sm">$186.00</td>
+                                                                    <td class="num hide-sm">$24.18</td>
+                                                                    <td class="num acct-ototal">$210.18</td>
+                                                                    <td><span class="acct-status shipped"><i class="ph-fill ph-truck" aria-hidden="true"></i> Shipped</span></td>
+                                                                    <td class="num"><i class="ph ph-caret-down acct-ocaret" aria-hidden="true"></i></td>
+                                                                </tr>
+                                                                <tr class="acct-orow-detail">
+                                                                    <td colspan="7">
+                                                                        <dl class="acct-oship">
+                                                                            <div><dt>Delivery</dt><dd>Canada Post</dd></div>
+                                                                            <div><dt>Postal Code</dt><dd>P1L 1W8</dd></div>
+                                                                            <div><dt>Tracking</dt><dd>CP 4021 8830 1177</dd></div>
+                                                                            <div><dt>Shipped</dt><dd>Mar 5, 2026</dd></div>
+                                                                        </dl>
+                                                                        <table class="acct-oitems">
+                                                                            <thead><tr><th>Product</th><th class="num">Price</th><th class="num">Qty</th><th class="num">Total</th></tr></thead>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-grapes.png" alt=""><div><div class="acct-oitem-name">Somerset Seedless Grape</div><div class="acct-oitem-variant">Potted · 1 gal</div></div></div></td>
+                                                                                    <td class="num">$34.00</td><td class="num">3</td><td class="num">$102.00</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-shrubs.png" alt=""><div><div class="acct-oitem-name">Tundra Haskap</div><div class="acct-oitem-variant">Potted · 2 gal</div></div></div></td>
+                                                                                    <td class="num">$42.00</td><td class="num">2</td><td class="num">$84.00</td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <!-- Order 3 -->
+                                                <tr class="acct-order" data-acct-order>
+                                                    <td colspan="7" style="padding:0; border:0;">
+                                                        <table style="width:100%; border-collapse:collapse;">
+                                                            <tbody>
+                                                                <tr class="acct-orow-head" data-acct-order-toggle>
+                                                                    <td class="acct-ono">#WT-10199</td>
+                                                                    <td class="hide-sm">Nov 12, 2025</td>
+                                                                    <td class="num hide-sm">$96.00</td>
+                                                                    <td class="num hide-sm">$12.48</td>
+                                                                    <td class="num acct-ototal">$108.48</td>
+                                                                    <td><span class="acct-status delivered"><i class="ph-fill ph-check-circle" aria-hidden="true"></i> Delivered</span></td>
+                                                                    <td class="num"><i class="ph ph-caret-down acct-ocaret" aria-hidden="true"></i></td>
+                                                                </tr>
+                                                                <tr class="acct-orow-detail">
+                                                                    <td colspan="7">
+                                                                        <dl class="acct-oship">
+                                                                            <div><dt>Delivery</dt><dd>Canada Post</dd></div>
+                                                                            <div><dt>Postal Code</dt><dd>P1L 1W8</dd></div>
+                                                                            <div><dt>Tracking</dt><dd>CP 3390 7712 0043</dd></div>
+                                                                            <div><dt>Delivered</dt><dd>Nov 18, 2025</dd></div>
+                                                                        </dl>
+                                                                        <table class="acct-oitems">
+                                                                            <thead><tr><th>Product</th><th class="num">Price</th><th class="num">Qty</th><th class="num">Total</th></tr></thead>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/books.png" alt=""><div><div class="acct-oitem-name">The Holistic Orchard</div><div class="acct-oitem-variant">Reference book</div></div></div></td>
+                                                                                    <td class="num">$48.00</td><td class="num">1</td><td class="num">$48.00</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-supplies.png" alt=""><div><div class="acct-oitem-name">Dormant Oil Spray</div><div class="acct-oitem-variant">1 L concentrate</div></div></div></td>
+                                                                                    <td class="num">$24.00</td><td class="num">2</td><td class="num">$48.00</td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </section>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+
+        </div>
+
+        <!-- Shared account component (login popover + toast; wires header user icon) -->
+        <script src="assets/wt-account.js"></script>
+        <!-- Shared enhanced form fields (searchable selects + intl phone) -->
+        <script src="assets/wt-fields.js"></script>
+
+        <!-- Cart badge + fly-to-cart (shared block, byte-identical across pages) -->
+        <style data-comment="wt-cart-style">
+            .cart-badge { position: absolute; top: -3px; right: -4px; width: 11px; height: 11px; border-radius: 3px; background: var(--accent, #c1502e); border: 2px solid #fff; display: none; }
+            .cart-badge.on { display: block; }
+            .wt-fly-token { position: fixed; top: 0; left: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--accent, #c1502e); box-shadow: 0 2px 8px rgba(21, 20, 15, 0.28); pointer-events: none; z-index: 4000; }
+            @media (prefers-reduced-motion: reduce) { .wt-fly-token { display: none !important; } }
+        </style>
+        <script data-comment="wt-cart-script">
+            (function () {
+                var KEY = 'wt_cart_count';
+                function get() { try { return parseInt(localStorage.getItem(KEY), 10) || 0; } catch (e) { return 0; } }
+                function save(n) { try { localStorage.setItem(KEY, String(n)); } catch (e) {} }
+                function badge() { return document.querySelector('[data-comment="header-cart-badge"]'); }
+                function icon() { return document.querySelector('[data-comment="header-action-cart"]'); }
+                function reduced() { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }
+                function motion() { return window.__wtMotion && window.__wtMotion.animate; }
+                function showBadge() { var b = badge(); if (b) b.classList.add('on'); }
+                function popBadge() {
+                    var b = badge(); if (!b) return;
+                    b.classList.add('on');
+                    var a = motion();
+                    if (a && !reduced()) { try { a(b, { scale: [0, 1.35, 1] }, { duration: 0.42, ease: [0.22, 1, 0.36, 1] }); } catch (e) {} }
+                }
+                function fly(src) {
+                    var a = motion(), ic = icon();
+                    if (!a || reduced() || !src || !ic) return Promise.resolve();
+                    var s = src.getBoundingClientRect(), t = ic.getBoundingClientRect();
+                    if (!t.width || !t.height || !s.width) return Promise.resolve();
+                    var x0 = s.left + s.width / 2, y0 = s.top + s.height / 2;
+                    var x1 = t.left + t.width / 2, y1 = t.top + t.height / 2;
+                    var lift = Math.min(70, Math.abs(y0 - y1) * 0.18 + 24);
+                    var tok = document.createElement('span');
+                    tok.className = 'wt-fly-token'; tok.style.transform = 'translate(' + x0 + 'px, ' + y0 + 'px)';
+                    document.body.appendChild(tok);
+                    var done = function () { if (tok.parentNode) tok.parentNode.removeChild(tok); };
+                    setTimeout(done, 900);
+                    try {
+                        var anim = a(tok, {
+                            x: [x0, (x0 + x1) / 2, x1],
+                            y: [y0, (y0 + y1) / 2 - lift, y1],
+                            scale: [1, 0.9, 0.28],
+                            opacity: [1, 1, 0.4]
+                        }, { duration: 0.52, ease: [0.22, 1, 0.36, 1] });
+                        var fin = (anim && anim.finished) ? anim.finished : Promise.resolve();
+                        return fin.then(done, done);
+                    } catch (e) { done(); return Promise.resolve(); }
+                }
+                window.wtCart = {
+                    count: get,
+                    add: function (src) {
+                        save(get() + 1);
+                        var settled = false;
+                        function pop() { if (settled) return; settled = true; popBadge(); }
+                        fly(src).then(pop, pop);
+                        setTimeout(pop, 650);
+                    },
+                    refresh: function () { if (get() > 0) showBadge(); }
+                };
+                if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', window.wtCart.refresh);
+                else window.wtCart.refresh();
+            })();
+        </script>
+        <script type="module" data-comment="wt-motion-module">
+            import { animate } from 'https://cdn.jsdelivr.net/npm/motion@11/+esm';
+            window.__wtMotion = { animate: animate };
+        </script>
+
+        <!-- Navigation controller (mega panels + hamburger) -->
+        <script>
+            (function () {
+                var root = document.querySelector('[data-comment="header-root"]');
+                var nav = document.querySelector('[data-comment="header-nav"]');
+                var burger = document.querySelector('[data-comment="header-burger"]');
+                if (!root || !nav) return;
+                var items = Array.prototype.slice.call(nav.querySelectorAll('[data-nav-item]'));
+                var isMobile = function () { return window.matchMedia('(max-width: 900px)').matches; };
+                function setOpen(item, open) {
+                    item.classList.toggle('open', open);
+                    var t = item.querySelector('[data-nav-trigger]');
+                    if (t) t.setAttribute('aria-expanded', open ? 'true' : 'false');
+                }
+                function closeAll(except) { items.forEach(function (it) { if (it !== except) setOpen(it, false); }); }
+                var closeTimer = null;
+                function cancelClose() { if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; } }
+                function scheduleClose() { cancelClose(); closeTimer = window.setTimeout(function () { closeAll(); closeTimer = null; }, 180); }
+                items.forEach(function (item) {
+                    var trigger = item.querySelector('[data-nav-trigger]');
+                    if (!trigger) return;
+                    item.addEventListener('mouseenter', function () { if (isMobile()) return; cancelClose(); closeAll(item); setOpen(item, true); });
+                    trigger.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        var willOpen = !item.classList.contains('open');
+                        cancelClose(); closeAll(item); setOpen(item, willOpen);
+                    });
+                });
+                nav.querySelectorAll('a[data-comment^="header-nav-link-"]').forEach(function (a) {
+                    a.addEventListener('mouseenter', function () { if (!isMobile()) scheduleClose(); });
+                });
+                var actions = nav.querySelector('[data-comment="header-actions"]');
+                if (actions) actions.addEventListener('mouseenter', function () { if (!isMobile()) scheduleClose(); });
+                root.addEventListener('mouseenter', function () { if (!isMobile()) cancelClose(); });
+                root.addEventListener('mouseleave', function () { if (!isMobile()) scheduleClose(); });
+                document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { cancelClose(); closeAll(); } });
+                document.addEventListener('click', function (e) { if (!root.contains(e.target)) { cancelClose(); closeAll(); } });
+                if (burger) {
+                    var icon = burger.querySelector('i');
+                    function closeMobile() { root.classList.remove('nav-open'); burger.setAttribute('aria-expanded', 'false'); if (icon) icon.className = 'ph ph-list'; closeAll(); }
+                    burger.addEventListener('click', function () {
+                        var open = root.classList.toggle('nav-open');
+                        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+                        if (icon) icon.className = open ? 'ph ph-x' : 'ph ph-list';
+                        if (!open) closeAll();
+                    });
+                    nav.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', closeMobile); });
+                }
+            })();
+        </script>
+
+        <!-- Account dashboard controller -->
+        <script>
+            (function () {
+                'use strict';
+                var guest = document.querySelector('[data-acct-guest]');
+                var app = document.querySelector('[data-acct-app]');
+                if (!guest || !app) return;
+
+                function avatar(name) {
+                    var seed = encodeURIComponent((name || 'WT').trim() || 'WT');
+                    return 'https://api.dicebear.com/7.x/initials/svg?seed=' + seed + '&backgroundColor=14682a&textColor=ffffff';
+                }
+
+                /* ---- Gate on auth state ---- */
+                function render() {
+                    var signedIn = window.WTAccount ? WTAccount.isSignedIn() : false;
+                    var user = window.WTAccount ? WTAccount.getUser() : null;
+                    guest.style.display = signedIn ? 'none' : 'block';
+                    app.style.display = signedIn ? 'block' : 'none';
+                    if (signedIn) {
+                        var name = (user && user.name) || 'Whiffletree Member';
+                        var email = (user && user.email) || '';
+                        var nameEl = app.querySelector('[data-acct-name]');
+                        var avEl = app.querySelector('[data-acct-avatar]');
+                        if (nameEl) nameEl.textContent = name;
+                        if (avEl) avEl.src = avatar(name);
+                        /* Prefill the details form from the signed-in identity */
+                        var nameField = app.querySelector('[data-acct-field="name"]');
+                        var emailField = app.querySelector('[data-acct-field="email"]');
+                        if (nameField && name) nameField.value = name;
+                        if (emailField && email) emailField.value = email;
+                    }
+                }
+                render();
+                if (window.WTAccount) WTAccount.onChange(render);
+
+                /* ---- Login / logout (delegate to shared component) ---- */
+                document.addEventListener('click', function (e) {
+                    if (!e.target.closest) return;
+                    if (e.target.closest('[data-acct-login]')) { e.preventDefault(); if (window.WTAccount) WTAccount.openLogin(); }
+                    else if (e.target.closest('[data-acct-logout]')) { e.preventDefault(); if (window.WTAccount) WTAccount.logout(); }
+                });
+
+                /* ---- Tab switching (sidebar → panels) ---- */
+                var tabs = app.querySelectorAll('[data-acct-tab]');
+                var panels = app.querySelectorAll('[data-acct-panel]');
+                function selectTab(key) {
+                    tabs.forEach(function (t) {
+                        var on = t.getAttribute('data-acct-tab') === key;
+                        t.classList.toggle('is-active', on);
+                        t.setAttribute('aria-selected', on ? 'true' : 'false');
+                        /* Design-system convention: Phosphor light at rest, fill when selected. */
+                        var ic = t.querySelector('.acct-navicon');
+                        if (ic) { ic.classList.toggle('ph-fill', on); ic.classList.toggle('ph-light', !on); }
+                    });
+                    panels.forEach(function (p) { p.classList.toggle('is-active', p.getAttribute('data-acct-panel') === key); });
+                    if (history.replaceState) history.replaceState(null, '', '#' + key);
+                }
+                tabs.forEach(function (t) {
+                    t.addEventListener('click', function () { selectTab(t.getAttribute('data-acct-tab')); });
+                });
+                var initial = (location.hash || '').replace('#', '');
+                if (initial && app.querySelector('[data-acct-panel="' + initial + '"]')) selectTab(initial);
+
+                /* ---- Account details: save ---- */
+                var detailsForm = app.querySelector('[data-acct-details]');
+                if (detailsForm) {
+                    detailsForm.addEventListener('submit', function (e) {
+                        e.preventDefault();
+                        var name = (app.querySelector('[data-acct-field="name"]') || {}).value || '';
+                        var email = (app.querySelector('[data-acct-field="email"]') || {}).value || '';
+                        if (window.WTAccount && name) WTAccount.login({ name: name.trim(), email: email.trim() });
+                        flash(e.submitter || detailsForm.querySelector('[data-acct-save]'), 'Saved');
+                    });
+                }
+
+                /* Brief "saved / added" confirmation on a button */
+                function flash(btn, msg) {
+                    if (!btn) return;
+                    var original = btn.innerHTML;
+                    btn.disabled = true;
+                    btn.innerHTML = '<i class="ph ph-check" aria-hidden="true"></i> ' + msg;
+                    setTimeout(function () { btn.innerHTML = original; btn.disabled = false; }, 1600);
+                }
+
+                /* ---- Payment methods ---- */
+                var cardsWrap = app.querySelector('[data-acct-cards]');
+                var defaultLabel = app.querySelector('[data-acct-default]');
+                function refreshCards() {
+                    var rows = cardsWrap ? cardsWrap.querySelectorAll('.acct-card-row') : [];
+                    rows.forEach(function (r, i) { r.classList.toggle('is-default', i === 0); });
+                    if (defaultLabel && rows.length) defaultLabel.textContent = '•••• ' + rows[0].getAttribute('data-card');
+                    else if (defaultLabel) defaultLabel.textContent = 'None saved';
+                }
+                if (cardsWrap) {
+                    /* delete */
+                    cardsWrap.addEventListener('click', function (e) {
+                        var del = e.target.closest('[data-acct-delcard]');
+                        if (!del) return;
+                        var row = del.closest('.acct-card-row');
+                        if (row) { row.remove(); refreshCards(); }
+                    });
+                    /* drag-to-reorder */
+                    var dragging = null;
+                    cardsWrap.addEventListener('dragstart', function (e) {
+                        var row = e.target.closest('.acct-card-row');
+                        if (!row) return;
+                        dragging = row; row.classList.add('dragging');
+                        if (e.dataTransfer) { e.dataTransfer.effectAllowed = 'move'; try { e.dataTransfer.setData('text/plain', ''); } catch (x) {} }
+                    });
+                    cardsWrap.addEventListener('dragend', function () {
+                        if (dragging) dragging.classList.remove('dragging');
+                        cardsWrap.querySelectorAll('.drag-over').forEach(function (r) { r.classList.remove('drag-over'); });
+                        dragging = null; refreshCards();
+                    });
+                    cardsWrap.addEventListener('dragover', function (e) {
+                        e.preventDefault();
+                        var over = e.target.closest('.acct-card-row');
+                        if (!over || over === dragging || !dragging) return;
+                        cardsWrap.querySelectorAll('.drag-over').forEach(function (r) { if (r !== over) r.classList.remove('drag-over'); });
+                        over.classList.add('drag-over');
+                        var rect = over.getBoundingClientRect();
+                        var after = (e.clientY - rect.top) > rect.height / 2;
+                        cardsWrap.insertBefore(dragging, after ? over.nextSibling : over);
+                    });
+                    cardsWrap.addEventListener('drop', function (e) { e.preventDefault(); });
+                }
+
+                /* ---- Add card (mock) ---- */
+                var addForm = app.querySelector('[data-acct-addcard]');
+                if (addForm) {
+                    addForm.addEventListener('submit', function (e) {
+                        e.preventDefault();
+                        var numInput = addForm.querySelector('input[type="text"]');
+                        var raw = (numInput && numInput.value || '').replace(/\D/g, '');
+                        var last4 = raw.slice(-4) || '0000';
+                        var row = document.createElement('div');
+                        row.className = 'acct-card-row';
+                        row.setAttribute('draggable', 'true');
+                        row.setAttribute('data-card', last4);
+                        row.innerHTML = '<span class="acct-drag" aria-hidden="true"><i class="ph ph-dots-six-vertical"></i></span>'
+                            + '<span class="acct-brand"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Visa"><path fill="#1434CB" d="M9.112 8.262L5.97 15.758H3.92L2.374 9.775c-.094-.368-.175-.503-.461-.658C1.446 8.864.677 8.626 0 8.478l.046-.216h3.3a.904.904 0 0 1 .894.764l.817 4.338 2.018-5.102zm8.033 5.049c.008-1.979-2.736-2.088-2.717-2.972.006-.269.262-.555.822-.628a3.66 3.66 0 0 1 1.913.336l.34-1.59a5.207 5.207 0 0 0-1.814-.333c-1.917 0-3.266 1.019-3.278 2.478-.011 1.079.963 1.68 1.698 2.04.756.367 1.01.603 1.006.931-.005.504-.602.725-1.16.734-.975.015-1.54-.263-1.992-.473l-.351 1.642c.453.208 1.289.39 2.156.398 2.037 0 3.37-1.006 3.377-2.565m5.061 2.446H24l-1.565-7.496h-1.656a.883.883 0 0 0-.826.55l-2.909 6.946h2.036l.405-1.12h2.488zm-2.163-2.656l1.02-2.815.588 2.815zm-8.16-4.839l-1.604 7.495H8.34l1.605-7.495z"/></svg></span>'
+                            + '<div><div class="acct-card-num">•••• •••• •••• ' + last4 + '</div><div class="acct-card-meta">New card</div></div>'
+                            + '<span class="acct-card-spacer"></span>'
+                            + '<button type="button" class="acct-card-del" aria-label="Remove card ending ' + last4 + '" data-acct-delcard><i class="ph ph-trash" aria-hidden="true"></i></button>';
+                        if (cardsWrap) cardsWrap.appendChild(row);
+                        refreshCards();
+                        addForm.reset();
+                        flash(e.submitter || addForm.querySelector('[data-acct-addcard-btn]'), 'Added');
+                    });
+                }
+
+                /* ---- Orders: expandable rows ---- */
+                app.querySelectorAll('[data-acct-order-toggle]').forEach(function (head) {
+                    head.addEventListener('click', function () {
+                        var order = head.closest('[data-acct-order]');
+                        if (order) order.classList.toggle('open');
+                    });
+                });
+            })();
+        </script>
+    </body>
+</html>

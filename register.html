@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Whiffletree Farm &amp; Nursery — Catalogue</title>
+        <title>Whiffletree Farm &amp; Nursery — Create your account</title>
 
         <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
         <link rel="stylesheet" href="assets/wt-account.css" />
+        <link rel="stylesheet" href="assets/wt-fields.css" />
 
         <style>
             /* Reset */
@@ -776,80 +777,70 @@
                 </div>
             </header>
 
-            <!-- CATALOGUE -->
-            <main data-comment="catalogue-root">
+            <!-- REGISTER -->
+            <main data-comment="register-root">
 
                 <!-- TITLE BAND -->
-                <section data-comment="catalog-titleband">
-                    <div data-comment="catalog-titleband-inner" style="max-width:1100px; margin:0 auto; padding:36px 40px; text-align:center;">
-                        <h1 data-comment="catalog-title" style="font-family:var(--display); font-weight:500; font-size:52px; line-height:1.04; color:var(--ink); margin:0;">Catalogue</h1>
-                        <p data-comment="catalog-intro">Browse and download our full plant catalogue — every variety, description, and price in one printable PDF.</p>
+                <section data-comment="register-titleband">
+                    <div data-comment="register-titleband-inner" style="max-width:640px; margin:0 auto; padding:44px 40px 8px; text-align:center;">
+                        <span data-comment="register-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent-deep);">Members</span>
+                        <h1 data-comment="register-title" style="font-family:var(--display); font-weight:500; font-size:52px; line-height:1.04; color:var(--ink); margin:10px 0 0;">Create your account</h1>
+                        <p data-comment="register-intro" style="font-family:var(--sans); font-size:16px; line-height:1.6; color:var(--muted); margin:14px auto 0; max-width:52ch;">Join the Whiffletree growers’ community. One account is all you need — the same details power your posts and a faster checkout, so you won’t re-enter them at the cart.</p>
                     </div>
                 </section>
 
-                <!-- SHELL -->
-                <div data-comment="catalog-shell" style="max-width:1100px; margin:0 auto; padding:56px 40px 88px;">
+                <!-- FORM -->
+                <div data-comment="register-shell" style="max-width:600px; margin:0 auto; padding:28px 24px 88px;">
+                    <form data-comment="register-form" id="regForm" onsubmit="return false;" style="background:#fffdf8; border:1px solid var(--line-soft); border-radius:6px; padding:34px 34px 30px;">
 
-                    <!-- FEATURED — the 2026 catalogue -->
-                    <section data-comment="catalogue-featured">
-                        <div data-comment="catalogue-featured-cover">
-                            <img class="cat-cover" data-comment="catalogue-cover-img" src="assets/catalogue-cover-2026.jpg" alt="Whiffletree 2026 print catalogue cover">
+                        <div class="wta-providers" data-comment="register-providers">
+                            <button type="button" class="wta-provider" data-reg-social="Google"><svg class="wta-logo" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.28-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg> Continue with Google</button>
+                            <button type="button" class="wta-provider" data-reg-social="Apple"><svg class="wta-logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="#000000" d="M17.05 12.53c-.03-2.53 2.07-3.75 2.16-3.81-1.18-1.72-3.01-1.96-3.66-1.98-1.56-.16-3.04.92-3.83.92-.79 0-2.01-.9-3.31-.87-1.7.03-3.27 1-4.15 2.53-1.77 3.07-.45 7.62 1.27 10.11.84 1.22 1.84 2.59 3.15 2.54 1.26-.05 1.74-.82 3.27-.82 1.52 0 1.95.82 3.28.79 1.36-.02 2.22-1.24 3.05-2.47.96-1.42 1.36-2.79 1.38-2.86-.03-.01-2.65-1.02-2.68-4.05zM14.63 4.84c.7-.85 1.17-2.02 1.04-3.19-1.01.04-2.23.67-2.95 1.52-.65.75-1.21 1.95-1.06 3.1 1.12.09 2.27-.57 2.97-1.43z"/></svg> Continue with Apple</button>
+                            <button type="button" class="wta-provider" data-reg-social="Facebook"><svg class="wta-logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="#1877F2" d="M24 12c0-6.63-5.37-12-12-12S0 5.37 0 12c0 5.99 4.39 10.95 10.13 11.85v-8.38H7.08V12h3.05V9.41c0-3.01 1.79-4.68 4.53-4.68 1.31 0 2.68.24 2.68.24v2.95h-1.51c-1.49 0-1.95.93-1.95 1.87V12h3.33l-.53 3.47h-2.8v8.38C19.61 22.95 24 17.99 24 12z"/><path fill="#FFFFFF" d="M16.68 15.47 17.21 12h-3.33V9.79c0-.94.46-1.87 1.95-1.87h1.51V4.97s-1.37-.24-2.68-.24c-2.74 0-4.53 1.67-4.53 4.68V12H7.08v3.47h3.05v8.38a12.1 12.1 0 0 0 3.75 0v-8.38h2.8z"/></svg> Continue with Facebook</button>
                         </div>
-                        <div data-comment="catalogue-featured-info">
-                            <span class="cat-status" data-comment="catalogue-status"><i class="ph-fill ph-file-pdf" aria-hidden="true"></i>Print sold out · PDF free to download</span>
-                            <h2 class="cat-feat-title" data-comment="catalogue-featured-title">The 2026 catalogue</h2>
-                            <p class="cat-feat-text" data-comment="catalogue-featured-text">Our print run sold out faster than ever this year — but the full 2026 catalogue is yours to download, free. Every tree, shrub, and berry we grow, with hardiness notes and pricing. We’re already hard at work on next year’s edition.</p>
-                            <div class="cat-dl-row" data-comment="catalogue-download-row">
-                                <a class="cat-dl-btn" data-comment="catalogue-download-btn" href="https://cdn.whiffletreefarmandnursery.ca/images/2026/02/260217-WhiffletreeCatalog_2026-web.pdf" target="_blank" rel="noopener"><i class="ph ph-download-simple" aria-hidden="true"></i>Download PDF</a>
-                                <span class="cat-dl-note" data-comment="catalogue-download-note">PDF · opens in a new tab</span>
+
+                        <div class="wta-divider">or sign up with email</div>
+
+                        <h3 class="wta-sub" style="margin-top:6px;" data-comment="register-sub-details">Your details</h3>
+                        <div class="wta-fields">
+                            <div class="wta-field"><label class="wta-label">First name</label><input class="wta-input" type="text" data-reg-first></div>
+                            <div class="wta-field"><label class="wta-label">Last name</label><input class="wta-input" type="text" data-reg-last></div>
+                            <div class="wta-field"><label class="wta-label">Email</label><input class="wta-input" type="email" data-reg-email placeholder="you@email.com"></div>
+                            <div class="wta-field"><label class="wta-label">Phone</label><div class="wtf-phone" data-wt-phone data-country="ca"><input type="tel" placeholder="(519) 555-0134"></div></div>
+                            <div class="wta-field"><label class="wta-label">Password</label><input class="wta-input" type="password" placeholder="At least 8 characters"></div>
+                            <div class="wta-field"><label class="wta-label">Hardiness zone (optional)</label><select class="wta-select" data-wt-select aria-label="Hardiness zone"><option>Zone 2b</option><option>Zone 3</option><option>Zone 4</option><option>Zone 5</option><option>Zone 6</option><option>Zone 7</option><option>Zone 8</option></select></div>
+                        </div>
+
+                        <h3 class="wta-sub" data-comment="register-sub-billing">Billing address</h3>
+                        <div class="wta-fields">
+                            <div class="wta-field wta-field--full"><label class="wta-label">Street address</label><input class="wta-input" type="text"></div>
+                            <div class="wta-field wta-field--full"><label class="wta-label">Apartment, suite, etc. (optional)</label><input class="wta-input" type="text"></div>
+                            <div class="wta-field"><label class="wta-label">City / Town</label><select class="wta-select" data-wt-select="city" data-wt-geo="bill" data-wt-search></select><input class="wta-input" type="text" data-wt-city-text placeholder="e.g. Elmvale" style="display:none;"></div>
+                            <div class="wta-field"><label class="wta-label">Province</label><select class="wta-select" data-wt-select="region" data-wt-geo="bill" data-wt-value="Ontario"></select></div>
+                            <div class="wta-field"><label class="wta-label">Postal code</label><input class="wta-input" type="text" placeholder="A1A 1A1"></div>
+                            <div class="wta-field"><label class="wta-label">Country</label><select class="wta-select" data-wt-select="country" data-wt-geo="bill" data-wt-value="Canada"><option>Canada</option><option>United States</option></select></div>
+                        </div>
+
+                        <label class="wta-check"><input type="checkbox" id="regShipSame" checked> Shipping address is the same as billing</label>
+                        <div class="wta-ship" id="regShip" hidden>
+                            <h3 class="wta-sub" data-comment="register-sub-shipping">Shipping address</h3>
+                            <div class="wta-fields">
+                                <div class="wta-field wta-field--full"><label class="wta-label">Street address</label><input class="wta-input" type="text"></div>
+                                <div class="wta-field wta-field--full"><label class="wta-label">Apartment, suite, etc. (optional)</label><input class="wta-input" type="text"></div>
+                                <div class="wta-field"><label class="wta-label">City / Town</label><select class="wta-select" data-wt-select="city" data-wt-geo="ship" data-wt-search></select><input class="wta-input" type="text" data-wt-city-text placeholder="e.g. Elmvale" style="display:none;"></div>
+                                <div class="wta-field"><label class="wta-label">Province</label><select class="wta-select" data-wt-select="region" data-wt-geo="ship" data-wt-value="Ontario"></select></div>
+                                <div class="wta-field"><label class="wta-label">Postal code</label><input class="wta-input" type="text" placeholder="A1A 1A1"></div>
+                                <div class="wta-field"><label class="wta-label">Country</label><select class="wta-select" data-wt-select="country" data-wt-geo="ship" data-wt-value="Canada"><option>Canada</option><option>United States</option></select></div>
                             </div>
                         </div>
-                    </section>
 
-                    <!-- ARCHIVE — past catalogues -->
-                    <section data-comment="catalogue-archive">
-                        <h2 class="cat-section-title" data-comment="catalogue-archive-title">Past catalogues</h2>
-                        <p class="cat-section-sub" data-comment="catalogue-archive-sub">Missed a year? Every past edition is still here, free to download.</p>
-                        <div class="cat-archive-grid" data-comment="catalogue-archive-grid">
-                            <a class="cat-archive-link" data-comment="catalogue-archive-2025" href="https://cdn.whiffletreefarmandnursery.ca/images/2025/01/250130-WhiffletreeCatalog_2025-web-679d251b29719.pdf" target="_blank" rel="noopener"><i class="ph ph-file-pdf" aria-hidden="true"></i>2025</a>
-                            <a class="cat-archive-link" data-comment="catalogue-archive-2024" href="https://cdn.whiffletreefarmandnursery.ca/images/2024/02/WhiffletreeCatalog_2024-fnl.pdf" target="_blank" rel="noopener"><i class="ph ph-file-pdf" aria-hidden="true"></i>2024</a>
-                            <a class="cat-archive-link" data-comment="catalogue-archive-2022" href="https://cdn.whiffletreefarmandnursery.ca/images/2022/03/220323-WhiffletreeCatalog_2022-web.pdf" target="_blank" rel="noopener"><i class="ph ph-file-pdf" aria-hidden="true"></i>2022</a>
-                            <a class="cat-archive-link" data-comment="catalogue-archive-2021" href="https://cdn.whiffletreefarmandnursery.ca/images/2021/10/210212_WhiffletreeCatalog_2021_Email.pdf" target="_blank" rel="noopener"><i class="ph ph-file-pdf" aria-hidden="true"></i>2021</a>
-                            <a class="cat-archive-link" data-comment="catalogue-archive-2020" href="https://cdn.whiffletreefarmandnursery.ca/images/2021/12/whiffletree_2020catalog_page.pdf" target="_blank" rel="noopener"><i class="ph ph-file-pdf" aria-hidden="true"></i>2020</a>
-                            <a class="cat-archive-link" data-comment="catalogue-archive-2019" href="https://cdn.whiffletreefarmandnursery.ca/images/2021/12/Whiffletree_Catalogue.pdf" target="_blank" rel="noopener"><i class="ph ph-file-pdf" aria-hidden="true"></i>2019</a>
-                            <a class="cat-archive-link" data-comment="catalogue-archive-2018" href="https://cdn.whiffletreefarmandnursery.ca/images/2021/12/WhiffleTreeCatalog_18-02-08-web.pdf" target="_blank" rel="noopener"><i class="ph ph-file-pdf" aria-hidden="true"></i>2018</a>
-                            <a class="cat-archive-link" data-comment="catalogue-archive-2017" href="https://cdn.whiffletreefarmandnursery.ca/images/2021/12/whiffletree_catalogue_17-02-10-1.pdf" target="_blank" rel="noopener"><i class="ph ph-file-pdf" aria-hidden="true"></i>2017</a>
-                        </div>
-                    </section>
+                        <p class="wta-fine">We only ship within Canada (CFIA rules), and no fruit trees or grape vines to BC.</p>
+
+                        <div class="wta-modal-actions"><button class="wta-btn wta-btn-primary wta-btn--block" type="button" id="regSubmit">Create account</button></div>
+                        <p class="wta-modal-alt">Already have an account? <button type="button" class="wta-linkbtn" id="regLogin">Log in</button></p>
+                    </form>
                 </div>
-
-                <!-- NOTIFY — leads into the shared newsletter -->
-                <section data-comment="catalogue-notify">
-                    <div data-comment="catalogue-notify-inner">
-                        <span class="cat-notify-pill" data-comment="catalogue-notify-pill"><i class="ph ph-envelope-simple" aria-hidden="true"></i>Print orders closed for the season</span>
-                        <h2 class="cat-notify-title" data-comment="catalogue-notify-title">Want a printed copy next season?</h2>
-                        <p class="cat-notify-text" data-comment="catalogue-notify-text">Mailed catalogues are sold out for 2026. Join our mailing list and we’ll email you the moment print orders reopen — no need to check back.</p>
-                        <a class="cat-notify-jump" data-comment="catalogue-notify-jump" href="#gift">Join the list below <i class="ph ph-arrow-down" aria-hidden="true"></i></a>
-                    </div>
-                </section>
             </main>
-
-            <!-- FAQ / CONTACT CTA -->
-            <section id="contact" data-comment="contact-section" style="position:relative; overflow:hidden; background:#0e4c23;">
-                <!-- background photo (section has solid --g800 as fallback) -->
-                <div data-comment="contact-bg-image" style="position: absolute; inset: 0; overflow: visible; background: url('assets/cta-blossom.png') center / cover no-repeat"></div>
-                <!-- darkening layer for text legibility -->
-                <div data-comment="contact-bg-overlay" style="position:absolute; inset:0; background:radial-gradient(ellipse 70% 80% at center, rgba(0,0,0,0.48) 0%, rgba(0,0,0,0.30) 70%);"></div>
-                <div data-comment="contact-content" style="position:relative; max-width:780px; margin:0 auto; padding:128px 40px; text-align:center;">
-                    <div data-comment="contact-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:#EAD7B4;">We’re here to help</div>
-                    <h2 data-comment="contact-heading" style="font-family:var(--display); font-weight:500; font-size:54px; line-height:1.08; color:#FFFFFF; margin:18px 0 0; text-wrap:balance;">Questions? Read our FAQ or get in touch.</h2>
-                    <p data-comment="contact-text" style="font-family:var(--sans); font-weight:400; font-size:18px; line-height:1.7; color:rgba(255,255,255,0.88); margin:20px auto 0; max-width:50ch;">New to fruit trees? We’re here to help, and we’ll do our best to answer your questions. Call us at <a data-comment="contact-phone-link" href="tel:5196691349" style="color:#FFFFFF; font-weight:700; text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.5);">519.669.1349</a> · Elora, Ontario.</p>
-                    <div data-comment="contact-cta-group" style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-top:34px;">
-                        <a data-comment="contact-cta-faq" href="#" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent-deep); background:#FFFFFF; border-radius:4px; padding:16px 32px; text-decoration:none;">Read the FAQ</a>
-                        <a data-comment="contact-cta-contact" href="#" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#FFFFFF; border:1.5px solid rgba(255,255,255,0.65); border-radius:4px; padding:14.5px 30px; text-decoration:none;">Contact us</a>
-                    </div>
-                </div>
-            </section>
 
             <!-- READY SET GROW / NEWSLETTER -->
             <section id="gift" data-comment="newsletter-section" style="background:var(--paper1);">
@@ -1364,6 +1355,81 @@
             <!-- ════════ /AI VARIETY ADVISOR ════════ -->
             <!-- Account popover: provided by shared component (assets/wt-account.js) -->
         <script src="assets/wt-account.js"></script>
+        <!-- Shared enhanced form fields (searchable selects + intl phone) -->
+        <script src="assets/wt-fields.js"></script>
+
+            <!-- ============================================================
+                 REGISTER PAGE — form wiring + unsaved-changes guard.
+                 Signup lives on its own page (not a dismissable modal) so a
+                 stray click / Esc can't wipe a long, half-filled form. Auth
+                 is persisted through the shared WTAccount (localStorage) mock.
+                 ============================================================ -->
+        <script data-comment="register-script">
+            (function () {
+                var form = document.getElementById('regForm');
+                if (!form) return;
+                var dirty = false, leaving = false;
+
+                /* Any edit marks the form dirty → arms the unsaved-changes guard. */
+                form.addEventListener('input', function () { dirty = true; });
+                form.addEventListener('change', function () { dirty = true; });
+
+                /* Shipping address reveal */
+                var same = document.getElementById('regShipSame');
+                var ship = document.getElementById('regShip');
+                if (same && ship) same.addEventListener('change', function () { ship.hidden = same.checked; });
+
+                /* Where to land after a successful sign-up. Only accept a same-site
+                   *.html filename from ?next= to avoid open-redirects. */
+                function nextUrl() {
+                    var n = '';
+                    try { n = new URLSearchParams(location.search).get('next') || ''; } catch (e) { }
+                    if (/^[a-z0-9_-]+\.html$/i.test(n)) return n;
+                    /* No explicit ?next= → return to the page the user came from
+                       (same-origin only), never back to register itself. Only
+                       fall back to members.html if the referrer is unusable. */
+                    try {
+                        var r = document.referrer;
+                        if (r && new URL(r).origin === location.origin) {
+                            var f = new URL(r).pathname.split('/').pop();
+                            if (/^[a-z0-9_-]+\.html$/i.test(f) && !/^register\.html$/i.test(f)) return f;
+                        }
+                    } catch (e) { }
+                    return 'members.html';
+                }
+                function finish() {
+                    leaving = true;                 /* disarm the guard before navigating */
+                    var to = nextUrl();
+                    window.setTimeout(function () { window.location.href = to; }, 650); /* let the toast show */
+                }
+
+                function val(sel) { var el = form.querySelector(sel); return el ? el.value.trim() : ''; }
+
+                document.getElementById('regSubmit').addEventListener('click', function () {
+                    var name = (val('[data-reg-first]') + ' ' + val('[data-reg-last]')).trim();
+                    var email = val('[data-reg-email]');
+                    if (window.WTAccount) window.WTAccount.login({ name: name || (email ? email.split('@')[0] : ''), email: email });
+                    finish();
+                });
+
+                form.querySelectorAll('[data-reg-social]').forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        if (window.WTAccount) window.WTAccount.login({ name: 'Alex Green', email: '' });
+                        finish();
+                    });
+                });
+
+                var loginBtn = document.getElementById('regLogin');
+                if (loginBtn) loginBtn.addEventListener('click', function () {
+                    if (window.WTAccount) window.WTAccount.openLogin();
+                });
+
+                /* Guard: warn before leaving (link click, back, refresh, close) with unsaved input. */
+                window.addEventListener('beforeunload', function (e) {
+                    if (dirty && !leaving) { e.preventDefault(); e.returnValue = ''; return ''; }
+                });
+            })();
+        </script>
 
             <!-- ============================================================
                  SHARED CART FEEDBACK (byte-identical on every page)

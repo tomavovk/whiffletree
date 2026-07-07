@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/light/style.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+        <link rel="stylesheet" href="assets/wt-account.css" />
 
         <style>
             /* Reset */
@@ -710,18 +711,15 @@
                                         <div class="np-col">
                                             <span class="np-col-head">More</span>
                                             <a class="np-link" href="shop.html?category=roses">Roses</a>
-                                            <a class="np-link" href="shop.html">Collector's Corner</a>
+                                            <a class="np-link" href="shop.html?category=collector">Collector's Corner</a>
                                             <a class="np-link" href="shop.html?category=supplies">Orchard Supplies</a>
-                                            <a class="np-link" href="shop.html">Reference Books</a>
+                                            <a class="np-link" href="shop.html?category=books">Reference Books</a>
                                             <a class="np-link" href="shop.html">Gift Certificates</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- CATALOGUE — standalone link -->
-                        <a class="nav-link" data-comment="header-nav-link-catalogue" href="catalog.html" style="color: var(--muted); text-decoration: none; align-self: center; height: 24px; flex-grow: 0">Catalogue</a>
 
                         <!-- MEMBERS HUB — standalone link -->
                         <a class="nav-link" data-comment="header-nav-link-members" href="members.html" style="color: var(--muted); text-decoration: none; align-self: center; height: 24px; flex-grow: 0">Members Hub</a>
@@ -734,15 +732,15 @@
                                     <div class="np-grid np-grid--2">
                                         <div class="np-col">
                                             <span class="np-col-head">Learn</span>
-                                            <a class="np-link" href="#">Workshops</a>
-                                            <a class="np-link" href="#">Orchard Care</a>
-                                            <a class="np-link" href="#">Product FAQ</a>
+                                            <a class="np-link" href="workshops.html">Workshops</a>
+                                            <a class="np-link" href="orchard-care.html">Orchard Care</a>
                                         </div>
                                         <div class="np-col">
                                             <span class="np-col-head">Guides</span>
-                                            <a class="np-link" href="#">Bee Guide <span class="np-tag">PDF</span></a>
-                                            <a class="np-link" href="#">Planting Guide <span class="np-tag">PDF</span></a>
-                                            <a class="np-link" href="#">Irrigation Brochure <span class="np-tag">PDF</span></a>
+                                            <a class="np-link" href="catalog.html">2026 Catalogue</a>
+                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2025/06/250325-Whiffletree_BeeGuide-web.pdf" target="_blank" rel="noopener">Bee Guide <span class="np-tag">PDF</span></a>
+                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2026/03/260317-Whiffletree_PlantingGuide-web.pdf" target="_blank" rel="noopener">Planting Guide <span class="np-tag">PDF</span></a>
+                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2021/10/210212_Whiffltree_IrrigationBrochure_1.pdf" target="_blank" rel="noopener">Irrigation Brochure <span class="np-tag">PDF</span></a>
                                         </div>
                                     </div>
                                 </div>
@@ -759,6 +757,7 @@
                                             <span class="np-col-head">About</span>
                                             <a class="np-link" href="#">About Us</a>
                                             <a class="np-link" href="#">Guarantee Policy</a>
+                                            <a class="np-link" href="#">Product FAQ</a>
                                         </div>
                                     </div>
                                 </div>
@@ -768,7 +767,7 @@
                         <!-- CONTACT — standalone link -->
                         <a class="nav-link" data-comment="header-nav-link-contact" href="home.html#contact" style="color: var(--muted); text-decoration: none; align-self: center; height: 24px; flex-grow: 0">Contact</a>
 
-                        <div data-comment="header-actions" style="display:flex; align-items:center; gap:20px; padding-left:8px; color:var(--muted);">
+                        <div data-comment="header-actions" style="display:flex; align-items:center; gap:20px; padding-left:8px; color:var(--muted); position:relative;">
                             <svg data-comment="header-action-search" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><circle cx="11" cy="11" r="7"></circle><line x1="16.2" y1="16.2" x2="20.5" y2="20.5"></line></svg>
                             <svg data-comment="header-action-user" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                             <span data-comment="header-cart-wrap" style="position:relative; display:inline-flex;"><svg data-comment="header-action-cart" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span class="cart-badge" data-comment="header-cart-badge" aria-hidden="true"></span></span>
@@ -789,7 +788,7 @@
                 .mh-gallery { max-width: 1180px; margin: 0 auto; padding: 88px 40px 104px; }
                 .mh-gallery-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--line-soft); padding-bottom: 16px; margin-bottom: 30px; }
                 .mh-gallery-title { font-family: var(--display); font-weight: 600; font-size: 27px; color: var(--ink2); }
-                .mh-count { font-family: var(--sans); font-size: 13.5px; color: var(--subtle); letter-spacing: 0.02em; white-space: nowrap; }
+                .mh-count { font-family: var(--sans); font-size: 13.5px; color: var(--muted); letter-spacing: 0.02em; white-space: nowrap; }
 
                 /* Masonry via CSS columns — portrait and landscape frames each keep
                    their own aspect ratio, so nothing gets cropped to a square. */
@@ -836,9 +835,7 @@
                 .fg-cta:hover { background: var(--c700); border-color: var(--c700); }
                 .fg-cta i { font-size: 15px; }
 
-                /* Cart badge — red dot on the header cart icon once something is added. */
-                .cart-badge { position: absolute; top: -3px; right: -4px; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); border: 2px solid #fff; display: none; }
-                .cart-badge.on { display: block; }
+                /* Cart badge + fly-to-cart styles live in the shared wt-cart block near </body>. */
 
                 /* Share your garden — full-bleed band with a background photo. Lead
                    copy sits on the left over the photo; a compact upload form floats
@@ -913,9 +910,12 @@
                 .sg-modal-icon i { font-size: 27px; }
                 .sg-modal-title { font-family: var(--display); font-weight: 600; font-size: 25px; line-height: 1.15; color: var(--ink); }
                 .sg-modal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+                .sg-modal-body { text-align: left; margin-top: 22px; }
+                .sg-modal-body .auth-divider { margin: 16px 0; }
+                .sg-modal-body .acct-pop-alt, .sg-modal-body .sg-modal-alt { text-align: center; }
 
-                /* Gallery filters */
-                .mh-filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 44px; }
+                /* Gallery filters — sticky under the header so they stay reachable down a long feed */
+                .mh-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 44px; position: sticky; top: var(--mh-header-h, 84px); z-index: 6; background: #fff; padding: 24px 0 14px; }
                 .mh-filter { font-family: var(--sans); font-size: 13.5px; font-weight: 600; color: var(--ink2); background: #fff; border: 1px solid var(--line-soft); border-radius: 999px; padding: 9px 16px; cursor: pointer; }
                 .mh-filter:focus { outline: none; border-color: var(--g700); }
 
@@ -1008,6 +1008,21 @@
                 .mh-type-tab { font-family:var(--sans); font-size:13.5px; font-weight:700; color:var(--muted); background:transparent; border:0; border-radius:999px; padding:8px 16px; cursor:pointer; transition:background-color 150ms cubic-bezier(0.2,0,0,1), color 150ms cubic-bezier(0.2,0,0,1); }
                 .mh-type-tab.is-active { background:#fff; color:var(--g800); box-shadow:0 1px 3px rgba(21,20,15,0.10); }
                 .mh-type-tab:hover:not(.is-active){ color:var(--ink2); }
+
+                /* Clear-filters button — appears only while a filter is active */
+                .mh-filter-clear { display:inline-flex; align-items:center; gap:6px; font-family:var(--sans); font-size:13px; font-weight:600; color:var(--muted); background:transparent; border:0; border-radius:999px; padding:9px 12px; cursor:pointer; transition:color 150ms cubic-bezier(0.2,0,0,1), background-color 150ms cubic-bezier(0.2,0,0,1); }
+                .mh-filter-clear:hover { color:var(--c700); background:var(--paper1); }
+                .mh-filter-clear:focus-visible { outline:2px solid var(--g700); outline-offset:2px; }
+                .mh-filter-clear i { font-size:15px; }
+                /* Photo-only attribute filters greyed out on the Discussions tab */
+                .wt-dd--disabled { opacity:.42; pointer-events:none; }
+
+                /* Empty state — filters returned nothing */
+                .mh-empty { text-align:center; padding:64px 24px 72px; }
+                .mh-empty i { font-size:42px; color:var(--subtle); display:block; margin-bottom:14px; }
+                .mh-empty-title { font-family:var(--display); font-weight:600; font-size:22px; color:var(--ink); }
+                .mh-empty-text { font-family:var(--sans); font-size:14.5px; color:var(--muted); margin:6px 0 20px; }
+                .mh-empty .sg-btn { display:inline-flex; }
 
                 /* --- Discussion (text-only) teaser card in the feed (#104) --- */
                 .mh-card--post { background:var(--paper1); border:1px solid var(--line-soft); border-radius:2px; padding:22px 22px 20px; transition:box-shadow 240ms cubic-bezier(0.22,1,0.36,1), transform 240ms cubic-bezier(0.22,1,0.36,1); }
@@ -1125,11 +1140,10 @@
                 .sg-quick-input { width:100%; font-family:var(--sans); font-size:15px; line-height:1.5; color:var(--ink2); background:#fff; border:1.5px solid var(--line); border-radius:2px; padding:13px 14px; min-height:84px; resize:vertical; }
                 .sg-quick-input::placeholder { color:var(--subtle); }
                 .sg-quick-input:focus { outline:none; border-color:var(--g700); }
-                .sg-quick-photos { display:inline-flex; align-items:center; gap:8px; margin-top:12px; font-family:var(--sans); font-weight:700; font-size:13px; color:var(--g800); background:none; border:0; padding:6px 0; cursor:pointer; transition:color 150ms cubic-bezier(0.2,0,0,1); }
-                .sg-quick-photos i { font-size:18px; }
-                .sg-quick-photos span { text-decoration:underline; text-decoration-color:transparent; text-underline-offset:3px; transition:text-decoration-color 150ms cubic-bezier(0.2,0,0,1); }
-                .sg-quick-photos:hover { color:var(--g700); }
-                .sg-quick-photos:hover span { text-decoration-color:currentColor; }
+                .sg-quick-drop { margin-top:12px; }
+                .sg-quick-drop:focus-visible { outline:2px solid var(--g700); outline-offset:2px; }
+                .sg-drop.is-drag { border-color:var(--g700); border-style:solid; background:#eef6ef; }
+                .sg-drop.is-drag .sg-drop-icon { color:var(--g800); }
                 .sg-quick-actions { display:flex; gap:10px; margin-top:16px; }
                 .sg-quick-actions .sg-btn { flex:1 1 auto; padding:14px 18px; }
 
@@ -1178,15 +1192,13 @@
                 .mh-join-signed { display:inline-flex; align-items:center; gap:8px; font-family:var(--sans); font-weight:700; font-size:14px; color:var(--g800); }
                 .mh-join-signed i { color:var(--g600); font-size:18px; }
 
-                .signup-form { max-width:540px; margin:0 auto; padding:36px 24px 8px; }
-                .signup-intro { font-family:var(--sans); font-size:14.5px; line-height:1.6; color:var(--muted); margin-bottom:22px; }
-                .signup-sub { font-family:var(--display); font-weight:600; font-size:20px; color:var(--ink); margin:26px 0 14px; }
-                .signup-alt { font-family:var(--sans); font-size:13.5px; color:var(--muted); text-align:center; margin-top:16px; }
-                .signup-check { display:flex; align-items:center; gap:10px; font-family:var(--sans); font-size:14px; color:var(--ink2); margin:16px 0 4px; cursor:pointer; }
-                .signup-check input { width:17px; height:17px; accent-color:var(--g700); cursor:pointer; flex:none; }
-                .signup-ship { margin-top:6px; }
-                .signup-fine { font-family:var(--sans); font-size:12.5px; line-height:1.5; color:var(--subtle); margin-top:16px; }
-                @media (max-width:820px){ .signup-form { padding:26px 20px 8px; } }
+                /* Signed-in identity card (replaces the old inline chip + link) */
+                .mh-signedin { display:inline-flex; align-items:center; gap:13px; background:var(--paper0); border:1px solid var(--line-soft); border-radius:2px; padding:9px 14px; box-shadow:0 1px 2px rgba(21,20,15,0.05); }
+                .mh-signedin-badge { flex:none; display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:50%; background:var(--g700); color:#fff; }
+                .mh-signedin-badge i { font-size:19px; }
+                .mh-signedin-text { display:flex; flex-direction:column; gap:3px; min-width:0; }
+                .mh-signedin-label { line-height:1; white-space:nowrap; font-family:var(--sans); font-weight:700; font-size:10px; letter-spacing:0.09em; text-transform:uppercase; color:var(--muted); }
+                .mh-signedin-name { line-height:1; white-space:nowrap; font-family:var(--sans); font-weight:800; font-size:15px; color:var(--ink); }
 
                 /* Social auth providers (same set as Cart & Checkout: Google/Apple/Facebook) */
                 .auth-providers { display:flex; flex-direction:column; gap:10px; }
@@ -1194,8 +1206,36 @@
                 .auth-provider:hover { border-color:var(--subtle); background:var(--paper0); }
                 .auth-provider i { font-size:20px; }
                 .auth-provider .auth-logo { width:19px; height:19px; flex:none; display:block; }
+                /* Compact: icon-only providers in a single row (login popup / modal) */
+                .auth-providers--compact { flex-direction:row; gap:10px; }
+                .auth-providers--compact .auth-provider { flex:1; padding:13px 0; gap:0; }
+                .auth-providers--compact .auth-provider .auth-logo { width:22px; height:22px; }
                 .auth-divider { display:flex; align-items:center; gap:14px; margin:18px 0; font-family:var(--sans); font-size:11.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--subtle); }
                 .auth-divider::before, .auth-divider::after { content:""; height:1px; background:var(--line-soft); flex:1; }
+
+                /* --- Header Account popover (login form ↔ signed-in menu) --- */
+                .acct-pop { position:absolute; top:calc(100% + 16px); right:0; width:320px; max-width:calc(100vw - 32px); max-height:calc(100vh - 120px); overflow-y:auto; background:#fffdf8; border:1px solid var(--line); border-radius:6px; box-shadow:0 22px 60px rgba(21,20,15,0.22); padding:22px 20px; text-align:left; opacity:0; transform:translateY(-8px); pointer-events:none; transition:opacity 180ms cubic-bezier(0.22,1,0.36,1), transform 180ms cubic-bezier(0.22,1,0.36,1); z-index:1102; }
+                .acct-pop.on { opacity:1; transform:translateY(0); pointer-events:auto; }
+                .acct-pop::before { content:""; position:absolute; top:-7px; right:15px; width:12px; height:12px; background:#fffdf8; border-left:1px solid var(--line); border-top:1px solid var(--line); transform:rotate(45deg); }
+                .acct-pop-head { margin-bottom:16px; }
+                .acct-pop-title { font-family:var(--display); font-weight:600; font-size:22px; line-height:1.1; color:var(--ink); }
+                .acct-pop-sub { font-family:var(--sans); font-size:13px; line-height:1.5; color:var(--muted); margin-top:5px; }
+                .acct-pop .auth-divider { margin:14px 0; }
+                .acct-pop-form { display:flex; flex-direction:column; gap:12px; }
+                .acct-pop-form .sg-field { gap:5px; }
+                .acct-pop-forgot { align-self:flex-start; font-size:12.5px; margin-top:-2px; }
+                .acct-pop-alt { font-family:var(--sans); font-size:13px; color:var(--muted); text-align:center; margin-top:14px; }
+                .acct-pop-head--user { display:flex; align-items:center; gap:12px; margin-bottom:14px; padding-bottom:16px; border-bottom:1px solid var(--line-soft); }
+                .acct-pop-avatar { width:44px; height:44px; border-radius:50%; object-fit:cover; flex:none; }
+                .acct-pop-id { display:flex; flex-direction:column; min-width:0; }
+                .acct-pop-hello { font-family:var(--sans); font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--subtle); }
+                .acct-pop-name { font-family:var(--display); font-weight:600; font-size:18px; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+                .acct-pop-menu { display:flex; flex-direction:column; }
+                .acct-pop-item { display:flex; align-items:center; gap:11px; font-family:var(--sans); font-size:14px; font-weight:600; color:var(--ink2); text-decoration:none; padding:10px 8px; border-radius:3px; transition:background-color 130ms cubic-bezier(0.2,0,0,1), color 130ms cubic-bezier(0.2,0,0,1); }
+                .acct-pop-item i { font-size:19px; color:var(--g600); }
+                .acct-pop-item:hover { background:var(--paper1); color:var(--ink); }
+                .acct-pop-foot { margin-top:14px; padding-top:14px; border-top:1px solid var(--line-soft); }
+                .acct-pop-foot .sg-btn { padding:12px 20px; }
 
                 .lbx-reply-input { width:100%; font-family:var(--sans); font-size:14px; line-height:1.5; color:var(--ink2); background:#fff; border:1.5px solid var(--line); border-radius:2px; padding:11px 13px; min-height:70px; resize:vertical; }
                 .lbx-reply-input:focus { outline:none; border-color:var(--g700); }
@@ -1228,7 +1268,7 @@
                             <h2 class="mh-join-title" data-comment="members-join-title">Share your garden &mdash; learn from growers like you.</h2>
                         </div>
                         <div class="mh-join-actions" data-comment="members-join-actions">
-                            <button class="sg-btn sg-btn-coral" type="button" onclick="membersGateLogin()" data-comment="members-join-signin">Log in</button>
+                            <button class="sg-btn sg-btn-coral" type="button" onclick="membersOpenGate()" data-comment="members-join-signin">Log in</button>
                             <button class="sg-btn sg-btn-coral-outline" type="button" onclick="openSignup()" data-comment="members-join-create">Sign up</button>
                         </div>
                     </div>
@@ -1275,8 +1315,12 @@
                                 <h3 class="sg-title" data-comment="members-share-form-title">Share with the community</h3>
                                 <p class="sg-text" data-comment="members-share-form-text">Ask a question, post an update, or show your garden.</p>
                             </div>
-                            <textarea class="sg-quick-input" data-comment="members-quick-input" placeholder="What&rsquo;s growing? Ask a question or share an update&hellip;"></textarea>
-                            <button type="button" class="sg-quick-photos" data-comment="members-quick-photos" onclick="membersPickPhotos()"><i class="ph ph-image-square" aria-hidden="true"></i> <span>Add photos</span></button>
+                            <textarea class="sg-quick-input" data-comment="members-quick-input" aria-label="Share with the community — ask a question or post an update" placeholder="What&rsquo;s growing? Ask a question or share an update&hellip;"></textarea>
+                            <div class="sg-drop sg-quick-drop" data-comment="members-quick-photos" role="button" tabindex="0" aria-label="Add photos — drag files here or click to browse" onclick="membersPickPhotos()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();membersPickPhotos();}" ondragover="membersDropOver(event,this)" ondragenter="membersDropOver(event,this)" ondragleave="membersDropLeave(event,this)" ondrop="membersDropPhotos(event,this)">
+                                <div class="sg-drop-icon"><i class="ph ph-image-square" aria-hidden="true"></i></div>
+                                <div class="sg-drop-title">Drag photos here, or browse</div>
+                                <div class="sg-drop-hint">Landscape or portrait &mdash; up to 8 &middot; JPG or PNG</div>
+                            </div>
                             <input type="file" accept="image/*" multiple hidden data-comment="members-quick-file" onchange="membersPhotosPicked(this)">
 
                             <p class="sg-signin-note" data-comment="members-share-signin-note"><i class="ph ph-info" aria-hidden="true"></i> You&rsquo;ll need to sign in or create an account to publish.</p>
@@ -1295,11 +1339,8 @@
                     <button class="sg-modal-close" type="button" aria-label="Close" onclick="membersCloseGate()" data-comment="members-gate-close"><i class="ph ph-x" aria-hidden="true"></i></button>
                     <div class="sg-modal-icon" data-comment="members-gate-icon"><i class="ph ph-leaf" aria-hidden="true"></i></div>
                     <h2 class="sg-modal-title" id="members-gate-title" data-comment="members-gate-title">Log in to continue</h2>
-                    <p class="sg-modal-sub" data-comment="members-gate-sub">You need an account to post, comment, and share your garden.</p>
-                    <div class="sg-modal-actions" data-comment="members-gate-actions">
-                        <button class="sg-btn sg-btn-primary sg-btn--block" type="button" onclick="membersGateLogin()" data-comment="members-gate-login">Log in</button>
-                        <p class="sg-modal-alt">New to Whiffletree? <button type="button" class="sg-linkbtn" onclick="openSignup()" data-comment="members-gate-signup">Sign up</button></p>
-                    </div>
+                    <p class="sg-modal-sub" data-comment="members-gate-sub">Sign in to post, comment, and share your garden.</p>
+                    <div class="sg-modal-body" data-comment="members-gate-body"><!-- login form injected on open --></div>
                 </div>
                 <!-- Mock toast — action feedback in the signed-in state -->
                 <div class="mh-toast" data-comment="members-toast" role="status" aria-live="polite"><i class="ph ph-check-circle" aria-hidden="true"></i> <span class="mh-toast-text"></span></div>
@@ -1310,14 +1351,15 @@
                         <span class="mh-count" data-comment="members-gallery-count">Showing 19 of 200+ posts</span>
                     </div>
                     <div class="mh-filters" data-comment="members-filters">
-                        <div class="mh-type-tabs" data-comment="members-type-tabs" role="tablist" aria-label="Filter by post type">
-                            <button class="mh-type-tab is-active" type="button" data-comment="members-type-all" onclick="membersSetType('all', this)">All</button>
-                            <button class="mh-type-tab" type="button" data-comment="members-type-photo" onclick="membersSetType('photo', this)">Photos</button>
-                            <button class="mh-type-tab" type="button" data-comment="members-type-discussion" onclick="membersSetType('discussion', this)">Discussions</button>
+                        <div class="mh-type-tabs" data-comment="members-type-tabs" role="group" aria-label="Filter by post type">
+                            <button class="mh-type-tab is-active" type="button" aria-pressed="true" data-comment="members-type-all" onclick="membersSetType('all', this)">All</button>
+                            <button class="mh-type-tab" type="button" aria-pressed="false" data-comment="members-type-photo" onclick="membersSetType('photo', this)">Photos</button>
+                            <button class="mh-type-tab" type="button" aria-pressed="false" data-comment="members-type-discussion" onclick="membersSetType('discussion', this)">Discussions</button>
                         </div>
                         <select class="mh-filter" data-comment="members-filter-variety" aria-label="Filter by variety" onchange="membersApplyFilters()"><option value="">All varieties</option><option value="apple">Apple</option><option value="pear">Pear</option><option value="plum">Plum</option><option value="cherry">Cherry</option><option value="peach">Peach</option><option value="apricot">Apricot</option><option value="grape">Grape</option><option value="berry">Berries</option></select>
                         <select class="mh-filter" data-comment="members-filter-season" aria-label="Filter by season" onchange="membersApplyFilters()"><option value="">Any season</option><option value="spring">Spring</option><option value="summer">Summer</option><option value="autumn">Autumn</option></select>
                         <select class="mh-filter" data-comment="members-filter-zone" aria-label="Filter by hardiness zone" onchange="membersApplyFilters()"><option value="">Any zone</option><option value="2b">Zone 2b</option><option value="3">Zone 3</option><option value="4">Zone 4</option><option value="5">Zone 5</option><option value="6">Zone 6</option></select>
+                        <button class="mh-filter-clear" type="button" data-comment="members-filters-clear" onclick="membersClearFilters()" hidden><i class="ph ph-x" aria-hidden="true"></i> Clear filters</button>
                     </div>
                     <div class="mh-grid" data-comment="members-grid">
                     <figure class="mh-card" data-comment="members-card-1" data-component="card" data-cat="apple" data-zone="4" data-season="autumn" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
@@ -1444,6 +1486,12 @@
                         </figcaption>
                     </figure>
                     </div>
+                    <div class="mh-empty" data-comment="members-empty" role="status" hidden>
+                        <i class="ph ph-funnel" aria-hidden="true"></i>
+                        <p class="mh-empty-title" data-comment="members-empty-title">No posts match these filters</p>
+                        <p class="mh-empty-text" data-comment="members-empty-text">Try removing a filter to see more of the community.</p>
+                        <button class="sg-btn sg-btn-secondary" type="button" onclick="membersClearFilters()" data-comment="members-empty-clear">Clear filters</button>
+                    </div>
                 </div>
 
 
@@ -1465,12 +1513,17 @@
                     var scrim = document.querySelector('[data-comment="members-gate-scrim"]');
                     var modal = document.querySelector('[data-comment="members-gate"]');
                     if (!scrim || !modal) return;
+                    var body = modal.querySelector('[data-comment="members-gate-body"]');
+                    if (body) {
+                        body.innerHTML = mhLoginFormHTML()
+                            + '<p class="sg-modal-alt">New to Whiffletree? <button type="button" class="sg-linkbtn" onclick="openSignup()" data-comment="members-gate-signup">Sign up</button></p>';
+                    }
                     modal.hidden = false;
                     void modal.offsetWidth; // reflow so the open transition runs
                     scrim.classList.add('open');
                     modal.classList.add('open');
-                    var closeBtn = modal.querySelector('[data-comment="members-gate-close"]');
-                    if (closeBtn) closeBtn.focus();
+                    var focusTarget = modal.querySelector('.sg-modal-body input[type="email"]') || modal.querySelector('[data-comment="members-gate-close"]');
+                    if (focusTarget) focusTarget.focus();
                 }
                 function membersCloseGate() {
                     var scrim = document.querySelector('[data-comment="members-gate-scrim"]');
@@ -1650,13 +1703,34 @@
 
                 /* ---- Filters: variety / season / zone + post type ---- */
                 var mhType = 'all';
+                var mhReturnFocus = null; /* element to restore focus to when the post popup closes */
                 function mhFilterVal(dc) {
                     var el = document.querySelector('[data-comment="' + dc + '"]');
                     return el ? el.value : '';
                 }
+                /* Variety / season / zone describe photos only — disable them (incl. the custom
+                   dropdown control) on the Discussions tab so they can't silently wipe the feed. */
+                function mhToggleAttrFilters(disabled) {
+                    ['members-filter-variety', 'members-filter-season', 'members-filter-zone'].forEach(function (dc) {
+                        var sel = document.querySelector('[data-comment="' + dc + '"]');
+                        if (!sel) return;
+                        sel.disabled = disabled;
+                        var wrap = sel.closest('.wt-dd');
+                        if (wrap) {
+                            wrap.classList.toggle('wt-dd--disabled', disabled);
+                            var trig = wrap.querySelector('.wt-dd-trigger');
+                            if (trig) { trig.disabled = disabled; trig.setAttribute('aria-disabled', disabled ? 'true' : 'false'); }
+                        }
+                    });
+                }
                 function membersSetType(t, btn) {
                     mhType = t;
-                    document.querySelectorAll('.mh-type-tab').forEach(function (b) { b.classList.toggle('is-active', b === btn); });
+                    document.querySelectorAll('.mh-type-tab').forEach(function (b) {
+                        var on = (b === btn);
+                        b.classList.toggle('is-active', on);
+                        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+                    });
+                    mhToggleAttrFilters(t === 'discussion');
                     membersApplyFilters();
                 }
                 function membersApplyFilters() {
@@ -1668,7 +1742,9 @@
                     cards.forEach(function (c) {
                         var ctype = c.dataset.type || 'photo';
                         var typeOk = (mhType === 'all') || (ctype === mhType);
-                        var attrOk = (!v || c.dataset.cat === v) && (!s || c.dataset.season === s) && (!z || c.dataset.zone === z);
+                        /* Discussions carry no variety/season/zone — let them pass the attribute
+                           filters instead of vanishing whenever a photo filter is set. */
+                        var attrOk = (ctype === 'discussion') || ((!v || c.dataset.cat === v) && (!s || c.dataset.season === s) && (!z || c.dataset.zone === z));
                         var ok = typeOk && attrOk;
                         c.style.display = ok ? '' : 'none';
                         if (ok) shown++;
@@ -1677,6 +1753,20 @@
                     var active = !!(v || s || z || mhType !== 'all');
                     var count = document.querySelector('[data-comment="members-gallery-count"]');
                     if (count) count.textContent = active ? 'Showing ' + shown + ' of ' + total + ' posts' : 'Showing ' + total + ' of 200+ posts';
+                    var clear = document.querySelector('[data-comment="members-filters-clear"]');
+                    if (clear) clear.hidden = !active;
+                    var empty = document.querySelector('[data-comment="members-empty"]');
+                    var grid = document.querySelector('[data-comment="members-grid"]');
+                    if (empty) empty.hidden = shown !== 0;
+                    if (grid) grid.style.display = shown === 0 ? 'none' : '';
+                }
+                function membersClearFilters() {
+                    ['members-filter-variety', 'members-filter-season', 'members-filter-zone'].forEach(function (dc) {
+                        var sel = document.querySelector('[data-comment="' + dc + '"]');
+                        if (sel && sel.selectedIndex !== 0) { sel.selectedIndex = 0; sel.dispatchEvent(new Event('change', { bubbles: true })); }
+                    });
+                    var allTab = document.querySelector('[data-comment="members-type-all"]');
+                    if (allTab) membersSetType('all', allTab); else membersApplyFilters();
                 }
 
                 /* ---- Reply gate (#103): signed-out visitors get the sign-in popup ---- */
@@ -1874,11 +1964,24 @@
                 }
                 function membersPhotosPicked(input) {
                     var n = input.files ? input.files.length : 0;
+                    input.value = ''; /* reset so re-picking the same file re-fires change */
+                    membersPhotosAdded(n);
+                }
+                function membersPhotosAdded(n) {
                     if (!n) return;
                     /* Photos chosen — continue into the full composer to add details & publish. */
                     membersToast(n === 1 ? '1 photo added' : n + ' photos added');
                     openCompose();
-                    input.value = ''; /* reset so re-picking the same file re-fires change */
+                }
+                function membersDropOver(e, el) { e.preventDefault(); el.classList.add('is-drag'); }
+                function membersDropLeave(e, el) { el.classList.remove('is-drag'); }
+                function membersDropPhotos(e, el) {
+                    e.preventDefault();
+                    el.classList.remove('is-drag');
+                    var files = e.dataTransfer && e.dataTransfer.files ? e.dataTransfer.files : [];
+                    var imgs = Array.prototype.filter.call(files, function (f) { return /^image\//.test(f.type); });
+                    if (!imgs.length) { membersToast('Only image files can be added'); return; }
+                    membersPhotosAdded(imgs.length);
                 }
 
                 /* ---- Auth (mock): log in / sign up / sign out + signed-in UI ---- */
@@ -1895,108 +1998,163 @@
                     var ja = document.querySelector('[data-comment="members-join-actions"]');
                     if (ja) {
                         ja.innerHTML = MH_SIGNED_IN
-                            ? '<span class="mh-join-signed"><i class="ph ph-check-circle" aria-hidden="true"></i> Signed in as ' + MH_USER.name + '</span> <button type="button" class="sg-linkbtn" onclick="membersLogout()">Log out</button>'
-                            : '<button class="sg-btn sg-btn-coral" type="button" onclick="membersGateLogin()" data-comment="members-join-signin">Log in</button><button class="sg-btn sg-btn-coral-outline" type="button" onclick="openSignup()" data-comment="members-join-create">Sign up</button>';
+                            ? '<div class="mh-signedin"><span class="mh-signedin-badge"><i class="ph-fill ph-check" aria-hidden="true"></i></span><span class="mh-signedin-text"><span class="mh-signedin-label">Signed in as</span><span class="mh-signedin-name">' + MH_USER.name + '</span></span></div>'
+                            : '<button class="sg-btn sg-btn-coral" type="button" onclick="membersOpenGate()" data-comment="members-join-signin">Log in</button><button class="sg-btn sg-btn-coral-outline" type="button" onclick="openSignup()" data-comment="members-join-create">Sign up</button>';
                     }
+                    membersRenderAccountPop(); /* header popover reflects guest ↔ signed-in too */
+                }
+                /* Derive a display name from an email local-part (mirrors wt-account.js). */
+                function mhNameFromEmail(email) {
+                    var local = (email || '').split('@')[0];
+                    if (!local) return MH_USER.name;
+                    return local.split(/[._\-+]/).filter(Boolean).map(function (w) {
+                        return w.charAt(0).toUpperCase() + w.slice(1);
+                    }).join(' ') || MH_USER.name;
                 }
                 function membersGateLogin() {
-                    MH_SIGNED_IN = true;
-                    membersCloseGate();
                     var lb = document.querySelector('.lb');
                     if (lb && lb.classList.contains('open')) closePost();
-                    membersApplyAuth();
-                    membersToast('You’re signed in as ' + MH_USER.name);
+                    membersCloseGate();
+                    var emailEl = document.querySelector('[data-comment="members-gate"] input[type="email"]');
+                    var email = emailEl ? emailEl.value.trim() : '';
+                    if (window.WTAccount) {
+                        /* Persist to the shared, cross-page account state; the WTAccount
+                           onChange bridge flips MH_SIGNED_IN and re-renders this page. */
+                        WTAccount.login({ name: email ? mhNameFromEmail(email) : MH_USER.name, email: email });
+                    } else {
+                        MH_SIGNED_IN = true;
+                        membersApplyAuth();
+                        membersToast('You’re signed in as ' + MH_USER.name);
+                    }
                 }
                 function membersLogout() {
-                    MH_SIGNED_IN = false;
-                    membersApplyAuth();
-                    membersToast('Signed out');
+                    if (window.WTAccount) { WTAccount.logout(); }
+                    else { MH_SIGNED_IN = false; membersApplyAuth(); membersToast('Signed out'); }
                 }
-                function mhAddrFields() {
-                    function opts(a) { return a.map(function (o) { return '<option>' + o + '</option>'; }).join(''); }
-                    var provinces = ['Ontario', 'Quebec', 'British Columbia', 'Alberta', 'Manitoba', 'Saskatchewan', 'Nova Scotia', 'New Brunswick', 'Newfoundland and Labrador', 'Prince Edward Island', 'Northwest Territories', 'Nunavut', 'Yukon'];
-                    return '<div class="sg-fields">'
-                        + '<div class="sg-field sg-field--full"><label class="sg-flabel">Street address</label><input class="sg-input" type="text"></div>'
-                        + '<div class="sg-field sg-field--full"><label class="sg-flabel">Apartment, suite, etc. (optional)</label><input class="sg-input" type="text"></div>'
-                        + '<div class="sg-field"><label class="sg-flabel">City / Town</label><input class="sg-input" type="text" placeholder="e.g. Elmvale"></div>'
-                        + '<div class="sg-field"><label class="sg-flabel">Province</label><select class="sg-select">' + opts(provinces) + '</select></div>'
-                        + '<div class="sg-field"><label class="sg-flabel">Postal code</label><input class="sg-input" type="text" placeholder="A1A 1A1"></div>'
-                        + '<div class="sg-field"><label class="sg-flabel">Country</label><select class="sg-select"><option>Canada</option></select></div>'
+                /* Social sign-in providers — used by the login popover form
+                   (same set as Cart & Checkout: Google / Apple / Facebook). */
+                function mhAuthProviders(compact) {
+                    var gLogo = '<svg class="auth-logo" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.28-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>';
+                    var aLogo = '<svg class="auth-logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="#000000" d="M17.05 12.53c-.03-2.53 2.07-3.75 2.16-3.81-1.18-1.72-3.01-1.96-3.66-1.98-1.56-.16-3.04.92-3.83.92-.79 0-2.01-.9-3.31-.87-1.7.03-3.27 1-4.15 2.53-1.77 3.07-.45 7.62 1.27 10.11.84 1.22 1.84 2.59 3.15 2.54 1.26-.05 1.74-.82 3.27-.82 1.52 0 1.95.82 3.28.79 1.36-.02 2.22-1.24 3.05-2.47.96-1.42 1.36-2.79 1.38-2.86-.03-.01-2.65-1.02-2.68-4.05zM14.63 4.84c.7-.85 1.17-2.02 1.04-3.19-1.01.04-2.23.67-2.95 1.52-.65.75-1.21 1.95-1.06 3.1 1.12.09 2.27-.57 2.97-1.43z"/></svg>';
+                    var fLogo = '<svg class="auth-logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="#1877F2" d="M24 12c0-6.63-5.37-12-12-12S0 5.37 0 12c0 5.99 4.39 10.95 10.13 11.85v-8.38H7.08V12h3.05V9.41c0-3.01 1.79-4.68 4.53-4.68 1.31 0 2.68.24 2.68.24v2.95h-1.51c-1.49 0-1.95.93-1.95 1.87V12h3.33l-.53 3.47h-2.8v8.38C19.61 22.95 24 17.99 24 12z"/><path fill="#FFFFFF" d="M16.68 15.47 17.21 12h-3.33V9.79c0-.94.46-1.87 1.95-1.87h1.51V4.97s-1.37-.24-2.68-.24c-2.74 0-4.53 1.67-4.53 4.68V12H7.08v3.47h3.05v8.38a12.1 12.1 0 0 0 3.75 0v-8.38h2.8z"/></svg>';
+                    if (compact) {
+                        /* Icon-only, three-in-a-row — compact treatment for the login popup/modal. */
+                        return '<div class="auth-providers auth-providers--compact">'
+                            +   '<button type="button" class="auth-provider auth-provider--google" aria-label="Continue with Google" title="Continue with Google" onclick="membersSocialAuth(\'Google\')">' + gLogo + '</button>'
+                            +   '<button type="button" class="auth-provider auth-provider--apple" aria-label="Continue with Apple" title="Continue with Apple" onclick="membersSocialAuth(\'Apple\')">' + aLogo + '</button>'
+                            +   '<button type="button" class="auth-provider auth-provider--facebook" aria-label="Continue with Facebook" title="Continue with Facebook" onclick="membersSocialAuth(\'Facebook\')">' + fLogo + '</button>'
+                            + '</div>';
+                    }
+                    return '<div class="auth-providers">'
+                        +   '<button type="button" class="auth-provider auth-provider--google" onclick="membersSocialAuth(\'Google\')">' + gLogo + ' Continue with Google</button>'
+                        +   '<button type="button" class="auth-provider auth-provider--apple" onclick="membersSocialAuth(\'Apple\')">' + aLogo + ' Continue with Apple</button>'
+                        +   '<button type="button" class="auth-provider auth-provider--facebook" onclick="membersSocialAuth(\'Facebook\')">' + fLogo + ' Continue with Facebook</button>'
                         + '</div>';
                 }
-                function mhRenderSignup() {
-                    function opts(a) { return a.map(function (o) { return '<option>' + o + '</option>'; }).join(''); }
-                    var zones = ['Zone 2b', 'Zone 3', 'Zone 4', 'Zone 5', 'Zone 6', 'Zone 7', 'Zone 8'];
-                    return '<div class="lb-inner">'
-                        + '<div class="lbx-topbar"><span class="lbx-topbar-title">Create your account</span>'
-                        + '<button class="lbx-topbar-close" data-lb-close type="button" aria-label="Close" onclick="closePost()"><i class="ph ph-x" aria-hidden="true"></i></button></div>'
-                        + '<div class="lbx-scroll"><div class="signup-form">'
-                        + '<p class="signup-intro">Join the Whiffletree growers’ community. One account is all you need — the same details power your posts and a faster checkout, so you won’t re-enter them at the cart.</p>'
-                        + '<div class="auth-providers">'
-                        +   '<button type="button" class="auth-provider auth-provider--google" onclick="membersSocialAuth(\'Google\')"><svg class="auth-logo" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.28-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg> Continue with Google</button>'
-                        +   '<button type="button" class="auth-provider auth-provider--apple" onclick="membersSocialAuth(\'Apple\')"><svg class="auth-logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="#000000" d="M17.05 12.53c-.03-2.53 2.07-3.75 2.16-3.81-1.18-1.72-3.01-1.96-3.66-1.98-1.56-.16-3.04.92-3.83.92-.79 0-2.01-.9-3.31-.87-1.7.03-3.27 1-4.15 2.53-1.77 3.07-.45 7.62 1.27 10.11.84 1.22 1.84 2.59 3.15 2.54 1.26-.05 1.74-.82 3.27-.82 1.52 0 1.95.82 3.28.79 1.36-.02 2.22-1.24 3.05-2.47.96-1.42 1.36-2.79 1.38-2.86-.03-.01-2.65-1.02-2.68-4.05zM14.63 4.84c.7-.85 1.17-2.02 1.04-3.19-1.01.04-2.23.67-2.95 1.52-.65.75-1.21 1.95-1.06 3.1 1.12.09 2.27-.57 2.97-1.43z"/></svg> Continue with Apple</button>'
-                        +   '<button type="button" class="auth-provider auth-provider--facebook" onclick="membersSocialAuth(\'Facebook\')"><svg class="auth-logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="#1877F2" d="M24 12c0-6.63-5.37-12-12-12S0 5.37 0 12c0 5.99 4.39 10.95 10.13 11.85v-8.38H7.08V12h3.05V9.41c0-3.01 1.79-4.68 4.53-4.68 1.31 0 2.68.24 2.68.24v2.95h-1.51c-1.49 0-1.95.93-1.95 1.87V12h3.33l-.53 3.47h-2.8v8.38C19.61 22.95 24 17.99 24 12z"/><path fill="#FFFFFF" d="M16.68 15.47 17.21 12h-3.33V9.79c0-.94.46-1.87 1.95-1.87h1.51V4.97s-1.37-.24-2.68-.24c-2.74 0-4.53 1.67-4.53 4.68V12H7.08v3.47h3.05v8.38a12.1 12.1 0 0 0 3.75 0v-8.38h2.8z"/></svg> Continue with Facebook</button>'
-                        + '</div>'
-                        + '<div class="auth-divider">or sign up with email</div>'
-                        + '<h3 class="signup-sub">Your details</h3>'
-                        + '<div class="sg-fields">'
-                        +   '<div class="sg-field"><label class="sg-flabel">First name</label><input class="sg-input" type="text"></div>'
-                        +   '<div class="sg-field"><label class="sg-flabel">Last name</label><input class="sg-input" type="text"></div>'
-                        +   '<div class="sg-field"><label class="sg-flabel">Email</label><input class="sg-input" type="email" placeholder="you@email.com"></div>'
-                        +   '<div class="sg-field"><label class="sg-flabel">Phone</label><input class="sg-input" type="tel" placeholder="(519) 555-0134"></div>'
-                        +   '<div class="sg-field"><label class="sg-flabel">Password</label><input class="sg-input" type="password" placeholder="At least 8 characters"></div>'
-                        +   '<div class="sg-field"><label class="sg-flabel">Hardiness zone (optional)</label><select class="sg-select">' + opts(zones) + '</select></div>'
-                        + '</div>'
-                        + '<h3 class="signup-sub">Billing address</h3>'
-                        + mhAddrFields()
-                        + '<label class="signup-check"><input type="checkbox" id="ship-same" checked onchange="membersToggleShipping(this)"> Shipping address is the same as billing</label>'
-                        + '<div class="signup-ship" data-ship hidden>'
-                        +   '<h3 class="signup-sub">Shipping address</h3>'
-                        +   mhAddrFields()
-                        + '</div>'
-                        + '<p class="signup-fine">We only ship within Canada (CFIA rules), and no fruit trees or grape vines to BC.</p>'
-                        + '<div class="cmp-actions"><button class="sg-btn sg-btn-primary sg-btn--block" type="button" onclick="membersSignupSubmit()">Create account</button></div>'
-                        + '<p class="signup-alt">Already have an account? <button type="button" class="sg-linkbtn" onclick="membersGateLogin()">Log in</button></p>'
-                        + '</div></div></div>';
+
+                /* Shared login form (social + email/password) — used by the header account
+                   popover AND the centred sign-in modal, so both stay in sync. */
+                function mhLoginFormHTML() {
+                    return mhAuthProviders(true)
+                        + '<div class="auth-divider">or</div>'
+                        + '<form class="acct-pop-form" onsubmit="return false;">'
+                        +   '<div class="sg-field sg-field--full"><label class="sg-flabel">Email</label><input class="sg-input" type="email" placeholder="you@email.com"></div>'
+                        +   '<div class="sg-field sg-field--full"><label class="sg-flabel">Password</label><input class="sg-input" type="password" placeholder="Your password"></div>'
+                        +   '<button type="button" class="sg-linkbtn acct-pop-forgot" onclick="membersToast(\'Magic sign-in link sent — check your email\')">Forgot password?</button>'
+                        +   '<button type="submit" class="sg-btn sg-btn-primary sg-btn--block" onclick="membersGateLogin()">Log in</button>'
+                        + '</form>';
                 }
-                function membersToggleShipping(cb) {
-                    var s = document.querySelector('[data-ship]');
-                    if (s) s.hidden = cb.checked;
+
+                /* ---- Header Account popover: guest login form ↔ signed-in account menu ---- */
+                function membersAccountPopHTML() {
+                    if (MH_SIGNED_IN) {
+                        return '<div class="acct-pop-head--user">'
+                            +   '<img class="acct-pop-avatar" src="' + mhFace(MH_USER.name) + '" alt="">'
+                            +   '<div class="acct-pop-id"><span class="acct-pop-hello">Signed in as</span><span class="acct-pop-name">' + MH_USER.name + '</span></div>'
+                            + '</div>'
+                            + '<nav class="acct-pop-menu">'
+                            +   '<a class="acct-pop-item" href="#"><i class="ph ph-user-circle" aria-hidden="true"></i> My account</a>'
+                            +   '<a class="acct-pop-item" href="#"><i class="ph ph-images-square" aria-hidden="true"></i> My posts</a>'
+                            +   '<a class="acct-pop-item" href="#"><i class="ph ph-package" aria-hidden="true"></i> Orders</a>'
+                            + '</nav>'
+                            + '<div class="acct-pop-foot"><button type="button" class="sg-btn sg-btn-secondary sg-btn--block" onclick="membersLogout()"><i class="ph ph-sign-out" aria-hidden="true"></i> Log out</button></div>';
+                    }
+                    return '<div class="acct-pop-head"><h2 class="acct-pop-title">Log in</h2><p class="acct-pop-sub">Post, comment, and check out faster.</p></div>'
+                        + mhLoginFormHTML()
+                        + '<p class="acct-pop-alt">New to Whiffletree? <button type="button" class="sg-linkbtn" onclick="openSignup()">Sign up</button></p>';
                 }
+                function membersRenderAccountPop() {
+                    var pop = document.querySelector('[data-comment="header-account-pop"]');
+                    if (!pop) return;
+                    pop.innerHTML = membersAccountPopHTML();
+                    if (window.wtEnhance) window.wtEnhance(pop);
+                }
+                function membersToggleAccountPop(e) {
+                    if (e) e.stopPropagation();
+                    var pop = document.querySelector('[data-comment="header-account-pop"]');
+                    if (!pop) return;
+                    if (pop.classList.contains('on')) membersCloseAccountPop();
+                    else membersOpenAccountPop();
+                }
+                function membersOpenAccountPop() {
+                    var pop = document.querySelector('[data-comment="header-account-pop"]');
+                    var icon = document.querySelector('[data-comment="header-action-user"]');
+                    if (!pop) return;
+                    membersRenderAccountPop();
+                    pop.classList.add('on');
+                    pop.setAttribute('aria-hidden', 'false');
+                    if (icon) icon.setAttribute('aria-expanded', 'true');
+                    document.addEventListener('keydown', membersAccountPopKey);
+                    document.addEventListener('mousedown', membersAccountPopOutside);
+                    var f = pop.querySelector('input, a, button'); if (f) f.focus();
+                }
+                function membersCloseAccountPop() {
+                    var pop = document.querySelector('[data-comment="header-account-pop"]');
+                    var icon = document.querySelector('[data-comment="header-action-user"]');
+                    if (!pop || !pop.classList.contains('on')) return;
+                    pop.classList.remove('on');
+                    pop.setAttribute('aria-hidden', 'true');
+                    if (icon) icon.setAttribute('aria-expanded', 'false');
+                    document.removeEventListener('keydown', membersAccountPopKey);
+                    document.removeEventListener('mousedown', membersAccountPopOutside);
+                }
+                function membersAccountPopOutside(e) {
+                    var wrap = document.querySelector('[data-comment="header-account-wrap"]');
+                    if (wrap && !wrap.contains(e.target)) membersCloseAccountPop();
+                }
+                function membersAccountPopKey(e) {
+                    if (e.key === 'Escape') {
+                        membersCloseAccountPop();
+                        var icon = document.querySelector('[data-comment="header-action-user"]');
+                        if (icon && icon.focus) icon.focus();
+                        return;
+                    }
+                    if (e.key !== 'Tab') return;
+                    var pop = document.querySelector('[data-comment="header-account-pop"]');
+                    if (!pop) return;
+                    var f = pop.querySelectorAll('a[href], button, input, select, textarea');
+                    if (!f.length) return;
+                    var first = f[0], last = f[f.length - 1];
+                    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+                    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+                }
+
+                /* Registration lives on its own page (register.html), not a
+                   dismissable lightbox — a stray click / Esc must never wipe a
+                   long, half-filled form. Remember the current page in ?next=
+                   so sign-up returns the user right back where they were. */
                 function openSignup() {
-                    var lb = document.querySelector('.lb');
-                    if (!lb) return;
                     membersCloseGate();
-                    document.removeEventListener('keydown', lbKey);
-                    lb._carPrev = lb._carNext = null;
-                    lb.className = 'lb is-signup';
-                    lb.innerHTML = mhRenderSignup();
-                    if (window.wtEnhance) window.wtEnhance(lb);
-                    lb.setAttribute('aria-label', 'Create your account');
-                    document.querySelector('.lb-scrim').classList.add('open');
-                    void lb.offsetWidth;
-                    lb.classList.add('open');
-                    lb.setAttribute('aria-hidden', 'false');
-                    document.documentElement.style.overflow = 'hidden';
-                    var sc = lb.querySelector('.lbx-scroll'); if (sc) sc.scrollTop = 0;
-                    var first = lb.querySelector('.signup-form input'); if (first) first.focus();
-                    document.addEventListener('keydown', lbKey);
+                    membersCloseAccountPop();
+                    var here = (location.pathname.split('/').pop() || 'members.html');
+                    window.location.href = 'register.html?next=' + encodeURIComponent(here);
                 }
                 function membersSocialAuth(provider) {
-                    MH_SIGNED_IN = true;
                     var lb = document.querySelector('.lb');
                     if (lb && lb.classList.contains('open')) closePost();
                     membersCloseGate();
-                    membersApplyAuth();
-                    membersToast('Signed in with ' + provider);
-                }
-                function membersSignupSubmit() {
-                    var first = document.querySelector('.signup-form input');
-                    if (first && first.value.trim()) MH_USER = { name: first.value.trim(), location: MH_USER.location };
-                    MH_SIGNED_IN = true;
-                    closePost();
-                    membersApplyAuth();
-                    membersToast('Account created — you’re all set');
+                    if (window.WTAccount) { WTAccount.login({ name: MH_USER.name }); }
+                    else { MH_SIGNED_IN = true; membersApplyAuth(); membersToast('Signed in with ' + provider); }
                 }
                 function membersPostReply(btn) {
                     var box = btn.closest('.lbx-reply-box');
@@ -2056,6 +2214,7 @@
                 function openCompose() {
                     var lb = document.querySelector('.lb');
                     if (!lb) return;
+                    mhReturnFocus = document.activeElement;
                     document.removeEventListener('keydown', lbKey);
                     lb._carPrev = lb._carNext = null;
                     var qi = document.querySelector('[data-comment="members-quick-input"]');
@@ -2115,7 +2274,7 @@
                     var items = list.map(function (c) { return block(c, false); }).join('');
                     var reply = MH_SIGNED_IN
                         ? '<div class="lbx-reply-box"><textarea class="lbx-reply-input" placeholder="Add a reply\u2026"></textarea><div class="lbx-reply-actions"><button class="sg-btn sg-btn-primary" type="button" onclick="membersPostReply(this)">Post reply</button></div></div>'
-                        : '<div class="lbx-reply-box"><button class="lbx-reply-fake" type="button" onclick="membersReplyGate()"><i class="ph ph-chat-circle" aria-hidden="true"></i> <span>Add a reply\u2026</span></button></div>';
+                        : '<div class="lbx-reply-box"><button class="lbx-reply-fake" type="button" onclick="membersReplyGate()"><i class="ph ph-lock-simple" aria-hidden="true"></i> <span>Log in to reply</span></button></div>';
                     return '<section class="lbx-comments' + (reading ? ' in-reading' : '') + '">'
                         + '<div class="lbx-comments-head">' + count + (count === 1 ? ' reply' : ' replies') + '</div>'
                         + items + reply + '</section>';
@@ -2185,6 +2344,7 @@
                     var post = MH_POSTS[id];
                     var lb = document.querySelector('.lb');
                     if (!post || !lb) return;
+                    mhReturnFocus = document.activeElement; /* restore focus here on close */
                     document.removeEventListener('keydown', lbKey);
                     lb.className = 'lb is-post';
                     lb.innerHTML = mhRenderPost(id, post);
@@ -2209,6 +2369,11 @@
                     document.removeEventListener('keydown', lbKey);
                     if (lb && lb._carResize) { window.removeEventListener('resize', lb._carResize); lb._carResize = null; }
                     window.setTimeout(function () { if (lb && !lb.classList.contains('open')) { lb.innerHTML = ''; lb.className = 'lb'; } }, 240);
+                    /* Return focus to whatever opened the popup (card / button) for keyboard users. */
+                    if (mhReturnFocus && document.contains(mhReturnFocus) && mhReturnFocus.offsetParent !== null) {
+                        try { mhReturnFocus.focus(); } catch (e) { }
+                    }
+                    mhReturnFocus = null;
                 }
                 function lbKey(e) {
                     var gate = document.querySelector('[data-comment="members-gate"]');
@@ -2332,8 +2497,42 @@
                     upd();
                 }
 
+                /* Adopt any signed-in state the shared WTAccount persists to localStorage
+                   (e.g. a login done on another page). Read synchronously here because
+                   wt-account.js executes later in the document, so WTAccount may not
+                   exist yet at parse time. */
+                (function () {
+                    try {
+                        var s = JSON.parse(localStorage.getItem('wtAccount'));
+                        if (s && s.signedIn) {
+                            MH_SIGNED_IN = true;
+                            if (s.user && s.user.name) MH_USER = { name: s.user.name, location: MH_USER.location };
+                        }
+                    } catch (e) { }
+                })();
+
+                /* Once WTAccount has loaded, subscribe so an in-page login/logout
+                   (gate modal, social) re-renders the banner and gated actions. */
+                document.addEventListener('DOMContentLoaded', function () {
+                    if (!window.WTAccount) return;
+                    WTAccount.onChange(function (s) {
+                        MH_SIGNED_IN = !!(s && s.signedIn);
+                        if (s && s.user && s.user.name) MH_USER = { name: s.user.name, location: MH_USER.location };
+                        membersApplyAuth();
+                    });
+                });
+
                 /* Reflect the (mock) auth state on load. */
                 membersApplyAuth();
+
+                /* Measure the sticky header so the filter bar can sit right beneath it. */
+                (function () {
+                    var header = document.querySelector('[data-comment="header-root"]');
+                    if (!header) return;
+                    function setHeaderH() { document.documentElement.style.setProperty('--mh-header-h', header.offsetHeight + 'px'); }
+                    setHeaderH();
+                    window.addEventListener('resize', setHeaderH);
+                })();
             </script>
 
             <!-- COMMUNITY POST POPUP — photo carousel / reading article (JS-rendered into .lb) -->
@@ -2400,10 +2599,10 @@
                         <div data-comment="footer-col-downloads">
                             <div data-comment="footer-col-downloads-title" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">Downloads</div>
                             <div data-comment="footer-col-downloads-links" style="display:flex; flex-direction:column; gap:11px; font-family:var(--sans); font-size:14.5px;">
-                                <a data-comment="footer-downloads-link-1" href="#" style="color:var(--ink2); text-decoration:none;">Catalogue</a>
-                                <a data-comment="footer-downloads-link-2" href="#" style="color:var(--ink2); text-decoration:none;">Planting guide</a>
-                                <a data-comment="footer-downloads-link-3" href="#" style="color:var(--ink2); text-decoration:none;">Irrigation brochure</a>
-                                <a data-comment="footer-downloads-link-4" href="#" style="color:var(--ink2); text-decoration:none;">Bee guide</a>
+                                <a data-comment="footer-downloads-link-1" href="catalog.html" style="color:var(--ink2); text-decoration:none;">Catalogue</a>
+                                <a data-comment="footer-downloads-link-2" href="https://cdn.whiffletreefarmandnursery.ca/images/2026/03/260317-Whiffletree_PlantingGuide-web.pdf" target="_blank" rel="noopener" style="color:var(--ink2); text-decoration:none;">Planting guide</a>
+                                <a data-comment="footer-downloads-link-3" href="https://cdn.whiffletreefarmandnursery.ca/images/2021/10/210212_Whiffltree_IrrigationBrochure_1.pdf" target="_blank" rel="noopener" style="color:var(--ink2); text-decoration:none;">Irrigation brochure</a>
+                                <a data-comment="footer-downloads-link-4" href="https://cdn.whiffletreefarmandnursery.ca/images/2025/06/250325-Whiffletree_BeeGuide-web.pdf" target="_blank" rel="noopener" style="color:var(--ink2); text-decoration:none;">Bee guide</a>
                             </div>
                         </div>
                         <div data-comment="footer-col-links">
@@ -2545,7 +2744,7 @@
                 .adv-fab:hover { background: var(--g800); transform: translateY(-2px); }
                 .adv-fab:focus-visible { outline: 3px solid var(--g300); outline-offset: 3px; }
                 .adv-fab-mark { position: relative; width: 30px; height: 30px; border-radius: 999px; background: var(--paper1); color: var(--g700); display: flex; align-items: center; justify-content: center; font-size: 18px; }
-                .adv-fab-pulse { position: absolute; top: -3px; right: -3px; width: 12px; height: 12px; border-radius: 999px; background: var(--accent); border: 2px solid #fff; }
+                .adv-fab-pulse { position: absolute; top: -3px; right: -4px; width: 11px; height: 11px; border-radius: 3px; background: var(--accent); border: 2px solid #fff; }
 
                 /* ─── Header link (green chip) ─── */
                 .adv-header-link { display: inline-flex; align-items: center; gap: 7px; font-family: var(--sans); font-weight: 700; font-size: 15px; color: var(--g700); background: var(--g050); border: 1px solid var(--g100); border-radius: 2px; padding: 8px 14px; cursor: pointer; align-self: center; }
@@ -2824,6 +3023,7 @@
                         if (!btn || btn.classList.contains('added')) return;
                         btn.classList.add('added');
                         btn.innerHTML = '<i class="ph ph-check" aria-hidden="true"></i> Added to cart';
+                        if (window.wtCart) window.wtCart.add(btn);
                     }
 
                     // ── Open / close + focus trap ──
@@ -2997,6 +3197,9 @@
                 });
 
                 syncLabel();
+                /* Keep the visible label in sync when the value is changed programmatically
+                   (e.g. "Clear filters" resetting the native <select>). */
+                sel.addEventListener('change', syncLabel);
                 registry.push({ wrap: wrap, close: closeMenu });
             }
             document.addEventListener('click', function (e) { registry.forEach(function (d) { if (!d.wrap.contains(e.target)) d.close(); }); });
@@ -3013,5 +3216,87 @@
             else initAll();
         })();
         </script>
+            <script data-comment="members-signup-hash">
+                (function () {
+                    function openIfSignup() { if (location.hash === '#signup' && typeof openSignup === 'function') openSignup(); }
+                    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', openIfSignup);
+                    else openIfSignup();
+                })();
+            </script>
+
+            <!-- ============================================================
+                 SHARED CART FEEDBACK (byte-identical on every page)
+                 Red-dot badge + minimal fly-to-cart via Motion One.
+                 Any add-to-cart entry point calls window.wtCart.add(sourceEl).
+                 Count persists across pages in localStorage.
+                 ============================================================ -->
+            <style data-comment="wt-cart-style">
+                .cart-badge { position: absolute; top: -3px; right: -4px; width: 11px; height: 11px; border-radius: 3px; background: var(--accent, #c1502e); border: 2px solid #fff; display: none; }
+                .cart-badge.on { display: block; }
+                .wt-fly-token { position: fixed; top: 0; left: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--accent, #c1502e); box-shadow: 0 2px 8px rgba(21, 20, 15, 0.28); pointer-events: none; z-index: 4000; }
+                @media (prefers-reduced-motion: reduce) { .wt-fly-token { display: none !important; } }
+            </style>
+            <script data-comment="wt-cart-script">
+                (function () {
+                    var KEY = 'wt_cart_count';
+                    function get() { try { return parseInt(localStorage.getItem(KEY), 10) || 0; } catch (e) { return 0; } }
+                    function save(n) { try { localStorage.setItem(KEY, String(n)); } catch (e) {} }
+                    function badge() { return document.querySelector('[data-comment="header-cart-badge"]'); }
+                    function icon() { return document.querySelector('[data-comment="header-action-cart"]'); }
+                    function reduced() { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }
+                    function motion() { return window.__wtMotion && window.__wtMotion.animate; }
+                    function showBadge() { var b = badge(); if (b) b.classList.add('on'); }
+                    function popBadge() {
+                        var b = badge(); if (!b) return;
+                        b.classList.add('on');
+                        var a = motion();
+                        if (a && !reduced()) { try { a(b, { scale: [0, 1.35, 1] }, { duration: 0.42, ease: [0.22, 1, 0.36, 1] }); } catch (e) {} }
+                    }
+                    /* Minimal token that arcs from the add button to the header cart icon. */
+                    function fly(src) {
+                        var a = motion(), ic = icon();
+                        if (!a || reduced() || !src || !ic) return Promise.resolve();
+                        var s = src.getBoundingClientRect(), t = ic.getBoundingClientRect();
+                        if (!t.width || !t.height || !s.width) return Promise.resolve(); /* cart hidden (mobile) → skip flight */
+                        var x0 = s.left + s.width / 2, y0 = s.top + s.height / 2;
+                        var x1 = t.left + t.width / 2, y1 = t.top + t.height / 2;
+                        var lift = Math.min(70, Math.abs(y0 - y1) * 0.18 + 24);
+                        var tok = document.createElement('span');
+                        tok.className = 'wt-fly-token'; tok.style.transform = 'translate(' + x0 + 'px, ' + y0 + 'px)';
+                        document.body.appendChild(tok);
+                        var done = function () { if (tok.parentNode) tok.parentNode.removeChild(tok); };
+                        setTimeout(done, 900); /* safety cleanup if the animation is throttled/never finishes */
+                        try {
+                            var anim = a(tok, {
+                                x: [x0, (x0 + x1) / 2, x1],
+                                y: [y0, (y0 + y1) / 2 - lift, y1],
+                                scale: [1, 0.9, 0.28],
+                                opacity: [1, 1, 0.4]
+                            }, { duration: 0.52, ease: [0.22, 1, 0.36, 1] });
+                            var fin = (anim && anim.finished) ? anim.finished : Promise.resolve();
+                            return fin.then(done, done);
+                        } catch (e) { done(); return Promise.resolve(); }
+                    }
+                    window.wtCart = {
+                        count: get,
+                        add: function (src) {
+                            save(get() + 1);
+                            var settled = false;
+                            function pop() { if (settled) return; settled = true; popBadge(); }
+                            fly(src).then(pop, pop);
+                            setTimeout(pop, 650); /* the badge always updates, even if the flight is throttled or unsupported */
+                        },
+                        refresh: function () { if (get() > 0) showBadge(); }
+                    };
+                    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', window.wtCart.refresh);
+                    else window.wtCart.refresh();
+                })();
+            </script>
+            <script type="module" data-comment="wt-motion-module">
+                import { animate } from 'https://cdn.jsdelivr.net/npm/motion@11/+esm';
+                window.__wtMotion = { animate: animate };
+            </script>
+            <!-- Account popover: provided by shared component (assets/wt-account.js) -->
+        <script src="assets/wt-account.js"></script>
         </body>
 </html>

@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Whiffletree Farm &amp; Nursery — Orchard Care</title>
+
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700&amp;family=Mulish:wght@300;400;500;600;700;800&amp;display=swap"
+            rel="stylesheet" />
+
+        <!-- Phosphor icons (CDN) -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/light/style.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+        <link rel="stylesheet" href="assets/wt-account.css" />
+
+        <style>
+            /* Reset */
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+
+            /* Design tokens */
+            :root {
+                /* Typography */
+                --display: "Cormorant Garamond", Georgia, serif;
+                --sans: "Mulish", ui-sans-serif, system-ui, sans-serif;
+
+                /* Colors — ink / paper */
+                --ink: #15140f;
+                --ink2: #262521;
+                --muted: #57544e;
+                --subtle: #939089;
+                --paper0: #faf8f3;
+                --paper1: #f0ebe2;
+                --paper2: #e6e0d4;
+                --paper3: #dad3c5;
+                --line: #d2cabb;
+                --line-soft: #e3ddd1;
+                --line-neutral: #d5d4d0;
+
+                /* Colors — greens */
+                --g900: #093f1e;
+                --g800: #0e4c23;
+                --g700: #14682a;
+                --g600: #268b39;
+                --g500: #2f9b3c;
+                --g300: #85ac81;
+                --g200: #c1d8b6;
+                --g100: #e6f1db;
+                --g050: #f1f8ea;
+
+                /* Colors — status / accent */
+                --success: #1c7a45;
+                --warning: #b5772a;
+                --error: #e5202c;
+                /* Coral — primary accent (brand scale) */
+                --c900: #521c13;
+                --c800: #6e2519;
+                --c700: #8f3122;
+                --c600: #b23e2c;
+                --c500: #d75640;
+                --c300: #ee917d;
+                --c200: #f5bcaf;
+                --c100: #fbdfd7;
+                --c050: #fdf1ec;
+                --accent: var(--c500);
+                --accent-deep: var(--c700);
+                --accent-soft: var(--c100);
+            }
+
+            /* Newsletter input theming */
+            #gift input::placeholder {
+                color: var(--subtle);
+                opacity: 1;
+            }
+            #gift input,
+            #gift input:focus {
+                color: var(--ink);
+                -webkit-text-fill-color: var(--ink);
+                caret-color: var(--ink);
+            }
+
+            /* ============================================================
+               SHARED HOVER / FOCUS STATES (header, nav, footer, newsletter)
+               150–240ms cubic-bezier easing. Inline styles win on
+               specificity, so overridden props use !important.
+               ============================================================ */
+            a,
+            button,
+            [data-comment^="header-action-"],
+            [data-comment^="footer-social-"] {
+                transition:
+                    color 240ms cubic-bezier(0.22, 1, 0.36, 1),
+                    background-color 240ms cubic-bezier(0.22, 1, 0.36, 1),
+                    border-color 240ms cubic-bezier(0.22, 1, 0.36, 1),
+                    box-shadow 240ms cubic-bezier(0.22, 1, 0.36, 1),
+                    transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+            }
+            a i[class*="ph-arrow-right"] {
+                display: inline-block;
+                transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+            }
+            a:hover i[class*="ph-arrow-right"] {
+                transform: translateX(3px);
+            }
+
+            /* --- Header --- */
+            [data-comment^="header-nav-link-"]:hover {
+                color: var(--accent-deep) !important;
+                text-decoration: underline;
+                text-underline-offset: 5px;
+                text-decoration-thickness: 2px;
+            }
+            [data-comment^="header-action-"] {
+                box-sizing: content-box;
+                padding: 7px;
+                margin: -7px;
+                border-radius:2px;
+            }
+            [data-comment^="header-action-"]:hover {
+                color: var(--accent-deep) !important;
+                background: rgba(158, 44, 32, 0.1);
+                cursor: pointer;
+            }
+
+            /* ============================================================
+               MEGA NAVIGATION — full-bleed dropdown panels (Shop / Resources
+               / Info), identical to the home page.
+               ============================================================ */
+            .nav-item {
+                display: inline-flex;
+                align-items: center;
+                align-self: center;
+            }
+            .nav-trigger {
+                font-family: var(--sans);
+                font-weight: 600;
+                font-size: 15px;
+                color: var(--muted);
+                background: none;
+                border: none;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                height: 24px;
+                padding: 0;
+                line-height: 1;
+                position: relative;
+                text-decoration: none;
+            }
+            .nav-trigger:hover,
+            .nav-item.open .nav-trigger { text-decoration: none; }
+            .nav-trigger::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                right: 18px;
+                bottom: -5px;
+                height: 2px;
+                background: currentColor;
+                opacity: 0;
+                transition: opacity 200ms cubic-bezier(0.22, 1, 0.36, 1);
+            }
+            .nav-trigger:hover::after,
+            .nav-item.open .nav-trigger::after { opacity: 1; }
+            .nav-caret {
+                display: block;
+                flex: none;
+                transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+            }
+            .nav-item.open .nav-trigger { color: var(--accent-deep); }
+            .nav-item.open .nav-trigger .nav-caret { transform: rotate(180deg); }
+
+            .nav-panel {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 100%;
+                background: #ffffff;
+                border-top: 1px solid var(--line);
+                box-shadow: 0 22px 34px -12px rgba(20, 20, 15, 0.18);
+                display: none;
+                z-index: 30;
+            }
+            .nav-item.open .nav-panel {
+                display: block;
+                animation: navPanelIn 200ms cubic-bezier(0.22, 1, 0.36, 1);
+            }
+            @keyframes navPanelIn {
+                from { opacity: 0; transform: translateY(-6px); }
+                to   { opacity: 1; transform: none; }
+            }
+
+            .np-inner { padding: 32px 40px 40px; }
+            .np-top {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 24px;
+                padding-bottom: 18px;
+                margin-bottom: 26px;
+                border-bottom: 1px solid var(--line-soft);
+            }
+            .np-eyebrow {
+                font-family: var(--sans);
+                font-weight: 700;
+                font-size: 12.5px;
+                letter-spacing: 0.16em;
+                text-transform: uppercase;
+                color: var(--subtle);
+            }
+            .np-pill {
+                font-family: var(--sans);
+                font-weight: 700;
+                font-size: 14px;
+                color: #ffffff;
+                background: var(--accent);
+                padding: 11px 22px;
+                border-radius: 999px;
+                text-decoration: none;
+                white-space: nowrap;
+            }
+            .np-pill:hover {
+                background: var(--accent-deep);
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(158, 44, 32, 0.22);
+            }
+            .np-grid { display: grid; gap: 30px 28px; }
+            .np-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+            .np-grid--2 { grid-template-columns: repeat(2, minmax(0, 240px)); }
+            .np-grid--1 { grid-template-columns: minmax(0, 280px); }
+            .np-col { display: flex; flex-direction: column; align-items: flex-start; }
+            .np-col-head {
+                font-family: var(--sans);
+                font-weight: 700;
+                font-size: 12px;
+                letter-spacing: 0.16em;
+                text-transform: uppercase;
+                color: var(--subtle);
+                margin-bottom: 12px;
+            }
+            .np-link {
+                font-family: var(--sans);
+                font-weight: 600;
+                font-size: 15.5px;
+                color: var(--muted);
+                text-decoration: none;
+                padding: 7px 0;
+                display: inline-flex;
+                align-items: baseline;
+            }
+            .np-link:hover {
+                color: var(--accent-deep) !important;
+                text-decoration: underline;
+                text-underline-offset: 4px;
+                text-decoration-thickness: 2px;
+            }
+            .np-tag {
+                font-size: 10.5px;
+                font-weight: 700;
+                letter-spacing: 0.08em;
+                color: var(--subtle);
+                margin-left: 8px;
+            }
+            .np-seeall {
+                margin-top: 14px;
+                font-family: var(--sans);
+                font-weight: 700;
+                font-size: 14px;
+                color: var(--accent);
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                gap: 7px;
+            }
+            .np-seeall:hover { color: var(--accent-deep) !important; }
+
+            /* --- Solid accent (brick red) button --- */
+            [data-comment="newsletter-submit"]:hover {
+                background: var(--c700) !important;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(158, 44, 32, 0.22);
+            }
+
+            /* --- Footer links + social --- */
+            [data-comment^="footer-products-link-"]:hover,
+            [data-comment^="footer-downloads-link-"]:hover,
+            [data-comment^="footer-links-link-"]:hover {
+                color: var(--accent) !important;
+                text-decoration: underline;
+                text-underline-offset: 3px;
+            }
+            [data-comment="footer-legal-terms"]:hover,
+            [data-comment="footer-legal-privacy"]:hover { color: var(--accent) !important; }
+            [data-comment^="footer-social-"]:hover { color: var(--accent) !important; cursor: pointer; }
+
+            /* --- Newsletter input focus --- */
+            [data-comment="newsletter-input"]:hover { border-color: var(--subtle) !important; }
+            [data-comment="newsletter-input"]:focus { border-color: var(--g600) !important; box-shadow: 0 0 0 3px rgba(38,139,57,0.15) !important; }
+
+            /* Keyboard focus visibility */
+            a:focus-visible,
+            button:focus-visible,
+            input:focus-visible,
+            select:focus-visible,
+            [data-comment^="header-action-"]:focus-visible,
+            [data-comment^="footer-social-"]:focus-visible {
+                outline: 2px solid var(--g500);
+                outline-offset: 3px;
+                border-radius:2px;
+            }
+
+            /* ============================================================
+               CATALOG PAGE
+               ============================================================ */
+
+            /* Title band — woven paper texture */
+            [data-comment="catalog-titleband"] {
+                background:
+                    repeating-linear-gradient(90deg, rgba(255,255,255,0.35) 0 1px, transparent 1px 4px),
+                    repeating-linear-gradient(0deg, rgba(123,98,55,0.05) 0 1px, transparent 1px 4px),
+                    var(--paper2);
+                border-bottom: 1px solid var(--line);
+            }
+            /* ============================================================
+               ORCHARD CARE — GUIDE PAGE
+               ============================================================ */
+            .oc-eyebrow {
+                display: inline-flex; align-items: center; gap: 8px;
+                font-family: var(--sans); font-weight: 700; font-size: 11.5px;
+                letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent-deep);
+            }
+            .oc-eyebrow i { font-size: 15px; }
+            [data-comment="oc-head-inner"] { max-width: 760px; margin: 0 auto; padding: 58px 40px 12px; text-align: center; }
+            .oc-h1 { font-family: var(--display); font-weight: 500; font-size: 46px; line-height: 1.06; color: var(--ink); margin: 16px 0 0; }
+            .oc-byline {
+                display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center;
+                font-family: var(--sans); font-size: 13.5px; color: var(--muted); margin: 20px 0 0;
+            }
+            .oc-byline .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--g300); }
+            .oc-byline strong { color: var(--ink2); font-weight: 700; }
+            .oc-pull {
+                font-family: var(--display); font-weight: 500; font-style: italic; font-size: 25px;
+                line-height: 1.35; color: var(--g800); margin: 26px auto 0; max-width: 40ch;
+            }
+
+            /* Body shell — sticky contents + reading column */
+            [data-comment="oc-shell"] {
+                max-width: 1080px; margin: 0 auto; padding: 44px 40px 40px;
+                display: grid; grid-template-columns: 210px 1fr; gap: 56px; align-items: start;
+            }
+            .oc-toc { position: sticky; top: 110px; }
+            .oc-toc-head {
+                font-family: var(--sans); font-weight: 700; font-size: 11px;
+                letter-spacing: 0.16em; text-transform: uppercase; color: var(--subtle);
+                margin-bottom: 14px;
+            }
+            .oc-toc a {
+                display: block; font-family: var(--sans); font-size: 14px; line-height: 1.4;
+                color: var(--muted); text-decoration: none; padding: 7px 0 7px 14px;
+                border-left: 2px solid var(--line-soft); transition: color 160ms ease, border-color 160ms ease;
+            }
+            .oc-toc a:hover { color: var(--g800); border-color: var(--g300); }
+            .oc-toc a.is-active { color: var(--g900); border-color: var(--g700); font-weight: 700; }
+
+            .oc-article { min-width: 0; max-width: 720px; }
+            .oc-lead {
+                font-family: var(--sans); font-size: 18.5px; line-height: 1.7; color: var(--ink2); margin: 0;
+            }
+            .oc-h2 {
+                font-family: var(--display); font-weight: 500; font-size: 30px; line-height: 1.12;
+                color: var(--ink); margin: 42px 0 0; scroll-margin-top: 96px;
+            }
+            .oc-p { font-family: var(--sans); font-size: 16px; line-height: 1.75; color: var(--ink2); margin: 16px 0 0; }
+            .oc-p a { color: var(--accent-deep); text-decoration: underline; text-underline-offset: 2px; }
+
+            /* Numbered product intro list */
+            .oc-kit { list-style: none; display: grid; gap: 14px; margin: 20px 0 0; }
+            .oc-kit li {
+                display: flex; gap: 14px; align-items: flex-start;
+                background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 18px 20px;
+            }
+            .oc-kit .num {
+                flex: none; width: 30px; height: 30px; border-radius: 50%;
+                background: var(--g100); color: var(--g800);
+                font-family: var(--sans); font-weight: 800; font-size: 14px;
+                display: flex; align-items: center; justify-content: center;
+            }
+            .oc-kit b { font-family: var(--sans); font-weight: 700; color: var(--ink); }
+            .oc-kit p { font-family: var(--sans); font-size: 14.5px; line-height: 1.6; color: var(--muted); margin: 3px 0 0; }
+
+            /* Callouts */
+            .oc-callout {
+                display: flex; gap: 14px; align-items: flex-start;
+                border-radius: 8px; padding: 20px 22px; margin: 24px 0 0;
+            }
+            .oc-callout i { font-size: 22px; flex: none; margin-top: 1px; }
+            .oc-callout .oc-callout-title { font-family: var(--sans); font-weight: 700; font-size: 14px; letter-spacing: 0.02em; }
+            .oc-callout .oc-callout-body { font-family: var(--sans); font-size: 14.5px; line-height: 1.65; margin-top: 4px; }
+            .oc-callout--tip { background: var(--g050); border: 1px solid var(--g200); }
+            .oc-callout--tip i, .oc-callout--tip .oc-callout-title { color: var(--g800); }
+            .oc-callout--tip .oc-callout-body { color: var(--ink2); }
+            .oc-callout--warn { background: #fbf3e8; border: 1px solid #ecd6b3; }
+            .oc-callout--warn i, .oc-callout--warn .oc-callout-title { color: var(--warning); }
+            .oc-callout--warn .oc-callout-body { color: var(--ink2); }
+
+            /* Formula tables */
+            .oc-formula {
+                border: 1px solid var(--line); border-radius: 8px; overflow: hidden; margin: 18px 0 0; background: #fff;
+            }
+            .oc-formula-head {
+                display: flex; align-items: center; gap: 10px;
+                background: var(--paper0); border-bottom: 1px solid var(--line-soft); padding: 15px 20px;
+                font-family: var(--sans); font-weight: 700; font-size: 15px; color: var(--ink);
+            }
+            .oc-formula-head i { color: var(--g700); font-size: 19px; }
+            .oc-formula table { width: 100%; border-collapse: collapse; }
+            .oc-formula th {
+                text-align: left; font-family: var(--sans); font-weight: 700; font-size: 11px;
+                letter-spacing: 0.1em; text-transform: uppercase; color: var(--subtle);
+                padding: 12px 20px; border-bottom: 1px solid var(--line-soft);
+            }
+            .oc-formula td {
+                font-family: var(--sans); font-size: 14.5px; line-height: 1.55; color: var(--ink2);
+                padding: 14px 20px; border-bottom: 1px solid var(--line-soft); vertical-align: top;
+            }
+            .oc-formula tr:last-child td { border-bottom: none; }
+            .oc-formula td:first-child { font-weight: 700; color: var(--ink); width: 42%; }
+            .oc-formula td .tgt { display: block; font-weight: 400; font-size: 13px; color: var(--muted); margin-top: 3px; }
+            .oc-formula td .mix { color: var(--g800); font-weight: 700; }
+
+            /* Related CTA */
+            [data-comment="oc-related"] { background: var(--g050); border-top: 1px solid var(--line-soft); }
+            [data-comment="oc-related-inner"] { max-width: 760px; margin: 0 auto; padding: 54px 40px; text-align: center; }
+            .oc-related-title { font-family: var(--display); font-weight: 500; font-size: 30px; line-height: 1.12; color: var(--g900); margin: 0; }
+            .oc-related-text { font-family: var(--sans); font-size: 16px; line-height: 1.7; color: var(--muted); margin: 12px auto 0; max-width: 52ch; }
+            .oc-related-btn {
+                display: inline-flex; align-items: center; gap: 9px; margin-top: 22px;
+                font-family: var(--sans); font-weight: 700; font-size: 13px;
+                letter-spacing: 0.08em; text-transform: uppercase; color: #fff;
+                background: var(--c600); border-radius: 4px; padding: 15px 28px;
+                text-decoration: none; transition: background 180ms ease;
+            }
+            .oc-related-btn:hover { background: var(--c700); }
+            .oc-related-btn i { font-size: 17px; }
+            /* ============================================================
+               RESPONSIVE
+               ============================================================ */
+            [data-comment="page-root"] { overflow-x: clip; }
+
+            [data-comment="header-burger"] {
+                display: none;
+                align-self: center;
+                background: none;
+                border: none;
+                color: var(--g700);
+                font-size: 30px;
+                line-height: 1;
+                padding: 4px;
+                cursor: pointer;
+            }
+
+            /* ---- Tablet ---- */
+            @media (max-width: 1024px) {
+                [data-comment="header-inner"] { padding-left: 28px !important; padding-right: 28px !important; }
+                [data-comment="oc-head-inner"],
+                [data-comment="oc-shell"],
+                [data-comment="oc-related-inner"],
+                [data-comment="newsletter-inner"],
+                [data-comment="footer-inner"] { padding-left: 28px !important; padding-right: 28px !important; }
+            }
+
+            /* ---- Mobile & small tablet ---- */
+            @media (max-width: 900px) {
+                /* Header -> hamburger */
+                [data-comment="header-burger"] { display: inline-flex; }
+                [data-comment="header-inner"] { justify-content: flex-end !important; min-height: 72px; padding-top: 12px !important; padding-bottom: 12px !important; }
+                [data-comment="header-logo-link"] { left: 16px !important; top: 13px !important; }
+                [data-comment="header-logo"] { height: 46px !important; width: auto !important; }
+                [data-comment="header-nav"] {
+                    position: absolute; top: 100%; left: 0; right: 0;
+                    flex-direction: column !important; align-items: stretch !important;
+                    gap: 0 !important; align-self: stretch !important;
+                    background: #fff; border-bottom: 1px solid var(--line);
+                    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.12);
+                    padding: 6px 0; display: none !important;
+                }
+                [data-comment="header-root"].nav-open [data-comment="header-nav"] { display: flex !important; }
+                [data-comment^="header-nav-link-"] { padding: 14px 20px !important; height: auto !important; border-bottom: 1px solid var(--line-soft); }
+                [data-comment="header-actions"] { padding: 16px 20px !important; gap: 28px !important; justify-content: flex-start; }
+
+                /* Horizontal padding */
+                [data-comment="header-inner"],
+                [data-comment="oc-head-inner"],
+                [data-comment="oc-shell"],
+                [data-comment="oc-related-inner"],
+                [data-comment="newsletter-inner"],
+                [data-comment="footer-inner"] { padding-left: 20px !important; padding-right: 20px !important; }
+
+                /* Guide -> single column, hide sticky TOC */
+                [data-comment="oc-shell"] { grid-template-columns: 1fr !important; gap: 0 !important; }
+                .oc-toc { display: none !important; }
+                .oc-article { max-width: none; }
+
+                /* Newsletter + footer stacking */
+                [data-comment="newsletter-inner"] { grid-template-columns: 1fr !important; gap: 28px !important; }
+                [data-comment="footer-columns"] { grid-template-columns: 1fr 1fr !important; gap: 32px 24px !important; }
+                [data-comment="footer-logo"] { height: 60px !important; width: auto !important; }
+                [data-comment="newsletter-submit"] { flex: 1 1 100% !important; }
+
+                /* Heading downsizing */
+                .oc-h1 { font-size: 34px !important; }
+                .oc-h2 { font-size: 26px !important; }
+                [data-comment="newsletter-heading"] { font-size: 32px !important; }
+            }
+
+            /* Mega nav -> inline accordion on mobile */
+            @media (max-width: 900px) {
+                .nav-item { display: block; }
+                .nav-trigger {
+                    width: 100%;
+                    height: auto;
+                    justify-content: space-between;
+                    padding: 14px 20px !important;
+                    font-size: 15px;
+                    border-bottom: 1px solid var(--line-soft);
+                }
+                .nav-trigger::after { display: none; }
+                .nav-panel {
+                    position: static;
+                    box-shadow: none;
+                    border-top: none;
+                    background: var(--g050);
+                }
+                .nav-item.open .nav-panel { animation: none; }
+                .np-inner { padding: 6px 20px 14px; }
+                .np-top {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 14px;
+                    margin-bottom: 16px;
+                    padding-bottom: 16px;
+                }
+                .np-grid,
+                .np-grid--4,
+                .np-grid--2,
+                .np-grid--1 { grid-template-columns: 1fr !important; gap: 20px; }
+                .np-col-head { margin-bottom: 6px; }
+                .np-link { padding: 8px 0; }
+            }
+
+            /* ---- Small phones ---- */
+            @media (max-width: 560px) {
+                [data-comment="footer-columns"] { grid-template-columns: 1fr !important; }
+                .oc-h1 { font-size: 29px !important; }
+                .oc-lead { font-size: 17px !important; }
+            }
+        </style>
+    </head>
+    <body>
+        <div data-comment="page-root" style="background:#ffffff; font-family:var(--sans); color:var(--ink2); font-size:16px; line-height:1.6;">
+
+            <!-- ANNOUNCEMENT -->
+            <div data-comment="announcement-bar" style="background:var(--paper2); color:var(--ink); font-family:var(--sans); font-weight:500; font-size:12.5px; text-align:center; padding:10px 20px; line-height:1.5; border-bottom:1px solid var(--line);">Due to CFIA regulations we cannot ship plants outside of Canada, or fruit trees &amp; grape vines to BC.</div>
+
+            <!-- NAV -->
+            <header data-comment="header-root" style="background:#FFFFFF; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:20;">
+                <div data-comment="header-inner" style="max-width: none; width: 100%; margin: 0; padding: 16px 40px; display: flex; align-items: center; justify-content: flex-end; padding-top: 20px; padding-bottom: 20px">
+                    <a data-comment="header-logo-link" href="home.html" style="position:absolute; left:28px; top:11px; z-index:40; display:block;"><img data-comment="header-logo" src="assets/whiffletree-logo.png" alt="Whiffletree Farm &amp; Nursery" style="height: 75px; width: 239px; display:block;"></a>
+                    <nav data-comment="header-nav" style="display: flex; align-items: center; gap: 28px; font-family: var(--sans); font-weight: 600; font-size: 15px; color: var(--muted); align-self: flex-end">
+
+                        <!-- SHOP ALL — mega panel -->
+                        <div class="nav-item" data-nav-item>
+                            <button class="nav-trigger" data-comment="header-nav-link-shop" data-nav-trigger="shop" aria-expanded="false" aria-controls="nav-panel-shop" aria-haspopup="true">Shop all <svg class="nav-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                            <div class="nav-panel" id="nav-panel-shop" data-comment="nav-panel-shop" role="region" aria-label="Shop by category">
+                                <div class="np-inner">
+                                    <div class="np-top">
+                                        <span class="np-eyebrow">Explore the nursery</span>
+                                        <a class="np-pill" href="shop.html">See all categories</a>
+                                    </div>
+                                    <div class="np-grid np-grid--4">
+                                        <div class="np-col">
+                                            <span class="np-col-head">Trees</span>
+                                            <a class="np-link" href="shop.html?category=apples">Apple</a>
+                                            <a class="np-link" href="shop.html?category=pears">Pear</a>
+                                            <a class="np-link" href="shop.html?category=plums">Plum</a>
+                                            <a class="np-link" href="shop.html?category=peaches">Peach</a>
+                                            <a class="np-link" href="shop.html?category=cherries">Cherry</a>
+                                            <a class="np-link" href="shop.html?category=apricots">Apricot</a>
+                                            <a class="np-link" href="shop.html?category=nuts">Nut</a>
+                                            <a class="np-link" href="shop.html">Combo Trees</a>
+                                            <a class="np-seeall" href="shop.html?group=trees">See all trees <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                                        </div>
+                                        <div class="np-col">
+                                            <span class="np-col-head">Shrubs &amp; Plants</span>
+                                            <a class="np-link" href="shop.html?category=grapes">Grape</a>
+                                            <a class="np-link" href="shop.html?category=haskap">Haskap</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Kiwi</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Rhubarb</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Fig</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Sea Buckthorn</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Asparagus</a>
+                                            <a class="np-link" href="shop.html?category=shrubs">Goumi</a>
+                                            <a class="np-seeall" href="shop.html?category=shrubs">See all shrubs &amp; plants <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                                        </div>
+                                        <div class="np-col">
+                                            <span class="np-col-head">Berries</span>
+                                            <a class="np-link" href="shop.html?category=blueberry">Blueberry</a>
+                                            <a class="np-link" href="shop.html?category=haskap">Haskap</a>
+                                            <a class="np-link" href="shop.html?category=currant">Currant</a>
+                                            <a class="np-link" href="shop.html?category=gooseberry">Gooseberry</a>
+                                            <a class="np-link" href="shop.html?category=blackberry">Blackberry</a>
+                                            <a class="np-link" href="shop.html?category=elderberry">Elderberry</a>
+                                            <a class="np-seeall" href="shop.html?group=berries">See all berries <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                                        </div>
+                                        <div class="np-col">
+                                            <span class="np-col-head">More</span>
+                                            <a class="np-link" href="shop.html?category=roses">Roses</a>
+                                            <a class="np-link" href="shop.html?category=collector">Collector's Corner</a>
+                                            <a class="np-link" href="shop.html?category=supplies">Orchard Supplies</a>
+                                            <a class="np-link" href="shop.html?category=books">Reference Books</a>
+                                            <a class="np-link" href="shop.html">Gift Certificates</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- MEMBERS HUB — standalone link -->
+                        <a class="nav-link" data-comment="header-nav-link-members" href="members.html" style="color: var(--muted); text-decoration: none; align-self: center; height: 24px; flex-grow: 0">Members Hub</a>
+
+                        <!-- RESOURCES -->
+                        <div class="nav-item" data-nav-item>
+                            <button class="nav-trigger" data-comment="header-nav-link-resources" data-nav-trigger="resources" aria-expanded="false" aria-controls="nav-panel-resources" aria-haspopup="true">Resources <svg class="nav-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                            <div class="nav-panel" id="nav-panel-resources" data-comment="nav-panel-resources" role="region" aria-label="Resources">
+                                <div class="np-inner">
+                                    <div class="np-grid np-grid--2">
+                                        <div class="np-col">
+                                            <span class="np-col-head">Learn</span>
+                                            <a class="np-link" href="workshops.html">Workshops</a>
+                                            <a class="np-link" href="orchard-care.html">Orchard Care</a>
+                                        </div>
+                                        <div class="np-col">
+                                            <span class="np-col-head">Guides</span>
+                                            <a class="np-link" href="catalog.html">2026 Catalogue</a>
+                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2025/06/250325-Whiffletree_BeeGuide-web.pdf" target="_blank" rel="noopener">Bee Guide <span class="np-tag">PDF</span></a>
+                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2026/03/260317-Whiffletree_PlantingGuide-web.pdf" target="_blank" rel="noopener">Planting Guide <span class="np-tag">PDF</span></a>
+                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2021/10/210212_Whiffltree_IrrigationBrochure_1.pdf" target="_blank" rel="noopener">Irrigation Brochure <span class="np-tag">PDF</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- INFO -->
+                        <div class="nav-item" data-nav-item>
+                            <button class="nav-trigger" data-comment="header-nav-link-info" data-nav-trigger="info" aria-expanded="false" aria-controls="nav-panel-info" aria-haspopup="true">Info <svg class="nav-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                            <div class="nav-panel" id="nav-panel-info" data-comment="nav-panel-info" role="region" aria-label="Information">
+                                <div class="np-inner">
+                                    <div class="np-grid np-grid--1">
+                                        <div class="np-col">
+                                            <span class="np-col-head">About</span>
+                                            <a class="np-link" href="home.html#about">About Us</a>
+                                            <a class="np-link" href="home.html#about">Guarantee Policy</a>
+                                            <a class="np-link" href="home.html#about">Product FAQ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CONTACT -->
+                        <a class="nav-link" data-comment="header-nav-link-contact" href="home.html#contact" style="color: var(--muted); text-decoration: none; align-self: center; height: 24px; flex-grow: 0">Contact</a>
+
+                        <div data-comment="header-actions" style="display:flex; align-items:center; gap:20px; padding-left:8px; color:var(--muted);">
+                            <svg data-comment="header-action-search" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><circle cx="11" cy="11" r="7"></circle><line x1="16.2" y1="16.2" x2="20.5" y2="20.5"></line></svg>
+                            <svg data-comment="header-action-user" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            <svg data-comment="header-action-cart" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                        </div>
+                    </nav>
+                    <button data-comment="header-burger" aria-label="Open menu" aria-expanded="false"><i class="ph ph-list"></i></button>
+                </div>
+            </header>
+
+            <!-- ORCHARD CARE GUIDE -->
+            <main data-comment="oc-root">
+
+                <!-- ARTICLE HEADER -->
+                <section data-comment="oc-head">
+                    <div data-comment="oc-head-inner">
+                        <span class="oc-eyebrow"><i class="ph ph-leaf" aria-hidden="true"></i>Orchard Care &middot; Guide</span>
+                        <h1 class="oc-h1">Late Winter Dormant Spray to Control Pests &amp; Diseases</h1>
+                        <div class="oc-byline"><span>By <strong>Lawrence Martin</strong></span><span class="dot"></span><span>March 26, 2024</span><span class="dot"></span><span>6 min read</span></div>
+                        <p class="oc-pull">&ldquo;When an ounce of prevention is truly worth a pound of cure.&rdquo;</p>
+                    </div>
+                </section>
+
+                <!-- BODY -->
+                <div data-comment="oc-shell">
+
+                    <!-- Contents rail -->
+                    <aside class="oc-toc" aria-label="On this page">
+                        <div class="oc-toc-head">In this guide</div>
+                        <a href="#oc-kit">The dormant spray kit</a>
+                        <a href="#oc-timing">Timing is crucial</a>
+                        <a href="#oc-mixing">Mixing your spray</a>
+                        <a href="#oc-applying">Applying dormant spray</a>
+                        <a href="#oc-safe">Staying safe</a>
+                        <a href="#oc-pollinator">Pollinator friendly</a>
+                        <a href="#oc-peach">Peach leaf curl</a>
+                        <a href="#oc-formulas">Mixing formulas</a>
+                    </aside>
+
+                    <!-- Article -->
+                    <article class="oc-article">
+                        <p class="oc-lead">Many bugs and diseases overwinter on fruit trees and shrubs. Horticultural oil and liquid lime sulphur, combined, deliver a one-two knock-out punch to overwintering insects and diseases on fruit trees, shrubs and ornamentals.</p>
+                        <p class="oc-p">Our <b>Green Earth Dormant Spray Kit</b> (SKU&nbsp;735-6150) is a naturally based product and a great tool in the hands of organic gardeners who want to give their fruit trees a healthy start to the growing season &mdash; part of the going-green movement.</p>
+
+                        <h2 class="oc-h2" id="oc-kit">The Green Earth Dormant Spray Kit</h2>
+                        <p class="oc-p">The kit consists of two products that work together:</p>
+                        <ul class="oc-kit">
+                            <li><span class="num">1</span><div><b>Horticultural oil</b><p>Designed to kill overwintering insects, insect eggs and some caterpillars by coating and suffocating them.</p></div></li>
+                            <li><span class="num">2</span><div><b>Lime sulphur</b><p>Particularly effective against fungal diseases &mdash; blister and rust mites, pear scale, red mite eggs, aphid eggs, twig borers, powdery mildew, apple scab, pear rust, plum black knot and peach leaf curl. Also great for black spot on roses.</p></div></li>
+                        </ul>
+
+                        <h2 class="oc-h2" id="oc-timing">Timing is crucial</h2>
+                        <p class="oc-p">Pay careful attention to timing and apply dormant oil and lime sulphur <b>before bud break</b> &mdash; before vegetative or flowering buds begin to sprout.</p>
+                        <div class="oc-callout oc-callout--tip">
+                            <i class="ph ph-thermometer-simple" aria-hidden="true"></i>
+                            <div>
+                                <div class="oc-callout-title">Pick the right day</div>
+                                <div class="oc-callout-body">Choose a dry, frost-free day when temperatures will stay above freezing for 24&ndash;48 hours. If possible, spray in the morning so trees have ample time to dry before nightfall. Avoid spraying on a windy day.</div>
+                            </div>
+                        </div>
+
+                        <h2 class="oc-h2" id="oc-mixing">Mixing your spray</h2>
+                        <p class="oc-p">As with any product, take the time to carefully read the label and product guide, which explain how to use the product and the mixing ratios. Ratios vary according to the targeted plants, purpose and timing.</p>
+                        <p class="oc-p">To use the Green Earth Dormant Spray Kit at this time of year, mix <b>120&nbsp;ml (8&nbsp;tbsp)</b> of lime sulphur concentrate and <b>60&nbsp;ml (4&nbsp;tbsp)</b> of horticultural oil in <b>3&nbsp;litres</b> of water. Full ratios for every crop are in the formulas below.</p>
+
+                        <h2 class="oc-h2" id="oc-applying">Applying dormant spray</h2>
+                        <p class="oc-p">Hand-pump pressure sprayers, battery-pack sprayers or hose-end sprayers can all be used (see Whiffletree&rsquo;s line of sprayers, pg.&nbsp;79&ndash;80). To be effective, spray your trees thoroughly &mdash; even to the point of dripping wet.</p>
+                        <p class="oc-p">The horticultural oil must contact overwintering insects and eggs hiding in bark ridges, crevices and branch crotches; the oil covers their surface and suffocates them. When trees are dormant, the spray can be safely used on all your fruit trees.</p>
+
+                        <h2 class="oc-h2" id="oc-safe">Staying safe</h2>
+                        <p class="oc-p">The kit is easy to use and, as a naturally based product, is considered organic &mdash; but don&rsquo;t underestimate its potency.</p>
+                        <div class="oc-callout oc-callout--warn">
+                            <i class="ph ph-warning" aria-hidden="true"></i>
+                            <div>
+                                <div class="oc-callout-title">Follow all precautions</div>
+                                <div class="oc-callout-body">Wear chemical-resistant gloves, a long-sleeved shirt, long pants and eye protection, and avoid all skin contact (watch for wind and spray drift). Wash your face and hands after use. Mix only what you can use at once &mdash; once mixed with water, the spray doesn&rsquo;t keep. Because lime sulphur stains painted wood, brick, stone and concrete, cover such items before spraying nearby.</div>
+                            </div>
+                        </div>
+
+                        <h2 class="oc-h2" id="oc-pollinator">Pollinator friendly</h2>
+                        <p class="oc-p">Applying these sprays before your fruit trees and shrubs break dormancy avoids harming honey bees, butterflies and other beneficial insects, which are not yet active.</p>
+
+                        <h2 class="oc-h2" id="oc-peach">Peach leaf curl</h2>
+                        <p class="oc-p">Some common fungal diseases can only be controlled <b>preventively</b>. Peach leaf curl is a very common fungal disease that can defoliate, weaken and eventually kill peach and nectarine trees. Since the fungus overwinters on the bark and in the bud scales, the optimal time to spray is in spring before leaf break &mdash; or, at the latest, just before bloom.</p>
+                        <p class="oc-p">Both lime sulphur and copper are organic fungicides that control peach leaf curl. Anyone planting peach and nectarine trees should consider using one of these products. For more, see the <a href="https://www.omafra.gov.on.ca/IPM/english/tender/diseases-and-disorders/peachleafcurl.html" target="_blank" rel="noopener">OMAFRA guide to peach leaf curl</a>.</p>
+
+                        <h2 class="oc-h2" id="oc-formulas">Mixing formulas</h2>
+                        <p class="oc-p">Reference ratios for the dormant sprays we carry. Always confirm against the product label before mixing.</p>
+
+                        <div class="oc-formula">
+                            <div class="oc-formula-head"><i class="ph ph-flask" aria-hidden="true"></i>Green Earth Dormant Spray Kit</div>
+                            <table>
+                                <thead><tr><th>Crop &amp; target</th><th>Mix</th></tr></thead>
+                                <tbody>
+                                    <tr><td>All fruit trees<span class="tgt">Blister &amp; rust mites, pear scale, red mite &amp; aphid eggs, twig borers, powdery mildew, apple scab, pear rust, plum black knot, peach leaf curl</span></td><td><span class="mix">120&nbsp;ml (8&nbsp;tbsp) lime sulphur + 60&nbsp;ml (4&nbsp;tbsp) horticultural oil</span> in 3&nbsp;L water</td></tr>
+                                    <tr><td>Raspberry, blackberry, loganberry<span class="tgt">Rust, anthracnose, cane &amp; spur blight</span></td><td><span class="mix">1&nbsp;ml</span> in 1&nbsp;L water, when buds break</td></tr>
+                                    <tr><td>Currant &amp; gooseberry<span class="tgt">Mildew, rust, scale insects</span></td><td><span class="mix">100&nbsp;ml</span> in 1&nbsp;L water, just before buds break</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="oc-formula">
+                            <div class="oc-formula-head"><i class="ph ph-drop" aria-hidden="true"></i>Superior Dormant Oil &amp; Sulphur Spray Kit</div>
+                            <table>
+                                <tbody>
+                                    <tr><td>All fruit trees<span class="tgt">Widely available at hardware and big-box stores &mdash; very similar to the Green Earth kit</span></td><td><span class="mix">120&nbsp;ml (8&nbsp;tbsp) lime sulphur + 60&nbsp;ml (4&nbsp;tbsp) horticultural oil</span> in 3&nbsp;L water</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="oc-formula">
+                            <div class="oc-formula-head"><i class="ph ph-flask" aria-hidden="true"></i>Copper Spray &mdash; water-soluble concentrate (SKU&nbsp;735-4500)</div>
+                            <table>
+                                <thead><tr><th>Crop &amp; target</th><th>Mix</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Peaches, nectarines, almonds, apricots<span class="tgt">Prevent peach leaf curl</span></td><td><span class="mix">9&nbsp;g (1&nbsp;tbsp)</span> in 1&nbsp;L water</td></tr>
+                                    <tr><td>Apricots, almonds, peaches, nectarines, sweet &amp; sour cherries<span class="tgt">Fight canker &mdash; wait 10 days after any oil + lime sulphur spray</span></td><td><span class="mix">9&nbsp;g (1&nbsp;tbsp)</span> in 1&nbsp;L water</td></tr>
+                                    <tr><td>Apples &amp; pears<span class="tgt">Control fire blight &mdash; apply as buds swell</span></td><td><span class="mix">1.5&nbsp;g (&frac12;&nbsp;tsp)</span> in 1&nbsp;L water</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- RELATED CTA -->
+                <section data-comment="oc-related">
+                    <div data-comment="oc-related-inner">
+                        <h2 class="oc-related-title">Everything you need for the job</h2>
+                        <p class="oc-related-text">We stock dormant spray kits, sprayers and organic fungicides to keep your orchard healthy from bud break onward.</p>
+                        <a class="oc-related-btn" href="shop.html?category=supplies">Shop orchard supplies <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                    </div>
+                </section>
+            </main>
+
+            <!-- FAQ / CONTACT CTA -->
+            <section id="contact" data-comment="contact-section" style="position:relative; overflow:hidden; background:#0e4c23;">
+                <!-- background photo (section has solid --g800 as fallback) -->
+                <div data-comment="contact-bg-image" style="position: absolute; inset: 0; overflow: visible; background: url('assets/cta-blossom.png') center / cover no-repeat"></div>
+                <!-- darkening layer for text legibility -->
+                <div data-comment="contact-bg-overlay" style="position:absolute; inset:0; background:radial-gradient(ellipse 70% 80% at center, rgba(0,0,0,0.48) 0%, rgba(0,0,0,0.30) 70%);"></div>
+                <div data-comment="contact-content" style="position:relative; max-width:780px; margin:0 auto; padding:128px 40px; text-align:center;">
+                    <div data-comment="contact-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:#EAD7B4;">We’re here to help</div>
+                    <h2 data-comment="contact-heading" style="font-family:var(--display); font-weight:500; font-size:54px; line-height:1.08; color:#FFFFFF; margin:18px 0 0; text-wrap:balance;">Questions? Read our FAQ or get in touch.</h2>
+                    <p data-comment="contact-text" style="font-family:var(--sans); font-weight:400; font-size:18px; line-height:1.7; color:rgba(255,255,255,0.88); margin:20px auto 0; max-width:50ch;">New to fruit trees? We’re here to help, and we’ll do our best to answer your questions. Call us at <a data-comment="contact-phone-link" href="tel:5196691349" style="color:#FFFFFF; font-weight:700; text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.5);">519.669.1349</a> · Elora, Ontario.</p>
+                    <div data-comment="contact-cta-group" style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-top:34px;">
+                        <a data-comment="contact-cta-faq" href="#" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent-deep); background:#FFFFFF; border-radius:4px; padding:16px 32px; text-decoration:none;">Read the FAQ</a>
+                        <a data-comment="contact-cta-contact" href="#" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#FFFFFF; border:1.5px solid rgba(255,255,255,0.65); border-radius:4px; padding:14.5px 30px; text-decoration:none;">Contact us</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- READY SET GROW / NEWSLETTER -->
+            <section id="gift" data-comment="newsletter-section" style="background:var(--paper1);">
+                <div data-comment="newsletter-inner" style="max-width:none; width:100%; margin:0; padding:72px 40px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;">
+                    <div data-comment="newsletter-text">
+                        <div data-comment="newsletter-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent-deep);">Ready, set, grow!</div>
+                        <h2 data-comment="newsletter-heading" style="font-family:var(--display); font-weight:500; font-size:44px; line-height:1.08; color:var(--ink); margin:12px 0 0; max-width:18ch;">Join our mailing list</h2>
+                        <p data-comment="newsletter-subtext" style="font-family:var(--sans); font-size:16px; line-height:1.6; color:var(--muted); margin:14px 0 0; max-width:46ch;">Be first to know when the next crop is released, plus updates on events, workshops and sales from the farm.</p>
+                    </div>
+                    <form data-comment="newsletter-form" style="display:flex; gap:12px; flex-wrap:wrap;" onsubmit="return false;">
+                        <input data-comment="newsletter-input" placeholder="you@email.com" style="flex: 1; min-width: 220px; font-family: var(--sans); font-size: 15px; color: var(--ink); border: 1.5px solid var(--line); border-radius: 4px; padding: 15px 16px; outline: none; background-color: #fff">
+                        <button data-comment="newsletter-submit" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#fff; background:var(--c600); border:none; border-radius:4px; padding:15px 30px; cursor:pointer;">Subscribe</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- FOOTER -->
+            <footer data-comment="footer-root" style="background:var(--paper2); border-top:1px solid var(--line);">
+                <div data-comment="footer-inner" style="max-width:none; width:100%; margin:0; padding:64px 40px 40px;">
+                    <div data-comment="footer-columns" style="display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px;">
+                        <div data-comment="footer-brand">
+                            <div data-comment="footer-logo-wrap" style="display: inline-block; border-radius: 4px; padding: 14px 18px; padding-top: 8px; padding-bottom: 8px; padding-left: 8px; padding-right: 8px">
+                                <img data-comment="footer-logo" src="assets/whiffletree-logo.png" alt="Whiffletree Farm &amp; Nursery" style="height: 80px; width: 251px; display: block">
+                            </div>
+                            <p data-comment="footer-brand-text" style="font-family:var(--sans); font-size:14px; line-height:1.6; color:var(--muted); margin:18px 0 0; max-width:34ch;">Cold-hardy, disease-resistant bare-root fruit trees &amp; fruiting shrubs grown in Elora, Ontario. Alive and true to name.</p>
+                            <div data-comment="footer-social" style="display:flex; gap:16px; margin-top:18px; color:var(--g700);">
+                                <i data-comment="footer-social-instagram" class="ph-light ph-instagram-logo" style="font-size:22px; cursor:pointer;"></i>
+                                <i data-comment="footer-social-facebook" class="ph-light ph-facebook-logo" style="font-size:22px; cursor:pointer;"></i>
+                                <i data-comment="footer-social-youtube" class="ph-light ph-youtube-logo" style="font-size:22px; cursor:pointer;"></i>
+                            </div>
+                        </div>
+                        <div data-comment="footer-col-products">
+                            <div data-comment="footer-col-products-title" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">Products</div>
+                            <div data-comment="footer-col-products-links" style="display:flex; flex-direction:column; gap:11px; font-family:var(--sans); font-size:14.5px;">
+                                <a data-comment="footer-products-link-1" href="shop.html" style="color:var(--ink2); text-decoration:none;">All products</a>
+                                <a data-comment="footer-products-link-2" href="shop.html?category=apples" style="color:var(--ink2); text-decoration:none;">Trees</a>
+                                <a data-comment="footer-products-link-3" href="shop.html?category=shrubs" style="color:var(--ink2); text-decoration:none;">Small fruit</a>
+                                <a data-comment="footer-products-link-4" href="shop.html?category=supplies" style="color:var(--ink2); text-decoration:none;">Orchard supplies</a>
+                                <a data-comment="footer-products-link-5" href="shop.html" style="color:var(--ink2); text-decoration:none;">Reference books</a>
+                            </div>
+                        </div>
+                        <div data-comment="footer-col-downloads">
+                            <div data-comment="footer-col-downloads-title" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">Downloads</div>
+                            <div data-comment="footer-col-downloads-links" style="display:flex; flex-direction:column; gap:11px; font-family:var(--sans); font-size:14.5px;">
+                                <a data-comment="footer-downloads-link-1" href="catalog.html" style="color:var(--ink2); text-decoration:none;">Catalogue</a>
+                                <a data-comment="footer-downloads-link-2" href="https://cdn.whiffletreefarmandnursery.ca/images/2026/03/260317-Whiffletree_PlantingGuide-web.pdf" target="_blank" rel="noopener" style="color:var(--ink2); text-decoration:none;">Planting guide</a>
+                                <a data-comment="footer-downloads-link-3" href="https://cdn.whiffletreefarmandnursery.ca/images/2021/10/210212_Whiffltree_IrrigationBrochure_1.pdf" target="_blank" rel="noopener" style="color:var(--ink2); text-decoration:none;">Irrigation brochure</a>
+                                <a data-comment="footer-downloads-link-4" href="https://cdn.whiffletreefarmandnursery.ca/images/2025/06/250325-Whiffletree_BeeGuide-web.pdf" target="_blank" rel="noopener" style="color:var(--ink2); text-decoration:none;">Bee guide</a>
+                            </div>
+                        </div>
+                        <div data-comment="footer-col-links">
+                            <div data-comment="footer-col-links-title" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">Quick links</div>
+                            <div data-comment="footer-col-links-links" style="display:flex; flex-direction:column; gap:11px; font-family:var(--sans); font-size:14.5px;">
+                                <a data-comment="footer-links-link-1" href="#" style="color:var(--ink2); text-decoration:none;">My account</a>
+                                <a data-comment="footer-links-link-2" href="#" style="color:var(--ink2); text-decoration:none;">Cart</a>
+                                <a data-comment="footer-links-link-3" href="#contact" style="color:var(--ink2); text-decoration:none;">Contact</a>
+                                <a data-comment="footer-links-link-4" href="tel:5196691349" style="color:var(--ink2); text-decoration:none;">(519) 669-1349</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-comment="footer-bottom" style="border-top:1px solid var(--line); margin-top:44px; padding-top:24px; display:flex; flex-wrap:wrap; gap:14px; justify-content:space-between; font-family:var(--sans); font-size:12.5px; color:var(--muted);">
+                        <span data-comment="footer-copyright">© 2026 Whiffletree Farm &amp; Nursery Inc. All rights reserved.</span>
+                        <div data-comment="footer-legal-links" style="display:flex; gap:22px;">
+                            <a data-comment="footer-legal-terms" href="#" style="color:var(--muted); text-decoration:none;">Terms &amp; conditions</a>
+                            <a data-comment="footer-legal-privacy" href="#" style="color:var(--muted); text-decoration:none;">Privacy policy</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+
+        <script>
+            /* ============================================================
+               Navigation controller — shared with the home page.
+               ============================================================ */
+            (function () {
+                var root = document.querySelector('[data-comment="header-root"]');
+                var nav = document.querySelector('[data-comment="header-nav"]');
+                var burger = document.querySelector('[data-comment="header-burger"]');
+                if (!root || !nav) return;
+
+                var items = Array.prototype.slice.call(nav.querySelectorAll('[data-nav-item]'));
+                var isMobile = function () { return window.matchMedia('(max-width: 900px)').matches; };
+
+                function setOpen(item, open) {
+                    item.classList.toggle('open', open);
+                    var t = item.querySelector('[data-nav-trigger]');
+                    if (t) t.setAttribute('aria-expanded', open ? 'true' : 'false');
+                }
+                function closeAll(except) {
+                    items.forEach(function (it) { if (it !== except) setOpen(it, false); });
+                }
+                /* Hover-intent: a short grace period before closing, so crossing the
+                   header padding between a trigger and its panel — or brushing a
+                   neighbouring link — never slams an open panel shut. Re-entering
+                   the header (or any open panel, which lives inside it) cancels it. */
+                var closeTimer = null;
+                function cancelClose() { if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; } }
+                function scheduleClose() { cancelClose(); closeTimer = window.setTimeout(function () { closeAll(); closeTimer = null; }, 180); }
+
+                items.forEach(function (item) {
+                    var trigger = item.querySelector('[data-nav-trigger]');
+                    if (!trigger) return;
+                    item.addEventListener('mouseenter', function () {
+                        if (isMobile()) return;
+                        cancelClose();
+                        closeAll(item);
+                        setOpen(item, true);
+                    });
+                    trigger.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        var willOpen = !item.classList.contains('open');
+                        cancelClose();
+                        closeAll(item);
+                        setOpen(item, willOpen);
+                    });
+                });
+
+                nav.querySelectorAll('a[data-comment^="header-nav-link-"]').forEach(function (a) {
+                    a.addEventListener('mouseenter', function () { if (!isMobile()) scheduleClose(); });
+                });
+                var actions = nav.querySelector('[data-comment="header-actions"]');
+                if (actions) actions.addEventListener('mouseenter', function () { if (!isMobile()) scheduleClose(); });
+
+                root.addEventListener('mouseenter', function () { if (!isMobile()) cancelClose(); });
+                root.addEventListener('mouseleave', function () { if (!isMobile()) scheduleClose(); });
+                document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { cancelClose(); closeAll(); } });
+                document.addEventListener('click', function (e) { if (!root.contains(e.target)) { cancelClose(); closeAll(); } });
+
+                if (burger) {
+                    var icon = burger.querySelector('i');
+                    function closeMobile() {
+                        root.classList.remove('nav-open');
+                        burger.setAttribute('aria-expanded', 'false');
+                        if (icon) icon.className = 'ph ph-list';
+                        closeAll();
+                    }
+                    burger.addEventListener('click', function () {
+                        var open = root.classList.toggle('nav-open');
+                        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+                        if (icon) icon.className = open ? 'ph ph-x' : 'ph ph-list';
+                        if (!open) closeAll();
+                    });
+                    nav.querySelectorAll('a').forEach(function (a) {
+                        a.addEventListener('click', closeMobile);
+                    });
+                }
+            })();
+        </script>
+        <script>
+            /* ============================================================
+               Orchard Care — table-of-contents scrollspy
+               ============================================================ */
+            (function () {
+                var toc = document.querySelector('.oc-toc');
+                if (!toc) return;
+                var links = Array.prototype.slice.call(toc.querySelectorAll('a'));
+                var map = {}, headings = [];
+                links.forEach(function (a) {
+                    var id = (a.getAttribute('href') || '').slice(1);
+                    var h = id && document.getElementById(id);
+                    if (h) { map[id] = a; headings.push(h); }
+                });
+                if (!headings.length) return;
+
+                var OFFSET = 130; /* sticky header + breathing room */
+                var current = null, ticking = false;
+
+                function setActive(id) {
+                    if (id === current) return;
+                    current = id;
+                    links.forEach(function (a) { a.classList.remove('is-active'); });
+                    if (map[id]) map[id].classList.add('is-active');
+                }
+                function update() {
+                    ticking = false;
+                    var id = headings[0].id;
+                    for (var i = 0; i < headings.length; i++) {
+                        if (headings[i].getBoundingClientRect().top <= OFFSET) id = headings[i].id;
+                    }
+                    /* pinned to the last section once scrolled to the bottom */
+                    if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) {
+                        id = headings[headings.length - 1].id;
+                    }
+                    setActive(id);
+                }
+                function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+
+                window.addEventListener('scroll', onScroll, { passive: true });
+                window.addEventListener('resize', onScroll);
+
+                links.forEach(function (a) {
+                    a.addEventListener('click', function (e) {
+                        var id = (a.getAttribute('href') || '').slice(1);
+                        var h = id && document.getElementById(id);
+                        if (!h) return;
+                        e.preventDefault();
+                        h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        setActive(id);
+                        if (history.replaceState) history.replaceState(null, '', '#' + id);
+                    });
+                });
+
+                update();
+            })();
+        </script>
+            <!-- Account popover: provided by shared component (assets/wt-account.js) -->
+        <script src="assets/wt-account.js"></script>
+        </body>
+</html>

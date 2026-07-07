@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/light/style.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+        <link rel="stylesheet" href="assets/wt-account.css" />
 
         <style>
             /* Reset */
@@ -511,6 +512,7 @@
                 padding: 5px 9px;
             }
             .cat-badge--out { background: #fff; }
+            .cat-badge--in { color: #fff; background: var(--g700); border-color: transparent; }
             .cat-badge--new { color: #fff; background: var(--accent); border-color: transparent; }
             .cat-card-title {
                 font-family: var(--display);
@@ -535,6 +537,30 @@
                 color: var(--muted);
                 margin-top: 5px;
             }
+            /* Add to cart — shown only on in-stock cards (see shop-instock script). */
+            .cat-card-add {
+                margin-top: 14px;
+                width: 100%;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                font-family: var(--sans);
+                font-weight: 700;
+                font-size: 12px;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                color: #fff;
+                background: var(--c600);
+                border: none;
+                border-radius: 2px;
+                padding: 13px 16px;
+                cursor: pointer;
+                transition: background-color 160ms cubic-bezier(0.22, 1, 0.36, 1);
+            }
+            .cat-card-add:hover { background: var(--c700); }
+            .cat-card-add.added { background: var(--g700); cursor: default; }
+            .cat-card-add i { font-size: 15px; }
             /* Pagination */
             .cat-page-btn {
                 min-width: 42px;
@@ -834,18 +860,15 @@
                                         <div class="np-col">
                                             <span class="np-col-head">More</span>
                                             <a class="np-link" href="shop.html?category=roses">Roses</a>
-                                            <a class="np-link" href="shop.html">Collector's Corner</a>
+                                            <a class="np-link" href="shop.html?category=collector">Collector's Corner</a>
                                             <a class="np-link" href="shop.html?category=supplies">Orchard Supplies</a>
-                                            <a class="np-link" href="shop.html">Reference Books</a>
+                                            <a class="np-link" href="shop.html?category=books">Reference Books</a>
                                             <a class="np-link" href="shop.html">Gift Certificates</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- CATALOGUE -->
-                        <a class="nav-link" data-comment="header-nav-link-catalogue" href="catalog.html" style="color: var(--muted); text-decoration: none; align-self: center; height: 24px; flex-grow: 0">Catalogue</a>
 
                         <!-- MEMBERS HUB — standalone link -->
                         <a class="nav-link" data-comment="header-nav-link-members" href="members.html" style="color: var(--muted); text-decoration: none; align-self: center; height: 24px; flex-grow: 0">Members Hub</a>
@@ -858,15 +881,15 @@
                                     <div class="np-grid np-grid--2">
                                         <div class="np-col">
                                             <span class="np-col-head">Learn</span>
-                                            <a class="np-link" href="home.html#resources">Workshops</a>
-                                            <a class="np-link" href="home.html#resources">Orchard Care</a>
-                                            <a class="np-link" href="home.html#resources">Product FAQ</a>
+                                            <a class="np-link" href="workshops.html">Workshops</a>
+                                            <a class="np-link" href="orchard-care.html">Orchard Care</a>
                                         </div>
                                         <div class="np-col">
                                             <span class="np-col-head">Guides</span>
-                                            <a class="np-link" href="home.html#resources">Bee Guide <span class="np-tag">PDF</span></a>
-                                            <a class="np-link" href="home.html#resources">Planting Guide <span class="np-tag">PDF</span></a>
-                                            <a class="np-link" href="home.html#resources">Irrigation Brochure <span class="np-tag">PDF</span></a>
+                                            <a class="np-link" href="catalog.html">2026 Catalogue</a>
+                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2025/06/250325-Whiffletree_BeeGuide-web.pdf" target="_blank" rel="noopener">Bee Guide <span class="np-tag">PDF</span></a>
+                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2026/03/260317-Whiffletree_PlantingGuide-web.pdf" target="_blank" rel="noopener">Planting Guide <span class="np-tag">PDF</span></a>
+                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2021/10/210212_Whiffltree_IrrigationBrochure_1.pdf" target="_blank" rel="noopener">Irrigation Brochure <span class="np-tag">PDF</span></a>
                                         </div>
                                     </div>
                                 </div>
@@ -883,7 +906,7 @@
                                             <span class="np-col-head">About</span>
                                             <a class="np-link" href="home.html#about">About Us</a>
                                             <a class="np-link" href="home.html#about">Guarantee Policy</a>
-                                            <a class="np-link" href="home.html#about">My Account</a>
+                                            <a class="np-link" href="home.html#about">Product FAQ</a>
                                         </div>
                                     </div>
                                 </div>
@@ -896,7 +919,7 @@
                         <div data-comment="header-actions" style="display:flex; align-items:center; gap:20px; padding-left:8px; color:var(--muted);">
                             <svg data-comment="header-action-search" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><circle cx="11" cy="11" r="7"></circle><line x1="16.2" y1="16.2" x2="20.5" y2="20.5"></line></svg>
                             <svg data-comment="header-action-user" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                            <svg data-comment="header-action-cart" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                            <span data-comment="header-cart-wrap" style="position:relative; display:inline-flex;"><svg data-comment="header-action-cart" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span class="cart-badge" data-comment="header-cart-badge" aria-hidden="true"></span></span>
                         </div>
                     </nav>
                     <button data-comment="header-burger" aria-label="Open menu" aria-expanded="false"><i class="ph ph-list"></i></button>
@@ -909,7 +932,7 @@
                 <!-- TITLE BAND -->
                 <section data-comment="catalog-titleband">
                     <div data-comment="catalog-titleband-inner" style="max-width:1600px; margin:0 auto; padding:32px 40px; text-align:center;">
-                        <h1 data-comment="catalog-title" style="font-family:var(--display); font-weight:500; font-size:52px; line-height:1.04; color:var(--ink); margin:0;">Shop all Trees</h1>
+                        <h1 data-comment="catalog-title" style="font-family:var(--display); font-weight:500; font-size:52px; line-height:1.04; color:var(--ink); margin:0;">Shop all</h1>
                     </div>
                 </section>
 
@@ -981,6 +1004,8 @@
                                     <label class="cat-opt" data-comment="catalog-filter-cat-shrubs"><input type="checkbox" data-comment="catalog-filter-cat-shrubs-input" data-filter="category" value="shrubs">Other shrubs</label>
                                     <label class="cat-opt" data-comment="catalog-filter-cat-roses"><input type="checkbox" data-comment="catalog-filter-cat-roses-input" data-filter="category" value="roses">Roses</label>
                                     <label class="cat-opt" data-comment="catalog-filter-cat-supplies"><input type="checkbox" data-comment="catalog-filter-cat-supplies-input" data-filter="category" value="supplies">Orchard supplies</label>
+                                    <label class="cat-opt" data-comment="catalog-filter-cat-books"><input type="checkbox" data-comment="catalog-filter-cat-books-input" data-filter="category" value="books">Reference books</label>
+                                    <label class="cat-opt" data-comment="catalog-filter-cat-collector"><input type="checkbox" data-comment="catalog-filter-cat-collector-input" data-filter="category" value="collector">Collector's corner</label>
                                 </div>
                             </div>
 
@@ -1428,6 +1453,78 @@
                                     <div class="cat-card-price" data-comment="catalog-product-66-price">$21.95 CAD</div>
                                     <div class="cat-card-type" data-comment="catalog-product-66-type">Elderberry bush</div>
                                 </a>
+                                <a class="cat-card" data-comment="catalog-product-67" href="product.html" data-index="67" data-name="Grafting / Topworking Kit" data-category="supplies" data-zone="" data-harvest="" data-stock="in" data-price="34.95" data-chars="">
+                                    <div class="cat-card-media" data-comment="catalog-product-67-media"><div class="cat-card-img" data-comment="catalog-product-67-image" style="background-image:url('assets/cat-supplies.png');"></div><span class="cat-badge cat-badge--in" data-comment="catalog-product-67-badge">In stock</span></div>
+                                    <div class="cat-card-title" data-comment="catalog-product-67-title">Grafting / Topworking Kit</div>
+                                    <div class="cat-card-price" data-comment="catalog-product-67-price">$34.95 CAD</div>
+                                    <div class="cat-card-type" data-comment="catalog-product-67-type">Orchard supply</div>
+                                </a>
+                                <a class="cat-card" data-comment="catalog-product-68" href="product.html" data-index="68" data-name="Green Earth Dormant Spray Kit" data-category="supplies" data-zone="" data-harvest="" data-stock="in" data-price="34.95" data-chars="">
+                                    <div class="cat-card-media" data-comment="catalog-product-68-media"><div class="cat-card-img" data-comment="catalog-product-68-image" style="background-image:url('assets/cat-supplies.png');"></div><span class="cat-badge cat-badge--in" data-comment="catalog-product-68-badge">In stock</span></div>
+                                    <div class="cat-card-title" data-comment="catalog-product-68-title">Green Earth Dormant Spray Kit</div>
+                                    <div class="cat-card-price" data-comment="catalog-product-68-price">$34.95 CAD</div>
+                                    <div class="cat-card-type" data-comment="catalog-product-68-type">Orchard supply</div>
+                                </a>
+                                <a class="cat-card" data-comment="catalog-product-69" href="product.html" data-index="69" data-name="Bobbex Deer Repellent" data-category="supplies" data-zone="" data-harvest="" data-stock="in" data-price="44.95" data-chars="">
+                                    <div class="cat-card-media" data-comment="catalog-product-69-media"><div class="cat-card-img" data-comment="catalog-product-69-image" style="background-image:url('assets/cat-supplies.png');"></div><span class="cat-badge cat-badge--in" data-comment="catalog-product-69-badge">In stock</span></div>
+                                    <div class="cat-card-title" data-comment="catalog-product-69-title">Bobbex Deer Repellent</div>
+                                    <div class="cat-card-price" data-comment="catalog-product-69-price">$44.95 CAD</div>
+                                    <div class="cat-card-type" data-comment="catalog-product-69-type">Orchard supply</div>
+                                </a>
+                                <a class="cat-card" data-comment="catalog-product-70" href="product.html" data-index="70" data-name="Gypsy Moth Trap Kit" data-category="supplies" data-zone="" data-harvest="" data-stock="in" data-price="19.95" data-chars="">
+                                    <div class="cat-card-media" data-comment="catalog-product-70-media"><div class="cat-card-img" data-comment="catalog-product-70-image" style="background-image:url('assets/cat-supplies.png');"></div><span class="cat-badge cat-badge--in" data-comment="catalog-product-70-badge">In stock</span></div>
+                                    <div class="cat-card-title" data-comment="catalog-product-70-title">Gypsy Moth Trap Kit</div>
+                                    <div class="cat-card-price" data-comment="catalog-product-70-price">$19.95 CAD</div>
+                                    <div class="cat-card-type" data-comment="catalog-product-70-type">Orchard supply</div>
+                                </a>
+                                <a class="cat-card" data-comment="catalog-product-71" href="product.html" data-index="71" data-name="The Holistic Orchard" data-category="books" data-zone="" data-harvest="" data-stock="in" data-price="49.95" data-chars="">
+                                    <div class="cat-card-media" data-comment="catalog-product-71-media"><div class="cat-card-img" data-comment="catalog-product-71-image" style="background-image:url('assets/books.png');"></div><span class="cat-badge cat-badge--in" data-comment="catalog-product-71-badge">In stock</span></div>
+                                    <div class="cat-card-title" data-comment="catalog-product-71-title">The Holistic Orchard</div>
+                                    <div class="cat-card-price" data-comment="catalog-product-71-price">$49.95 CAD</div>
+                                    <div class="cat-card-type" data-comment="catalog-product-71-type">Reference book</div>
+                                </a>
+                                <a class="cat-card" data-comment="catalog-product-72" href="product.html" data-index="72" data-name="Grow a Little Fruit Tree" data-category="books" data-zone="" data-harvest="" data-stock="in" data-price="32.95" data-chars="">
+                                    <div class="cat-card-media" data-comment="catalog-product-72-media"><div class="cat-card-img" data-comment="catalog-product-72-image" style="background-image:url('assets/books.png');"></div><span class="cat-badge cat-badge--in" data-comment="catalog-product-72-badge">In stock</span></div>
+                                    <div class="cat-card-title" data-comment="catalog-product-72-title">Grow a Little Fruit Tree</div>
+                                    <div class="cat-card-price" data-comment="catalog-product-72-price">$32.95 CAD</div>
+                                    <div class="cat-card-type" data-comment="catalog-product-72-type">Reference book</div>
+                                </a>
+                                <a class="cat-card" data-comment="catalog-product-73" href="product.html" data-index="73" data-name="Hardy Apples: Growing Apples in Cold Climates" data-category="books" data-zone="" data-harvest="" data-stock="in" data-price="42.95" data-chars="">
+                                    <div class="cat-card-media" data-comment="catalog-product-73-media"><div class="cat-card-img" data-comment="catalog-product-73-image" style="background-image:url('assets/books.png');"></div><span class="cat-badge cat-badge--in" data-comment="catalog-product-73-badge">In stock</span></div>
+                                    <div class="cat-card-title" data-comment="catalog-product-73-title">Hardy Apples: Growing Apples in Cold Climates</div>
+                                    <div class="cat-card-price" data-comment="catalog-product-73-price">$42.95 CAD</div>
+                                    <div class="cat-card-type" data-comment="catalog-product-73-type">Reference book</div>
+                                </a>
+                                <a class="cat-card" data-comment="catalog-product-74" href="product.html" data-index="74" data-name="The Pruning Book" data-category="books" data-zone="" data-harvest="" data-stock="in" data-price="38.95" data-chars="">
+                                    <div class="cat-card-media" data-comment="catalog-product-74-media"><div class="cat-card-img" data-comment="catalog-product-74-image" style="background-image:url('assets/books.png');"></div><span class="cat-badge cat-badge--in" data-comment="catalog-product-74-badge">In stock</span></div>
+                                    <div class="cat-card-title" data-comment="catalog-product-74-title">The Pruning Book</div>
+                                    <div class="cat-card-price" data-comment="catalog-product-74-price">$38.95 CAD</div>
+                                    <div class="cat-card-type" data-comment="catalog-product-74-type">Reference book</div>
+                                </a>
+                                <a class="cat-card" data-comment="catalog-product-75" href="product.html" data-index="75" data-name="Li Jujube" data-category="collector" data-zone="5" data-harvest="oct" data-stock="out" data-price="49.95" data-chars="self-fertile">
+                                    <div class="cat-card-media" data-comment="catalog-product-75-media"><div class="cat-card-img" data-comment="catalog-product-75-image" style="background-image:url('assets/cat-shrubs.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-75-badge">Sold out</span></div>
+                                    <div class="cat-card-title" data-comment="catalog-product-75-title">Li Jujube</div>
+                                    <div class="cat-card-price" data-comment="catalog-product-75-price">$49.95 CAD</div>
+                                    <div class="cat-card-type" data-comment="catalog-product-75-type">Jujube tree</div>
+                                </a>
+                                <a class="cat-card" data-comment="catalog-product-76" href="product.html" data-index="76" data-name="Honey Jar Jujube" data-category="collector" data-zone="5" data-harvest="oct" data-stock="out" data-price="49.95" data-chars="self-fertile">
+                                    <div class="cat-card-media" data-comment="catalog-product-76-media"><div class="cat-card-img" data-comment="catalog-product-76-image" style="background-image:url('assets/cat-shrubs.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-76-badge">Sold out</span></div>
+                                    <div class="cat-card-title" data-comment="catalog-product-76-title">Honey Jar Jujube</div>
+                                    <div class="cat-card-price" data-comment="catalog-product-76-price">$49.95 CAD</div>
+                                    <div class="cat-card-type" data-comment="catalog-product-76-type">Jujube tree</div>
+                                </a>
+                                <a class="cat-card" data-comment="catalog-product-77" href="product.html" data-index="77" data-name="Sugar Cane Jujube" data-category="collector" data-zone="5" data-harvest="sep" data-stock="out" data-price="49.95" data-chars="needs-pollenizer">
+                                    <div class="cat-card-media" data-comment="catalog-product-77-media"><div class="cat-card-img" data-comment="catalog-product-77-image" style="background-image:url('assets/cat-shrubs.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-77-badge">Sold out</span></div>
+                                    <div class="cat-card-title" data-comment="catalog-product-77-title">Sugar Cane Jujube</div>
+                                    <div class="cat-card-price" data-comment="catalog-product-77-price">$49.95 CAD</div>
+                                    <div class="cat-card-type" data-comment="catalog-product-77-type">Jujube tree</div>
+                                </a>
+                                <a class="cat-card" data-comment="catalog-product-78" href="product.html" data-index="78" data-name="Lang Jujube" data-category="collector" data-zone="5" data-harvest="oct" data-stock="out" data-price="49.95" data-chars="needs-pollenizer">
+                                    <div class="cat-card-media" data-comment="catalog-product-78-media"><div class="cat-card-img" data-comment="catalog-product-78-image" style="background-image:url('assets/cat-shrubs.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-78-badge">Sold out</span></div>
+                                    <div class="cat-card-title" data-comment="catalog-product-78-title">Lang Jujube</div>
+                                    <div class="cat-card-price" data-comment="catalog-product-78-price">$49.95 CAD</div>
+                                    <div class="cat-card-type" data-comment="catalog-product-78-type">Jujube tree</div>
+                                </a>
                             </div>
 
                             <!-- EMPTY STATE -->
@@ -1514,10 +1611,10 @@
                         <div data-comment="footer-col-downloads">
                             <div data-comment="footer-col-downloads-title" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">Downloads</div>
                             <div data-comment="footer-col-downloads-links" style="display:flex; flex-direction:column; gap:11px; font-family:var(--sans); font-size:14.5px;">
-                                <a data-comment="footer-downloads-link-1" href="#" style="color:var(--ink2); text-decoration:none;">Catalogue</a>
-                                <a data-comment="footer-downloads-link-2" href="#" style="color:var(--ink2); text-decoration:none;">Planting guide</a>
-                                <a data-comment="footer-downloads-link-3" href="#" style="color:var(--ink2); text-decoration:none;">Irrigation brochure</a>
-                                <a data-comment="footer-downloads-link-4" href="#" style="color:var(--ink2); text-decoration:none;">Bee guide</a>
+                                <a data-comment="footer-downloads-link-1" href="catalog.html" style="color:var(--ink2); text-decoration:none;">Catalogue</a>
+                                <a data-comment="footer-downloads-link-2" href="https://cdn.whiffletreefarmandnursery.ca/images/2026/03/260317-Whiffletree_PlantingGuide-web.pdf" target="_blank" rel="noopener" style="color:var(--ink2); text-decoration:none;">Planting guide</a>
+                                <a data-comment="footer-downloads-link-3" href="https://cdn.whiffletreefarmandnursery.ca/images/2021/10/210212_Whiffltree_IrrigationBrochure_1.pdf" target="_blank" rel="noopener" style="color:var(--ink2); text-decoration:none;">Irrigation brochure</a>
+                                <a data-comment="footer-downloads-link-4" href="https://cdn.whiffletreefarmandnursery.ca/images/2025/06/250325-Whiffletree_BeeGuide-web.pdf" target="_blank" rel="noopener" style="color:var(--ink2); text-decoration:none;">Bee guide</a>
                             </div>
                         </div>
                         <div data-comment="footer-col-links">
@@ -1644,7 +1741,7 @@
                 /* Human-readable labels for active-filter chips */
                 var LABELS = {
                     stock: { in: 'In stock', out: 'Sold out' },
-                    category: { apples: 'Apples', pears: 'Pears', plums: 'Plums', cherries: 'Cherries', peaches: 'Peaches', apricots: 'Apricots', nuts: 'Nut trees', grapes: 'Grapes', blueberry: 'Blueberries', haskap: 'Haskap', currant: 'Currants', gooseberry: 'Gooseberries', blackberry: 'Blackberries', elderberry: 'Elderberries', shrubs: 'Other shrubs', roses: 'Roses', supplies: 'Orchard supplies' },
+                    category: { apples: 'Apples', pears: 'Pears', plums: 'Plums', cherries: 'Cherries', peaches: 'Peaches', apricots: 'Apricots', nuts: 'Nut trees', grapes: 'Grapes', blueberry: 'Blueberries', haskap: 'Haskap', currant: 'Currants', gooseberry: 'Gooseberries', blackberry: 'Blackberries', elderberry: 'Elderberries', shrubs: 'Other shrubs', roses: 'Roses', supplies: 'Orchard supplies', books: 'Reference books', collector: "Collector's corner" },
                     zone: { '3': 'Zone 3', '4': 'Zone 4', '5': 'Zone 5' },
                     harvest: { jul: 'July', aug: 'August', sep: 'September', oct: 'October' },
                     chars: { 'cold-hardy': 'Cold-hardy', 'disease-resistant': 'Disease-resistant', 'self-fertile': 'Self-fertile', 'needs-pollenizer': 'Needs a pollenizer' }
@@ -1824,7 +1921,7 @@
                 .adv-fab:hover { background: var(--g800); transform: translateY(-2px); }
                 .adv-fab:focus-visible { outline: 3px solid var(--g300); outline-offset: 3px; }
                 .adv-fab-mark { position: relative; width: 30px; height: 30px; border-radius: 999px; background: var(--paper1); color: var(--g700); display: flex; align-items: center; justify-content: center; font-size: 18px; }
-                .adv-fab-pulse { position: absolute; top: -3px; right: -3px; width: 12px; height: 12px; border-radius: 999px; background: var(--accent); border: 2px solid #fff; }
+                .adv-fab-pulse { position: absolute; top: -3px; right: -4px; width: 11px; height: 11px; border-radius: 3px; background: var(--accent); border: 2px solid #fff; }
 
                 /* ─── Header link (green chip) ─── */
                 .adv-header-link { display: inline-flex; align-items: center; gap: 7px; font-family: var(--sans); font-weight: 700; font-size: 15px; color: var(--g700); background: var(--g050); border: 1px solid var(--g100); border-radius: 2px; padding: 8px 14px; cursor: pointer; align-self: center; }
@@ -2103,6 +2200,7 @@
                         if (!btn || btn.classList.contains('added')) return;
                         btn.classList.add('added');
                         btn.innerHTML = '<i class="ph ph-check" aria-hidden="true"></i> Added to cart';
+                        if (window.wtCart) window.wtCart.add(btn);
                     }
 
                     // ── Open / close + focus trap ──
@@ -2287,5 +2385,113 @@
             else initAll();
         })();
         </script>
+            <!-- Account popover: provided by shared component (assets/wt-account.js) -->
+        <script src="assets/wt-account.js"></script>
+
+            <!-- Shop demo: mark a few products in-stock and give them a working Add to cart. -->
+            <script data-comment="shop-instock-script">
+                (function () {
+                    var IN_STOCK = [5, 8, 17, 20, 30, 44, 49]; /* demo availability — the rest stay Sold out */
+                    function wtShopAdd(btn) {
+                        if (!btn || btn.classList.contains('added')) return;
+                        btn.classList.add('added');
+                        btn.innerHTML = '<i class="ph ph-check" aria-hidden="true"></i> Added';
+                        if (window.wtCart) window.wtCart.add(btn);
+                    }
+                    window.wtShopAdd = wtShopAdd;
+                    function init() {
+                        IN_STOCK.forEach(function (n) {
+                            var card = document.querySelector('[data-comment="catalog-product-' + n + '"]');
+                            if (!card) return;
+                            card.setAttribute('data-stock', 'in');
+                            var badge = card.querySelector('[data-comment="catalog-product-' + n + '-badge"]');
+                            if (badge) badge.parentNode.removeChild(badge);
+                            if (card.querySelector('.cat-card-add')) return;
+                            var btn = document.createElement('button');
+                            btn.className = 'cat-card-add';
+                            btn.type = 'button';
+                            btn.setAttribute('data-comment', 'catalog-product-' + n + '-add');
+                            btn.innerHTML = '<i class="ph ph-shopping-bag" aria-hidden="true"></i> Add to cart';
+                            btn.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); wtShopAdd(btn); });
+                            card.appendChild(btn);
+                        });
+                    }
+                    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+                    else init();
+                })();
+            </script>
+
+            <!-- ============================================================
+                 SHARED CART FEEDBACK (byte-identical on every page)
+                 Red-dot badge + minimal fly-to-cart via Motion One.
+                 Any add-to-cart entry point calls window.wtCart.add(sourceEl).
+                 Count persists across pages in localStorage.
+                 ============================================================ -->
+            <style data-comment="wt-cart-style">
+                .cart-badge { position: absolute; top: -3px; right: -4px; width: 11px; height: 11px; border-radius: 3px; background: var(--accent, #c1502e); border: 2px solid #fff; display: none; }
+                .cart-badge.on { display: block; }
+                .wt-fly-token { position: fixed; top: 0; left: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--accent, #c1502e); box-shadow: 0 2px 8px rgba(21, 20, 15, 0.28); pointer-events: none; z-index: 4000; }
+                @media (prefers-reduced-motion: reduce) { .wt-fly-token { display: none !important; } }
+            </style>
+            <script data-comment="wt-cart-script">
+                (function () {
+                    var KEY = 'wt_cart_count';
+                    function get() { try { return parseInt(localStorage.getItem(KEY), 10) || 0; } catch (e) { return 0; } }
+                    function save(n) { try { localStorage.setItem(KEY, String(n)); } catch (e) {} }
+                    function badge() { return document.querySelector('[data-comment="header-cart-badge"]'); }
+                    function icon() { return document.querySelector('[data-comment="header-action-cart"]'); }
+                    function reduced() { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }
+                    function motion() { return window.__wtMotion && window.__wtMotion.animate; }
+                    function showBadge() { var b = badge(); if (b) b.classList.add('on'); }
+                    function popBadge() {
+                        var b = badge(); if (!b) return;
+                        b.classList.add('on');
+                        var a = motion();
+                        if (a && !reduced()) { try { a(b, { scale: [0, 1.35, 1] }, { duration: 0.42, ease: [0.22, 1, 0.36, 1] }); } catch (e) {} }
+                    }
+                    /* Minimal token that arcs from the add button to the header cart icon. */
+                    function fly(src) {
+                        var a = motion(), ic = icon();
+                        if (!a || reduced() || !src || !ic) return Promise.resolve();
+                        var s = src.getBoundingClientRect(), t = ic.getBoundingClientRect();
+                        if (!t.width || !t.height || !s.width) return Promise.resolve(); /* cart hidden (mobile) → skip flight */
+                        var x0 = s.left + s.width / 2, y0 = s.top + s.height / 2;
+                        var x1 = t.left + t.width / 2, y1 = t.top + t.height / 2;
+                        var lift = Math.min(70, Math.abs(y0 - y1) * 0.18 + 24);
+                        var tok = document.createElement('span');
+                        tok.className = 'wt-fly-token'; tok.style.transform = 'translate(' + x0 + 'px, ' + y0 + 'px)';
+                        document.body.appendChild(tok);
+                        var done = function () { if (tok.parentNode) tok.parentNode.removeChild(tok); };
+                        setTimeout(done, 900); /* safety cleanup if the animation is throttled/never finishes */
+                        try {
+                            var anim = a(tok, {
+                                x: [x0, (x0 + x1) / 2, x1],
+                                y: [y0, (y0 + y1) / 2 - lift, y1],
+                                scale: [1, 0.9, 0.28],
+                                opacity: [1, 1, 0.4]
+                            }, { duration: 0.52, ease: [0.22, 1, 0.36, 1] });
+                            var fin = (anim && anim.finished) ? anim.finished : Promise.resolve();
+                            return fin.then(done, done);
+                        } catch (e) { done(); return Promise.resolve(); }
+                    }
+                    window.wtCart = {
+                        count: get,
+                        add: function (src) {
+                            save(get() + 1);
+                            var settled = false;
+                            function pop() { if (settled) return; settled = true; popBadge(); }
+                            fly(src).then(pop, pop);
+                            setTimeout(pop, 650); /* the badge always updates, even if the flight is throttled or unsupported */
+                        },
+                        refresh: function () { if (get() > 0) showBadge(); }
+                    };
+                    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', window.wtCart.refresh);
+                    else window.wtCart.refresh();
+                })();
+            </script>
+            <script type="module" data-comment="wt-motion-module">
+                import { animate } from 'https://cdn.jsdelivr.net/npm/motion@11/+esm';
+                window.__wtMotion = { animate: animate };
+            </script>
         </body>
 </html>
