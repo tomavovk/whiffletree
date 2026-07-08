@@ -9,7 +9,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700&amp;family=Mulish:wght@300;400;500;600;700;800&amp;display=swap"
+            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700&amp;family=Mulish:wght@300;400;500;600;700;800&amp;display=block"
             rel="stylesheet" />
 
         <!-- Phosphor icons (CDN) -->
@@ -124,7 +124,18 @@
 .wta-toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%) translateY(10px); display: flex; align-items: center; gap: 10px; background: var(--ink, #15140f); color: #fff; font-family: var(--sans, sans-serif); font-size: 14px; font-weight: 600; padding: 13px 20px; border-radius: 2px; box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3); opacity: 0; pointer-events: none; transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1), transform 220ms cubic-bezier(0.22, 1, 0.36, 1); z-index: 1400; }
 .wta-toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
 .wta-toast i { color: var(--g300, #8fce9b); font-size: 18px; }
-        </style>
+                    /* Icon button — design-system component. States: hover / focus-visible / active / disabled. */
+            .icon-btn { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; padding:0; border:1.5px solid var(--line); border-radius:2px; background:#fff; color:var(--g700); cursor:pointer; position:relative; text-decoration:none; -webkit-appearance:none; appearance:none; transition:background-color 150ms cubic-bezier(0.2,0,0,1), border-color 150ms cubic-bezier(0.2,0,0,1), color 150ms cubic-bezier(0.2,0,0,1); }
+            .icon-btn i { font-size:20px; line-height:1; }
+            .icon-btn:hover { background:var(--paper1); border-color:var(--subtle); }
+            .icon-btn:active { background:var(--paper2); }
+            .icon-btn:focus-visible { outline:2px solid var(--g700); outline-offset:2px; }
+            .icon-btn:disabled, .icon-btn[aria-disabled="true"] { color:var(--subtle); background:var(--paper2); border-color:var(--line); cursor:not-allowed; }
+            .icon-btn--ghost { width:auto; height:auto; padding:7px; border-color:transparent; background:transparent; color:inherit; }
+            .icon-btn--ghost i { font-size:22px; }
+            .icon-btn--ghost:hover { background:var(--paper1); border-color:transparent; }
+            .icon-btn--ghost:active { background:var(--paper2); }
+</style>
 
         <style>
             /* Reset */
@@ -722,53 +733,51 @@
                             <div class="nav-panel" id="nav-panel-shop" data-comment="nav-panel-shop" role="region" aria-label="Shop by category">
                                 <div class="np-inner">
                                     <div class="np-top">
-                                        <span class="np-eyebrow">Explore the nursery</span>
-                                        <a class="np-pill" href="#shop">See all categories</a>
+                                        <span class="np-eyebrow" data-comment="navp-shop-eyebrow">Explore the nursery</span>
+                                        <a class="np-pill" href="shop.html" data-comment="navp-shop-allcats">See all categories</a>
                                     </div>
                                     <div class="np-grid np-grid--4">
                                         <div class="np-col">
-                                            <span class="np-col-head">Trees</span>
-                                            <a class="np-link" href="#">Apple</a>
-                                            <a class="np-link" href="#">Pear</a>
-                                            <a class="np-link" href="#">Plum</a>
-                                            <a class="np-link" href="#">Peach</a>
-                                            <a class="np-link" href="#">Cherry</a>
-                                            <a class="np-link" href="#">Apricot</a>
-                                            <a class="np-link" href="#">Nut</a>
-                                            <a class="np-link" href="#">Combo Trees</a>
-                                            <a class="np-seeall" href="#">See all trees <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                                            <span class="np-col-head" data-comment="navp-shop-head-trees">Trees</span>
+                                            <a class="np-link" href="shop.html?category=apples" data-comment="navp-shop-trees-apple">Apple</a>
+                                            <a class="np-link" href="shop.html?category=pears" data-comment="navp-shop-trees-pear">Pear</a>
+                                            <a class="np-link" href="shop.html?category=plums" data-comment="navp-shop-trees-plum">Plum</a>
+                                            <a class="np-link" href="shop.html?category=peaches" data-comment="navp-shop-trees-peach">Peach</a>
+                                            <a class="np-link" href="shop.html?category=cherries" data-comment="navp-shop-trees-cherry">Cherry</a>
+                                            <a class="np-link" href="shop.html?category=apricots" data-comment="navp-shop-trees-apricot">Apricot</a>
+                                            <a class="np-link" href="shop.html?category=nuts" data-comment="navp-shop-trees-nut">Nut</a>
+                                            <a class="np-link" href="shop.html" data-comment="navp-shop-trees-combo-trees">Combo Trees</a>
+                                            <a class="np-seeall" href="shop.html?group=trees" data-comment="navp-shop-trees-seeall">See all trees <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
                                         </div>
                                         <div class="np-col">
-                                            <span class="np-col-head">Shrubs &amp; Plants</span>
-                                            <a class="np-link" href="#">Grape</a>
-                                            <a class="np-link" href="#">Haskap</a>
-                                            <a class="np-link" href="#">Kiwi</a>
-                                            <a class="np-link" href="#">Rhubarb</a>
-                                            <a class="np-link" href="#">Fig</a>
-                                            <a class="np-link" href="#">Sea Buckthorn</a>
-                                            <a class="np-link" href="#">Asparagus</a>
-                                            <a class="np-link" href="#">Goumi</a>
-                                            <a class="np-seeall" href="#">See all shrubs &amp; plants <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                                            <span class="np-col-head" data-comment="navp-shop-head-shrubs-and-plants">Shrubs &amp; Plants</span>
+                                            <a class="np-link" href="shop.html?category=grapes" data-comment="navp-shop-shrubs-and-plants-grape">Grape</a>
+                                            <a class="np-link" href="shop.html?category=haskap" data-comment="navp-shop-shrubs-and-plants-haskap">Haskap</a>
+                                            <a class="np-link" href="shop.html?category=shrubs" data-comment="navp-shop-shrubs-and-plants-kiwi">Kiwi</a>
+                                            <a class="np-link" href="shop.html?category=shrubs" data-comment="navp-shop-shrubs-and-plants-rhubarb">Rhubarb</a>
+                                            <a class="np-link" href="shop.html?category=shrubs" data-comment="navp-shop-shrubs-and-plants-fig">Fig</a>
+                                            <a class="np-link" href="shop.html?category=shrubs" data-comment="navp-shop-shrubs-and-plants-sea-buckthorn">Sea Buckthorn</a>
+                                            <a class="np-link" href="shop.html?category=shrubs" data-comment="navp-shop-shrubs-and-plants-asparagus">Asparagus</a>
+                                            <a class="np-link" href="shop.html?category=shrubs" data-comment="navp-shop-shrubs-and-plants-goumi">Goumi</a>
+                                            <a class="np-seeall" href="shop.html?category=shrubs" data-comment="navp-shop-shrubs-and-plants-seeall">See all shrubs &amp; plants <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
                                         </div>
                                         <div class="np-col">
-                                            <span class="np-col-head">Berries</span>
-                                            <a class="np-link" href="#">Blueberry</a>
-                                            <a class="np-link" href="#">Raspberry</a>
-                                            <a class="np-link" href="#">Strawberry</a>
-                                            <a class="np-link" href="#">Currant</a>
-                                            <a class="np-link" href="#">Saskatoon Berry</a>
-                                            <a class="np-link" href="#">Elderberry</a>
-                                            <a class="np-link" href="#">Gooseberry</a>
-                                            <a class="np-link" href="#">Blackberry</a>
-                                            <a class="np-seeall" href="#">See all berries <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                                            <span class="np-col-head" data-comment="navp-shop-head-berries">Berries</span>
+                                            <a class="np-link" href="shop.html?category=blueberry" data-comment="navp-shop-berries-blueberry">Blueberry</a>
+                                            <a class="np-link" href="shop.html?category=haskap" data-comment="navp-shop-berries-haskap">Haskap</a>
+                                            <a class="np-link" href="shop.html?category=currant" data-comment="navp-shop-berries-currant">Currant</a>
+                                            <a class="np-link" href="shop.html?category=gooseberry" data-comment="navp-shop-berries-gooseberry">Gooseberry</a>
+                                            <a class="np-link" href="shop.html?category=blackberry" data-comment="navp-shop-berries-blackberry">Blackberry</a>
+                                            <a class="np-link" href="shop.html?category=elderberry" data-comment="navp-shop-berries-elderberry">Elderberry</a>
+                                            <a class="np-seeall" href="shop.html?group=berries" data-comment="navp-shop-berries-seeall">See all berries <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
                                         </div>
                                         <div class="np-col">
-                                            <span class="np-col-head">More</span>
-                                            <a class="np-link" href="#">Roses</a>
-                                            <a class="np-link" href="shop.html?category=collector">Collector's Corner</a>
-                                            <a class="np-link" href="shop.html?category=supplies">Orchard Supplies</a>
-                                            <a class="np-link" href="shop.html?category=books">Reference Books</a>
-                                            <a class="np-link" href="#">Gift Certificates</a>
+                                            <span class="np-col-head" data-comment="navp-shop-head-more">More</span>
+                                            <a class="np-link" href="shop.html?category=roses" data-comment="navp-shop-more-roses">Roses</a>
+                                            <a class="np-link" href="shop.html?category=collector" data-comment="navp-shop-more-collector-s-corner">Collector's Corner</a>
+                                            <a class="np-link" href="shop.html?category=supplies" data-comment="navp-shop-more-orchard-supplies">Orchard Supplies</a>
+                                            <a class="np-link" href="shop.html?category=books" data-comment="navp-shop-more-reference-books">Reference Books</a>
+                                            <a class="np-link" href="shop.html" data-comment="navp-shop-more-gift-certificates">Gift Certificates</a>
                                         </div>
                                     </div>
                                 </div>
@@ -785,16 +794,16 @@
                                 <div class="np-inner">
                                     <div class="np-grid np-grid--2">
                                         <div class="np-col">
-                                            <span class="np-col-head">Learn</span>
-                                            <a class="np-link" href="workshops.html">Workshops</a>
-                                            <a class="np-link" href="orchard-care.html">Orchard Care</a>
+                                            <span class="np-col-head" data-comment="navp-res-head-learn">Learn</span>
+                                            <a class="np-link" href="workshops.html" data-comment="navp-res-learn-workshops">Workshops</a>
+                                            <a class="np-link" href="orchard-care.html" data-comment="navp-res-learn-orchard-care">Orchard Care</a>
                                         </div>
                                         <div class="np-col">
-                                            <span class="np-col-head">Guides</span>
-                                            <a class="np-link" href="catalog.html">2026 Catalogue</a>
-                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2025/06/250325-Whiffletree_BeeGuide-web.pdf" target="_blank" rel="noopener">Bee Guide <span class="np-tag">PDF</span></a>
-                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2026/03/260317-Whiffletree_PlantingGuide-web.pdf" target="_blank" rel="noopener">Planting Guide <span class="np-tag">PDF</span></a>
-                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2021/10/210212_Whiffltree_IrrigationBrochure_1.pdf" target="_blank" rel="noopener">Irrigation Brochure <span class="np-tag">PDF</span></a>
+                                            <span class="np-col-head" data-comment="navp-res-head-guides">Guides</span>
+                                            <a class="np-link" href="catalog.html" data-comment="navp-res-guides-2026-catalogue">2026 Catalogue</a>
+                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2025/06/250325-Whiffletree_BeeGuide-web.pdf" target="_blank" rel="noopener" data-comment="navp-res-guides-bee-guide-pdf">Bee Guide <span class="np-tag">PDF</span></a>
+                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2026/03/260317-Whiffletree_PlantingGuide-web.pdf" target="_blank" rel="noopener" data-comment="navp-res-guides-planting-guide-pdf">Planting Guide <span class="np-tag">PDF</span></a>
+                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2021/10/210212_Whiffltree_IrrigationBrochure_1.pdf" target="_blank" rel="noopener" data-comment="navp-res-guides-irrigation-brochure-pdf">Irrigation Brochure <span class="np-tag">PDF</span></a>
                                         </div>
                                     </div>
                                 </div>
@@ -808,10 +817,10 @@
                                 <div class="np-inner">
                                     <div class="np-grid np-grid--1">
                                         <div class="np-col">
-                                            <span class="np-col-head">About</span>
-                                            <a class="np-link" href="#">About Us</a>
-                                            <a class="np-link" href="#">Guarantee Policy</a>
-                                            <a class="np-link" href="#">Product FAQ</a>
+                                            <span class="np-col-head" data-comment="navp-info-head-about">About</span>
+                                            <a class="np-link" href="home.html#about" data-comment="navp-info-about-about-us">About Us</a>
+                                            <a class="np-link" href="home.html#about" data-comment="navp-info-about-guarantee-policy">Guarantee Policy</a>
+                                            <a class="np-link" href="home.html#about" data-comment="navp-info-about-product-faq">Product FAQ</a>
                                         </div>
                                     </div>
                                 </div>
@@ -822,9 +831,9 @@
                         <a class="nav-link" data-comment="header-nav-link-contact" href="#contact" style="color: var(--muted); text-decoration: none; align-self: center; height: 24px; flex-grow: 0">Contact</a>
 
                         <div data-comment="header-actions" style="display:flex; align-items:center; gap:20px; padding-left:8px; color:var(--muted);">
-                            <svg data-comment="header-action-search" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><circle cx="11" cy="11" r="7"></circle><line x1="16.2" y1="16.2" x2="20.5" y2="20.5"></line></svg>
-                            <svg data-comment="header-action-user" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                            <span data-comment="header-cart-wrap" style="position:relative; display:inline-flex;"><svg data-comment="header-action-cart" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span class="cart-badge" data-comment="header-cart-badge" aria-hidden="true"></span></span>
+                            <button type="button" data-comment="header-action-search" class="icon-btn icon-btn--ghost" aria-label="Search"><i class="ph ph-magnifying-glass" aria-hidden="true"></i></button>
+                            <span data-comment="header-action-user" class="icon-btn icon-btn--ghost"><i class="ph ph-user" aria-hidden="true"></i></span>
+                            <span data-comment="header-cart-wrap" style="position:relative; display:inline-flex;"><button type="button" data-comment="header-action-cart" class="icon-btn icon-btn--ghost" aria-label="Cart"><i class="ph ph-shopping-bag" aria-hidden="true"></i></button><span class="cart-badge" data-comment="header-cart-badge" aria-hidden="true"></span></span>
                         </div>
                     </nav>
                     <button data-comment="header-burger" aria-label="Open menu" aria-expanded="false"><i class="ph ph-list"></i></button>
@@ -1216,7 +1225,7 @@
                     <p data-comment="contact-text" style="font-family:var(--sans); font-weight:400; font-size:18px; line-height:1.7; color:rgba(255,255,255,0.88); margin:20px auto 0; max-width:50ch;">New to fruit trees? We’re here to help, and we’ll do our best to answer your questions. Call us at <a data-comment="contact-phone-link" href="tel:5196691349" style="color:#FFFFFF; font-weight:700; text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.5);">519.669.1349</a> · Elora, Ontario.</p>
                     <div data-comment="contact-cta-group" style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-top:34px;">
                         <a data-comment="contact-cta-faq" href="#" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent-deep); background:#FFFFFF; border-radius:4px; padding:16px 32px; text-decoration:none;">Read the FAQ</a>
-                        <a data-comment="contact-cta-contact" href="#" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#FFFFFF; border:1.5px solid rgba(255,255,255,0.65); border-radius:4px; padding:14.5px 30px; text-decoration:none;">Contact us</a>
+                        <a data-comment="contact-cta-contact" href="home.html#contact" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#FFFFFF; border:1.5px solid rgba(255,255,255,0.65); border-radius:4px; padding:14.5px 30px; text-decoration:none;">Contact us</a>
                     </div>
                 </div>
             </section>
@@ -1246,9 +1255,9 @@
                             </div>
                             <p data-comment="footer-brand-text" style="font-family:var(--sans); font-size:14px; line-height:1.6; color:var(--muted); margin:18px 0 0; max-width:34ch;">Cold-hardy, disease-resistant bare-root fruit trees &amp; fruiting shrubs grown in Elora, Ontario. Alive and true to name.</p>
                             <div data-comment="footer-social" style="display:flex; gap:16px; margin-top:18px; color:var(--g700);">
-                                <i data-comment="footer-social-instagram" class="ph-light ph-instagram-logo" style="font-size:22px; cursor:pointer;"></i>
-                                <i data-comment="footer-social-facebook" class="ph-light ph-facebook-logo" style="font-size:22px; cursor:pointer;"></i>
-                                <i data-comment="footer-social-youtube" class="ph-light ph-youtube-logo" style="font-size:22px; cursor:pointer;"></i>
+                                <a data-comment="footer-social-instagram" class="icon-btn icon-btn--ghost" href="https://www.instagram.com/whiffletree_farm_nursery/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="ph ph-instagram-logo" aria-hidden="true"></i></a>
+                                <a data-comment="footer-social-facebook" class="icon-btn icon-btn--ghost" href="https://www.facebook.com/profile.php?id=61587735922605" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="ph ph-facebook-logo" aria-hidden="true"></i></a>
+                                <a data-comment="footer-social-youtube" class="icon-btn icon-btn--ghost" href="https://www.youtube.com/@WhiffletreeFarmandNursery" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="ph ph-youtube-logo" aria-hidden="true"></i></a>
                             </div>
                         </div>
                         <div data-comment="footer-col-products">
@@ -1273,7 +1282,7 @@
                         <div data-comment="footer-col-links">
                             <div data-comment="footer-col-links-title" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">Quick links</div>
                             <div data-comment="footer-col-links-links" style="display:flex; flex-direction:column; gap:11px; font-family:var(--sans); font-size:14.5px;">
-                                <a data-comment="footer-links-link-1" href="#" style="color:var(--ink2); text-decoration:none;">My account</a>
+                                <a data-comment="footer-links-link-1" href="account.html" style="color:var(--ink2); text-decoration:none;">My account</a>
                                 <a data-comment="footer-links-link-2" href="#" style="color:var(--ink2); text-decoration:none;">Cart</a>
                                 <a data-comment="footer-links-link-3" href="#contact" style="color:var(--ink2); text-decoration:none;">Contact</a>
                                 <a data-comment="footer-links-link-4" href="tel:5196691349" style="color:var(--ink2); text-decoration:none;">(519) 669-1349</a>
