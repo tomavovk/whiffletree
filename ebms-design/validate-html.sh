@@ -1,118 +1,177 @@
 #!/bin/bash
 # validate-html.sh — Validates HTML files for EBMS review platform rules
 # Usage: ./validate-html.sh [file.html ...]
-# If no files given, validates all .html files in current directory.
-#
-# Portable rewrite: the checks run in python3 (works on macOS's default bash 3.2,
-# no `mapfile`/`grep -P` needed) and count data-comment only inside real DOM
-# markup — attribute selectors in <style> and querySelectors in <script> are
-# NOT counted, so referencing a data-comment from CSS/JS is no longer a false
-# "duplicate".
+# If no files given, validates all .html files in current directory
 
 set -euo pipefail
 
-if ! command -v python3 >/dev/null 2>&1; then
-  echo "python3 is required to run validate-html.sh" >&2
-  exit 2
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+GREEN='\033[0;32m'
+BOLD='\033[1m'
+NC='\033[0m'
+
+errors=0
+warnings=0
+
+files=("$@")
+if [ ${#files[@]} -eq 0 ]; then
+  mapfile -t files < <(find . -maxdepth 2 -name '*.html' -not -path '*/node_modules/*' -not -path '*/.git/*')
 fi
 
-python3 - "$@" <<'PY'
-import re, sys, glob, os, collections
+if [ ${#files[@]} -eq 0 ]; then
+  echo -e "${YELLOW}No HTML files found.${NC}"
+  exit 0
+fi
 
-RED="\033[0;31m"; YEL="\033[0;33m"; GRN="\033[0;32m"; BOLD="\033[1m"; NC="\033[0m"
+for file in "${files[@]}"; do
+  echo -e "\n${BOLD}Checking: ${file}${NC}"
+  echo "─────────────────────────────────────────"
 
-files = sys.argv[1:]
-if not files:
-    files = sorted(glob.glob("*.html"))
-if not files:
-    print(f"{YEL}No HTML files found.{NC}")
-    sys.exit(0)
+  file_errors=0
+  file_warnings=0
 
-def strip(html):
-    html = re.sub(r"<style\b[^>]*>.*?</style>", "", html, flags=re.S | re.I)
-    html = re.sub(r"<script\b[^>]*>.*?</script>", "", html, flags=re.S | re.I)
-    return html
+  # ── 1. Self-contained check: no external CSS/JS file references ──
+  # Allow CDN links (https://) but block local file refs
+  local_css=$(grep -nE '<link[^>]+rel="stylesheet"[^>]+href="(?!https?://)' "$file" 2>/dev/null || true)
+  local_js=$(grep -nE '<script[^>]+src="(?!https?://)' "$file" 2>/dev/null || true)
 
-errors = warnings = 0
-for f in files:
-    print(f"\n{BOLD}Checking: {f}{NC}")
-    print("─" * 41)
-    fe = fw = 0
-    full = open(f, encoding="utf-8", errors="replace").read()
-    dom = strip(full)
+  if [ -n "$local_css" ]; then
+    echo -e "${RED}  ✗ External local CSS file detected:${NC}"
+    echo "    $local_css"
+    ((file_errors++))
+  fi
 
-    # 1. self-contained: no external LOCAL css/js (CDN https:// allowed)
-    for m in re.findall(r'<link\b[^>]*rel="stylesheet"[^>]*href="([^"]+)"', full, re.I):
-        if not m.startswith(("http://", "https://", "//")):
-            print(f"{RED}  ✗ External local CSS: {m}{NC}"); fe += 1
-    for m in re.findall(r'<script\b[^>]*src="([^"]+)"', full, re.I):
-        if not m.startswith(("http://", "https://", "//")):
-            print(f"{RED}  ✗ External local JS: {m}{NC}"); fe += 1
+  if [ -n "$local_js" ]; then
+    echo -e "${RED}  ✗ External local JS file detected:${NC}"
+    echo "    $local_js"
+    ((file_errors++))
+  fi
 
-    # 2. data-comment presence / duplicates / empties (DOM only)
-    dcs = re.findall(r'data-comment="([^"]*)"', dom)
-    if not dcs:
-        print(f"{RED}  ✗ No data-comment attributes found{NC}"); fe += 1
-    else:
-        print(f"  ℹ Found {len(dcs)} data-comment attributes")
-        dupes = [v for v, c in collections.Counter(dcs).items() if v and c > 1]
-        if dupes:
-            print(f"{RED}  ✗ Duplicate data-comment values:{NC}")
-            for d in dupes:
-                print(f"    {RED}\"{d}\"{NC} appears {dcs.count(d)} times")
-            fe += len(dupes)
-        if dcs.count(""):
-            print(f"{RED}  ✗ {dcs.count('')} empty data-comment=\"\" attributes{NC}"); fe += 1
+  # ── 2. Extract all data-comment values and check for duplicates ──
+  mapfile -t dc_values < <(grep -oP 'data-comment="[^"]*"' "$file" | sed 's/data-comment="//;s/"//' | sort)
 
-    # 3. visible tags missing data-comment (heuristic, DOM only)
-    missing = []
-    for tag in ["h1","h2","h3","h4","h5","h6","button","img","nav","header","footer","main","section","a","input","select","textarea","label"]:
-        c = sum(1 for o in re.findall(r"<"+tag+r"(\s[^>]*?)?>", dom, re.I) if not o or "data-comment" not in o)
-        if c:
-            missing.append(f"{tag}({c})")
-    if missing:
-        print(f"{YEL}  ⚠ Elements likely missing data-comment: {' '.join(missing)}{NC}")
-        fw += len(missing)
+  if [ ${#dc_values[@]} -eq 0 ]; then
+    echo -e "${RED}  ✗ No data-comment attributes found at all${NC}"
+    ((file_errors++))
+  else
+    echo -e "  ℹ Found ${#dc_values[@]} data-comment attributes"
 
-    # 4. Google Fonts preconnect
-    if "fonts.googleapis.com/css" in full and 'rel="preconnect"' not in full:
-        print(f"{YEL}  ⚠ Google Fonts used without preconnect hints{NC}"); fw += 1
+    # Check duplicates
+    mapfile -t dupes < <(printf '%s\n' "${dc_values[@]}" | sort | uniq -d)
+    if [ ${#dupes[@]} -gt 0 ]; then
+      echo -e "${RED}  ✗ Duplicate data-comment values:${NC}"
+      for d in "${dupes[@]}"; do
+        count=$(grep -c "data-comment=\"${d}\"" "$file")
+        echo -e "    ${RED}\"${d}\"${NC} appears ${count} times"
+      done
+      ((file_errors += ${#dupes[@]}))
+    fi
 
-    # 5. basic structure
-    if not re.search(r"<!DOCTYPE html>", full, re.I):
-        print(f"{RED}  ✗ Missing <!DOCTYPE html>{NC}"); fe += 1
-    if 'charset="UTF-8"' not in full and 'charset="utf-8"' not in full:
-        print(f"{RED}  ✗ Missing charset UTF-8{NC}"); fe += 1
-    if 'name="viewport"' not in full:
-        print(f"{YEL}  ⚠ Missing viewport meta tag{NC}"); fw += 1
-    if not re.search(r"<title>.+</title>", full, re.S):
-        print(f"{YEL}  ⚠ Missing or empty <title>{NC}"); fw += 1
-    if ":root" not in full:
-        print(f"{YEL}  ⚠ No :root CSS custom properties found{NC}"); fw += 1
+    # Check for empty values
+    empty_count=$(grep -c 'data-comment=""' "$file" 2>/dev/null || echo 0)
+    if [ "$empty_count" -gt 0 ]; then
+      echo -e "${RED}  ✗ Found ${empty_count} empty data-comment=\"\" attributes${NC}"
+      ((file_errors++))
+    fi
+  fi
 
-    # 6. SPA views consistency
-    views = len(re.findall(r'class="view', dom))
-    if views > 1:
-        print(f"  ℹ SPA detected: {views} views")
-        vwo = sum(1 for m in re.findall(r'class="view[^"]*"([^>]*)>', dom) if "data-comment" not in m)
-        if vwo:
-            print(f"{RED}  ✗ {vwo} view(s) missing data-comment{NC}"); fe += 1
-        if "function navigate" not in full:
-            print(f"{YEL}  ⚠ SPA views found but no navigate() function{NC}"); fw += 1
+  # ── 3. Check elements that should have data-comment but don't ──
+  # Extract visible tags that typically need data-comment
+  # This uses a simple heuristic — not a full HTML parser
+  missing_tags=()
 
-    if fe == 0 and fw == 0:
-        print(f"{GRN}  ✓ All checks passed{NC}")
-    else:
-        if fe: print(f"{RED}  {fe} error(s){NC}")
-        if fw: print(f"{YEL}  {fw} warning(s){NC}")
-    errors += fe; warnings += fw
+  for tag in h1 h2 h3 h4 h5 h6 button img nav header footer main section; do
+    # Find tags of this type without data-comment
+    count_without=$(grep -cP "<${tag}[\s>](?![^>]*data-comment)" "$file" 2>/dev/null || echo 0)
+    if [ "$count_without" -gt 0 ]; then
+      missing_tags+=("${tag}(${count_without})")
+    fi
+  done
 
-print("\n" + "═" * 43)
-if errors == 0:
-    print(f"{GRN}{BOLD}✓ All files valid{NC} ({warnings} warning(s))")
-    sys.exit(0)
-else:
-    print(f"{RED}{BOLD}✗ Validation failed: {errors} error(s), {warnings} warning(s){NC}")
-    print(f"{RED}  Fix errors before committing.{NC}")
-    sys.exit(1)
-PY
+  if [ ${#missing_tags[@]} -gt 0 ]; then
+    echo -e "${YELLOW}  ⚠ Elements likely missing data-comment:${NC}"
+    echo -e "    ${missing_tags[*]}"
+    ((file_warnings += ${#missing_tags[@]}))
+  fi
+
+  # ── 4. Check for Google Fonts preconnect ──
+  has_gfonts=$(grep -c "fonts.googleapis.com/css" "$file" 2>/dev/null || echo 0)
+  has_preconnect=$(grep -c 'rel="preconnect"' "$file" 2>/dev/null || echo 0)
+
+  if [ "$has_gfonts" -gt 0 ] && [ "$has_preconnect" -eq 0 ]; then
+    echo -e "${YELLOW}  ⚠ Google Fonts used without preconnect hints${NC}"
+    ((file_warnings++))
+  fi
+
+  # ── 5. Check basic structure ──
+  has_doctype=$(grep -c '<!DOCTYPE html>' "$file" 2>/dev/null || echo 0)
+  has_charset=$(grep -c 'charset="UTF-8"' "$file" 2>/dev/null || echo 0)
+  has_viewport=$(grep -c 'name="viewport"' "$file" 2>/dev/null || echo 0)
+  has_title=$(grep -cP '<title>.+</title>' "$file" 2>/dev/null || echo 0)
+  has_root_vars=$(grep -c ':root' "$file" 2>/dev/null || echo 0)
+
+  if [ "$has_doctype" -eq 0 ]; then
+    echo -e "${RED}  ✗ Missing <!DOCTYPE html>${NC}"
+    ((file_errors++))
+  fi
+  if [ "$has_charset" -eq 0 ]; then
+    echo -e "${RED}  ✗ Missing charset UTF-8${NC}"
+    ((file_errors++))
+  fi
+  if [ "$has_viewport" -eq 0 ]; then
+    echo -e "${YELLOW}  ⚠ Missing viewport meta tag${NC}"
+    ((file_warnings++))
+  fi
+  if [ "$has_title" -eq 0 ]; then
+    echo -e "${YELLOW}  ⚠ Missing or empty <title>${NC}"
+    ((file_warnings++))
+  fi
+  if [ "$has_root_vars" -eq 0 ]; then
+    echo -e "${YELLOW}  ⚠ No :root CSS custom properties found${NC}"
+    ((file_warnings++))
+  fi
+
+  # ── 6. Check for SPA views consistency ──
+  view_count=$(grep -cP 'class="view' "$file" 2>/dev/null || echo 0)
+  if [ "$view_count" -gt 1 ]; then
+    echo -e "  ℹ SPA detected: ${view_count} views"
+
+    # Check each view has data-comment
+    views_without_dc=$(grep -cP 'class="view[^"]*"(?![^>]*data-comment)' "$file" 2>/dev/null || echo 0)
+    if [ "$views_without_dc" -gt 0 ]; then
+      echo -e "${RED}  ✗ ${views_without_dc} view(s) missing data-comment${NC}"
+      ((file_errors++))
+    fi
+
+    # Check navigate function exists
+    has_navigate=$(grep -c 'function navigate' "$file" 2>/dev/null || echo 0)
+    if [ "$has_navigate" -eq 0 ]; then
+      echo -e "${YELLOW}  ⚠ SPA views found but no navigate() function${NC}"
+      ((file_warnings++))
+    fi
+  fi
+
+  # ── Summary for file ──
+  if [ "$file_errors" -eq 0 ] && [ "$file_warnings" -eq 0 ]; then
+    echo -e "${GREEN}  ✓ All checks passed${NC}"
+  else
+    [ "$file_errors" -gt 0 ] && echo -e "${RED}  ${file_errors} error(s)${NC}"
+    [ "$file_warnings" -gt 0 ] && echo -e "${YELLOW}  ${file_warnings} warning(s)${NC}"
+  fi
+
+  ((errors += file_errors))
+  ((warnings += file_warnings))
+done
+
+# ── Final summary ──
+echo ""
+echo "═══════════════════════════════════════════"
+if [ "$errors" -eq 0 ]; then
+  echo -e "${GREEN}${BOLD}✓ All files valid${NC} (${warnings} warning(s))"
+  exit 0
+else
+  echo -e "${RED}${BOLD}✗ Validation failed: ${errors} error(s), ${warnings} warning(s)${NC}"
+  echo -e "${RED}  Fix errors before committing.${NC}"
+  exit 1
+fi
