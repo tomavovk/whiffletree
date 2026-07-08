@@ -9,7 +9,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700&amp;family=Mulish:wght@300;400;500;600;700;800&amp;display=swap"
+            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700&amp;family=Mulish:wght@300;400;500;600;700;800&amp;display=block"
             rel="stylesheet" />
 
         <!-- Phosphor icons (CDN) -->
@@ -124,7 +124,18 @@
 .wta-toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%) translateY(10px); display: flex; align-items: center; gap: 10px; background: var(--ink, #15140f); color: #fff; font-family: var(--sans, sans-serif); font-size: 14px; font-weight: 600; padding: 13px 20px; border-radius: 2px; box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3); opacity: 0; pointer-events: none; transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1), transform 220ms cubic-bezier(0.22, 1, 0.36, 1); z-index: 1400; }
 .wta-toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
 .wta-toast i { color: var(--g300, #8fce9b); font-size: 18px; }
-        </style>
+                    /* Icon button — design-system component. States: hover / focus-visible / active / disabled. */
+            .icon-btn { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; padding:0; border:1.5px solid var(--line); border-radius:2px; background:#fff; color:var(--g700); cursor:pointer; position:relative; text-decoration:none; -webkit-appearance:none; appearance:none; transition:background-color 150ms cubic-bezier(0.2,0,0,1), border-color 150ms cubic-bezier(0.2,0,0,1), color 150ms cubic-bezier(0.2,0,0,1); }
+            .icon-btn i { font-size:20px; line-height:1; }
+            .icon-btn:hover { background:var(--paper1); border-color:var(--subtle); }
+            .icon-btn:active { background:var(--paper2); }
+            .icon-btn:focus-visible { outline:2px solid var(--g700); outline-offset:2px; }
+            .icon-btn:disabled, .icon-btn[aria-disabled="true"] { color:var(--subtle); background:var(--paper2); border-color:var(--line); cursor:not-allowed; }
+            .icon-btn--ghost { width:auto; height:auto; padding:7px; border-color:transparent; background:transparent; color:inherit; }
+            .icon-btn--ghost i { font-size:22px; }
+            .icon-btn--ghost:hover { background:var(--paper1); border-color:transparent; }
+            .icon-btn--ghost:active { background:var(--paper2); }
+</style>
         <style data-inlined="wt-fields.css">
 /* ============================================================================
    Whiffletree — shared enhanced form fields
@@ -866,51 +877,51 @@
                             <div class="nav-panel" id="nav-panel-shop" data-comment="nav-panel-shop" role="region" aria-label="Shop by category">
                                 <div class="np-inner">
                                     <div class="np-top">
-                                        <span class="np-eyebrow">Explore the nursery</span>
-                                        <a class="np-pill" href="shop.html">See all categories</a>
+                                        <span class="np-eyebrow" data-comment="navp-shop-eyebrow">Explore the nursery</span>
+                                        <a class="np-pill" href="shop.html" data-comment="navp-shop-allcats">See all categories</a>
                                     </div>
                                     <div class="np-grid np-grid--4">
                                         <div class="np-col">
-                                            <span class="np-col-head">Trees</span>
-                                            <a class="np-link" href="shop.html?category=apples">Apple</a>
-                                            <a class="np-link" href="shop.html?category=pears">Pear</a>
-                                            <a class="np-link" href="shop.html?category=plums">Plum</a>
-                                            <a class="np-link" href="shop.html?category=peaches">Peach</a>
-                                            <a class="np-link" href="shop.html?category=cherries">Cherry</a>
-                                            <a class="np-link" href="shop.html?category=apricots">Apricot</a>
-                                            <a class="np-link" href="shop.html?category=nuts">Nut</a>
-                                            <a class="np-link" href="shop.html">Combo Trees</a>
-                                            <a class="np-seeall" href="shop.html?group=trees">See all trees <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                                            <span class="np-col-head" data-comment="navp-shop-head-trees">Trees</span>
+                                            <a class="np-link" href="shop.html?category=apples" data-comment="navp-shop-trees-apple">Apple</a>
+                                            <a class="np-link" href="shop.html?category=pears" data-comment="navp-shop-trees-pear">Pear</a>
+                                            <a class="np-link" href="shop.html?category=plums" data-comment="navp-shop-trees-plum">Plum</a>
+                                            <a class="np-link" href="shop.html?category=peaches" data-comment="navp-shop-trees-peach">Peach</a>
+                                            <a class="np-link" href="shop.html?category=cherries" data-comment="navp-shop-trees-cherry">Cherry</a>
+                                            <a class="np-link" href="shop.html?category=apricots" data-comment="navp-shop-trees-apricot">Apricot</a>
+                                            <a class="np-link" href="shop.html?category=nuts" data-comment="navp-shop-trees-nut">Nut</a>
+                                            <a class="np-link" href="shop.html" data-comment="navp-shop-trees-combo-trees">Combo Trees</a>
+                                            <a class="np-seeall" href="shop.html?group=trees" data-comment="navp-shop-trees-seeall">See all trees <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
                                         </div>
                                         <div class="np-col">
-                                            <span class="np-col-head">Shrubs &amp; Plants</span>
-                                            <a class="np-link" href="shop.html?category=grapes">Grape</a>
-                                            <a class="np-link" href="shop.html?category=haskap">Haskap</a>
-                                            <a class="np-link" href="shop.html?category=shrubs">Kiwi</a>
-                                            <a class="np-link" href="shop.html?category=shrubs">Rhubarb</a>
-                                            <a class="np-link" href="shop.html?category=shrubs">Fig</a>
-                                            <a class="np-link" href="shop.html?category=shrubs">Sea Buckthorn</a>
-                                            <a class="np-link" href="shop.html?category=shrubs">Asparagus</a>
-                                            <a class="np-link" href="shop.html?category=shrubs">Goumi</a>
-                                            <a class="np-seeall" href="shop.html?category=shrubs">See all shrubs &amp; plants <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                                            <span class="np-col-head" data-comment="navp-shop-head-shrubs-and-plants">Shrubs &amp; Plants</span>
+                                            <a class="np-link" href="shop.html?category=grapes" data-comment="navp-shop-shrubs-and-plants-grape">Grape</a>
+                                            <a class="np-link" href="shop.html?category=haskap" data-comment="navp-shop-shrubs-and-plants-haskap">Haskap</a>
+                                            <a class="np-link" href="shop.html?category=shrubs" data-comment="navp-shop-shrubs-and-plants-kiwi">Kiwi</a>
+                                            <a class="np-link" href="shop.html?category=shrubs" data-comment="navp-shop-shrubs-and-plants-rhubarb">Rhubarb</a>
+                                            <a class="np-link" href="shop.html?category=shrubs" data-comment="navp-shop-shrubs-and-plants-fig">Fig</a>
+                                            <a class="np-link" href="shop.html?category=shrubs" data-comment="navp-shop-shrubs-and-plants-sea-buckthorn">Sea Buckthorn</a>
+                                            <a class="np-link" href="shop.html?category=shrubs" data-comment="navp-shop-shrubs-and-plants-asparagus">Asparagus</a>
+                                            <a class="np-link" href="shop.html?category=shrubs" data-comment="navp-shop-shrubs-and-plants-goumi">Goumi</a>
+                                            <a class="np-seeall" href="shop.html?category=shrubs" data-comment="navp-shop-shrubs-and-plants-seeall">See all shrubs &amp; plants <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
                                         </div>
                                         <div class="np-col">
-                                            <span class="np-col-head">Berries</span>
-                                            <a class="np-link" href="shop.html?category=blueberry">Blueberry</a>
-                                            <a class="np-link" href="shop.html?category=haskap">Haskap</a>
-                                            <a class="np-link" href="shop.html?category=currant">Currant</a>
-                                            <a class="np-link" href="shop.html?category=gooseberry">Gooseberry</a>
-                                            <a class="np-link" href="shop.html?category=blackberry">Blackberry</a>
-                                            <a class="np-link" href="shop.html?category=elderberry">Elderberry</a>
-                                            <a class="np-seeall" href="shop.html?group=berries">See all berries <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                                            <span class="np-col-head" data-comment="navp-shop-head-berries">Berries</span>
+                                            <a class="np-link" href="shop.html?category=blueberry" data-comment="navp-shop-berries-blueberry">Blueberry</a>
+                                            <a class="np-link" href="shop.html?category=haskap" data-comment="navp-shop-berries-haskap">Haskap</a>
+                                            <a class="np-link" href="shop.html?category=currant" data-comment="navp-shop-berries-currant">Currant</a>
+                                            <a class="np-link" href="shop.html?category=gooseberry" data-comment="navp-shop-berries-gooseberry">Gooseberry</a>
+                                            <a class="np-link" href="shop.html?category=blackberry" data-comment="navp-shop-berries-blackberry">Blackberry</a>
+                                            <a class="np-link" href="shop.html?category=elderberry" data-comment="navp-shop-berries-elderberry">Elderberry</a>
+                                            <a class="np-seeall" href="shop.html?group=berries" data-comment="navp-shop-berries-seeall">See all berries <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
                                         </div>
                                         <div class="np-col">
-                                            <span class="np-col-head">More</span>
-                                            <a class="np-link" href="shop.html?category=roses">Roses</a>
-                                            <a class="np-link" href="shop.html?category=collector">Collector's Corner</a>
-                                            <a class="np-link" href="shop.html?category=supplies">Orchard Supplies</a>
-                                            <a class="np-link" href="shop.html?category=books">Reference Books</a>
-                                            <a class="np-link" href="shop.html">Gift Certificates</a>
+                                            <span class="np-col-head" data-comment="navp-shop-head-more">More</span>
+                                            <a class="np-link" href="shop.html?category=roses" data-comment="navp-shop-more-roses">Roses</a>
+                                            <a class="np-link" href="shop.html?category=collector" data-comment="navp-shop-more-collector-s-corner">Collector's Corner</a>
+                                            <a class="np-link" href="shop.html?category=supplies" data-comment="navp-shop-more-orchard-supplies">Orchard Supplies</a>
+                                            <a class="np-link" href="shop.html?category=books" data-comment="navp-shop-more-reference-books">Reference Books</a>
+                                            <a class="np-link" href="shop.html" data-comment="navp-shop-more-gift-certificates">Gift Certificates</a>
                                         </div>
                                     </div>
                                 </div>
@@ -927,16 +938,16 @@
                                 <div class="np-inner">
                                     <div class="np-grid np-grid--2">
                                         <div class="np-col">
-                                            <span class="np-col-head">Learn</span>
-                                            <a class="np-link" href="workshops.html">Workshops</a>
-                                            <a class="np-link" href="orchard-care.html">Orchard Care</a>
+                                            <span class="np-col-head" data-comment="navp-res-head-learn">Learn</span>
+                                            <a class="np-link" href="workshops.html" data-comment="navp-res-learn-workshops">Workshops</a>
+                                            <a class="np-link" href="orchard-care.html" data-comment="navp-res-learn-orchard-care">Orchard Care</a>
                                         </div>
                                         <div class="np-col">
-                                            <span class="np-col-head">Guides</span>
-                                            <a class="np-link" href="catalog.html">2026 Catalogue</a>
-                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2025/06/250325-Whiffletree_BeeGuide-web.pdf" target="_blank" rel="noopener">Bee Guide <span class="np-tag">PDF</span></a>
-                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2026/03/260317-Whiffletree_PlantingGuide-web.pdf" target="_blank" rel="noopener">Planting Guide <span class="np-tag">PDF</span></a>
-                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2021/10/210212_Whiffltree_IrrigationBrochure_1.pdf" target="_blank" rel="noopener">Irrigation Brochure <span class="np-tag">PDF</span></a>
+                                            <span class="np-col-head" data-comment="navp-res-head-guides">Guides</span>
+                                            <a class="np-link" href="catalog.html" data-comment="navp-res-guides-2026-catalogue">2026 Catalogue</a>
+                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2025/06/250325-Whiffletree_BeeGuide-web.pdf" target="_blank" rel="noopener" data-comment="navp-res-guides-bee-guide-pdf">Bee Guide <span class="np-tag">PDF</span></a>
+                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2026/03/260317-Whiffletree_PlantingGuide-web.pdf" target="_blank" rel="noopener" data-comment="navp-res-guides-planting-guide-pdf">Planting Guide <span class="np-tag">PDF</span></a>
+                                            <a class="np-link" href="https://cdn.whiffletreefarmandnursery.ca/images/2021/10/210212_Whiffltree_IrrigationBrochure_1.pdf" target="_blank" rel="noopener" data-comment="navp-res-guides-irrigation-brochure-pdf">Irrigation Brochure <span class="np-tag">PDF</span></a>
                                         </div>
                                     </div>
                                 </div>
@@ -950,10 +961,10 @@
                                 <div class="np-inner">
                                     <div class="np-grid np-grid--1">
                                         <div class="np-col">
-                                            <span class="np-col-head">About</span>
-                                            <a class="np-link" href="home.html#about">About Us</a>
-                                            <a class="np-link" href="home.html#about">Guarantee Policy</a>
-                                            <a class="np-link" href="home.html#about">Product FAQ</a>
+                                            <span class="np-col-head" data-comment="navp-info-head-about">About</span>
+                                            <a class="np-link" href="home.html#about" data-comment="navp-info-about-about-us">About Us</a>
+                                            <a class="np-link" href="home.html#about" data-comment="navp-info-about-guarantee-policy">Guarantee Policy</a>
+                                            <a class="np-link" href="home.html#about" data-comment="navp-info-about-product-faq">Product FAQ</a>
                                         </div>
                                     </div>
                                 </div>
@@ -964,9 +975,9 @@
                         <a class="nav-link" data-comment="header-nav-link-contact" href="home.html#contact" style="color: var(--muted); text-decoration: none; align-self: center; height: 24px; flex-grow: 0">Contact</a>
 
                         <div data-comment="header-actions" style="display:flex; align-items:center; gap:20px; padding-left:8px; color:var(--muted);">
-                            <svg data-comment="header-action-search" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><circle cx="11" cy="11" r="7"></circle><line x1="16.2" y1="16.2" x2="20.5" y2="20.5"></line></svg>
-                            <svg data-comment="header-action-user" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                            <span data-comment="header-cart-wrap" style="position:relative; display:inline-flex;"><svg data-comment="header-action-cart" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer; display:block;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span class="cart-badge" data-comment="header-cart-badge" aria-hidden="true"></span></span>
+                            <button type="button" data-comment="header-action-search" class="icon-btn icon-btn--ghost" aria-label="Search"><i class="ph ph-magnifying-glass" aria-hidden="true"></i></button>
+                            <span data-comment="header-action-user" class="icon-btn icon-btn--ghost"><i class="ph ph-user" aria-hidden="true"></i></span>
+                            <span data-comment="header-cart-wrap" style="position:relative; display:inline-flex;"><button type="button" data-comment="header-action-cart" class="icon-btn icon-btn--ghost" aria-label="Cart"><i class="ph ph-shopping-bag" aria-hidden="true"></i></button><span class="cart-badge" data-comment="header-cart-badge" aria-hidden="true"></span></span>
                         </div>
                     </nav>
                     <button data-comment="header-burger" aria-label="Open menu" aria-expanded="false"><i class="ph ph-list"></i></button>
@@ -990,50 +1001,50 @@
                     <form data-comment="register-form" id="regForm" onsubmit="return false;" style="background:#fffdf8; border:1px solid var(--line-soft); border-radius:6px; padding:34px 34px 30px;">
 
                         <div class="wta-providers" data-comment="register-providers">
-                            <button type="button" class="wta-provider" data-reg-social="Google"><svg class="wta-logo" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.28-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg> Continue with Google</button>
-                            <button type="button" class="wta-provider" data-reg-social="Apple"><svg class="wta-logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="#000000" d="M17.05 12.53c-.03-2.53 2.07-3.75 2.16-3.81-1.18-1.72-3.01-1.96-3.66-1.98-1.56-.16-3.04.92-3.83.92-.79 0-2.01-.9-3.31-.87-1.7.03-3.27 1-4.15 2.53-1.77 3.07-.45 7.62 1.27 10.11.84 1.22 1.84 2.59 3.15 2.54 1.26-.05 1.74-.82 3.27-.82 1.52 0 1.95.82 3.28.79 1.36-.02 2.22-1.24 3.05-2.47.96-1.42 1.36-2.79 1.38-2.86-.03-.01-2.65-1.02-2.68-4.05zM14.63 4.84c.7-.85 1.17-2.02 1.04-3.19-1.01.04-2.23.67-2.95 1.52-.65.75-1.21 1.95-1.06 3.1 1.12.09 2.27-.57 2.97-1.43z"/></svg> Continue with Apple</button>
-                            <button type="button" class="wta-provider" data-reg-social="Facebook"><svg class="wta-logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="#1877F2" d="M24 12c0-6.63-5.37-12-12-12S0 5.37 0 12c0 5.99 4.39 10.95 10.13 11.85v-8.38H7.08V12h3.05V9.41c0-3.01 1.79-4.68 4.53-4.68 1.31 0 2.68.24 2.68.24v2.95h-1.51c-1.49 0-1.95.93-1.95 1.87V12h3.33l-.53 3.47h-2.8v8.38C19.61 22.95 24 17.99 24 12z"/><path fill="#FFFFFF" d="M16.68 15.47 17.21 12h-3.33V9.79c0-.94.46-1.87 1.95-1.87h1.51V4.97s-1.37-.24-2.68-.24c-2.74 0-4.53 1.67-4.53 4.68V12H7.08v3.47h3.05v8.38a12.1 12.1 0 0 0 3.75 0v-8.38h2.8z"/></svg> Continue with Facebook</button>
+                            <button type="button" class="wta-provider" data-reg-social="Google" data-comment="register-button-social"><svg class="wta-logo" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.28-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg> Continue with Google</button>
+                            <button type="button" class="wta-provider" data-reg-social="Apple" data-comment="register-button-social-1"><svg class="wta-logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="#000000" d="M17.05 12.53c-.03-2.53 2.07-3.75 2.16-3.81-1.18-1.72-3.01-1.96-3.66-1.98-1.56-.16-3.04.92-3.83.92-.79 0-2.01-.9-3.31-.87-1.7.03-3.27 1-4.15 2.53-1.77 3.07-.45 7.62 1.27 10.11.84 1.22 1.84 2.59 3.15 2.54 1.26-.05 1.74-.82 3.27-.82 1.52 0 1.95.82 3.28.79 1.36-.02 2.22-1.24 3.05-2.47.96-1.42 1.36-2.79 1.38-2.86-.03-.01-2.65-1.02-2.68-4.05zM14.63 4.84c.7-.85 1.17-2.02 1.04-3.19-1.01.04-2.23.67-2.95 1.52-.65.75-1.21 1.95-1.06 3.1 1.12.09 2.27-.57 2.97-1.43z"/></svg> Continue with Apple</button>
+                            <button type="button" class="wta-provider" data-reg-social="Facebook" data-comment="register-button-social-2"><svg class="wta-logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="#1877F2" d="M24 12c0-6.63-5.37-12-12-12S0 5.37 0 12c0 5.99 4.39 10.95 10.13 11.85v-8.38H7.08V12h3.05V9.41c0-3.01 1.79-4.68 4.53-4.68 1.31 0 2.68.24 2.68.24v2.95h-1.51c-1.49 0-1.95.93-1.95 1.87V12h3.33l-.53 3.47h-2.8v8.38C19.61 22.95 24 17.99 24 12z"/><path fill="#FFFFFF" d="M16.68 15.47 17.21 12h-3.33V9.79c0-.94.46-1.87 1.95-1.87h1.51V4.97s-1.37-.24-2.68-.24c-2.74 0-4.53 1.67-4.53 4.68V12H7.08v3.47h3.05v8.38a12.1 12.1 0 0 0 3.75 0v-8.38h2.8z"/></svg> Continue with Facebook</button>
                         </div>
 
                         <div class="wta-divider">or sign up with email</div>
 
                         <h3 class="wta-sub" style="margin-top:6px;" data-comment="register-sub-details">Your details</h3>
                         <div class="wta-fields">
-                            <div class="wta-field"><label class="wta-label">First name</label><input class="wta-input" type="text" data-reg-first></div>
-                            <div class="wta-field"><label class="wta-label">Last name</label><input class="wta-input" type="text" data-reg-last></div>
-                            <div class="wta-field"><label class="wta-label">Email</label><input class="wta-input" type="email" data-reg-email placeholder="you@email.com"></div>
-                            <div class="wta-field"><label class="wta-label">Phone</label><div class="wtf-phone" data-wt-phone data-country="ca"><input type="tel" placeholder="(519) 555-0134"></div></div>
-                            <div class="wta-field"><label class="wta-label">Password</label><input class="wta-input" type="password" placeholder="At least 8 characters"></div>
-                            <div class="wta-field"><label class="wta-label">Hardiness zone (optional)</label><select class="wta-select" data-wt-select aria-label="Hardiness zone"><option>Zone 2b</option><option>Zone 3</option><option>Zone 4</option><option>Zone 5</option><option>Zone 6</option><option>Zone 7</option><option>Zone 8</option></select></div>
+                            <div class="wta-field"><label class="wta-label" data-comment="register-label-first-name">First name</label><input class="wta-input" type="text" data-reg-first data-comment="register-input-first"></div>
+                            <div class="wta-field"><label class="wta-label" data-comment="register-label-last-name">Last name</label><input class="wta-input" type="text" data-reg-last data-comment="register-input-last"></div>
+                            <div class="wta-field"><label class="wta-label" data-comment="register-label-email">Email</label><input class="wta-input" type="email" data-reg-email placeholder="you@email.com" data-comment="register-input-email"></div>
+                            <div class="wta-field"><label class="wta-label" data-comment="register-label-phone">Phone</label><div class="wtf-phone" data-wt-phone data-country="ca"><input type="tel" placeholder="(519) 555-0134" data-comment="register-input-519-555-0134"></div></div>
+                            <div class="wta-field"><label class="wta-label" data-comment="register-label-password">Password</label><input class="wta-input" type="password" placeholder="At least 8 characters" data-comment="register-input-at-least-8-characters"></div>
+                            <div class="wta-field"><label class="wta-label" data-comment="register-label-hardiness-zone-optional">Hardiness zone (optional)</label><select class="wta-select" data-wt-select aria-label="Hardiness zone" data-comment="register-select-select"><option>Zone 2b</option><option>Zone 3</option><option>Zone 4</option><option>Zone 5</option><option>Zone 6</option><option>Zone 7</option><option>Zone 8</option></select></div>
                         </div>
 
                         <h3 class="wta-sub" data-comment="register-sub-billing">Billing address</h3>
                         <div class="wta-fields">
-                            <div class="wta-field wta-field--full"><label class="wta-label">Street address</label><input class="wta-input" type="text"></div>
-                            <div class="wta-field wta-field--full"><label class="wta-label">Apartment, suite, etc. (optional)</label><input class="wta-input" type="text"></div>
-                            <div class="wta-field"><label class="wta-label">City / Town</label><select class="wta-select" data-wt-select="city" data-wt-geo="bill" data-wt-search></select><input class="wta-input" type="text" data-wt-city-text placeholder="e.g. Elmvale" style="display:none;"></div>
-                            <div class="wta-field"><label class="wta-label">Province</label><select class="wta-select" data-wt-select="region" data-wt-geo="bill" data-wt-value="Ontario"></select></div>
-                            <div class="wta-field"><label class="wta-label">Postal code</label><input class="wta-input" type="text" placeholder="A1A 1A1"></div>
-                            <div class="wta-field"><label class="wta-label">Country</label><select class="wta-select" data-wt-select="country" data-wt-geo="bill" data-wt-value="Canada"><option>Canada</option><option>United States</option></select></div>
+                            <div class="wta-field wta-field--full"><label class="wta-label" data-comment="register-label-street-address">Street address</label><input class="wta-input" type="text" data-comment="register-input-text"></div>
+                            <div class="wta-field wta-field--full"><label class="wta-label" data-comment="register-label-apartment-suite-etc-optional">Apartment, suite, etc. (optional)</label><input class="wta-input" type="text" data-comment="register-input-text-1"></div>
+                            <div class="wta-field"><label class="wta-label" data-comment="register-label-city-town">City / Town</label><select class="wta-select" data-wt-select="city" data-wt-geo="bill" data-wt-search data-comment="register-select-select-1"></select><input class="wta-input" type="text" data-wt-city-text placeholder="e.g. Elmvale" style="display:none;" data-comment="register-input-city-text"></div>
+                            <div class="wta-field"><label class="wta-label" data-comment="register-label-province">Province</label><select class="wta-select" data-wt-select="region" data-wt-geo="bill" data-wt-value="Ontario" data-comment="register-select-select-2"></select></div>
+                            <div class="wta-field"><label class="wta-label" data-comment="register-label-postal-code">Postal code</label><input class="wta-input" type="text" placeholder="A1A 1A1" data-comment="register-input-a1a-1a1"></div>
+                            <div class="wta-field"><label class="wta-label" data-comment="register-label-country">Country</label><select class="wta-select" data-wt-select="country" data-wt-geo="bill" data-wt-value="Canada" data-comment="register-select-select-3"><option>Canada</option><option>United States</option></select></div>
                         </div>
 
-                        <label class="wta-check"><input type="checkbox" id="regShipSame" checked> Shipping address is the same as billing</label>
+                        <label class="wta-check" data-comment="register-label-shipping-address-is-the-same"><input type="checkbox" id="regShipSame" checked data-comment="register-input-regshipsame"> Shipping address is the same as billing</label>
                         <div class="wta-ship" id="regShip" hidden>
                             <h3 class="wta-sub" data-comment="register-sub-shipping">Shipping address</h3>
                             <div class="wta-fields">
-                                <div class="wta-field wta-field--full"><label class="wta-label">Street address</label><input class="wta-input" type="text"></div>
-                                <div class="wta-field wta-field--full"><label class="wta-label">Apartment, suite, etc. (optional)</label><input class="wta-input" type="text"></div>
-                                <div class="wta-field"><label class="wta-label">City / Town</label><select class="wta-select" data-wt-select="city" data-wt-geo="ship" data-wt-search></select><input class="wta-input" type="text" data-wt-city-text placeholder="e.g. Elmvale" style="display:none;"></div>
-                                <div class="wta-field"><label class="wta-label">Province</label><select class="wta-select" data-wt-select="region" data-wt-geo="ship" data-wt-value="Ontario"></select></div>
-                                <div class="wta-field"><label class="wta-label">Postal code</label><input class="wta-input" type="text" placeholder="A1A 1A1"></div>
-                                <div class="wta-field"><label class="wta-label">Country</label><select class="wta-select" data-wt-select="country" data-wt-geo="ship" data-wt-value="Canada"><option>Canada</option><option>United States</option></select></div>
+                                <div class="wta-field wta-field--full"><label class="wta-label" data-comment="register-label-street-address-1">Street address</label><input class="wta-input" type="text" data-comment="register-input-text-2"></div>
+                                <div class="wta-field wta-field--full"><label class="wta-label" data-comment="register-label-apartment-suite-etc-optional-1">Apartment, suite, etc. (optional)</label><input class="wta-input" type="text" data-comment="register-input-text-3"></div>
+                                <div class="wta-field"><label class="wta-label" data-comment="register-label-city-town-1">City / Town</label><select class="wta-select" data-wt-select="city" data-wt-geo="ship" data-wt-search data-comment="register-select-select-4"></select><input class="wta-input" type="text" data-wt-city-text placeholder="e.g. Elmvale" style="display:none;" data-comment="register-input-city-text-1"></div>
+                                <div class="wta-field"><label class="wta-label" data-comment="register-label-province-1">Province</label><select class="wta-select" data-wt-select="region" data-wt-geo="ship" data-wt-value="Ontario" data-comment="register-select-select-5"></select></div>
+                                <div class="wta-field"><label class="wta-label" data-comment="register-label-postal-code-1">Postal code</label><input class="wta-input" type="text" placeholder="A1A 1A1" data-comment="register-input-a1a-1a1-1"></div>
+                                <div class="wta-field"><label class="wta-label" data-comment="register-label-country-1">Country</label><select class="wta-select" data-wt-select="country" data-wt-geo="ship" data-wt-value="Canada" data-comment="register-select-select-6"><option>Canada</option><option>United States</option></select></div>
                             </div>
                         </div>
 
                         <p class="wta-fine">We only ship within Canada (CFIA rules), and no fruit trees or grape vines to BC.</p>
 
-                        <div class="wta-modal-actions"><button class="wta-btn wta-btn-primary wta-btn--block" type="button" id="regSubmit">Create account</button></div>
-                        <p class="wta-modal-alt">Already have an account? <button type="button" class="wta-linkbtn" id="regLogin">Log in</button></p>
+                        <div class="wta-modal-actions"><button class="wta-btn wta-btn-primary wta-btn--block" type="button" id="regSubmit" data-comment="register-button-regsubmit">Create account</button></div>
+                        <p class="wta-modal-alt">Already have an account? <button type="button" class="wta-linkbtn" id="regLogin" data-comment="register-button-reglogin">Log in</button></p>
                     </form>
                 </div>
             </main>
@@ -1063,9 +1074,9 @@
                             </div>
                             <p data-comment="footer-brand-text" style="font-family:var(--sans); font-size:14px; line-height:1.6; color:var(--muted); margin:18px 0 0; max-width:34ch;">Cold-hardy, disease-resistant bare-root fruit trees &amp; fruiting shrubs grown in Elora, Ontario. Alive and true to name.</p>
                             <div data-comment="footer-social" style="display:flex; gap:16px; margin-top:18px; color:var(--g700);">
-                                <i data-comment="footer-social-instagram" class="ph-light ph-instagram-logo" style="font-size:22px; cursor:pointer;"></i>
-                                <i data-comment="footer-social-facebook" class="ph-light ph-facebook-logo" style="font-size:22px; cursor:pointer;"></i>
-                                <i data-comment="footer-social-youtube" class="ph-light ph-youtube-logo" style="font-size:22px; cursor:pointer;"></i>
+                                <a data-comment="footer-social-instagram" class="icon-btn icon-btn--ghost" href="https://www.instagram.com/whiffletree_farm_nursery/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="ph ph-instagram-logo" aria-hidden="true"></i></a>
+                                <a data-comment="footer-social-facebook" class="icon-btn icon-btn--ghost" href="https://www.facebook.com/profile.php?id=61587735922605" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="ph ph-facebook-logo" aria-hidden="true"></i></a>
+                                <a data-comment="footer-social-youtube" class="icon-btn icon-btn--ghost" href="https://www.youtube.com/@WhiffletreeFarmandNursery" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="ph ph-youtube-logo" aria-hidden="true"></i></a>
                             </div>
                         </div>
                         <div data-comment="footer-col-products">
@@ -1090,7 +1101,7 @@
                         <div data-comment="footer-col-links">
                             <div data-comment="footer-col-links-title" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">Quick links</div>
                             <div data-comment="footer-col-links-links" style="display:flex; flex-direction:column; gap:11px; font-family:var(--sans); font-size:14.5px;">
-                                <a data-comment="footer-links-link-1" href="#" style="color:var(--ink2); text-decoration:none;">My account</a>
+                                <a data-comment="footer-links-link-1" href="account.html" style="color:var(--ink2); text-decoration:none;">My account</a>
                                 <a data-comment="footer-links-link-2" href="#" style="color:var(--ink2); text-decoration:none;">Cart</a>
                                 <a data-comment="footer-links-link-3" href="#contact" style="color:var(--ink2); text-decoration:none;">Contact</a>
                                 <a data-comment="footer-links-link-4" href="tel:5196691349" style="color:var(--ink2); text-decoration:none;">(519) 669-1349</a>
