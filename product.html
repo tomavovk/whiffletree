@@ -1090,6 +1090,11 @@ a.wtc-item-name:hover { color: var(--g700); }
     .wtc-drawer, .wtc-scrim, .wtc-progress-fill { transition: none; }
 }
         </style>
+        <style data-comment="pdp-buy-style">
+            [data-comment="pdp-buy-add"]:hover { background: var(--c700); border-color: var(--c700); }
+            [data-comment="pdp-buy-add"].added { background: var(--g700); border-color: var(--g700); }
+            [data-comment="pdp-buy-notify"]:hover { background: var(--c700); border-color: var(--c700); }
+        </style>
     </head>
     <body>
         <div data-comment="page-root" style="background:#ffffff; font-family:var(--sans); color:var(--ink2); font-size:16px; line-height:1.6;">
@@ -1245,7 +1250,7 @@ a.wtc-item-name:hover { color: var(--g700); }
                     <div data-comment="pdp-gallery" style="position:sticky; top:120px;">
                         <div data-comment="pdp-gallery-main" style="position:relative; border-radius:2px; overflow:hidden; border:1px solid var(--line-soft);">
                             <div data-comment="pdp-gallery-main-img" style="aspect-ratio:1/1; background:url('assets/cat-apples.png') center/cover no-repeat;"></div>
-                            <span data-comment="pdp-gallery-badge" style="position:absolute; top:16px; left:16px; display:inline-flex; align-items:center; gap:6px; font-family:var(--sans); font-weight:600; font-size:12px; line-height:1; color:var(--g900); background:#fff; border:1px solid var(--line-soft); border-radius:2px; padding:7px 11px;">Sold out</span>
+                            <span data-comment="pdp-gallery-badge" style="position:absolute; top:16px; left:16px; display:inline-flex; align-items:center; gap:6px; font-family:var(--sans); font-weight:600; font-size:12px; line-height:1; color:#fff; background:var(--g700); border:1px solid transparent; border-radius:2px; padding:7px 11px;">In stock</span>
                             <button type="button" data-comment="pdp-gallery-zoom" onclick="openPdpLightbox()" aria-label="View larger image" style="position:absolute; top:16px; right:16px; width:40px; height:40px; border:none; border-radius:999px; background:rgba(255,255,255,0.9); display:flex; align-items:center; justify-content:center; color:var(--ink2); cursor:pointer;"><i data-comment="pdp-gallery-zoom-icon" class="ph ph-magnifying-glass-plus" style="font-size:18px;"></i></button>
                             <button type="button" data-comment="pdp-gallery-prev" onclick="pdpGalleryNav(-1)" aria-label="Previous image" style="position:absolute; left:16px; top:50%; transform:translateY(-50%); width:40px; height:40px; border:none; border-radius:999px; background:rgba(255,255,255,0.9); display:flex; align-items:center; justify-content:center; color:var(--ink2); cursor:pointer;"><i class="ph ph-caret-left" aria-hidden="true" style="font-size:19px;"></i></button>
                             <button type="button" data-comment="pdp-gallery-next" onclick="pdpGalleryNav(1)" aria-label="Next image" style="position:absolute; right:16px; top:50%; transform:translateY(-50%); width:40px; height:40px; border:none; border-radius:999px; background:rgba(255,255,255,0.9); display:flex; align-items:center; justify-content:center; color:var(--ink2); cursor:pointer;"><i class="ph ph-caret-right" aria-hidden="true" style="font-size:19px;"></i></button>
@@ -1276,16 +1281,18 @@ a.wtc-item-name:hover { color: var(--g700); }
                         </div>
                         <div data-comment="pdp-buy-sku" style="font-family:var(--sans); font-size:12.5px; color:var(--subtle); margin-top:8px;">SKU: WT-APL-LIB</div>
 
-                        <button data-comment="pdp-buy-notify" data-component="button" style="margin-top:24px; width:100%; font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; color:#FFFFFF; background:var(--c600); border:none; border-radius:2px; padding:18px 24px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px;"><i data-comment="pdp-buy-notify-icon" class="ph ph-bell" style="font-size:18px;"></i> Notify me when available</button>
+                        <!-- BUY ACTION — stock-driven: Add to cart when in stock, Notify when sold out (toggle in pdp-buy-script) -->
+                        <button data-comment="pdp-buy-add" data-component="button" data-cart-name="Liberty Apple" data-cart-price="44.95" data-cart-category="apples" data-cart-img="assets/cat-apples.png" data-cart-type="Apple tree" style="margin-top:24px; width:100%; font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; color:#FFFFFF; background:var(--c600); border:1.5px solid var(--c600); border-radius:2px; padding:18px 24px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px;"><i data-comment="pdp-buy-add-icon" class="ph ph-shopping-bag" style="font-size:18px;"></i> Add to cart</button>
+                        <button data-comment="pdp-buy-notify" data-component="button" style="display:none; margin-top:24px; width:100%; font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; color:#FFFFFF; background:var(--c600); border:1.5px solid var(--c600); border-radius:2px; padding:18px 24px; cursor:pointer; align-items:center; justify-content:center; gap:10px;"><i data-comment="pdp-buy-notify-icon" class="ph ph-bell" style="font-size:18px;"></i> Notify me when available</button>
 
                         <p data-comment="pdp-buy-short-desc" style="font-family:var(--sans); font-size:15.5px; line-height:1.7; color:var(--muted); margin:24px 0 0;">A reliable dessert apple for cold climates — juicy, sweet-tart fruit with a refreshing bite. Scab-immune and easy to grow, it's an ideal variety for a first orchard or low-spray, organic growing.</p>
 
                         <!-- ORDERING WINDOW NOTE -->
                         <div data-comment="pdp-buy-order-note" style="margin-top:24px; background:var(--paper1); border:1px solid var(--line); border-radius:2px; padding:16px 18px;">
-                            <div data-comment="pdp-buy-order-note-title" style="font-family:var(--display); font-weight:600; font-size:18px; color:var(--ink); line-height:1.25;">Ordering closed: mid-March to mid-fall</div>
-                            <p data-comment="pdp-buy-order-note-text" style="font-family:var(--sans); font-size:13px; line-height:1.55; color:var(--muted); margin:6px 0 0;">Bare-root trees ship only during dormancy. Sign up to be first to know when the next ordering window opens.</p>
+                            <div data-comment="pdp-buy-order-note-title" style="font-family:var(--display); font-weight:600; font-size:18px; color:var(--ink); line-height:1.25;">Ships bare-root during dormancy</div>
+                            <p data-comment="pdp-buy-order-note-text" style="font-family:var(--sans); font-size:13px; line-height:1.55; color:var(--muted); margin:6px 0 0;">Bare-root trees ship only in the dormant planting windows — late fall and early spring. Order now and we&rsquo;ll ship yours in the next window.</p>
                             <div data-comment="pdp-buy-order-note-actions" style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
-                                <a data-comment="pdp-buy-order-learn" href="#pdp-grow-section" style="font-family:var(--sans); font-weight:700; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; color:#FFFFFF; background:var(--c600); border:1.5px solid var(--c600); border-radius:2px; padding:10px 16px; text-decoration:none;">Learn more</a>
+                                <a data-comment="pdp-buy-order-learn" href="orchard-care.html" style="font-family:var(--sans); font-weight:700; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; color:#FFFFFF; background:var(--c600); border:1.5px solid var(--c600); border-radius:2px; padding:10px 16px; text-decoration:none;">Planting &amp; care guide</a>
                                 <a data-comment="pdp-buy-order-updates" href="#gift" style="font-family:var(--sans); font-weight:700; font-size:11px; letter-spacing:0.07em; text-transform:uppercase; color:var(--accent-deep); background:transparent; border:1.5px solid var(--accent-deep); border-radius:2px; padding:10px 16px; text-decoration:none;">Store updates sign up</a>
                             </div>
                         </div>
@@ -2969,5 +2976,39 @@ a.wtc-item-name:hover { color: var(--g700); }
                 import { animate } from 'https://cdn.jsdelivr.net/npm/motion@11/+esm';
                 window.__wtMotion = { animate: animate };
             </script>
+        <script data-comment="pdp-buy-script">
+        (function () {
+            var IN_STOCK = true; /* flip to false to show the sold-out state + Notify me button */
+            var addBtn = document.querySelector('[data-comment="pdp-buy-add"]');
+            var notifyBtn = document.querySelector('[data-comment="pdp-buy-notify"]');
+            var badge = document.querySelector('[data-comment="pdp-gallery-badge"]');
+            function applyStock() {
+                if (addBtn) addBtn.style.display = IN_STOCK ? 'flex' : 'none';
+                if (notifyBtn) notifyBtn.style.display = IN_STOCK ? 'none' : 'flex';
+                if (badge) {
+                    badge.textContent = IN_STOCK ? 'In stock' : 'Sold out';
+                    badge.style.color = IN_STOCK ? '#fff' : 'var(--g900)';
+                    badge.style.background = IN_STOCK ? 'var(--g700)' : '#fff';
+                    badge.style.borderColor = IN_STOCK ? 'transparent' : 'var(--line-soft)';
+                }
+            }
+            applyStock();
+            if (addBtn) addBtn.addEventListener('click', function () {
+                if (addBtn.classList.contains('added')) { if (window.wtCartDrawer) window.wtCartDrawer.open(); return; }
+                if (window.wtCart && window.wtCart.add) window.wtCart.add(addBtn);
+                addBtn.classList.add('added');
+                addBtn.innerHTML = '<i class="ph ph-check" aria-hidden="true" style="font-size:18px;"></i> Added — view cart';
+                if (window.wtCartDrawer) window.wtCartDrawer.open();
+            });
+            if (notifyBtn) notifyBtn.addEventListener('click', function () {
+                var gift = document.querySelector('#gift');
+                if (gift) {
+                    gift.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    var inp = gift.querySelector('input');
+                    if (inp) setTimeout(function () { try { inp.focus(); } catch (e) {} }, 500);
+                }
+            });
+        })();
+        </script>
         </body>
 </html>
