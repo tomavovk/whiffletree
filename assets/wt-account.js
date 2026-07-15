@@ -11,9 +11,12 @@
     var LS_KEY = 'wtAccount';
     var ACCOUNT_URL = 'account.html'; /* signed-in destination (page built separately) */
     var listeners = [];
+    var authSuccess = null; /* optional per-page hook: run instead of routing to the account page after login (e.g. checkout keeps you on the page) */
     var state = load();
 
     function goAccount() { window.location.href = ACCOUNT_URL; }
+    /* after a successful login: if a page registered onAuthSuccess, let it decide what happens (stay put); otherwise go to the account page. */
+    function postAuth() { if (typeof authSuccess === 'function') { try { authSuccess(state); } catch (e) { } } else { goAccount(); } }
 
     function load() {
         try {
@@ -206,12 +209,12 @@
         state.signedIn = true;
         if (!state.user.name) state.user = { name: 'Alex Green', email: '' };
         persist(); closePop(); renderPop(); notify();
-        goAccount(); /* land the user in their account */
+        postAuth(); /* land the user in their account (or run the page's hook) */
     }
     function emailLogin() {
         var email = (pop.querySelector('[data-wta-email]') || {}).value || '';
         login({ name: email ? deriveName(email) : 'Alex Green', email: email });
-        goAccount();
+        postAuth();
     }
     function logout() {
         state.signedIn = false;
@@ -238,6 +241,7 @@
         isSignedIn: function () { return state.signedIn; },
         getUser: function () { return { name: state.user.name, email: state.user.email }; },
         onChange: function (cb) { listeners.push(cb); return function () { listeners = listeners.filter(function (f) { return f !== cb; }); }; },
+        onAuthSuccess: function (cb) { authSuccess = cb; },
         login: login,
         logout: logout,
         openLogin: openPop,

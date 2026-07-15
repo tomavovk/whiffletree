@@ -16,6 +16,183 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/light/style.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+        <style data-inlined="wt-layout.css">
+/* wt-layout.css — site-wide layout system: breakpoints, containers, grid, spacing.
+ *
+ * SOURCE OF TRUTH. Inlined into every page as <style data-inlined="wt-layout.css">
+ * by tools/inline-shared.py — edit here, then run the script. Never edit the
+ * inlined copies by hand.
+ *
+ * Strategy (agreed 2026-07-14):
+ *   1. STEPPED page margins per screen range (Material-style spec values):
+ *        <720 → 16px · 720–1023 → 40px · 1024–1439 → 60px ·
+ *        1440–1919 → 88px · ≥1920 → 128px
+ *   2. Blocks & photos grow proportionally with the screen: fr-based grids
+ *      give width, aspect-ratio (not fixed heights) gives height, and the
+ *      display-type scale + section rhythm step up at 1440/1920.
+ *      Body text does NOT scale — only display type and imagery.
+ *   3. Content caps at --container-max (~2100) and centers beyond it.
+ */
+
+:root {
+    /* Spacing scale — 4px-base ramp (design-system.html · 04 — Spacing).
+       --sp-N = N × 4px. */
+    --sp-1: 4px;
+    --sp-2: 8px;
+    --sp-3: 12px;
+    --sp-4: 16px;
+    --sp-5: 20px;
+    --sp-6: 24px;
+    --sp-8: 32px;
+    --sp-10: 40px;
+    --sp-12: 48px;
+    --sp-14: 56px;
+    --sp-16: 64px;
+    --sp-18: 72px;
+    --sp-20: 80px;
+    --sp-24: 96px;
+    --sp-32: 128px;
+
+    /* Stepped page margin (see header comment). Mobile-first base. */
+    --page-x: 16px;
+
+    /* Grid gaps — gentle fluid growth between the margin steps. */
+    --gutter: clamp(16px, 1.6vw, 32px);
+    --gutter-lg: clamp(32px, 3.4vw, 64px);
+
+    /* Vertical rhythm between sections — steps up with the margin scale. */
+    --section-y: 64px;
+    --section-y-sm: 48px;
+
+    /* Content measures — max content width per content type */
+    --measure-narrow: 780px;   /* centered prose, CTA copy */
+    --measure-form: 640px;     /* auth / form shells */
+    --measure-text: 1140px;    /* text-led sections, reading layouts */
+    --measure-content: 1560px; /* detail pages, editorial splits */
+    --container-max: 2100px;   /* default cap — grids, tile walls, hero */
+}
+@media (min-width: 720px) {
+    :root { --page-x: 40px; --section-y: 96px; --section-y-sm: 64px; }
+}
+@media (min-width: 1024px) {
+    :root { --page-x: 60px; --section-y: 128px; --section-y-sm: 72px; }
+}
+@media (min-width: 1440px) {
+    :root { --page-x: 88px; --section-y: 144px; --section-y-sm: 80px; }
+}
+@media (min-width: 1920px) {
+    :root { --page-x: 128px; --section-y: 160px; --section-y-sm: 88px; }
+}
+
+/* Page container — full available width up to a measure cap, stepped side
+   margins. Modifiers narrow the cap per content type; box-sizing is
+   border-box everywhere, so the cap includes the side padding. */
+.wt-container {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: var(--page-x);
+    max-width: calc(var(--wt-measure, var(--container-max)) + 2 * var(--page-x));
+}
+.wt-container--narrow  { --wt-measure: var(--measure-narrow); }
+.wt-container--form    { --wt-measure: var(--measure-form); }
+.wt-container--text    { --wt-measure: var(--measure-text); }
+.wt-container--content { --wt-measure: var(--measure-content); }
+.wt-container--full    { max-width: none; }
+
+/* Section rhythm — pair with .wt-container on the section inner. */
+.wt-section    { padding-block: var(--section-y); }
+.wt-section--sm { padding-block: var(--section-y-sm); }
+
+/* 12-column grid — 12 cols ≥1181 · 8 cols 901–1180 · 4 cols ≤900. */
+.wt-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--gutter);
+}
+.wt-span-2  { grid-column: span 2; }
+.wt-span-3  { grid-column: span 3; }
+.wt-span-4  { grid-column: span 4; }
+.wt-span-6  { grid-column: span 6; }
+.wt-span-8  { grid-column: span 8; }
+.wt-span-12 { grid-column: span 12; }
+@media (max-width: 1180px) {
+    .wt-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+    .wt-span-2, .wt-span-3 { grid-column: span 4; }
+    .wt-span-4, .wt-span-6 { grid-column: span 4; }
+    .wt-span-8, .wt-span-12 { grid-column: span 8; }
+}
+@media (max-width: 900px) {
+    .wt-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .wt-span-2, .wt-span-3, .wt-span-4, .wt-span-6, .wt-span-8, .wt-span-12 { grid-column: span 4; }
+}
+
+/* Product-tile wall — density steps with viewport width.
+   2-up ≤900 (tight columns, roomy rows) · 3-up base · 4-up ≥1280.
+   Beyond 1280 tiles simply grow (aspect-ratio media keeps proportions). */
+.wt-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px var(--gutter);
+}
+@media (min-width: 1280px) { .wt-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 1024px) { .wt-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 900px)  { .wt-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 8px; } }
+
+/* Display-type scale — steps up with the margin scale so wide screens get
+   proportionally larger headlines, not just wider empty sections.
+   Only display type scales; body copy stays at its base size.
+   Elements opt in via inline style="font-size: var(--fs-*)". Base values
+   match the 1280 design; bumps land at 1440 and 1920. Mobile heading
+   downsizing keeps working via the existing per-page !important overrides. */
+:root {
+    --fs-hero: 74px;       /* home hero display */
+    --fs-title: 52px;      /* page/product titles (catalog, PDP, register, workshops) */
+    --fs-h2: 48px;         /* section headings */
+    --fs-cta: 54px;        /* contact CTA heading */
+    --fs-h3: 44px;         /* newsletter / minor band headings */
+    --fs-tile-title: 22px; /* icon-tile display titles */
+    --fs-icon: 54px;       /* icon-tile pictograms — the tile visual, must
+                              grow with the tile or wide screens look empty */
+    --fs-icon-lg: 72px;    /* large feature-card pictograms */
+}
+@media (min-width: 1440px) {
+    :root { --fs-hero: 84px; --fs-title: 58px; --fs-h2: 54px; --fs-cta: 60px; --fs-h3: 48px;
+            --fs-tile-title: 24px; --fs-icon: 66px; --fs-icon-lg: 86px; }
+}
+@media (min-width: 1920px) {
+    :root { --fs-hero: 96px; --fs-title: 66px; --fs-h2: 60px; --fs-cta: 66px; --fs-h3: 52px;
+            --fs-tile-title: 27px; --fs-icon: 78px; --fs-icon-lg: 102px; }
+}
+        </style>
+        <style data-inlined="wt-header.css">
+/* ============================================================================
+   Whiffletree — shared header/icon-button styles
+   The .icon-btn design-system component (header/footer icon buttons) and the
+   desktop rules that hide the mobile nav-overlay search row & Account button.
+   Was previously appended inside the inlined wt-account.css block and got
+   wiped by inline-shared.py re-runs — now a proper shared component.
+   ========================================================================== */
+/* Icon button — design-system component. States: hover / focus-visible / active / disabled. */
+.icon-btn { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; padding:0; border:1.5px solid var(--line); border-radius:2px; background:#fff; color:var(--g700); cursor:pointer; position:relative; text-decoration:none; -webkit-appearance:none; appearance:none; transition:background-color 150ms cubic-bezier(0.2,0,0,1), border-color 150ms cubic-bezier(0.2,0,0,1), color 150ms cubic-bezier(0.2,0,0,1); }
+.icon-btn i { font-size:20px; line-height:1; }
+.icon-btn:hover { background:var(--paper1); border-color:var(--subtle); }
+.icon-btn:active { background:var(--paper2); }
+.icon-btn:focus-visible { outline:2px solid var(--g700); outline-offset:2px; }
+.icon-btn:disabled, .icon-btn[aria-disabled="true"] { color:var(--subtle); background:var(--paper2); border-color:var(--line); cursor:not-allowed; }
+.icon-btn--ghost { width:auto; height:auto; padding:7px; border-color:transparent; background:transparent; color:inherit; }
+.icon-btn--ghost i { font-size:22px; }
+.icon-btn--ghost:hover { background:var(--paper1); border-color:transparent; }
+.icon-btn--ghost:active { background:var(--paper2); }
+.hdr-search-m-row, .hdr-account-m { display: none; }
+[data-comment="header-cart-wrap"], .hdr-cart { margin-left: 16px; }
+@media (max-width: 900px) { /* mobile header */
+    /* .icon-btn--ghost grows to a 44px touch target on mobile, so the badge
+       must move inward to hug the bag glyph exactly like it does on desktop.
+       Double selector: the base .cart-badge rule is declared later in the page
+       (wt-cart block), so this needs higher specificity to win. */
+    .hdr-cart .cart-badge { top: 8px; right: 7px; }
+}
+        </style>
         <style data-inlined="wt-account.css">
 /* ============================================================================
    Whiffletree — shared Account component (login popover + signup modal + toast)
@@ -124,20 +301,7 @@
 .wta-toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%) translateY(10px); display: flex; align-items: center; gap: 10px; background: var(--ink, #15140f); color: #fff; font-family: var(--sans, sans-serif); font-size: 14px; font-weight: 600; padding: 13px 20px; border-radius: 2px; box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3); opacity: 0; pointer-events: none; transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1), transform 220ms cubic-bezier(0.22, 1, 0.36, 1); z-index: 1400; }
 .wta-toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
 .wta-toast i { color: var(--g300, #8fce9b); font-size: 18px; }
-                    /* Icon button — design-system component. States: hover / focus-visible / active / disabled. */
-            .icon-btn { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; padding:0; border:1.5px solid var(--line); border-radius:2px; background:#fff; color:var(--g700); cursor:pointer; position:relative; text-decoration:none; -webkit-appearance:none; appearance:none; transition:background-color 150ms cubic-bezier(0.2,0,0,1), border-color 150ms cubic-bezier(0.2,0,0,1), color 150ms cubic-bezier(0.2,0,0,1); }
-            .icon-btn i { font-size:20px; line-height:1; }
-            .icon-btn:hover { background:var(--paper1); border-color:var(--subtle); }
-            .icon-btn:active { background:var(--paper2); }
-            .icon-btn:focus-visible { outline:2px solid var(--g700); outline-offset:2px; }
-            .icon-btn:disabled, .icon-btn[aria-disabled="true"] { color:var(--subtle); background:var(--paper2); border-color:var(--line); cursor:not-allowed; }
-            .icon-btn--ghost { width:auto; height:auto; padding:7px; border-color:transparent; background:transparent; color:inherit; }
-            .icon-btn--ghost i { font-size:22px; }
-            .icon-btn--ghost:hover { background:var(--paper1); border-color:transparent; }
-            .icon-btn--ghost:active { background:var(--paper2); }
-            .hdr-search-m-row, .hdr-account-m { display: none; }
-            [data-comment="header-cart-wrap"], .hdr-cart { margin-left: 16px; }
-</style>
+        </style>
 
         <style>
             /* Reset */
@@ -475,8 +639,8 @@
                 letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent-deep);
             }
             .oc-eyebrow i { font-size: 15px; }
-            [data-comment="oc-head-inner"] { max-width: 760px; margin: 0 auto; padding: 58px 40px 12px; text-align: center; }
-            .oc-h1 { font-family: var(--display); font-weight: 500; font-size: 46px; line-height: 1.06; color: var(--ink); margin: 16px 0 0; }
+            [data-comment="oc-head-inner"] { max-width: calc(var(--measure-narrow) + 2 * var(--page-x)); margin: 0 auto; padding: 58px var(--page-x) 12px; text-align: center; }
+            .oc-h1 { font-family: var(--display); font-weight: 500; font-size: var(--fs-h2); line-height: 1.06; color: var(--ink); margin: 16px 0 0; }
             .oc-byline {
                 display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center;
                 font-family: var(--sans); font-size: 13.5px; color: var(--muted); margin: 20px 0 0;
@@ -490,8 +654,8 @@
 
             /* Body shell — sticky contents + reading column */
             [data-comment="oc-shell"] {
-                max-width: 1080px; margin: 0 auto; padding: 44px 40px 40px;
-                display: grid; grid-template-columns: 210px 1fr; gap: 56px; align-items: start;
+                max-width: calc(var(--measure-text) + 2 * var(--page-x)); margin: 0 auto; padding: 44px var(--page-x) 40px;
+                display: grid; grid-template-columns: 210px 1fr; gap: var(--gutter-lg); align-items: start;
             }
             .oc-toc { position: sticky; top: 110px; }
             .oc-toc-head {
@@ -575,7 +739,7 @@
 
             /* Related CTA */
             [data-comment="oc-related"] { background: var(--g050); border-top: 1px solid var(--line-soft); }
-            [data-comment="oc-related-inner"] { max-width: 760px; margin: 0 auto; padding: 54px 40px; text-align: center; }
+            [data-comment="oc-related-inner"] { max-width: calc(var(--measure-narrow) + 2 * var(--page-x)); margin: 0 auto; padding: 54px var(--page-x); text-align: center; }
             .oc-related-title { font-family: var(--display); font-weight: 500; font-size: 30px; line-height: 1.12; color: var(--g900); margin: 0; }
             .oc-related-text { font-family: var(--sans); font-size: 16px; line-height: 1.7; color: var(--muted); margin: 12px auto 0; max-width: 52ch; }
             .oc-related-btn {
@@ -599,12 +763,6 @@
 
             /* ---- Tablet ---- */
             @media (max-width: 1024px) {
-                [data-comment="header-inner"] { padding-left: 28px !important; padding-right: 28px !important; }
-                [data-comment="oc-head-inner"],
-                [data-comment="oc-shell"],
-                [data-comment="oc-related-inner"],
-                [data-comment="newsletter-inner"],
-                [data-comment="footer-inner"] { padding-left: 28px !important; padding-right: 28px !important; }
             }
 
             /* ---- Mobile & small tablet ---- */
@@ -700,12 +858,6 @@
                 [data-comment="header-cart-wrap"], .hdr-cart { margin-left: 0 !important; margin-right: 8px !important; }
 
                 /* Horizontal padding */
-                [data-comment="header-inner"],
-                [data-comment="oc-head-inner"],
-                [data-comment="oc-shell"],
-                [data-comment="oc-related-inner"],
-                [data-comment="newsletter-inner"],
-                [data-comment="footer-inner"] { padding-left: 20px !important; padding-right: 20px !important; }
 
                 /* Guide -> single column, hide sticky TOC */
                 [data-comment="oc-shell"] { grid-template-columns: 1fr !important; gap: 0 !important; }
@@ -766,6 +918,107 @@
                 .oc-lead { font-size: 17px !important; }
             }
         </style>
+        <style data-inlined="wt-cart-drawer.css">
+/* ============================================================================
+   Whiffletree — shared Cart Drawer component (styles)
+   Right-side drawer, ~40vw on desktop, full-width on mobile.
+   Markup is injected by wt-cart-drawer.js; uses site :root tokens only.
+   ========================================================================== */
+
+.wtc-scrim { position: fixed; inset: 0; background: rgba(21, 20, 15, 0.44); opacity: 0; pointer-events: none; transition: opacity 0.28s ease; z-index: 3000; }
+.wtc-scrim.open { opacity: 1; pointer-events: auto; }
+
+.wtc-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 35vw; min-width: 480px; max-width: 660px; background: #ffffff; z-index: 3001; display: flex; flex-direction: column; transform: translateX(103%); transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1); box-shadow: -18px 0 50px rgba(21, 20, 15, 0.18); font-family: var(--sans); color: var(--ink2); }
+.wtc-drawer.open { transform: none; }
+@media (max-width: 767px) { /* md */
+    .wtc-drawer { width: 100%; min-width: 0; max-width: none; }
+}
+
+/* ─── Header ─── */
+.wtc-head { display: flex; align-items: center; gap: 12px; padding: 20px 26px; border-bottom: 1px solid var(--line-soft); flex-shrink: 0; }
+.wtc-title { font-family: var(--display); font-weight: 600; font-size: 27px; line-height: 1.1; color: var(--ink); }
+.wtc-count { font-size: 13px; font-weight: 600; color: var(--muted); padding-top: 5px; }
+.wtc-close { margin-left: auto; width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; background: none; border: 1px solid transparent; border-radius: 2px; color: var(--muted); font-size: 21px; cursor: pointer; transition: background 0.15s ease, color 0.15s ease; }
+.wtc-close:hover { background: var(--paper1); color: var(--ink); }
+.wtc-close:focus-visible { outline: 2px solid var(--g700); outline-offset: 2px; }
+
+/* ─── Discount progress ─── */
+.wtc-progress { padding: 15px 26px 17px; background: var(--paper0); border-bottom: 1px solid var(--line-soft); flex-shrink: 0; }
+.wtc-progress-label { font-size: 13px; line-height: 1.45; color: var(--ink2); }
+.wtc-progress-label b { color: var(--accent-deep); }
+.wtc-progress.done .wtc-progress-label b { color: var(--g700); }
+.wtc-progress-track { height: 6px; background: var(--paper2); border-radius: 999px; margin-top: 9px; overflow: hidden; }
+.wtc-progress-fill { height: 100%; width: 0; background: var(--g600); border-radius: 999px; transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+
+/* ─── Body / items ─── */
+.wtc-body { flex: 1; overflow-y: auto; overflow-x: hidden; padding: 4px 26px 18px; }
+.wtc-item { display: flex; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line-soft); }
+.wtc-item-img { width: 78px; height: 78px; flex: 0 0 78px; border-radius: 2px; border: 1px solid var(--line-soft); background-color: var(--paper1); background-size: cover; background-position: center; }
+.wtc-item-main { flex: 1 1 auto; min-width: 0; }
+.wtc-item-name { display: inline-block; font-weight: 700; font-size: 15px; line-height: 1.35; color: var(--ink); text-decoration: none; }
+a.wtc-item-name:hover { color: var(--g700); }
+.wtc-item-detail { font-size: 12.5px; line-height: 1.45; color: var(--muted); margin-top: 3px; }
+.wtc-item-unit { font-size: 12.5px; color: var(--subtle); margin-top: 2px; }
+.wtc-qty { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 2px; margin-top: 10px; }
+.wtc-qty button { width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; background: none; border: none; color: var(--ink2); font-size: 14px; cursor: pointer; transition: background 0.15s ease; }
+.wtc-qty button:hover { background: var(--paper1); }
+.wtc-qty button:focus-visible { outline: 2px solid var(--g700); outline-offset: -2px; }
+.wtc-qty-num { min-width: 34px; text-align: center; font-weight: 700; font-size: 13.5px; color: var(--ink); }
+.wtc-item-side { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; flex-shrink: 0; }
+.wtc-item-price { font-weight: 700; font-size: 15px; color: var(--ink); }
+.wtc-item-remove { background: none; border: none; padding: 4px; color: var(--subtle); font-size: 17px; cursor: pointer; display: inline-flex; transition: color 0.15s ease; }
+.wtc-item-remove:hover { color: var(--error); }
+.wtc-item-remove:focus-visible { outline: 2px solid var(--g700); outline-offset: 2px; border-radius: 2px; }
+
+/* ─── Pollination check ─── */
+.wtc-poll { margin-top: 18px; border-radius: 2px; border: 1px solid; padding: 14px 16px; font-size: 13.5px; line-height: 1.5; }
+.wtc-poll.ok { background: var(--g050); border-color: var(--g200); color: var(--g900); }
+.wtc-poll.warn { background: #fbf3e6; border-color: #e9d5ad; color: #6e4a14; }
+.wtc-poll-head { display: flex; align-items: flex-start; gap: 9px; font-weight: 700; }
+.wtc-poll-head i { font-size: 17px; flex-shrink: 0; margin-top: 1px; }
+.wtc-poll.ok .wtc-poll-head i { color: var(--g700); }
+.wtc-poll.warn .wtc-poll-head i { color: var(--warning); }
+.wtc-poll-text { margin: 5px 0 0 26px; }
+
+/* pollinator cross-sell card */
+.wtc-suggest { display: flex; align-items: center; gap: 13px; margin-top: 12px; background: #ffffff; border: 1px solid var(--line-soft); border-radius: 2px; padding: 11px 12px; }
+.wtc-suggest-img { width: 54px; height: 54px; flex: 0 0 54px; border-radius: 2px; border: 1px solid var(--line-soft); background-color: var(--paper1); background-size: cover; background-position: center; }
+.wtc-suggest-main { flex: 1 1 auto; min-width: 0; }
+.wtc-suggest-name { font-weight: 700; font-size: 13.5px; color: var(--ink); line-height: 1.3; }
+.wtc-suggest-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.wtc-suggest-add { flex-shrink: 0; white-space: nowrap; font-family: var(--sans); font-weight: 700; font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: #ffffff; background: var(--c600); border: 1.5px solid var(--c600); border-radius: 2px; padding: 9px 14px; cursor: pointer; transition: background 0.15s ease; }
+.wtc-suggest-add:hover { background: var(--c700); border-color: var(--c700); }
+.wtc-suggest-add:focus-visible { outline: 2px solid var(--g700); outline-offset: 2px; }
+.wtc-suggest-add.added { background: var(--g700); border-color: var(--g700); cursor: default; }
+
+/* ─── Footer / summary ─── */
+.wtc-foot { border-top: 1px solid var(--line); padding: 16px 26px 22px; background: #ffffff; flex-shrink: 0; }
+.wtc-row { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; font-size: 14px; color: var(--ink2); margin-top: 5px; }
+.wtc-row-label { color: var(--muted); }
+.wtc-row.discount .wtc-row-value { color: var(--g700); font-weight: 700; }
+.wtc-row.total { font-size: 20px; font-weight: 700; color: var(--ink); margin-top: 8px; }
+.wtc-row.total .wtc-row-label { color: var(--ink); }
+.wtc-note { font-size: 12px; color: var(--subtle); margin-top: 8px; }
+.wtc-checkout { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; white-space: nowrap; margin-top: 14px; font-family: var(--sans); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #ffffff; background: var(--c600); border: none; border-radius: 2px; padding: 17px 24px; cursor: pointer; text-decoration: none; transition: background 0.15s ease; }
+.wtc-checkout:hover { background: var(--c700); }
+.wtc-checkout:focus-visible { outline: 2px solid var(--g700); outline-offset: 2px; }
+.wtc-continue { display: flex; align-items: center; justify-content: center; width: 100%; white-space: nowrap; margin-top: 10px; font-family: var(--sans); font-weight: 700; font-size: 12px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--accent-deep); background: transparent; border: 1.5px solid var(--accent-deep); border-radius: 2px; padding: 13px 24px; cursor: pointer; text-decoration: none; transition: background 0.15s ease, color 0.15s ease; }
+.wtc-continue:hover { background: var(--c050); }
+.wtc-continue:focus-visible { outline: 2px solid var(--g700); outline-offset: 2px; }
+
+/* ─── Empty state (vertically centered in the drawer body) ─── */
+.wtc-body.is-empty { display: flex; align-items: center; justify-content: center; }
+.wtc-empty { text-align: center; padding: 24px 26px; }
+.wtc-empty > i { font-size: 52px; color: var(--g300); }
+.wtc-empty-title { font-family: var(--display); font-weight: 600; font-size: 27px; color: var(--ink); margin-top: 16px; }
+.wtc-empty-text { font-size: 14.5px; line-height: 1.6; color: var(--muted); margin: 8px auto 0; max-width: 34ch; }
+.wtc-empty-cta { display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; margin-top: 24px; font-family: var(--sans); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #ffffff; background: var(--c600); border: none; border-radius: 2px; padding: 15px 26px; cursor: pointer; text-decoration: none; transition: background 0.15s ease; }
+.wtc-empty-cta:hover { background: var(--c700); }
+
+@media (prefers-reduced-motion: reduce) {
+    .wtc-drawer, .wtc-scrim, .wtc-progress-fill { transition: none; }
+}
+        </style>
     </head>
     <body>
         <div data-comment="page-root" style="background:#ffffff; font-family:var(--sans); color:var(--ink2); font-size:16px; line-height:1.6;">
@@ -775,7 +1028,7 @@
 
             <!-- NAV -->
             <header data-comment="header-root" style="background:#FFFFFF; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:20;">
-                <div data-comment="header-inner" style="max-width: none; width: 100%; margin: 0; padding: 16px 40px; display: flex; align-items: center; justify-content: flex-end; padding-top: 20px; padding-bottom: 20px">
+                <div data-comment="header-inner" class="wt-container wt-container--full" style="margin: 0; padding: 16px var(--page-x); display: flex; align-items: center; justify-content: flex-end; padding-top: 20px; padding-bottom: 20px">
                     <a data-comment="header-logo-link" href="home.html" style="position:absolute; left:28px; top:11px; z-index:40; display:block;"><img data-comment="header-logo" src="assets/whiffletree-logo.png" alt="Whiffletree Farm &amp; Nursery" style="height: 75px; width: 239px; display:block;"></a>
                     <nav data-comment="header-nav" style="display: flex; align-items: center; gap: 28px; font-family: var(--sans); font-weight: 600; font-size: 15px; color: var(--muted); align-self: flex-end">
 
@@ -798,7 +1051,7 @@
                                             <a class="np-link" href="shop.html?category=cherries" data-comment="navp-shop-trees-cherry">Cherry</a>
                                             <a class="np-link" href="shop.html?category=apricots" data-comment="navp-shop-trees-apricot">Apricot</a>
                                             <a class="np-link" href="shop.html?category=nuts" data-comment="navp-shop-trees-nut">Nut</a>
-                                            <a class="np-link" href="shop.html" data-comment="navp-shop-trees-combo-trees">Combo Trees</a>
+                                            <a class="np-link" href="shop.html?category=combo" data-comment="navp-shop-trees-combo-trees">Combo Trees</a>
                                             <a class="np-seeall" href="shop.html?group=trees" data-comment="navp-shop-trees-seeall">See all trees <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
                                         </div>
                                         <div class="np-col">
@@ -829,7 +1082,7 @@
                                             <a class="np-link" href="shop.html?category=collector" data-comment="navp-shop-more-collector-s-corner">Collector's Corner</a>
                                             <a class="np-link" href="shop.html?category=supplies" data-comment="navp-shop-more-orchard-supplies">Orchard Supplies</a>
                                             <a class="np-link" href="shop.html?category=books" data-comment="navp-shop-more-reference-books">Reference Books</a>
-                                            <a class="np-link" href="shop.html" data-comment="navp-shop-more-gift-certificates">Gift Certificates</a>
+                                            <a class="np-link" href="shop.html?category=gift-certificates" data-comment="navp-shop-more-gift-certificates">Gift Certificates</a>
                                         </div>
                                     </div>
                                 </div>
@@ -867,12 +1120,18 @@
                             <button class="nav-trigger" data-comment="header-nav-link-info" data-nav-trigger="info" aria-expanded="false" aria-controls="nav-panel-info" aria-haspopup="true">Info <svg class="nav-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
                             <div class="nav-panel" id="nav-panel-info" data-comment="nav-panel-info" role="region" aria-label="Information">
                                 <div class="np-inner">
-                                    <div class="np-grid np-grid--1">
+                                    <div class="np-grid np-grid--2">
                                         <div class="np-col">
                                             <span class="np-col-head" data-comment="navp-info-head-about">About</span>
-                                            <a class="np-link" href="home.html#about" data-comment="navp-info-about-about-us">About Us</a>
-                                            <a class="np-link" href="home.html#about" data-comment="navp-info-about-guarantee-policy">Guarantee Policy</a>
-                                            <a class="np-link" href="home.html#about" data-comment="navp-info-about-product-faq">Product FAQ</a>
+                                            <a class="np-link" href="about.html" data-comment="navp-info-about-about-us">About Us</a>
+                                            <a class="np-link" href="contact.html" data-comment="navp-info-about-contact-us">Contact Us</a>
+                                            <a class="np-link" href="guarantee-policy.html" data-comment="navp-info-about-guarantee-policy">Guarantee Policy</a>
+                                            <a class="np-link" href="product-faq.html" data-comment="navp-info-about-product-faq">Product FAQ</a>
+                                        </div>
+                                        <div class="np-col">
+                                            <span class="np-col-head" data-comment="navp-info-head-legal">Legal</span>
+                                            <a class="np-link" href="terms-conditions.html" data-comment="navp-info-legal-terms-conditions">Terms &amp; Conditions</a>
+                                            <a class="np-link" href="privacy-policy.html" data-comment="navp-info-legal-privacy-policy">Privacy Policy</a>
                                         </div>
                                     </div>
                                 </div>
@@ -880,7 +1139,7 @@
                         </div>
 
                         <!-- CONTACT -->
-                        <a class="nav-link" data-comment="header-nav-link-contact" href="home.html#contact" style="color: var(--muted); text-decoration: none; align-self: center; height: 24px; flex-grow: 0">Contact</a>
+                        <a class="nav-link" data-comment="header-nav-link-contact" href="contact.html" style="color: var(--muted); text-decoration: none; align-self: center; height: 24px; flex-grow: 0">Contact</a>
 
                         <div data-comment="header-actions" style="display:flex; align-items:center; gap:20px; padding-left:8px; color:var(--muted);">
                             <button type="button" data-comment="header-action-search" class="icon-btn icon-btn--ghost" aria-label="Search"><i class="ph ph-magnifying-glass" aria-hidden="true"></i></button>
@@ -889,7 +1148,7 @@
                             <button type="button" data-comment="header-account-m" class="hdr-account-m" onclick="var u=document.querySelector('[data-comment=&quot;header-action-user&quot;]'); if(u){u.click();}"><i class="ph ph-user" aria-hidden="true"></i> Account</button>
                         </div>
                     </nav>
-                    <button type="button" data-comment="header-action-cart" class="icon-btn icon-btn--ghost hdr-cart" aria-label="Cart"><i class="ph ph-shopping-bag" aria-hidden="true"></i></button>
+                    <span data-comment="header-cart-wrap" class="hdr-cart" style="position:relative; display:inline-flex;"><button type="button" data-comment="header-action-cart" class="icon-btn icon-btn--ghost" aria-label="Cart"><i class="ph ph-shopping-bag" aria-hidden="true"></i></button><span class="cart-badge" data-comment="header-cart-badge" aria-hidden="true"></span></span>
                     <button data-comment="header-burger" class="icon-btn icon-btn--ghost" aria-label="Open menu" aria-expanded="false"><i class="ph ph-list"></i></button>
                 </div>
             </header>
@@ -1024,23 +1283,23 @@
                 <div data-comment="contact-bg-image" style="position: absolute; inset: 0; overflow: visible; background: url('assets/cta-blossom.png') center / cover no-repeat"></div>
                 <!-- darkening layer for text legibility -->
                 <div data-comment="contact-bg-overlay" style="position:absolute; inset:0; background:radial-gradient(ellipse 70% 80% at center, rgba(0,0,0,0.48) 0%, rgba(0,0,0,0.30) 70%);"></div>
-                <div data-comment="contact-content" style="position:relative; max-width:780px; margin:0 auto; padding:128px 40px; text-align:center;">
+                <div data-comment="contact-content" class="wt-container wt-container--narrow wt-section" style="position:relative; text-align:center;">
                     <div data-comment="contact-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:#EAD7B4;">We’re here to help</div>
-                    <h2 data-comment="contact-heading" style="font-family:var(--display); font-weight:500; font-size:54px; line-height:1.08; color:#FFFFFF; margin:18px 0 0; text-wrap:balance;">Questions? Read our FAQ or get in touch.</h2>
+                    <h2 data-comment="contact-heading" style="font-family:var(--display); font-weight:500; font-size:var(--fs-cta); line-height:1.08; color:#FFFFFF; margin:18px 0 0; text-wrap:balance;">Questions? Read our FAQ or get in touch.</h2>
                     <p data-comment="contact-text" style="font-family:var(--sans); font-weight:400; font-size:18px; line-height:1.7; color:rgba(255,255,255,0.88); margin:20px auto 0; max-width:50ch;">New to fruit trees? We’re here to help, and we’ll do our best to answer your questions. Call us at <a data-comment="contact-phone-link" href="tel:5196691349" style="color:#FFFFFF; font-weight:700; text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.5);">519.669.1349</a> · Elora, Ontario.</p>
                     <div data-comment="contact-cta-group" style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-top:34px;">
-                        <a data-comment="contact-cta-faq" href="#" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent-deep); background:#FFFFFF; border-radius:4px; padding:16px 32px; text-decoration:none;">Read the FAQ</a>
-                        <a data-comment="contact-cta-contact" href="home.html#contact" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#FFFFFF; border:1.5px solid rgba(255,255,255,0.65); border-radius:4px; padding:14.5px 30px; text-decoration:none;">Contact us</a>
+                        <a data-comment="contact-cta-faq" href="product-faq.html" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent-deep); background:#FFFFFF; border-radius:4px; padding:16px 32px; text-decoration:none;">Read the FAQ</a>
+                        <a data-comment="contact-cta-contact" href="contact.html" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#FFFFFF; border:1.5px solid rgba(255,255,255,0.65); border-radius:4px; padding:14.5px 30px; text-decoration:none;">Contact us</a>
                     </div>
                 </div>
             </section>
 
             <!-- READY SET GROW / NEWSLETTER -->
             <section id="gift" data-comment="newsletter-section" style="background:var(--paper1);">
-                <div data-comment="newsletter-inner" style="max-width:none; width:100%; margin:0; padding:72px 40px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;">
+                <div data-comment="newsletter-inner" class="wt-container" style="padding-top:72px; padding-bottom:72px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;">
                     <div data-comment="newsletter-text">
                         <div data-comment="newsletter-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent-deep);">Ready, set, grow!</div>
-                        <h2 data-comment="newsletter-heading" style="font-family:var(--display); font-weight:500; font-size:44px; line-height:1.08; color:var(--ink); margin:12px 0 0; max-width:18ch;">Join our mailing list</h2>
+                        <h2 data-comment="newsletter-heading" style="font-family:var(--display); font-weight:500; font-size:var(--fs-h3); line-height:1.08; color:var(--ink); margin:12px 0 0; max-width:18ch;">Join our mailing list</h2>
                         <p data-comment="newsletter-subtext" style="font-family:var(--sans); font-size:16px; line-height:1.6; color:var(--muted); margin:14px 0 0; max-width:46ch;">Be first to know when the next crop is released, plus updates on events, workshops and sales from the farm.</p>
                     </div>
                     <form data-comment="newsletter-form" style="display:flex; gap:12px; flex-wrap:wrap;" onsubmit="return false;">
@@ -1052,7 +1311,7 @@
 
             <!-- FOOTER -->
             <footer data-comment="footer-root" style="background:var(--paper2); border-top:1px solid var(--line);">
-                <div data-comment="footer-inner" style="max-width:none; width:100%; margin:0; padding:64px 40px 40px;">
+                <div data-comment="footer-inner" class="wt-container" style="padding-top:64px; padding-bottom:40px;">
                     <div data-comment="footer-columns" style="display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px;">
                         <div data-comment="footer-brand">
                             <div data-comment="footer-logo-wrap" style="display: inline-block; border-radius: 4px; padding: 14px 18px; padding-top: 8px; padding-bottom: 8px; padding-left: 8px; padding-right: 8px">
@@ -1089,7 +1348,7 @@
                             <div data-comment="footer-col-links-links" style="display:flex; flex-direction:column; gap:11px; font-family:var(--sans); font-size:14.5px;">
                                 <a data-comment="footer-links-link-1" href="account.html" style="color:var(--ink2); text-decoration:none;">My account</a>
                                 <a data-comment="footer-links-link-2" href="#" style="color:var(--ink2); text-decoration:none;">Cart</a>
-                                <a data-comment="footer-links-link-3" href="#contact" style="color:var(--ink2); text-decoration:none;">Contact</a>
+                                <a data-comment="footer-links-link-3" href="contact.html" style="color:var(--ink2); text-decoration:none;">Contact</a>
                                 <a data-comment="footer-links-link-4" href="tel:5196691349" style="color:var(--ink2); text-decoration:none;">(519) 669-1349</a>
                             </div>
                         </div>
@@ -1097,8 +1356,8 @@
                     <div data-comment="footer-bottom" style="border-top:1px solid var(--line); margin-top:44px; padding-top:24px; display:flex; flex-wrap:wrap; gap:14px; justify-content:space-between; font-family:var(--sans); font-size:12.5px; color:var(--muted);">
                         <span data-comment="footer-copyright">© 2026 Whiffletree Farm &amp; Nursery Inc. All rights reserved.</span>
                         <div data-comment="footer-legal-links" style="display:flex; gap:22px;">
-                            <a data-comment="footer-legal-terms" href="#" style="color:var(--muted); text-decoration:none;">Terms &amp; conditions</a>
-                            <a data-comment="footer-legal-privacy" href="#" style="color:var(--muted); text-decoration:none;">Privacy policy</a>
+                            <a data-comment="footer-legal-terms" href="terms-conditions.html" style="color:var(--muted); text-decoration:none;">Terms &amp; conditions</a>
+                            <a data-comment="footer-legal-privacy" href="privacy-policy.html" style="color:var(--muted); text-decoration:none;">Privacy policy</a>
                         </div>
                     </div>
                 </div>
@@ -1279,9 +1538,12 @@
     var LS_KEY = 'wtAccount';
     var ACCOUNT_URL = 'account.html'; /* signed-in destination (page built separately) */
     var listeners = [];
+    var authSuccess = null; /* optional per-page hook: run instead of routing to the account page after login (e.g. checkout keeps you on the page) */
     var state = load();
 
     function goAccount() { window.location.href = ACCOUNT_URL; }
+    /* after a successful login: if a page registered onAuthSuccess, let it decide what happens (stay put); otherwise go to the account page. */
+    function postAuth() { if (typeof authSuccess === 'function') { try { authSuccess(state); } catch (e) { } } else { goAccount(); } }
 
     function load() {
         try {
@@ -1474,12 +1736,12 @@
         state.signedIn = true;
         if (!state.user.name) state.user = { name: 'Alex Green', email: '' };
         persist(); closePop(); renderPop(); notify();
-        goAccount(); /* land the user in their account */
+        postAuth(); /* land the user in their account (or run the page's hook) */
     }
     function emailLogin() {
         var email = (pop.querySelector('[data-wta-email]') || {}).value || '';
         login({ name: email ? deriveName(email) : 'Alex Green', email: email });
-        goAccount();
+        postAuth();
     }
     function logout() {
         state.signedIn = false;
@@ -1506,6 +1768,7 @@
         isSignedIn: function () { return state.signedIn; },
         getUser: function () { return { name: state.user.name, email: state.user.email }; },
         onChange: function (cb) { listeners.push(cb); return function () { listeners = listeners.filter(function (f) { return f !== cb; }); }; },
+        onAuthSuccess: function (cb) { authSuccess = cb; },
         login: login,
         logout: logout,
         openLogin: openPop,
@@ -1518,5 +1781,522 @@
     else build();
 })();
         </script>
+
+            <!-- ============================================================
+                 SHARED CART FEEDBACK (byte-identical on every page)
+                 Red-dot badge + minimal fly-to-cart via Motion One.
+                 Any add-to-cart entry point calls window.wtCart.add(sourceEl).
+                 Count persists across pages in localStorage.
+                 ============================================================ -->
+            <style data-comment="wt-cart-style">
+                .cart-badge { position: absolute; top: -3px; right: -4px; width: 11px; height: 11px; border-radius: 3px; background: var(--accent, #c1502e); border: 2px solid #fff; display: none; }
+                .cart-badge.on { display: block; }
+                .wt-fly-token { position: fixed; top: 0; left: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--accent, #c1502e); box-shadow: 0 2px 8px rgba(21, 20, 15, 0.28); pointer-events: none; z-index: 4000; }
+                @media (prefers-reduced-motion: reduce) { .wt-fly-token { display: none !important; } }
+            </style>
+            <script data-comment="wt-cart-script">
+                (function () {
+                    var KEY = 'wt_cart_count';
+                    function get() { try { return parseInt(localStorage.getItem(KEY), 10) || 0; } catch (e) { return 0; } }
+                    function save(n) { try { localStorage.setItem(KEY, String(n)); } catch (e) {} }
+                    function badge() { return document.querySelector('[data-comment="header-cart-badge"]'); }
+                    function icon() { return document.querySelector('[data-comment="header-action-cart"]'); }
+                    function reduced() { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }
+                    function motion() { return window.__wtMotion && window.__wtMotion.animate; }
+                    function showBadge() { var b = badge(); if (b) b.classList.add('on'); }
+                    function popBadge() {
+                        var b = badge(); if (!b) return;
+                        b.classList.add('on');
+                        var a = motion();
+                        if (a && !reduced()) { try { a(b, { scale: [0, 1.35, 1] }, { duration: 0.42, ease: [0.22, 1, 0.36, 1] }); } catch (e) {} }
+                    }
+                    /* Minimal token that arcs from the add button to the header cart icon. */
+                    function fly(src) {
+                        var a = motion(), ic = icon();
+                        if (!a || reduced() || !src || !ic) return Promise.resolve();
+                        var s = src.getBoundingClientRect(), t = ic.getBoundingClientRect();
+                        if (!t.width || !t.height || !s.width) return Promise.resolve(); /* cart hidden (mobile) → skip flight */
+                        var x0 = s.left + s.width / 2, y0 = s.top + s.height / 2;
+                        var x1 = t.left + t.width / 2, y1 = t.top + t.height / 2;
+                        var lift = Math.min(70, Math.abs(y0 - y1) * 0.18 + 24);
+                        var tok = document.createElement('span');
+                        tok.className = 'wt-fly-token'; tok.style.transform = 'translate(' + x0 + 'px, ' + y0 + 'px)';
+                        document.body.appendChild(tok);
+                        var done = function () { if (tok.parentNode) tok.parentNode.removeChild(tok); };
+                        setTimeout(done, 900); /* safety cleanup if the animation is throttled/never finishes */
+                        try {
+                            var anim = a(tok, {
+                                x: [x0, (x0 + x1) / 2, x1],
+                                y: [y0, (y0 + y1) / 2 - lift, y1],
+                                scale: [1, 0.9, 0.28],
+                                opacity: [1, 1, 0.4]
+                            }, { duration: 0.52, ease: [0.22, 1, 0.36, 1] });
+                            var fin = (anim && anim.finished) ? anim.finished : Promise.resolve();
+                            return fin.then(done, done);
+                        } catch (e) { done(); return Promise.resolve(); }
+                    }
+                    window.wtCart = {
+                        count: get,
+                        add: function (src) {
+                            save(get() + 1);
+                            var settled = false;
+                            function pop() { if (settled) return; settled = true; popBadge(); }
+                            fly(src).then(pop, pop);
+                            setTimeout(pop, 650); /* the badge always updates, even if the flight is throttled or unsupported */
+                        },
+                        refresh: function () { if (get() > 0) showBadge(); }
+                    };
+                    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', window.wtCart.refresh);
+                    else window.wtCart.refresh();
+                })();
+            </script>
+            <script data-inlined="wt-cart-drawer.js">
+/* ============================================================================
+   Whiffletree — shared Cart Drawer component
+   Right-side drawer opened from the header cart icon (click only — the
+   fly-to-cart animation on add stays as-is, per client decision).
+   Extends the existing wt-cart badge mock: line items persist across pages in
+   localStorage ('wt_cart_items'); the legacy 'wt_cart_count' key is kept in
+   sync so the red-dot badge logic keeps working unchanged.
+   Includes the inline discount progress bar and the pollination check with a
+   compatible-pollinator cross-sell (see docs/cart-checkout-spec.md §2, §7).
+   PRODUCTION: replace the localStorage store with the real WooCommerce cart;
+   the pollination result comes from the backend rule engine.
+   ========================================================================== */
+(function () {
+    'use strict';
+
+    var ITEMS_KEY = 'wt_cart_items';
+    var COUNT_KEY = 'wt_cart_count';
+    var DISCOUNT_THRESHOLD = 500;   /* existing "spend $500 → 10% off" promo */
+    var DISCOUNT_RATE = 0.10;
+    var CHECKOUT_URL = 'checkout.html';
+
+    /* ── Nursery mock data (per-category) ─────────────────────────────── */
+    var ROOTSTOCK = {
+        apples: 'MM.106 rootstock', pears: 'OHxF 87 rootstock', plums: 'Myrobalan rootstock',
+        cherries: 'Gisela 6 rootstock', peaches: 'Bailey rootstock', apricots: 'Manchurian rootstock'
+    };
+    var CAT_IMG = {
+        apples: 'assets/cat-apples.png', pears: 'assets/cat-pears.png', plums: 'assets/cat-plums.jpg',
+        cherries: 'assets/cat-cherries.png', peaches: 'assets/cat-peaches.png', apricots: 'assets/cat-apricots.png',
+        grapes: 'assets/cat-grapes.png', nuts: 'assets/cat-nuts.png', shrubs: 'assets/cat-shrubs.png',
+        supplies: 'assets/cat-supplies.png', books: 'assets/books.png'
+    };
+    /* Compatible-pollinator recommendations (mock of the §7 rule engine —
+       real varieties from the catalogue, same species + overlapping bloom). */
+    var POLLINATORS = {
+        apples:   [{ name: 'Liberty Apple', price: 44.95, type: 'Apple tree' }, { name: 'Harcourt Apple', price: 39.95, type: 'Apple tree' }],
+        pears:    [{ name: 'Shinsui Asian Pear', price: 39.95, type: 'Pear tree' }, { name: 'Flemish Beauty European Pear', price: 39.95, type: 'Pear tree' }],
+        plums:    [{ name: 'Shiro Japanese Plum', price: 46.95, type: 'Plum tree' }, { name: 'Superior American Hybrid Plum', price: 46.95, type: 'Plum tree' }],
+        cherries: [{ name: 'Stella Sweet Cherry', price: 49.95, type: 'Cherry tree' }],
+        apricots: [{ name: 'Precious Apricot', price: 49.95, type: 'Apricot tree' }],
+        peaches:  [{ name: 'Reliance Peach', price: 49.95, type: 'Peach tree' }]
+    };
+
+    /* ── Store (localStorage-backed, cross-page mock) ─────────────────── */
+    function loadItems() {
+        try { var a = JSON.parse(localStorage.getItem(ITEMS_KEY)); return Array.isArray(a) ? a : []; }
+        catch (e) { return []; }
+    }
+    function totalQty(items) { return items.reduce(function (n, it) { return n + (it.qty || 0); }, 0); }
+    function subtotal(items) { return items.reduce(function (n, it) { return n + (it.price || 0) * (it.qty || 0); }, 0); }
+    function saveItems(items) {
+        try {
+            localStorage.setItem(ITEMS_KEY, JSON.stringify(items));
+            localStorage.setItem(COUNT_KEY, String(totalQty(items)));
+        } catch (e) { }
+        refreshBadge(items);
+    }
+    function refreshBadge(items) {
+        var b = document.querySelector('[data-comment="header-cart-badge"]');
+        if (b) b.classList.toggle('on', totalQty(items) > 0);
+    }
+    function addItem(items, p) {
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].id === p.id) { items[i].qty += 1; return items; }
+        }
+        items.push({ id: p.id, name: p.name, price: p.price, category: p.category, chars: p.chars, img: p.img, type: p.type, qty: 1 });
+        return items;
+    }
+
+    /* ── Helpers ───────────────────────────────────────────────────────── */
+    function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+    function slug(s) { return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); }
+    function fmt(n) { return '$' + (Math.round(n * 100) / 100).toFixed(2); }
+    function bgUrl(el) {
+        if (!el) return '';
+        var m = /url\(['"]?([^'")]+)['"]?\)/.exec(el.style.backgroundImage || '');
+        return m ? m[1] : '';
+    }
+    function guessCategory(name) {
+        var n = String(name).toLowerCase();
+        if (n.indexOf('apple') !== -1) return 'apples';
+        if (n.indexOf('pear') !== -1) return 'pears';
+        if (n.indexOf('plum') !== -1) return 'plums';
+        if (n.indexOf('cherry') !== -1) return 'cherries';
+        if (n.indexOf('peach') !== -1) return 'peaches';
+        if (n.indexOf('apricot') !== -1) return 'apricots';
+        if (n.indexOf('grape') !== -1) return 'grapes';
+        return '';
+    }
+    function detailFor(it) {
+        var parts = [];
+        if (it.type) parts.push(it.type);
+        if (ROOTSTOCK[it.category]) parts.push(ROOTSTOCK[it.category]);
+        else if (it.category && CAT_IMG[it.category] && it.category !== 'supplies' && it.category !== 'books') parts.push('Bare-root');
+        return parts.join(' · ');
+    }
+
+    /* Derive the product from whatever element triggered the add:
+       a catalogue card, an advisor product card, or explicit data-cart-* attrs. */
+    function productFrom(src) {
+        if (!src || !src.closest) return null;
+        var card = src.closest('.cat-card');
+        if (card && card.dataset && card.dataset.name) {
+            return {
+                id: slug(card.dataset.name),
+                name: card.dataset.name,
+                price: parseFloat(card.dataset.price) || 0,
+                category: card.dataset.category || '',
+                chars: card.dataset.chars || '',
+                img: bgUrl(card.querySelector('.cat-card-img')),
+                type: (card.querySelector('.cat-card-type') || { textContent: '' }).textContent.trim()
+            };
+        }
+        var adv = src.closest('.adv-prod-card');
+        if (adv) {
+            var nameEl = adv.querySelector('.adv-prod-name');
+            if (nameEl) {
+                var name = nameEl.textContent.trim();
+                var priceEl = adv.querySelector('.adv-prod-price');
+                var priceM = priceEl ? /([\d.]+)/.exec(priceEl.textContent) : null;
+                return {
+                    id: slug(name), name: name,
+                    price: priceM ? parseFloat(priceM[1]) : 0,
+                    category: guessCategory(name), chars: '',
+                    img: bgUrl(adv.querySelector('.adv-prod-img')),
+                    type: (adv.querySelector('.adv-prod-meta') || { textContent: '' }).textContent.trim()
+                };
+            }
+        }
+        if (src.dataset && src.dataset.cartName) {
+            return {
+                id: slug(src.dataset.cartName), name: src.dataset.cartName,
+                price: parseFloat(src.dataset.cartPrice) || 0,
+                category: src.dataset.cartCategory || guessCategory(src.dataset.cartName),
+                chars: src.dataset.cartChars || '',
+                img: src.dataset.cartImg || '',
+                type: src.dataset.cartType || ''
+            };
+        }
+        return null;
+    }
+
+    /* ── Pollination check (mock of the §7 rule engine) ───────────────── */
+    function pollinationCheck(items) {
+        var trees = items.filter(function (it) { return ROOTSTOCK[it.category]; });
+        if (!trees.length) return null;
+        var conflicts = [];
+        trees.forEach(function (it) {
+            if ((it.chars || '').indexOf('needs-pollenizer') === -1) return;
+            var partner = trees.some(function (o) { return o !== it && o.category === it.category; });
+            if (!partner) conflicts.push(it);
+        });
+        return { conflicts: conflicts };
+    }
+    function suggestionFor(item, items) {
+        var pool = POLLINATORS[item.category] || [];
+        for (var i = 0; i < pool.length; i++) {
+            var inCart = items.some(function (it) { return it.id === slug(pool[i].name); });
+            if (!inCart) {
+                return {
+                    id: slug(pool[i].name), name: pool[i].name, price: pool[i].price,
+                    category: item.category, chars: '', img: CAT_IMG[item.category] || '', type: pool[i].type
+                };
+            }
+        }
+        return null;
+    }
+
+    /* ── Drawer DOM ────────────────────────────────────────────────────── */
+    var scrim, drawer, lastFocused = null;
+
+    function build() {
+        if (drawer) return;
+        scrim = document.createElement('div');
+        scrim.className = 'wtc-scrim';
+        scrim.setAttribute('data-comment', 'cart-drawer-scrim');
+        scrim.setAttribute('aria-hidden', 'true');
+
+        drawer = document.createElement('aside');
+        drawer.className = 'wtc-drawer';
+        drawer.setAttribute('data-comment', 'cart-drawer');
+        drawer.setAttribute('role', 'dialog');
+        drawer.setAttribute('aria-modal', 'true');
+        drawer.setAttribute('aria-label', 'Shopping cart');
+        drawer.innerHTML =
+            '<div class="wtc-head" data-comment="cart-drawer-head">'
+            + '<span class="wtc-title" data-comment="cart-drawer-title">Your cart</span>'
+            + '<span class="wtc-count" data-comment="cart-drawer-count"></span>'
+            + '<button type="button" class="wtc-close" data-comment="cart-drawer-close" aria-label="Close cart"><i class="ph ph-x" aria-hidden="true"></i></button>'
+            + '</div>'
+            + '<div class="wtc-progress" data-comment="cart-drawer-progress">'
+            + '<div class="wtc-progress-label" data-comment="cart-drawer-progress-label"></div>'
+            + '<div class="wtc-progress-track" data-comment="cart-drawer-progress-track"><div class="wtc-progress-fill" data-comment="cart-drawer-progress-fill"></div></div>'
+            + '</div>'
+            + '<div class="wtc-body" data-comment="cart-drawer-body"></div>'
+            + '<div class="wtc-foot" data-comment="cart-drawer-foot"></div>';
+
+        document.body.appendChild(scrim);
+        document.body.appendChild(drawer);
+
+        scrim.addEventListener('click', function () { close(); });
+        drawer.querySelector('.wtc-close').addEventListener('click', function () { close(); });
+        document.addEventListener('keydown', function (e) {
+            if (!isOpen()) return;
+            if (e.key === 'Escape') { close(true); return; }
+            if (e.key !== 'Tab') return;
+            /* keep focus inside the dialog */
+            var f = Array.prototype.filter.call(
+                drawer.querySelectorAll('button, a[href], input, [tabindex]:not([tabindex="-1"])'),
+                function (el) { return el.offsetParent !== null; });
+            if (!f.length) return;
+            var first = f[0], last = f[f.length - 1];
+            if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+            else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        });
+
+        /* event delegation for dynamic content */
+        drawer.addEventListener('click', function (e) {
+            var t = e.target.closest('[data-wtc-action]');
+            if (!t) return;
+            var action = t.getAttribute('data-wtc-action');
+            var id = t.getAttribute('data-wtc-id');
+            var items = loadItems();
+            if (action === 'inc' || action === 'dec') {
+                items.forEach(function (it) {
+                    if (it.id !== id) return;
+                    it.qty = Math.max(1, Math.min(99, it.qty + (action === 'inc' ? 1 : -1)));
+                });
+                saveItems(items); render();
+            } else if (action === 'remove') {
+                items = items.filter(function (it) { return it.id !== id; });
+                saveItems(items); render();
+            } else if (action === 'suggest-add') {
+                var p = null;
+                try { p = JSON.parse(t.getAttribute('data-wtc-product')); } catch (err) { }
+                if (p) { saveItems(addItem(items, p)); render(); }
+            } else if (action === 'continue') {
+                close();
+            }
+        });
+    }
+
+    /* ── Render ────────────────────────────────────────────────────────── */
+    function itemHTML(it, i) {
+        var n = i + 1;
+        var linkOpen = '<a class="wtc-item-name" data-comment="cart-drawer-item-' + n + '-name" href="product.html">' + esc(it.name) + '</a>';
+        return '<div class="wtc-item" data-comment="cart-drawer-item-' + n + '">'
+            + '<div class="wtc-item-img" data-comment="cart-drawer-item-' + n + '-img"' + (it.img ? ' style="background-image:url(\'' + esc(it.img) + '\')"' : '') + '></div>'
+            + '<div class="wtc-item-main">'
+            + linkOpen
+            + '<div class="wtc-item-detail" data-comment="cart-drawer-item-' + n + '-detail">' + esc(detailFor(it)) + '</div>'
+            + (it.price ? '<div class="wtc-item-unit" data-comment="cart-drawer-item-' + n + '-unit">' + fmt(it.price) + ' each</div>' : '')
+            + '<span class="wtc-qty" data-comment="cart-drawer-item-' + n + '-qty">'
+            + '<button type="button" data-wtc-action="dec" data-wtc-id="' + esc(it.id) + '" aria-label="Decrease quantity"><i class="ph ph-minus" aria-hidden="true"></i></button>'
+            + '<span class="wtc-qty-num">' + it.qty + '</span>'
+            + '<button type="button" data-wtc-action="inc" data-wtc-id="' + esc(it.id) + '" aria-label="Increase quantity"><i class="ph ph-plus" aria-hidden="true"></i></button>'
+            + '</span>'
+            + '</div>'
+            + '<div class="wtc-item-side">'
+            + '<span class="wtc-item-price" data-comment="cart-drawer-item-' + n + '-price">' + (it.price ? fmt(it.price * it.qty) : 'Call for price') + '</span>'
+            + '<button type="button" class="wtc-item-remove" data-wtc-action="remove" data-wtc-id="' + esc(it.id) + '" aria-label="Remove ' + esc(it.name) + ' from cart"><i class="ph ph-trash" aria-hidden="true"></i></button>'
+            + '</div>'
+            + '</div>';
+    }
+
+    function pollinationHTML(items) {
+        var res = pollinationCheck(items);
+        if (!res) return '';
+        if (!res.conflicts.length) {
+            return '<div class="wtc-poll ok" data-comment="cart-drawer-pollination">'
+                + '<div class="wtc-poll-head"><i class="ph ph-check-circle" aria-hidden="true"></i>Your order is pollination-ready</div>'
+                + '<div class="wtc-poll-text">Every variety in your cart is self-fertile or has a compatible partner.</div>'
+                + '</div>';
+        }
+        var html = '<div class="wtc-poll warn" data-comment="cart-drawer-pollination">'
+            + '<div class="wtc-poll-head"><i class="ph ph-warning-circle" aria-hidden="true"></i>'
+            + (res.conflicts.length === 1 ? '1 variety needs a pollinator' : res.conflicts.length + ' varieties need a pollinator')
+            + '</div>'
+            + '<div class="wtc-poll-text">'
+            + esc(res.conflicts.map(function (it) { return it.name; }).join(', '))
+            + (res.conflicts.length === 1 ? ' isn’t self-fertile — add a compatible partner nearby so it can set fruit.' : ' aren’t self-fertile — add compatible partners nearby so they can set fruit.')
+            + '</div>';
+        var seenCats = {};
+        res.conflicts.forEach(function (it) {
+            if (seenCats[it.category]) return;
+            seenCats[it.category] = true;
+            var s = suggestionFor(it, items);
+            if (!s) return;
+            html += '<div class="wtc-suggest" data-comment="cart-drawer-suggest-' + esc(it.category) + '">'
+                + '<div class="wtc-suggest-img"' + (s.img ? ' style="background-image:url(\'' + esc(s.img) + '\')"' : '') + '></div>'
+                + '<div class="wtc-suggest-main">'
+                + '<div class="wtc-suggest-name">' + esc(s.name) + '</div>'
+                + '<div class="wtc-suggest-meta">Compatible pollinator · ' + fmt(s.price) + '</div>'
+                + '</div>'
+                + '<button type="button" class="wtc-suggest-add" data-wtc-action="suggest-add" data-wtc-product="' + esc(JSON.stringify(s)) + '">Add</button>'
+                + '</div>';
+        });
+        return html + '</div>';
+    }
+
+    function render() {
+        if (!drawer) build();
+        var items = loadItems();
+        refreshBadge(items);
+        var qty = totalQty(items);
+        var sub = subtotal(items);
+        var head = drawer.querySelector('.wtc-count');
+        var progress = drawer.querySelector('.wtc-progress');
+        var body = drawer.querySelector('.wtc-body');
+        var foot = drawer.querySelector('.wtc-foot');
+
+        head.textContent = qty ? (qty + (qty === 1 ? ' item' : ' items')) : '';
+
+        if (!items.length) {
+            progress.style.display = 'none';
+            foot.style.display = 'none';
+            body.classList.add('is-empty');
+            body.innerHTML = '<div class="wtc-empty" data-comment="cart-drawer-empty">'
+                + '<i class="ph-light ph-plant" aria-hidden="true"></i>'
+                + '<div class="wtc-empty-title" data-comment="cart-drawer-empty-title">Your cart is empty</div>'
+                + '<p class="wtc-empty-text" data-comment="cart-drawer-empty-text">Bare-root season goes quickly — browse the nursery and reserve your trees.</p>'
+                + '<a class="wtc-empty-cta" data-comment="cart-drawer-empty-cta" href="shop.html">Browse the nursery</a>'
+                + '</div>';
+            return;
+        }
+        body.classList.remove('is-empty');
+
+        /* discount progress */
+        progress.style.display = '';
+        var away = DISCOUNT_THRESHOLD - sub;
+        var label = drawer.querySelector('.wtc-progress-label');
+        var fill = drawer.querySelector('.wtc-progress-fill');
+        if (away > 0) {
+            progress.classList.remove('done');
+            label.innerHTML = 'You’re <b>' + fmt(away) + '</b> away from a <b>10% discount</b> on your order.';
+            fill.style.width = Math.min(100, (sub / DISCOUNT_THRESHOLD) * 100) + '%';
+        } else {
+            progress.classList.add('done');
+            label.innerHTML = '<b>10% discount unlocked</b> — it’s applied to your order below.';
+            fill.style.width = '100%';
+        }
+
+        /* items + pollination */
+        body.innerHTML = items.map(itemHTML).join('') + pollinationHTML(items);
+
+        /* summary + CTAs */
+        var discount = sub >= DISCOUNT_THRESHOLD ? sub * DISCOUNT_RATE : 0;
+        foot.style.display = '';
+        foot.innerHTML =
+            '<div class="wtc-row' + (discount ? '' : ' total') + '" data-comment="cart-drawer-subtotal"><span class="wtc-row-label">Subtotal</span><span class="wtc-row-value">' + fmt(sub) + ' CAD</span></div>'
+            + (discount ? '<div class="wtc-row discount" data-comment="cart-drawer-discount"><span class="wtc-row-label">Volume discount (10%)</span><span class="wtc-row-value">−' + fmt(discount) + '</span></div>' : '')
+            + (discount ? '<div class="wtc-row total" data-comment="cart-drawer-total"><span>Total</span><span class="wtc-row-value">' + fmt(sub - discount) + ' CAD</span></div>' : '')
+            + '<div class="wtc-note" data-comment="cart-drawer-note">Shipping &amp; taxes calculated at checkout. Pickup at the farm is free.</div>'
+            + '<a class="wtc-checkout" data-comment="cart-drawer-checkout" href="' + CHECKOUT_URL + '">Proceed to checkout</a>'
+            + '<button type="button" class="wtc-continue" data-comment="cart-drawer-continue" data-wtc-action="continue">Continue shopping</button>';
+    }
+
+    /* ── Open / close ──────────────────────────────────────────────────── */
+    function isOpen() { return drawer && drawer.classList.contains('open'); }
+    function open() {
+        build(); render();
+        lastFocused = document.activeElement;
+        scrim.classList.add('open');
+        drawer.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        var closeBtn = drawer.querySelector('.wtc-close');
+        if (closeBtn) closeBtn.focus();
+    }
+    function close(restoreFocus) {
+        if (!isOpen()) return;
+        scrim.classList.remove('open');
+        drawer.classList.remove('open');
+        document.body.style.overflow = '';
+        /* Restore focus only for keyboard closes (Esc) — after a tap/click a
+           programmatic focus() would leave a stray :focus-visible ring on the
+           header cart icon on touch devices. */
+        if (restoreFocus && lastFocused && lastFocused.focus) lastFocused.focus();
+        else if (document.activeElement && drawer.contains(document.activeElement)) document.activeElement.blur();
+    }
+
+    /* ── Wire up ───────────────────────────────────────────────────────── */
+    function init() {
+        /* wrap the existing badge/fly mock so every add also records an item */
+        if (window.wtCart && window.wtCart.add) {
+            var base = window.wtCart.add.bind(window.wtCart);
+            window.wtCart.add = function (src, productOverride) {
+                base(src); /* fly animation + badge pop (legacy count bump) */
+                var p = productOverride || productFrom(src);
+                if (p) {
+                    saveItems(addItem(loadItems(), p));
+                    if (isOpen()) render();
+                }
+            };
+        }
+        /* items are the source of truth — reconcile the legacy count/badge */
+        saveItems(loadItems());
+
+        var icon = document.querySelector('[data-comment="header-action-cart"]');
+        if (icon) icon.addEventListener('click', function (e) { e.preventDefault(); open(); });
+
+        window.wtCartDrawer = { open: open, close: close, items: loadItems };
+    }
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+})();
+        </script>
+            <script data-inlined="wt-search.js">
+/* ============================================================================
+   Whiffletree — shared header search wiring
+   Desktop: the magnifier icon-button opens the dedicated results page.
+   Mobile: type in the nav-overlay field and hit the search button → results.
+   On search.html itself the desktop icon just focuses the on-page field.
+   ========================================================================== */
+(function () {
+    'use strict';
+
+    var SEARCH_URL = 'search.html';
+
+    function go(q) {
+        window.location.href = SEARCH_URL + (q ? '?q=' + encodeURIComponent(q) : '');
+    }
+
+    function init() {
+        var onPageInput = document.querySelector('[data-comment="search-input"]');
+
+        var deskBtn = document.querySelector('[data-comment="header-action-search"]');
+        if (deskBtn) deskBtn.addEventListener('click', function () {
+            if (onPageInput) { onPageInput.focus(); onPageInput.select(); }
+            else go('');
+        });
+
+        var mInput = document.querySelector('[data-comment="header-search-m"] input');
+        var mGo = document.querySelector('[data-comment="header-search-m-go"]');
+        function submitMobile() { go(mInput ? mInput.value.trim() : ''); }
+        if (mInput) mInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); submitMobile(); } });
+        if (mGo) mGo.addEventListener('click', submitMobile);
+    }
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+})();
+        </script>
+            <script type="module" data-comment="wt-motion-module">
+                import { animate } from 'https://cdn.jsdelivr.net/npm/motion@11/+esm';
+                window.__wtMotion = { animate: animate };
+            </script>
         </body>
 </html>

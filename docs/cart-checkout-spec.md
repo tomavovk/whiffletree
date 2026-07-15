@@ -2,8 +2,8 @@
 
 > Living design document. Captures the UX best practices, business logic, and open
 > decisions for the cart/checkout rework so nothing is lost during the build.
-> Status: **research / design phase — do not code until client sign-off.**
-> Last updated: 2026-07-06.
+> Status: **active build — customer-facing prototype started (`checkout.html`). Admin capacity view not yet built.**
+> Last updated: 2026-07-15 (Lowell meeting — see §12).
 
 ---
 
@@ -63,6 +63,9 @@ Baymard core rule: **guest checkout must be the most prominent option** (62% of 
 5. **"Pickup/Delivery Date", not "Delivery Speed"** (Baymard) — maps directly onto the scheduler.
 6. **No complex password rules** at pay time (65% of sites get this wrong) — account created quietly via Google or magic-link.
 7. **Trust signals & policies** on the page (CFIA restrictions, clearance warranty) — brief, in-context, no surprises.
+8. **Order-issue preference (required — Lowell §12).** A mandatory up-front choice for what happens if an ordered item can't be supplied (nursery stock is finite and dug fresh): **send a comparable substitute** · **cancel that item** · **issue store credit**. Captured at checkout so fulfillment never has to chase the customer mid-season (ties to §8 out-of-stock). Model as a required single-select, not a buried checkbox — **no option is pre-selected; the customer must consciously choose one, and can't complete the order otherwise** (confirmed 2026-07-15).
+9. **Guarantee acknowledgment (required, optimized to actually be read — Lowell §12).** Replaces the generic terms-and-conditions tick. Show a short, scannable summary of the guarantee **in-context** (key points + link to the full guarantee page) with a required "I've read the guarantee" checkbox. Today people skip it — make the substance visible instead of hiding it behind a link.
+10. **Date = dispatch date, not arrival (Lowell §12).** The scheduler picks the **shipping date FROM the facility** (or pickup day), NOT the delivery/arrival date. Label and helper copy must state this explicitly to avoid "where's my tree" confusion.
 
 ### Resolving "guest vs. account for add-to-order"
 - First order can be placed **guest / email-only** — fast, as requested.
@@ -86,7 +89,7 @@ Confirmed by client: scheduling is **part of the checkout process**. Business ne
 - **Why B:** full control of UX, and tight coupling to add-to-order (§6) and pollination (§7) — off-the-shelf plugins can't flex to the seasonal + linked-order + pollination specifics.
 
 **Design:**
-1. Step **"Choose your date"** inside checkout, after selecting fulfillment method and **before payment**. Order can't complete without a chosen date/slot. (Label adapts: "pickup day" for pickup, "ship date" for shipping.)
+1. Step **"Choose your date"** inside checkout, after selecting fulfillment method and **before payment**. Order can't complete without a chosen date/slot. (Label adapts: "pickup day" for pickup, "ship date" for shipping.) The chosen date is the **dispatch date from the facility** (ship date / pickup day) — **not** the arrival date (Lowell §12); copy must make this explicit.
 2. **Capacity calendar:**
    - each day has a limit (N orders/day, or K slots × M orders);
    - **full days auto-disabled** (greyed, non-clickable);
@@ -103,11 +106,10 @@ Confirmed by client: scheduling is **part of the checkout process**. Business ne
 
 **Data (custom):** own capacity table (date/slot → method, limit, booked count).
 
-**Capacity pool — needs discussion.** The essence: when there is both pickup and delivery on the same date — are they counted together or separately?
-- **One common pool:** e.g. "30 orders/day total" (pickup + shipping both eat out of these 30).
-- **Two separate pools:** e.g. "10 pickups + 20 shipments/day" separately.
-
-Why it matters: pickup = people physically come (limited by parking/personnel at pickup), delivery = how many orders they manage to pack. Different bottlenecks, so most likely two separate counters — but agree the real per-day limits with the client.
+**Capacity pool — RESOLVED (Lowell, 2026-07-15).** Pickup and shipping per day are a **fixed total** — the facility's real constraint is *how many orders leave the door per day*, regardless of method. **Default ≈ 180 orders/day**, admin-configurable and fine-tunable per day (see the admin view, §11).
+- **Model (CONFIRMED 2026-07-15):** one **single combined daily throughput cap** (default 180). Pickup + shipping draw down the same counter first-come. **No per-method split** — one pool, one number per day.
+- **Business driver:** get as much product **out the door as early in the season as possible** → the calendar should surface and nudge the **earliest available** date, not bury it.
+- *Supersedes former open Q1 — now fully closed.*
 
 ---
 
@@ -181,7 +183,7 @@ Concept is not hard (data provided on product + rule engine on top).
 - **Mixed cart — seasonal vs. immediate items.** Trees ship in a spring/fall window; supplies (tools, books, sea salt) can ship anytime. **Decision: always try to combine into one shipment/date where possible** (default). Split only when combining is impossible/undesirable. Surface the trade-off clearly (the immediate item waits for the tree window if combined) and offer split as the fallback. Reflected in scheduler + cart.
 - **Mixed fulfillment** — some items pickup-only, some shippable. Handle per-item eligibility; don't let an invalid combo reach payment.
 - **Out-of-stock during checkout** — item sells out between add-to-cart and pay. Re-validate stock at each step; show a clear, non-destructive message.
-- **Quantity limits** — per-variety caps (nursery stock is finite); enforce in cart with a clear reason.
+- **Quantity limits** — per-variety caps (nursery stock is finite); enforce in cart with a clear reason. The cap is the **admin-controlled sellable quantity** (§11 sellable-stock control), which staff release conservatively and raise over the season — not a live physical count.
 
 **Regional / legal restrictions (CFIA)**
 - **No shipping outside Canada; no fruit trees / grape vines to BC.** Enforce by (product category × destination) at address entry — block or warn *before* payment, not after. Offer pickup as the fallback where shipping is blocked.
@@ -208,7 +210,7 @@ Concept is not hard (data provided on product + rule engine on top).
 
 - **Mobile-first / responsive** — cart and checkout must be flawless on mobile (single column, pinned summary + CTA, thumb-friendly qty steppers, native date picker feel for the scheduler). Most traffic is likely mobile.
 - **Accessibility (WCAG 2.1 AA)** — labelled form fields + inline error messages, keyboard-navigable calendar/scheduler, sufficient contrast (fixes the current thin-outline CTA issue), focus management across steps, screen-reader announcements for cart/slot updates.
-- **Payments** — confirm gateway (Stripe likely; support cards + **Interac** as a Canadian expectation). **Express wallets Apple Pay + Google Pay = confirmed** (fast lane, guest-friendly, autofill address/payment). Per-order charge model (aligns with add-to-order §6).
+- **Payments (CONFIRMED 2026-07-15)** — exactly three methods: **Credit Card** (Stripe likely), **Interac e-Transfer**, and **Bill Payment for Credit Unions** (customer pays Whiffletree as a payee through their credit union's online banking). **Apple/Google Pay express wallets + PayPal are DROPPED** (client decision — not wanted). Note e-Transfer + bill-payment **settle asynchronously** → the order is placed as **"awaiting payment"** and confirmed when funds land; this fits the per-order, no-instant-capture model (aligns with add-to-order §6).
 - **Concurrency at seasonal peak** — 6–7k orders in a burst means many buyers hitting the same popular dates at once. Slot capacity counting must be **atomic** (DB-level), with soft-hold + final re-check on submit to prevent overbooking.
 - **Post-purchase** — clear confirmation page + email: order summary, chosen date, pickup/shipping instructions, ICS calendar file, and how to use Add-to-Existing. Order status visible in account cabinet.
 - **Performance** — cart/checkout pages fast under load; avoid blocking synchronous calls (e.g. the current manual "Calculate shipping" round-trip).
@@ -230,13 +232,76 @@ Concept is not hard (data provided on product + rule engine on top).
 - ✅ **Custom checkout** (not extended-native WooCommerce). Built to our project build rules (`ebms-design`: self-contained HTML review file with `data-comment` attributes, design tokens in `:root`, mobile-first Tailwind breakpoints, React-ready → later React + Tailwind + shadcn) **and** all best practices recorded in this document. Custom is required for the three unique features (scheduler, add-to-order, pollination).
 - ✅ **Mixed seasonal cart (§8): always try to combine into one shipment/date where possible** (default). Split only when combining is impossible/undesirable per constraints. Trade-off to surface: combining a spring-shipping tree with an immediate item means the immediate item waits for the tree window — show this clearly; offer split as the fallback.
 
+**Decisions locked (Lowell meeting, 2026-07-15 — see §12):**
+- ✅ **Order-issue preference at checkout** — required customer choice: comparable substitute / cancel item / store credit (see §3.8, §8).
+- ✅ **Guarantee acknowledgment** — required and redesigned so it's actually read (inline summary + link + checkbox), replacing the generic T&C tick (see §3.9).
+- ✅ **Scheduled date = dispatch date from the facility**, not arrival (see §3.10, §5).
+- ✅ **Capacity = one combined daily throughput cap**, default ≈180 orders/day, admin-configurable & fine-tunable per day, with an optional per-method split — resolves former open Q1 (see §5). *Pending one-line confirm that 180 = combined pickup + shipping.*
+- ✅ **Admin capacity-management view is in scope** — calendar to set per-day pick/ship amounts + holiday overrides (Easter, Ascension); a new deliverable (see §11).
+- ✅ **Payments** — Credit Card + Interac e-Transfer + Bill Payment for Credit Unions; async settlement → "awaiting payment" status (see §9).
+- ✅ **Add-to-order default reconfirmed** — show "add on to order vs. start new order," **default = add to order** (see §6).
+
 **Open:**
-1. **Capacity pool — needs discussion (see §5).** When there is both pickup and delivery on the same date — are they counted together or separately? One common pool ("30 orders/day total") vs. two separate pools ("10 pickups + 20 shipments/day"). Pickup and delivery are different bottlenecks (people arriving vs. orders to pack), so likely two — but agree the real per-day limits with the client.
-2. **Pollination fields shape:** no exact backend format yet → we define a **logical/canonical schema** (the §7 field table) per requirements & context; map/confirm when the backend format lands.
+1. **Pollination fields shape:** no exact backend format yet → we define a **logical/canonical schema** (the §7 field table) per requirements & context; map/confirm when the backend format lands.
+
+**Resolved 2026-07-15 (client answers):**
+- ✅ **Capacity = one single combined daily pool**, default 180/day, no per-method split (§5). Former open Q1 closed.
+- ✅ **Payments = CC + Interac e-Transfer + Bill Payment for Credit Unions only**; Apple/Google Pay + PayPal dropped (§9).
+- ✅ **Order-issue preference = required, no pre-selected default** (§3.8).
+- ✅ **Next build focus = finish the customer `checkout.html`** before the admin capacity view.
 
 ---
 
-## 11. Sources (best practices)
+## 11. Admin — Capacity & stock management view (NEW — Lowell, 2026-07-15)
+
+A back-office surface (separate from the customer checkout) for the farm to shape daily throughput **and how much stock is offered for sale** across the season.
+
+**Purpose:** the season is a burst (6–7k orders); the business goal is to push as much product **out the door as early as possible**. Staff need to configure daily capacity by hand and react to real-world constraints.
+
+**Requirements (Lowell):**
+- **Calendar view** of the season; each day shows its capacity and how much is already booked (picks + shipments).
+- **Per-day configuration** of how many picks and shipments are allowed.
+- **Default ≈ 180 orders/day**, editable globally and per day.
+- **Holiday / special-day overrides** — close or reduce specific days (e.g. Easter, Ascension Day).
+- Config flows straight into the customer scheduler (§5): a day's remaining capacity = configured cap − booked; full days auto-disable for customers.
+
+**Design notes (proposed):**
+- Month/season calendar with an editable capacity chip per day; click a day → set total cap (and optional pick/ship split), mark closed, or apply a holiday template.
+- Bulk tools: set a weekday pattern, block a date range, bump a whole week.
+- Read-outs: booked vs. capacity, fill %, and a projected "product out the door" curve to serve the early-season goal.
+- Capacity counting shared atomically with checkout soft-holds (§9 concurrency) so admin edits and live bookings never oversell.
+
+**Sellable-stock control (NEW — Lowell follow-up, 2026-07-15).** Separate from daily *throughput* capacity, the farm also wants to control **how many units of each product/variety are offered for sale**. At order time they often don't know the exact quantity that will be available at harvest, so they want to:
+- **Set a conservative sellable quantity per variety up front** (release less than they expect to have).
+- **Increase that cap over the season** as harvest data firms up — releasing more units to sell without overselling.
+- The customer-facing effect: per-variety availability = configured sellable cap − already sold; when it's reached the product shows sold-out / "notify me" (ties to §8 quantity limits + out-of-stock). Raising the cap re-opens it for sale.
+- This is a **manual, adjustable release valve**, not a hard inventory count — deliberately decoupled from physical stock so staff can under-promise early and open up later.
+- Lives in the admin view alongside capacity: a per-product field for "units released for sale," editable anytime; increasing it is the common action as the season progresses.
+
+**Status:** not yet built. Customer-facing `checkout.html` prototype exists; this admin view is the next major module after the customer flow stabilizes.
+
+---
+
+## 12. Meeting update — 2026-07-15 (Lowell): raw notes & mapping
+
+Verbatim notes, with where each lands in this spec.
+
+**Three things to do at checkout:**
+1. Checkbox — send comparable substitute, or cancel, or send credit → **§3.8, §8** (order-issue preference).
+2. Checkbox — customer has read the guarantee (currently terms & conditions); optimize because people don't read it → **§3.9**.
+3. Pick a pickup date or ship date — **note it's the shipping date from the facility, not the arrival date**; pickup and shipping quantities per day are a **fixed total** → **§3.10, §5** (capacity resolved), **§11** (admin).
+
+**Other:**
+- Goal: get as much product out the door as early in the season as possible → **§5** (nudge earliest date), **§11**.
+- Per-day control of picks/shipping via a calendar config; **180 orders/day average**, fine-tunable; special days (Easter, Ascension) → **§11** admin view.
+- "We can build a really cool management view for this." → **§11**.
+- **Controllable sellable stock (follow-up):** they want to control how much stock is offered for sale — unsure of exact harvest quantities at order time, so release a conservative number and raise it as data firms up → **§11** (sellable-stock control), **§8** (quantity limits).
+- Payment: Credit Card or E-Transfer, Bill Payment for Credit Unions → **§9** (payments updated).
+- Show adding-on-to-order vs. start-new-order; **default = add to order** → **§6, §10**.
+
+---
+
+## 13. Sources (best practices)
 - Baymard Institute — Checkout UX best practices: https://baymard.com/blog/current-state-of-checkout-ux
 - WooCommerce schedulers (reference for capacity behavior): Delivery & Pickup Scheduler, CodeRockz Delivery & Pickup Date Time, Iconic Delivery Slots, Local Pickup Plus.
 - Add product to order after purchase (WooCommerce limitations): Business Bloomer; WooCommerce "After the Order" docs.

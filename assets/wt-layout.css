@@ -1,0 +1,146 @@
+/* wt-layout.css — site-wide layout system: breakpoints, containers, grid, spacing.
+ *
+ * SOURCE OF TRUTH. Inlined into every page as <style data-inlined="wt-layout.css">
+ * by tools/inline-shared.py — edit here, then run the script. Never edit the
+ * inlined copies by hand.
+ *
+ * Strategy (agreed 2026-07-14):
+ *   1. STEPPED page margins per screen range (Material-style spec values):
+ *        <720 → 16px · 720–1023 → 40px · 1024–1439 → 60px ·
+ *        1440–1919 → 88px · ≥1920 → 128px
+ *   2. Blocks & photos grow proportionally with the screen: fr-based grids
+ *      give width, aspect-ratio (not fixed heights) gives height, and the
+ *      display-type scale + section rhythm step up at 1440/1920.
+ *      Body text does NOT scale — only display type and imagery.
+ *   3. Content caps at --container-max (~2100) and centers beyond it.
+ */
+
+:root {
+    /* Spacing scale — 4px-base ramp (design-system.html · 04 — Spacing).
+       --sp-N = N × 4px. */
+    --sp-1: 4px;
+    --sp-2: 8px;
+    --sp-3: 12px;
+    --sp-4: 16px;
+    --sp-5: 20px;
+    --sp-6: 24px;
+    --sp-8: 32px;
+    --sp-10: 40px;
+    --sp-12: 48px;
+    --sp-14: 56px;
+    --sp-16: 64px;
+    --sp-18: 72px;
+    --sp-20: 80px;
+    --sp-24: 96px;
+    --sp-32: 128px;
+
+    /* Stepped page margin (see header comment). Mobile-first base. */
+    --page-x: 16px;
+
+    /* Grid gaps — gentle fluid growth between the margin steps. */
+    --gutter: clamp(16px, 1.6vw, 32px);
+    --gutter-lg: clamp(32px, 3.4vw, 64px);
+
+    /* Vertical rhythm between sections — steps up with the margin scale. */
+    --section-y: 64px;
+    --section-y-sm: 48px;
+
+    /* Content measures — max content width per content type */
+    --measure-narrow: 780px;   /* centered prose, CTA copy */
+    --measure-form: 640px;     /* auth / form shells */
+    --measure-text: 1140px;    /* text-led sections, reading layouts */
+    --measure-content: 1560px; /* detail pages, editorial splits */
+    --container-max: 2100px;   /* default cap — grids, tile walls, hero */
+}
+@media (min-width: 720px) {
+    :root { --page-x: 40px; --section-y: 96px; --section-y-sm: 64px; }
+}
+@media (min-width: 1024px) {
+    :root { --page-x: 60px; --section-y: 128px; --section-y-sm: 72px; }
+}
+@media (min-width: 1440px) {
+    :root { --page-x: 88px; --section-y: 144px; --section-y-sm: 80px; }
+}
+@media (min-width: 1920px) {
+    :root { --page-x: 128px; --section-y: 160px; --section-y-sm: 88px; }
+}
+
+/* Page container — full available width up to a measure cap, stepped side
+   margins. Modifiers narrow the cap per content type; box-sizing is
+   border-box everywhere, so the cap includes the side padding. */
+.wt-container {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: var(--page-x);
+    max-width: calc(var(--wt-measure, var(--container-max)) + 2 * var(--page-x));
+}
+.wt-container--narrow  { --wt-measure: var(--measure-narrow); }
+.wt-container--form    { --wt-measure: var(--measure-form); }
+.wt-container--text    { --wt-measure: var(--measure-text); }
+.wt-container--content { --wt-measure: var(--measure-content); }
+.wt-container--full    { max-width: none; }
+
+/* Section rhythm — pair with .wt-container on the section inner. */
+.wt-section    { padding-block: var(--section-y); }
+.wt-section--sm { padding-block: var(--section-y-sm); }
+
+/* 12-column grid — 12 cols ≥1181 · 8 cols 901–1180 · 4 cols ≤900. */
+.wt-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--gutter);
+}
+.wt-span-2  { grid-column: span 2; }
+.wt-span-3  { grid-column: span 3; }
+.wt-span-4  { grid-column: span 4; }
+.wt-span-6  { grid-column: span 6; }
+.wt-span-8  { grid-column: span 8; }
+.wt-span-12 { grid-column: span 12; }
+@media (max-width: 1180px) {
+    .wt-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+    .wt-span-2, .wt-span-3 { grid-column: span 4; }
+    .wt-span-4, .wt-span-6 { grid-column: span 4; }
+    .wt-span-8, .wt-span-12 { grid-column: span 8; }
+}
+@media (max-width: 900px) {
+    .wt-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .wt-span-2, .wt-span-3, .wt-span-4, .wt-span-6, .wt-span-8, .wt-span-12 { grid-column: span 4; }
+}
+
+/* Product-tile wall — density steps with viewport width.
+   2-up ≤900 (tight columns, roomy rows) · 3-up base · 4-up ≥1280.
+   Beyond 1280 tiles simply grow (aspect-ratio media keeps proportions). */
+.wt-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px var(--gutter);
+}
+@media (min-width: 1280px) { .wt-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 1024px) { .wt-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 900px)  { .wt-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 8px; } }
+
+/* Display-type scale — steps up with the margin scale so wide screens get
+   proportionally larger headlines, not just wider empty sections.
+   Only display type scales; body copy stays at its base size.
+   Elements opt in via inline style="font-size: var(--fs-*)". Base values
+   match the 1280 design; bumps land at 1440 and 1920. Mobile heading
+   downsizing keeps working via the existing per-page !important overrides. */
+:root {
+    --fs-hero: 74px;       /* home hero display */
+    --fs-title: 52px;      /* page/product titles (catalog, PDP, register, workshops) */
+    --fs-h2: 48px;         /* section headings */
+    --fs-cta: 54px;        /* contact CTA heading */
+    --fs-h3: 44px;         /* newsletter / minor band headings */
+    --fs-tile-title: 22px; /* icon-tile display titles */
+    --fs-icon: 54px;       /* icon-tile pictograms — the tile visual, must
+                              grow with the tile or wide screens look empty */
+    --fs-icon-lg: 72px;    /* large feature-card pictograms */
+}
+@media (min-width: 1440px) {
+    :root { --fs-hero: 84px; --fs-title: 58px; --fs-h2: 54px; --fs-cta: 60px; --fs-h3: 48px;
+            --fs-tile-title: 24px; --fs-icon: 66px; --fs-icon-lg: 86px; }
+}
+@media (min-width: 1920px) {
+    :root { --fs-hero: 96px; --fs-title: 66px; --fs-h2: 60px; --fs-cta: 66px; --fs-h3: 52px;
+            --fs-tile-title: 27px; --fs-icon: 78px; --fs-icon-lg: 102px; }
+}

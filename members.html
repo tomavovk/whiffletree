@@ -16,6 +16,183 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/light/style.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+        <style data-inlined="wt-layout.css">
+/* wt-layout.css — site-wide layout system: breakpoints, containers, grid, spacing.
+ *
+ * SOURCE OF TRUTH. Inlined into every page as <style data-inlined="wt-layout.css">
+ * by tools/inline-shared.py — edit here, then run the script. Never edit the
+ * inlined copies by hand.
+ *
+ * Strategy (agreed 2026-07-14):
+ *   1. STEPPED page margins per screen range (Material-style spec values):
+ *        <720 → 16px · 720–1023 → 40px · 1024–1439 → 60px ·
+ *        1440–1919 → 88px · ≥1920 → 128px
+ *   2. Blocks & photos grow proportionally with the screen: fr-based grids
+ *      give width, aspect-ratio (not fixed heights) gives height, and the
+ *      display-type scale + section rhythm step up at 1440/1920.
+ *      Body text does NOT scale — only display type and imagery.
+ *   3. Content caps at --container-max (~2100) and centers beyond it.
+ */
+
+:root {
+    /* Spacing scale — 4px-base ramp (design-system.html · 04 — Spacing).
+       --sp-N = N × 4px. */
+    --sp-1: 4px;
+    --sp-2: 8px;
+    --sp-3: 12px;
+    --sp-4: 16px;
+    --sp-5: 20px;
+    --sp-6: 24px;
+    --sp-8: 32px;
+    --sp-10: 40px;
+    --sp-12: 48px;
+    --sp-14: 56px;
+    --sp-16: 64px;
+    --sp-18: 72px;
+    --sp-20: 80px;
+    --sp-24: 96px;
+    --sp-32: 128px;
+
+    /* Stepped page margin (see header comment). Mobile-first base. */
+    --page-x: 16px;
+
+    /* Grid gaps — gentle fluid growth between the margin steps. */
+    --gutter: clamp(16px, 1.6vw, 32px);
+    --gutter-lg: clamp(32px, 3.4vw, 64px);
+
+    /* Vertical rhythm between sections — steps up with the margin scale. */
+    --section-y: 64px;
+    --section-y-sm: 48px;
+
+    /* Content measures — max content width per content type */
+    --measure-narrow: 780px;   /* centered prose, CTA copy */
+    --measure-form: 640px;     /* auth / form shells */
+    --measure-text: 1140px;    /* text-led sections, reading layouts */
+    --measure-content: 1560px; /* detail pages, editorial splits */
+    --container-max: 2100px;   /* default cap — grids, tile walls, hero */
+}
+@media (min-width: 720px) {
+    :root { --page-x: 40px; --section-y: 96px; --section-y-sm: 64px; }
+}
+@media (min-width: 1024px) {
+    :root { --page-x: 60px; --section-y: 128px; --section-y-sm: 72px; }
+}
+@media (min-width: 1440px) {
+    :root { --page-x: 88px; --section-y: 144px; --section-y-sm: 80px; }
+}
+@media (min-width: 1920px) {
+    :root { --page-x: 128px; --section-y: 160px; --section-y-sm: 88px; }
+}
+
+/* Page container — full available width up to a measure cap, stepped side
+   margins. Modifiers narrow the cap per content type; box-sizing is
+   border-box everywhere, so the cap includes the side padding. */
+.wt-container {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: var(--page-x);
+    max-width: calc(var(--wt-measure, var(--container-max)) + 2 * var(--page-x));
+}
+.wt-container--narrow  { --wt-measure: var(--measure-narrow); }
+.wt-container--form    { --wt-measure: var(--measure-form); }
+.wt-container--text    { --wt-measure: var(--measure-text); }
+.wt-container--content { --wt-measure: var(--measure-content); }
+.wt-container--full    { max-width: none; }
+
+/* Section rhythm — pair with .wt-container on the section inner. */
+.wt-section    { padding-block: var(--section-y); }
+.wt-section--sm { padding-block: var(--section-y-sm); }
+
+/* 12-column grid — 12 cols ≥1181 · 8 cols 901–1180 · 4 cols ≤900. */
+.wt-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--gutter);
+}
+.wt-span-2  { grid-column: span 2; }
+.wt-span-3  { grid-column: span 3; }
+.wt-span-4  { grid-column: span 4; }
+.wt-span-6  { grid-column: span 6; }
+.wt-span-8  { grid-column: span 8; }
+.wt-span-12 { grid-column: span 12; }
+@media (max-width: 1180px) {
+    .wt-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+    .wt-span-2, .wt-span-3 { grid-column: span 4; }
+    .wt-span-4, .wt-span-6 { grid-column: span 4; }
+    .wt-span-8, .wt-span-12 { grid-column: span 8; }
+}
+@media (max-width: 900px) {
+    .wt-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .wt-span-2, .wt-span-3, .wt-span-4, .wt-span-6, .wt-span-8, .wt-span-12 { grid-column: span 4; }
+}
+
+/* Product-tile wall — density steps with viewport width.
+   2-up ≤900 (tight columns, roomy rows) · 3-up base · 4-up ≥1280.
+   Beyond 1280 tiles simply grow (aspect-ratio media keeps proportions). */
+.wt-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px var(--gutter);
+}
+@media (min-width: 1280px) { .wt-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 1024px) { .wt-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 900px)  { .wt-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 8px; } }
+
+/* Display-type scale — steps up with the margin scale so wide screens get
+   proportionally larger headlines, not just wider empty sections.
+   Only display type scales; body copy stays at its base size.
+   Elements opt in via inline style="font-size: var(--fs-*)". Base values
+   match the 1280 design; bumps land at 1440 and 1920. Mobile heading
+   downsizing keeps working via the existing per-page !important overrides. */
+:root {
+    --fs-hero: 74px;       /* home hero display */
+    --fs-title: 52px;      /* page/product titles (catalog, PDP, register, workshops) */
+    --fs-h2: 48px;         /* section headings */
+    --fs-cta: 54px;        /* contact CTA heading */
+    --fs-h3: 44px;         /* newsletter / minor band headings */
+    --fs-tile-title: 22px; /* icon-tile display titles */
+    --fs-icon: 54px;       /* icon-tile pictograms — the tile visual, must
+                              grow with the tile or wide screens look empty */
+    --fs-icon-lg: 72px;    /* large feature-card pictograms */
+}
+@media (min-width: 1440px) {
+    :root { --fs-hero: 84px; --fs-title: 58px; --fs-h2: 54px; --fs-cta: 60px; --fs-h3: 48px;
+            --fs-tile-title: 24px; --fs-icon: 66px; --fs-icon-lg: 86px; }
+}
+@media (min-width: 1920px) {
+    :root { --fs-hero: 96px; --fs-title: 66px; --fs-h2: 60px; --fs-cta: 66px; --fs-h3: 52px;
+            --fs-tile-title: 27px; --fs-icon: 78px; --fs-icon-lg: 102px; }
+}
+        </style>
+        <style data-inlined="wt-header.css">
+/* ============================================================================
+   Whiffletree — shared header/icon-button styles
+   The .icon-btn design-system component (header/footer icon buttons) and the
+   desktop rules that hide the mobile nav-overlay search row & Account button.
+   Was previously appended inside the inlined wt-account.css block and got
+   wiped by inline-shared.py re-runs — now a proper shared component.
+   ========================================================================== */
+/* Icon button — design-system component. States: hover / focus-visible / active / disabled. */
+.icon-btn { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; padding:0; border:1.5px solid var(--line); border-radius:2px; background:#fff; color:var(--g700); cursor:pointer; position:relative; text-decoration:none; -webkit-appearance:none; appearance:none; transition:background-color 150ms cubic-bezier(0.2,0,0,1), border-color 150ms cubic-bezier(0.2,0,0,1), color 150ms cubic-bezier(0.2,0,0,1); }
+.icon-btn i { font-size:20px; line-height:1; }
+.icon-btn:hover { background:var(--paper1); border-color:var(--subtle); }
+.icon-btn:active { background:var(--paper2); }
+.icon-btn:focus-visible { outline:2px solid var(--g700); outline-offset:2px; }
+.icon-btn:disabled, .icon-btn[aria-disabled="true"] { color:var(--subtle); background:var(--paper2); border-color:var(--line); cursor:not-allowed; }
+.icon-btn--ghost { width:auto; height:auto; padding:7px; border-color:transparent; background:transparent; color:inherit; }
+.icon-btn--ghost i { font-size:22px; }
+.icon-btn--ghost:hover { background:var(--paper1); border-color:transparent; }
+.icon-btn--ghost:active { background:var(--paper2); }
+.hdr-search-m-row, .hdr-account-m { display: none; }
+[data-comment="header-cart-wrap"], .hdr-cart { margin-left: 16px; }
+@media (max-width: 900px) { /* mobile header */
+    /* .icon-btn--ghost grows to a 44px touch target on mobile, so the badge
+       must move inward to hug the bag glyph exactly like it does on desktop.
+       Double selector: the base .cart-badge rule is declared later in the page
+       (wt-cart block), so this needs higher specificity to win. */
+    .hdr-cart .cart-badge { top: 8px; right: 7px; }
+}
+        </style>
         <style data-inlined="wt-account.css">
 /* ============================================================================
    Whiffletree — shared Account component (login popover + signup modal + toast)
@@ -124,20 +301,7 @@
 .wta-toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%) translateY(10px); display: flex; align-items: center; gap: 10px; background: var(--ink, #15140f); color: #fff; font-family: var(--sans, sans-serif); font-size: 14px; font-weight: 600; padding: 13px 20px; border-radius: 2px; box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3); opacity: 0; pointer-events: none; transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1), transform 220ms cubic-bezier(0.22, 1, 0.36, 1); z-index: 1400; }
 .wta-toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
 .wta-toast i { color: var(--g300, #8fce9b); font-size: 18px; }
-                    /* Icon button — design-system component. States: hover / focus-visible / active / disabled. */
-            .icon-btn { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; padding:0; border:1.5px solid var(--line); border-radius:2px; background:#fff; color:var(--g700); cursor:pointer; position:relative; text-decoration:none; -webkit-appearance:none; appearance:none; transition:background-color 150ms cubic-bezier(0.2,0,0,1), border-color 150ms cubic-bezier(0.2,0,0,1), color 150ms cubic-bezier(0.2,0,0,1); }
-            .icon-btn i { font-size:20px; line-height:1; }
-            .icon-btn:hover { background:var(--paper1); border-color:var(--subtle); }
-            .icon-btn:active { background:var(--paper2); }
-            .icon-btn:focus-visible { outline:2px solid var(--g700); outline-offset:2px; }
-            .icon-btn:disabled, .icon-btn[aria-disabled="true"] { color:var(--subtle); background:var(--paper2); border-color:var(--line); cursor:not-allowed; }
-            .icon-btn--ghost { width:auto; height:auto; padding:7px; border-color:transparent; background:transparent; color:inherit; }
-            .icon-btn--ghost i { font-size:22px; }
-            .icon-btn--ghost:hover { background:var(--paper1); border-color:transparent; }
-            .icon-btn--ghost:active { background:var(--paper2); }
-            .hdr-search-m-row, .hdr-account-m { display: none; }
-            [data-comment="header-cart-wrap"], .hdr-cart { margin-left: 16px; }
-</style>
+        </style>
 
         <style>
             /* Reset */
@@ -583,13 +747,8 @@
 
             /* ---- Tablet ---- */
             @media (max-width: 1024px) {
-                [data-comment$="-inner"] { padding-left: 28px !important; padding-right: 28px !important; }
-                [data-comment="shop-inner"],
-                [data-comment="why-inner"],
-                [data-comment="about-inner"],
-                [data-comment="gifts-inner"],
-                [data-comment="resources-inner"] { padding-top: 96px !important; padding-bottom: 96px !important; }
-                [data-comment="contact-content"] { padding-top: 96px !important; padding-bottom: 96px !important; }
+                /* Legacy fixed padding — .wt-container inners scale via --page-x instead */
+                [data-comment$="-inner"]:not(.wt-container) { padding-left: var(--page-x) !important; padding-right: var(--page-x) !important; }
 
                 [data-comment="shop-grid"] { grid-template-columns: repeat(3, 1fr) !important; }
                 [data-comment="about-inner"] { grid-template-columns: 1fr !important; gap: 40px !important; }
@@ -691,16 +850,10 @@
                 .hdr-account-m i { font-size: 18px; }
                 [data-comment="header-cart-wrap"], .hdr-cart { margin-left: 0 !important; margin-right: 8px !important; }
 
-                /* Generic horizontal padding + vertical rhythm */
-                [data-comment$="-inner"] { padding-left: 20px !important; padding-right: 20px !important; }
-                [data-comment="shop-inner"],
-                [data-comment="why-inner"],
-                [data-comment="about-inner"],
-                [data-comment="gifts-inner"],
-                [data-comment="resources-inner"],
-                [data-comment="newsletter-inner"],
-                [data-comment="status-inner"] { padding-top: 64px !important; padding-bottom: 64px !important; }
-                [data-comment="contact-content"] { padding-top: 72px !important; padding-bottom: 72px !important; }
+                /* Generic horizontal padding (legacy inners only — .wt-container
+                   inners scale via --page-x) + vertical rhythm via --section-y */
+                [data-comment$="-inner"]:not(.wt-container) { padding-left: var(--page-x) !important; padding-right: var(--page-x) !important; }
+                [data-comment="newsletter-inner"] { padding-top: 64px !important; padding-bottom: 64px !important; }
 
                 /* Hero */
                 [data-comment="hero-inner"] { padding-top: 56px !important; padding-bottom: 56px !important; }
@@ -797,7 +950,7 @@
         .wt-dd-trigger {
             display: flex; align-items: center; gap: 10px; width: 100%;
             font-family: var(--sans); font-size: 15px; color: var(--ink);
-            background: #fff; border: 1.5px solid var(--line); border-radius: 2px;
+            background: #fff; border: 1px solid var(--line); border-radius: 2px;
             padding: 13px 15px; cursor: pointer; text-align: left;
             transition: border-color 150ms cubic-bezier(0.2,0,0,1), box-shadow 150ms cubic-bezier(0.2,0,0,1);
         }
@@ -839,6 +992,107 @@
             border: 1px solid var(--line-soft); border-radius: 999px; padding: 9px 16px;
         }
     </style>
+        <style data-inlined="wt-cart-drawer.css">
+/* ============================================================================
+   Whiffletree — shared Cart Drawer component (styles)
+   Right-side drawer, ~40vw on desktop, full-width on mobile.
+   Markup is injected by wt-cart-drawer.js; uses site :root tokens only.
+   ========================================================================== */
+
+.wtc-scrim { position: fixed; inset: 0; background: rgba(21, 20, 15, 0.44); opacity: 0; pointer-events: none; transition: opacity 0.28s ease; z-index: 3000; }
+.wtc-scrim.open { opacity: 1; pointer-events: auto; }
+
+.wtc-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 35vw; min-width: 480px; max-width: 660px; background: #ffffff; z-index: 3001; display: flex; flex-direction: column; transform: translateX(103%); transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1); box-shadow: -18px 0 50px rgba(21, 20, 15, 0.18); font-family: var(--sans); color: var(--ink2); }
+.wtc-drawer.open { transform: none; }
+@media (max-width: 767px) { /* md */
+    .wtc-drawer { width: 100%; min-width: 0; max-width: none; }
+}
+
+/* ─── Header ─── */
+.wtc-head { display: flex; align-items: center; gap: 12px; padding: 20px 26px; border-bottom: 1px solid var(--line-soft); flex-shrink: 0; }
+.wtc-title { font-family: var(--display); font-weight: 600; font-size: 27px; line-height: 1.1; color: var(--ink); }
+.wtc-count { font-size: 13px; font-weight: 600; color: var(--muted); padding-top: 5px; }
+.wtc-close { margin-left: auto; width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; background: none; border: 1px solid transparent; border-radius: 2px; color: var(--muted); font-size: 21px; cursor: pointer; transition: background 0.15s ease, color 0.15s ease; }
+.wtc-close:hover { background: var(--paper1); color: var(--ink); }
+.wtc-close:focus-visible { outline: 2px solid var(--g700); outline-offset: 2px; }
+
+/* ─── Discount progress ─── */
+.wtc-progress { padding: 15px 26px 17px; background: var(--paper0); border-bottom: 1px solid var(--line-soft); flex-shrink: 0; }
+.wtc-progress-label { font-size: 13px; line-height: 1.45; color: var(--ink2); }
+.wtc-progress-label b { color: var(--accent-deep); }
+.wtc-progress.done .wtc-progress-label b { color: var(--g700); }
+.wtc-progress-track { height: 6px; background: var(--paper2); border-radius: 999px; margin-top: 9px; overflow: hidden; }
+.wtc-progress-fill { height: 100%; width: 0; background: var(--g600); border-radius: 999px; transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+
+/* ─── Body / items ─── */
+.wtc-body { flex: 1; overflow-y: auto; overflow-x: hidden; padding: 4px 26px 18px; }
+.wtc-item { display: flex; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line-soft); }
+.wtc-item-img { width: 78px; height: 78px; flex: 0 0 78px; border-radius: 2px; border: 1px solid var(--line-soft); background-color: var(--paper1); background-size: cover; background-position: center; }
+.wtc-item-main { flex: 1 1 auto; min-width: 0; }
+.wtc-item-name { display: inline-block; font-weight: 700; font-size: 15px; line-height: 1.35; color: var(--ink); text-decoration: none; }
+a.wtc-item-name:hover { color: var(--g700); }
+.wtc-item-detail { font-size: 12.5px; line-height: 1.45; color: var(--muted); margin-top: 3px; }
+.wtc-item-unit { font-size: 12.5px; color: var(--subtle); margin-top: 2px; }
+.wtc-qty { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 2px; margin-top: 10px; }
+.wtc-qty button { width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; background: none; border: none; color: var(--ink2); font-size: 14px; cursor: pointer; transition: background 0.15s ease; }
+.wtc-qty button:hover { background: var(--paper1); }
+.wtc-qty button:focus-visible { outline: 2px solid var(--g700); outline-offset: -2px; }
+.wtc-qty-num { min-width: 34px; text-align: center; font-weight: 700; font-size: 13.5px; color: var(--ink); }
+.wtc-item-side { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; flex-shrink: 0; }
+.wtc-item-price { font-weight: 700; font-size: 15px; color: var(--ink); }
+.wtc-item-remove { background: none; border: none; padding: 4px; color: var(--subtle); font-size: 17px; cursor: pointer; display: inline-flex; transition: color 0.15s ease; }
+.wtc-item-remove:hover { color: var(--error); }
+.wtc-item-remove:focus-visible { outline: 2px solid var(--g700); outline-offset: 2px; border-radius: 2px; }
+
+/* ─── Pollination check ─── */
+.wtc-poll { margin-top: 18px; border-radius: 2px; border: 1px solid; padding: 14px 16px; font-size: 13.5px; line-height: 1.5; }
+.wtc-poll.ok { background: var(--g050); border-color: var(--g200); color: var(--g900); }
+.wtc-poll.warn { background: #fbf3e6; border-color: #e9d5ad; color: #6e4a14; }
+.wtc-poll-head { display: flex; align-items: flex-start; gap: 9px; font-weight: 700; }
+.wtc-poll-head i { font-size: 17px; flex-shrink: 0; margin-top: 1px; }
+.wtc-poll.ok .wtc-poll-head i { color: var(--g700); }
+.wtc-poll.warn .wtc-poll-head i { color: var(--warning); }
+.wtc-poll-text { margin: 5px 0 0 26px; }
+
+/* pollinator cross-sell card */
+.wtc-suggest { display: flex; align-items: center; gap: 13px; margin-top: 12px; background: #ffffff; border: 1px solid var(--line-soft); border-radius: 2px; padding: 11px 12px; }
+.wtc-suggest-img { width: 54px; height: 54px; flex: 0 0 54px; border-radius: 2px; border: 1px solid var(--line-soft); background-color: var(--paper1); background-size: cover; background-position: center; }
+.wtc-suggest-main { flex: 1 1 auto; min-width: 0; }
+.wtc-suggest-name { font-weight: 700; font-size: 13.5px; color: var(--ink); line-height: 1.3; }
+.wtc-suggest-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.wtc-suggest-add { flex-shrink: 0; white-space: nowrap; font-family: var(--sans); font-weight: 700; font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: #ffffff; background: var(--c600); border: 1.5px solid var(--c600); border-radius: 2px; padding: 9px 14px; cursor: pointer; transition: background 0.15s ease; }
+.wtc-suggest-add:hover { background: var(--c700); border-color: var(--c700); }
+.wtc-suggest-add:focus-visible { outline: 2px solid var(--g700); outline-offset: 2px; }
+.wtc-suggest-add.added { background: var(--g700); border-color: var(--g700); cursor: default; }
+
+/* ─── Footer / summary ─── */
+.wtc-foot { border-top: 1px solid var(--line); padding: 16px 26px 22px; background: #ffffff; flex-shrink: 0; }
+.wtc-row { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; font-size: 14px; color: var(--ink2); margin-top: 5px; }
+.wtc-row-label { color: var(--muted); }
+.wtc-row.discount .wtc-row-value { color: var(--g700); font-weight: 700; }
+.wtc-row.total { font-size: 20px; font-weight: 700; color: var(--ink); margin-top: 8px; }
+.wtc-row.total .wtc-row-label { color: var(--ink); }
+.wtc-note { font-size: 12px; color: var(--subtle); margin-top: 8px; }
+.wtc-checkout { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; white-space: nowrap; margin-top: 14px; font-family: var(--sans); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #ffffff; background: var(--c600); border: none; border-radius: 2px; padding: 17px 24px; cursor: pointer; text-decoration: none; transition: background 0.15s ease; }
+.wtc-checkout:hover { background: var(--c700); }
+.wtc-checkout:focus-visible { outline: 2px solid var(--g700); outline-offset: 2px; }
+.wtc-continue { display: flex; align-items: center; justify-content: center; width: 100%; white-space: nowrap; margin-top: 10px; font-family: var(--sans); font-weight: 700; font-size: 12px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--accent-deep); background: transparent; border: 1.5px solid var(--accent-deep); border-radius: 2px; padding: 13px 24px; cursor: pointer; text-decoration: none; transition: background 0.15s ease, color 0.15s ease; }
+.wtc-continue:hover { background: var(--c050); }
+.wtc-continue:focus-visible { outline: 2px solid var(--g700); outline-offset: 2px; }
+
+/* ─── Empty state (vertically centered in the drawer body) ─── */
+.wtc-body.is-empty { display: flex; align-items: center; justify-content: center; }
+.wtc-empty { text-align: center; padding: 24px 26px; }
+.wtc-empty > i { font-size: 52px; color: var(--g300); }
+.wtc-empty-title { font-family: var(--display); font-weight: 600; font-size: 27px; color: var(--ink); margin-top: 16px; }
+.wtc-empty-text { font-size: 14.5px; line-height: 1.6; color: var(--muted); margin: 8px auto 0; max-width: 34ch; }
+.wtc-empty-cta { display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; margin-top: 24px; font-family: var(--sans); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #ffffff; background: var(--c600); border: none; border-radius: 2px; padding: 15px 26px; cursor: pointer; text-decoration: none; transition: background 0.15s ease; }
+.wtc-empty-cta:hover { background: var(--c700); }
+
+@media (prefers-reduced-motion: reduce) {
+    .wtc-drawer, .wtc-scrim, .wtc-progress-fill { transition: none; }
+}
+        </style>
     </head>
     <body>
         <div data-comment="page-root" style="background:#FFFFFF; font-family:var(--sans); color:var(--ink2); font-size:16px; line-height:1.6;">
@@ -848,7 +1102,7 @@
 
             <!-- NAV -->
             <header data-comment="header-root" style="background:#FFFFFF; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:20;">
-                <div data-comment="header-inner" style="max-width: none; width: 100%; margin: 0; padding: 16px 40px; display: flex; align-items: center; justify-content: flex-end; padding-top: 20px; padding-bottom: 20px">
+                <div data-comment="header-inner" class="wt-container wt-container--full" style="margin: 0; padding: 16px var(--page-x); display: flex; align-items: center; justify-content: flex-end; padding-top: 20px; padding-bottom: 20px">
                     <a data-comment="header-logo-link" href="home.html" style="position: absolute; left: 28px; top: 11px; z-index: 40; display: block;"><img data-comment="header-logo" src="assets/whiffletree-logo.png" alt="Whiffletree Farm &amp; Nursery" style="height: 75px; width: 239px; display: block;"></a>
                     <nav data-comment="header-nav" style="display: flex; align-items: center; gap: 28px; font-family: var(--sans); font-weight: 600; font-size: 15px; color: var(--muted); align-self: flex-end">
 
@@ -871,7 +1125,7 @@
                                             <a class="np-link" href="shop.html?category=cherries" data-comment="navp-shop-trees-cherry">Cherry</a>
                                             <a class="np-link" href="shop.html?category=apricots" data-comment="navp-shop-trees-apricot">Apricot</a>
                                             <a class="np-link" href="shop.html?category=nuts" data-comment="navp-shop-trees-nut">Nut</a>
-                                            <a class="np-link" href="shop.html" data-comment="navp-shop-trees-combo-trees">Combo Trees</a>
+                                            <a class="np-link" href="shop.html?category=combo" data-comment="navp-shop-trees-combo-trees">Combo Trees</a>
                                             <a class="np-seeall" href="shop.html?group=trees" data-comment="navp-shop-trees-seeall">See all trees <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
                                         </div>
                                         <div class="np-col">
@@ -902,7 +1156,7 @@
                                             <a class="np-link" href="shop.html?category=collector" data-comment="navp-shop-more-collector-s-corner">Collector's Corner</a>
                                             <a class="np-link" href="shop.html?category=supplies" data-comment="navp-shop-more-orchard-supplies">Orchard Supplies</a>
                                             <a class="np-link" href="shop.html?category=books" data-comment="navp-shop-more-reference-books">Reference Books</a>
-                                            <a class="np-link" href="shop.html" data-comment="navp-shop-more-gift-certificates">Gift Certificates</a>
+                                            <a class="np-link" href="shop.html?category=gift-certificates" data-comment="navp-shop-more-gift-certificates">Gift Certificates</a>
                                         </div>
                                     </div>
                                 </div>
@@ -940,12 +1194,18 @@
                             <button class="nav-trigger" data-comment="header-nav-link-info" data-nav-trigger="info" aria-expanded="false" aria-controls="nav-panel-info" aria-haspopup="true">Info <svg class="nav-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
                             <div class="nav-panel" id="nav-panel-info" data-comment="nav-panel-info" role="region" aria-label="Information">
                                 <div class="np-inner">
-                                    <div class="np-grid np-grid--1">
+                                    <div class="np-grid np-grid--2">
                                         <div class="np-col">
                                             <span class="np-col-head" data-comment="navp-info-head-about">About</span>
-                                            <a class="np-link" href="home.html#about" data-comment="navp-info-about-about-us">About Us</a>
-                                            <a class="np-link" href="home.html#about" data-comment="navp-info-about-guarantee-policy">Guarantee Policy</a>
-                                            <a class="np-link" href="home.html#about" data-comment="navp-info-about-product-faq">Product FAQ</a>
+                                            <a class="np-link" href="about.html" data-comment="navp-info-about-about-us">About Us</a>
+                                            <a class="np-link" href="contact.html" data-comment="navp-info-about-contact-us">Contact Us</a>
+                                            <a class="np-link" href="guarantee-policy.html" data-comment="navp-info-about-guarantee-policy">Guarantee Policy</a>
+                                            <a class="np-link" href="product-faq.html" data-comment="navp-info-about-product-faq">Product FAQ</a>
+                                        </div>
+                                        <div class="np-col">
+                                            <span class="np-col-head" data-comment="navp-info-head-legal">Legal</span>
+                                            <a class="np-link" href="terms-conditions.html" data-comment="navp-info-legal-terms-conditions">Terms &amp; Conditions</a>
+                                            <a class="np-link" href="privacy-policy.html" data-comment="navp-info-legal-privacy-policy">Privacy Policy</a>
                                         </div>
                                     </div>
                                 </div>
@@ -953,7 +1213,7 @@
                         </div>
 
                         <!-- CONTACT — standalone link -->
-                        <a class="nav-link" data-comment="header-nav-link-contact" href="home.html#contact" style="color: var(--muted); text-decoration: none; align-self: center; height: 24px; flex-grow: 0">Contact</a>
+                        <a class="nav-link" data-comment="header-nav-link-contact" href="contact.html" style="color: var(--muted); text-decoration: none; align-self: center; height: 24px; flex-grow: 0">Contact</a>
 
                         <div data-comment="header-actions" style="display:flex; align-items:center; gap:20px; padding-left:8px; color:var(--muted); position:relative;">
                             <button type="button" data-comment="header-action-search" class="icon-btn icon-btn--ghost" aria-label="Search"><i class="ph ph-magnifying-glass" aria-hidden="true"></i></button>
@@ -975,7 +1235,7 @@
                    lighten/elegant design direction. */
                 .mh-section { background: #ffffff; }
 
-                .mh-gallery { max-width: 1180px; margin: 0 auto; padding: 88px 40px 104px; }
+                .mh-gallery { max-width: calc(var(--measure-content) + 2 * var(--page-x)); margin: 0 auto; padding: 88px var(--page-x) 104px; }
                 .mh-gallery-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--line-soft); padding-bottom: 16px; margin-bottom: 30px; }
                 .mh-gallery-title { font-family: var(--display); font-weight: 600; font-size: 27px; color: var(--ink2); }
                 .mh-count { font-family: var(--sans); font-size: 13.5px; color: var(--muted); letter-spacing: 0.02em; white-space: nowrap; }
@@ -1001,7 +1261,7 @@
                 @media (max-width: 1100px) { .mh-grid { column-count: 3; } }
                 @media (max-width: 760px) {
                     .mh-grid { column-count: 2; }
-                    .mh-gallery { padding: 60px 22px 80px; }
+                    .mh-gallery { padding: 60px var(--page-x) 80px; }
                     .mh-gallery-head { flex-direction: column; align-items: flex-start; gap: 6px; }
                     .mh-gallery-title { font-size: 24px; }
                 }
@@ -1011,12 +1271,14 @@
                    Warm cream band sets it apart from the page; landscape + portrait
                    frames sit together so both orientations read as intentional. */
                 .fg-band { background: #ffffff; border-bottom: 1px solid var(--line-soft); }
-                .fg-inner { max-width: 1180px; margin: 0 auto; padding: 108px 40px; display: grid; grid-template-columns: 1.4fr 0.85fr; gap: 56px; align-items: center; }
+                .fg-inner { max-width: calc(var(--measure-content) + 2 * var(--page-x)); margin: 0 auto; padding: 108px var(--page-x); display: grid; grid-template-columns: 1.4fr 0.85fr; gap: var(--gutter-lg); align-items: center; }
                 .fg-visual { position: relative; }
-                .fg-photo { width: 100%; aspect-ratio: 5 / 4; object-fit: cover; border-radius:2px; display: block; }
-                .fg-avatar { position: absolute; right: -22px; bottom: -30px; width: 128px; height: 128px; border-radius: 50%; object-fit: cover; object-position: 50% 30%; border: 6px solid #ffffff; box-shadow: 0 16px 40px rgba(6,61,34,0.18); }
+                /* Photo carousel — swipeable filmstrip; reuses the popup's .lbx-car-btn / .lbx-dots controls */
+                .fg-carousel { position: relative; overflow: hidden; border-radius: 2px; }
+                .fg-track { display: flex; gap: 2px; transition: transform 460ms cubic-bezier(.4,0,.2,1); }
+                .fg-photo { flex: 0 0 100%; width: 100%; aspect-ratio: 5 / 4; object-fit: cover; display: block; }
                 .fg-eyebrow { font-family: var(--sans); font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--g700); }
-                .fg-name { font-family: var(--display); font-weight: 600; font-size: 46px; line-height: 1.06; color: var(--ink); margin: 12px 0 0; }
+                .fg-name { font-family: var(--display); font-weight: 600; font-size: var(--fs-h2); line-height: 1.06; color: var(--ink); margin: 12px 0 0; }
                 .fg-meta { font-family: var(--sans); font-size: 13.5px; color: var(--muted); letter-spacing: 0.02em; margin-top: 10px; }
                 .fg-story { margin-top: 20px; }
                 .fg-story p { font-family: var(--sans); font-size: 16px; line-height: 1.7; color: var(--ink2); margin: 0 0 14px; }
@@ -1027,37 +1289,7 @@
 
                 /* Cart badge + fly-to-cart styles live in the shared wt-cart block near </body>. */
 
-                /* Share your garden — full-bleed band with a background photo. Lead
-                   copy sits on the left over the photo; a compact upload form floats
-                   in a card on the right. The form is always visible; guests who try
-                   to publish get a small sign-in popup (no on-page role toggle). */
-                /* Background: roses in a basket; crop at 38% vertical so the blurred
-                   foliage fills the top half and the roses land near the middle.
-                   Two full-bleed panels side by side: a beige text panel (left) and a
-                   photo panel holding the form card (right). On mobile they stack,
-                   each full-width with its own background and even padding. */
-                .sg-band { position: relative; }
-                /* Full-bleed: override the global [data-comment$="-inner"] side padding
-                   so the two panels reach the screen edges. */
-                .sg-inner { display: grid; grid-template-columns: 1fr 1fr; padding: 0 !important; }
-
-                /* Left — beige text panel */
-                .sg-lead { background: var(--paper1); color: var(--ink); padding: 80px 7vw; display: flex; flex-direction: column; justify-content: center; }
-                .sg-lead-eyebrow { font-family: var(--sans); font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent-deep); }
-                .sg-lead-title { font-family: var(--display); font-weight: 600; font-size: 50px; line-height: 1.04; color: var(--ink); margin: 14px 0 0; }
-                .sg-lead-text { font-family: var(--sans); font-size: 16.5px; line-height: 1.65; color: var(--ink2); max-width: 460px; margin: 18px 0 0; }
-                /* Community stats — fills the panel and adds social proof */
-                .sg-lead-stats { display: flex; flex-wrap: wrap; gap: 26px 44px; margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--line); }
-                .sg-stat { display: flex; flex-direction: column; }
-                .sg-stat-num { font-family: var(--display); font-weight: 600; font-size: 34px; line-height: 1; color: var(--ink); white-space: nowrap; }
-                .sg-stat-label { font-family: var(--sans); font-size: 12.5px; line-height: 1.35; color: var(--muted); margin-top: 8px; letter-spacing: 0.03em; }
-
-                /* Right — photo panel holding the compact upload form */
-                .sg-form-col { background: #0e2a17 url("assets/sg-bg-6231864.jpg") center 52% / cover no-repeat; padding: 64px 7vw; display: flex; align-items: center; justify-content: center; }
-                .sg-card--form { width: 100%; max-width: 520px; background: #fffdf8; border: 1px solid var(--line-soft); border-radius:2px; padding: 30px; box-shadow: 0 24px 60px rgba(0,0,0,0.28); }
-                .sg-form-head { margin-bottom: 18px; }
-                .sg-title { font-family: var(--display); font-weight: 600; font-size: 26px; line-height: 1.1; color: var(--ink); }
-                .sg-text { font-family: var(--sans); font-size: 14px; line-height: 1.55; color: var(--muted); margin-top: 6px; }
+                /* Photo dropzone + form fields — used by the compose popup */
                 .sg-drop { border: 2px dashed var(--line); border-radius:2px; background: var(--g050); padding: 22px; text-align: center; cursor: pointer; transition: border-color 200ms cubic-bezier(0.22,1,0.36,1), background-color 200ms cubic-bezier(0.22,1,0.36,1); }
                 .sg-drop:hover { border-color: var(--g300); background: #eef6ef; }
                 .sg-drop-icon { font-size: 26px; color: var(--g700); }
@@ -1135,27 +1367,14 @@
                     .lb-info { padding: 26px 22px; }
                     .lb-name { font-size: 26px; }
                 }
-                @media (max-width: 900px) {
-                    .sg-inner { grid-template-columns: 1fr; }
-                    .sg-lead { padding: 56px 22px; }
-                    .sg-form-col { padding: 48px 22px; }
-                    .sg-lead-title { font-size: 40px; }
-                    .sg-card--form { max-width: 560px; margin: 0 auto; }
-                }
                 @media (max-width: 620px) {
-                    .sg-lead { padding: 48px 20px; }
-                    .sg-form-col { padding: 40px 20px; }
-                    .sg-card--form { padding: 24px 20px; }
-                    .sg-lead-title { font-size: 34px; }
                     .sg-fields { grid-template-columns: 1fr; }
                 }
                 @media (max-width: 900px) {
-                    .fg-inner { grid-template-columns: 1fr; gap: 36px; padding: 52px 22px; }
-                    .fg-avatar { width: 104px; height: 104px; right: 16px; bottom: -22px; }
+                    .fg-inner { grid-template-columns: 1fr; gap: 36px; padding: 52px var(--page-x); }
                 }
                 @media (max-width: 560px) {
                     .fg-name { font-size: 38px; }
-                    .fg-avatar { width: 92px; height: 92px; border-width: 5px; }
                 }
 
                 /* ============================================================
@@ -1170,7 +1389,7 @@
                    given an editorial treatment: green→cream→coral gradient tying
                    both brand accents, garden-avatar social proof, serif headline. --- */
                 .mh-join { background:var(--paper0); border-bottom:1px solid var(--line); }
-                .mh-join-inner { max-width:1180px; margin:0 auto; padding:32px 40px; display:flex; align-items:center; justify-content:space-between; gap:24px 44px; flex-wrap:wrap; }
+                .mh-join-inner { max-width: calc(var(--measure-content) + 2 * var(--page-x)); margin:0 auto; padding:32px var(--page-x); display:flex; align-items:center; justify-content:space-between; gap:24px 44px; flex-wrap:wrap; }
                 .mh-join-copy { min-width:0; flex:1 1 auto; }
                 .mh-join-proof { display:flex; align-items:center; gap:12px; }
                 .mh-join-avatars { display:inline-flex; }
@@ -1184,7 +1403,7 @@
                     .mh-join-title { font-size:27px; white-space:normal; }
                 }
                 @media (max-width:900px){
-                    .mh-join-inner { padding:26px 22px; }
+                    .mh-join-inner { padding:26px var(--page-x); }
                     .mh-join-actions { width:100%; }
                     .mh-join-actions .sg-btn { flex:1 1 auto; }
                 }
@@ -1268,7 +1487,7 @@
                    (native scroll + snap), so many photos flow naturally. */
                 .lbx-hero { position:relative; width:100%; background:var(--paper1); overflow:hidden; flex:none; height:min(560px,60vh); }
                 .lbx-carousel { display:flex; height:100%; overflow:hidden; }
-                .lbx-track { display:flex; height:100%; will-change:transform; transition:transform 460ms cubic-bezier(.4,0,.2,1); }
+                .lbx-track { display:flex; gap:2px; height:100%; will-change:transform; transition:transform 460ms cubic-bezier(.4,0,.2,1); }
                 .lbx-slide { flex:0 0 auto; height:100%; }
                 .lbx-slide img { height:100%; width:auto; display:block; }
                 .lbx-car-btn { position:absolute; top:50%; transform:translateY(-50%); width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,0.92); border:0; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--ink2); z-index:2; transition:background-color 200ms; }
@@ -1294,7 +1513,6 @@
                 .lbx-title--sm { font-size:29px; }
                 .lbx-byline { font-family:var(--sans); font-size:13px; color:var(--muted); letter-spacing:0.02em; margin-top:12px; display:flex; align-items:center; gap:9px; flex-wrap:wrap; }
                 .lbx-byline .dot { color:var(--subtle); }
-                .lbx-byline-avatar { width:26px; height:26px; border-radius:50%; object-fit:cover; border:2px solid #fff; box-shadow:0 1px 3px rgba(21,20,15,0.22); flex:none; background:var(--paper2); }
                 .lbx-body { margin-top:24px; }
                 .lbx-body p { font-family:var(--sans); font-size:19px; line-height:1.7; color:var(--ink2); margin:0 0 1.9rem; }
                 .lbx-body h3 { font-family:var(--display); font-weight:600; font-size:26px; line-height:1.2; color:var(--ink); margin:2.4rem 0 0.4rem; }
@@ -1321,7 +1539,7 @@
                 .lbx-comment { margin-bottom:20px; }
                 .lbx-comment-top { display:flex; align-items:center; gap:8px; }
                 .lbx-avatar { width:30px; height:30px; border-radius:50%; background:var(--g100); color:var(--g800); display:flex; align-items:center; justify-content:center; font-family:var(--sans); font-weight:700; font-size:11.5px; flex:none; }
-                .lbx-avatar-img { width:30px; height:30px; border-radius:50%; object-fit:cover; border:2px solid #fff; box-shadow:0 1px 2px rgba(21,20,15,0.18); flex:none; background:var(--paper2); }
+                .lbx-avatar--sm { width:26px; height:26px; font-size:10.5px; }
                 .lbx-comment-author { font-family:var(--sans); font-weight:700; font-size:13.5px; color:var(--ink); }
                 .lbx-comment-date { font-family:var(--sans); font-size:12px; color:var(--subtle); }
                 .lbx-comment-text { font-family:var(--sans); font-size:14.5px; line-height:1.6; color:var(--ink2); margin:7px 0 0 38px; }
@@ -1355,22 +1573,44 @@
                     .lbx-related-grid { grid-template-columns:1fr; }
                 }
 
-                /* --- Quick composer (inline, shrunk) --- */
-                .sg-card--quick .sg-form-head { margin-bottom:14px; }
-                .sg-quick-input { width:100%; font-family:var(--sans); font-size:15px; line-height:1.5; color:var(--ink2); background:#fff; border:1.5px solid var(--line); border-radius:2px; padding:13px 14px; min-height:84px; resize:vertical; }
-                .sg-quick-input::placeholder { color:var(--subtle); }
-                .sg-quick-input:focus { outline:none; border-color:var(--g700); }
-                .sg-quick-drop { margin-top:12px; }
-                .sg-quick-drop:focus-visible { outline:2px solid var(--g700); outline-offset:2px; }
                 .sg-drop.is-drag { border-color:var(--g700); border-style:solid; background:#eef6ef; }
                 .sg-drop.is-drag .sg-drop-icon { color:var(--g800); }
-                .sg-quick-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
-                .sg-quick-actions .sg-btn { flex:1 1 auto; padding:14px 18px; }
 
-                /* --- Compose popup (mirrors the viewer: photo zone → title → meta → body) --- */
+                /* --- Share button in the gallery head --- */
+                .mh-gallery-head { align-items: center; }
+                .mh-gallery-side { display:flex; align-items:center; gap:20px; }
+                .mh-share-btn { padding:12px 24px; }
+                .mh-share-btn i { font-size:15px; }
+                @media (max-width: 760px) {
+                    .mh-gallery-side { width:100%; justify-content:space-between; }
+                }
+
+                /* --- Compose popup (mirrors the viewer: photo zone → title → meta → body).
+                   Sized to its content — height:auto with a 92vh cap — and the article
+                   column stretches to the popup body so every field fills the width. --- */
+                .lb.is-compose { width:min(920px,96vw); height:auto; max-height:92vh; }
+                .lb.is-compose .lb-inner { height:auto; max-height:92vh; }
+                .lb.is-compose .lbx-topbar-title { font-size:24px; }
+                /* Even 24px breathing room on the left/right/bottom of the popup body */
+                .lb.is-compose .lbx-article { max-width:none; padding:24px 24px 24px; }
+                /* Signed-out footer: Log in (primary) + Sign up (outlined) side by side */
+                .cmp-actions--auth { display:flex; gap:12px; }
+                .cmp-actions--auth .sg-btn { flex:1 1 auto; }
+                /* Guest state — the whole form is visible but inert; only Log in / Sign up are actionable */
+                .lb.is-compose.is-guest .cmp-hero .sg-drop,
+                .lb.is-compose.is-guest .cmp-article .sg-field,
+                .lb.is-compose.is-guest .cmp-title,
+                .lb.is-compose.is-guest .cmp-hint,
+                .lb.is-compose.is-guest .cmp-editor { opacity:.55; pointer-events:none; }
+                .lb.is-compose .sg-fields { grid-template-columns:1fr 1fr 1fr; }
+                @media (max-width:820px){
+                    .lb.is-compose { width:100vw; height:100vh; max-height:100vh; }
+                    .lb.is-compose .lb-inner { max-height:100vh; }
+                }
+                @media (max-width: 620px) { .lb.is-compose .sg-fields { grid-template-columns:1fr; } }
                 .cmp-hero { padding:22px 24px 0; }
                 .cmp-hero .sg-drop { padding:30px; }
-                .cmp-article { padding-top:24px; }
+                .cmp-hero .sg-drop:focus-visible { outline:2px solid var(--g700); outline-offset:2px; }
                 .cmp-eyebrow-field { margin-bottom:2px; }
                 .cmp-title { width:100%; font-family:var(--display); font-weight:600; font-size:32px; line-height:1.15; color:var(--ink); background:transparent; border:0; border-bottom:1.5px solid var(--line); padding:6px 0 10px; margin:8px 0 18px; }
                 .cmp-title::placeholder { color:var(--subtle); }
@@ -1498,8 +1738,22 @@
                 <div class="fg-band" data-comment="members-featured">
                     <div class="fg-inner" data-comment="members-featured-inner">
                         <div class="fg-visual" data-comment="members-featured-visual">
-                            <img class="fg-photo" src="assets/fg-main-33790936.jpg" alt="Sarah Mercer&rsquo;s apple orchard in Elmvale, Ontario" loading="lazy" data-comment="members-featured-photo">
-                            <img class="fg-avatar" src="assets/fg-grower-29043496.jpg" alt="Sarah Mercer" loading="lazy" data-comment="members-featured-avatar">
+                            <div class="fg-carousel" data-comment="members-featured-carousel" aria-roledescription="carousel" aria-label="Photos from Sarah Mercer&rsquo;s garden" ontouchstart="this._x=event.touches[0].clientX" ontouchend="var dx=event.changedTouches[0].clientX-this._x; if(Math.abs(dx)>40) fgGo(fgIndex+(dx<0?1:-1))">
+                                <div class="fg-track" data-comment="members-featured-track">
+                                    <img class="fg-photo" src="assets/fg-main-33790936.jpg" alt="Sarah Mercer&rsquo;s apple orchard in Elmvale, Ontario" loading="lazy" data-comment="members-featured-photo-1">
+                                    <img class="fg-photo" src="assets/pexels-33790937.jpg" alt="Honeycrisp apples ripening in Sarah&rsquo;s orchard" loading="lazy" data-comment="members-featured-photo-2">
+                                    <img class="fg-photo" src="assets/pexels-356269.jpg" alt="Cherry trees in bloom along Sarah&rsquo;s back fence" loading="lazy" data-comment="members-featured-photo-3">
+                                    <img class="fg-photo" src="assets/pexels-27176055.jpg" alt="Raspberry canes heavy with fruit in Sarah&rsquo;s garden" loading="lazy" data-comment="members-featured-photo-4">
+                                </div>
+                                <button class="lbx-car-btn lbx-car-prev" type="button" aria-label="Previous photo" onclick="fgGo(fgIndex-1)" data-comment="members-featured-prev"><i class="ph ph-caret-left" aria-hidden="true"></i></button>
+                                <button class="lbx-car-btn lbx-car-next" type="button" aria-label="Next photo" onclick="fgGo(fgIndex+1)" data-comment="members-featured-next"><i class="ph ph-caret-right" aria-hidden="true"></i></button>
+                                <div class="lbx-dots" data-comment="members-featured-dots">
+                                    <button class="lbx-dot is-active" type="button" aria-label="Photo 1" onclick="fgGo(0)"></button>
+                                    <button class="lbx-dot" type="button" aria-label="Photo 2" onclick="fgGo(1)"></button>
+                                    <button class="lbx-dot" type="button" aria-label="Photo 3" onclick="fgGo(2)"></button>
+                                    <button class="lbx-dot" type="button" aria-label="Photo 4" onclick="fgGo(3)"></button>
+                                </div>
+                            </div>
                         </div>
                         <div class="fg-text" data-comment="members-featured-text">
                             <span class="fg-eyebrow" data-comment="members-featured-eyebrow">Featured grower &middot; July 2026</span>
@@ -1515,43 +1769,8 @@
                     </div>
                 </div>
 
-                <!-- SHARE YOUR GARDEN — photo band; lead copy left, compact upload form right -->
-                <div class="sg-band" data-comment="members-share">
-                    <div class="sg-inner" data-comment="members-share-inner">
-                        <div class="sg-lead" data-comment="members-share-lead">
-                            <span class="sg-lead-eyebrow" data-comment="members-share-eyebrow">Grown by you</span>
-                            <h2 class="sg-lead-title" data-comment="members-share-title">Share your garden</h2>
-                            <p class="sg-lead-text" data-comment="members-share-text">Show the community how your Whiffletree trees and beds are coming along. Add a photo, tell us the variety, and it joins the growers&rsquo; gallery below for everyone to see.</p>
-                            <div class="sg-lead-stats" data-comment="members-share-stats">
-                                <div class="sg-stat" data-comment="members-share-stat-1"><span class="sg-stat-num" data-comment="members-share-stat-1-num">200+</span><span class="sg-stat-label" data-comment="members-share-stat-1-label">gardens shared</span></div>
-                                <div class="sg-stat" data-comment="members-share-stat-2"><span class="sg-stat-num" data-comment="members-share-stat-2-num">40+</span><span class="sg-stat-label" data-comment="members-share-stat-2-label">varieties grown</span></div>
-                                <div class="sg-stat" data-comment="members-share-stat-3"><span class="sg-stat-num" data-comment="members-share-stat-3-num">2&ndash;8</span><span class="sg-stat-label" data-comment="members-share-stat-3-label">Zones across Canada</span></div>
-                            </div>
-                        </div>
-
-                        <div class="sg-form-col" data-comment="members-share-form-col">
-                        <form class="sg-card--form sg-card--quick" data-comment="members-share-form" onsubmit="return false;">
-                            <div class="sg-form-head" data-comment="members-share-form-head">
-                                <h3 class="sg-title" data-comment="members-share-form-title">Share with the community</h3>
-                                <p class="sg-text" data-comment="members-share-form-text">Ask a question, post an update, or show your garden.</p>
-                            </div>
-                            <textarea class="sg-quick-input" data-comment="members-quick-input" aria-label="Share with the community — ask a question or post an update" placeholder="What&rsquo;s growing? Ask a question or share an update&hellip;"></textarea>
-                            <div class="sg-drop sg-quick-drop" data-comment="members-quick-photos" role="button" tabindex="0" aria-label="Add photos — drag files here or click to browse" onclick="membersPickPhotos()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();membersPickPhotos();}" ondragover="membersDropOver(event,this)" ondragenter="membersDropOver(event,this)" ondragleave="membersDropLeave(event,this)" ondrop="membersDropPhotos(event,this)">
-                                <div class="sg-drop-icon"><i class="ph ph-image-square" aria-hidden="true"></i></div>
-                                <div class="sg-drop-title">Drag photos here, or browse</div>
-                                <div class="sg-drop-hint">Landscape or portrait &mdash; up to 8 &middot; JPG or PNG</div>
-                            </div>
-                            <input type="file" accept="image/*" multiple hidden data-comment="members-quick-file" onchange="membersPhotosPicked(this)">
-
-                            <p class="sg-signin-note" data-comment="members-share-signin-note"><i class="ph ph-info" aria-hidden="true"></i> You&rsquo;ll need to sign in or create an account to publish.</p>
-                            <div class="sg-quick-actions" data-comment="members-share-form-actions">
-                                <button class="sg-btn sg-btn-primary" type="button" onclick="membersQuickAdd()" data-comment="members-quick-add">Quick Add</button>
-                                <button class="sg-btn sg-btn-secondary" type="button" onclick="openCompose()" data-comment="members-add-more">Add more</button>
-                            </div>
-                        </form>
-                        </div>
-                    </div>
-                </div>
+                <!-- Hidden file input shared by the compose popup's photo dropzone -->
+                <input type="file" accept="image/*" multiple hidden data-comment="members-quick-file" onchange="membersPhotosPicked(this)">
 
                 <!-- GUEST GATE — sign-in popup shown when a signed-out visitor tries to publish -->
                 <div class="sg-modal-scrim" data-comment="members-gate-scrim" onclick="membersCloseGate()"></div>
@@ -1565,10 +1784,13 @@
                 <!-- Mock toast — action feedback in the signed-in state -->
                 <div class="mh-toast" data-comment="members-toast" role="status" aria-live="polite"><i class="ph ph-check-circle" aria-hidden="true"></i> <span class="mh-toast-text"></span></div>
 
-                <div class="mh-gallery" data-comment="members-gallery">
+                <div class="mh-gallery" id="community" data-comment="members-gallery">
                     <div class="mh-gallery-head" data-comment="members-gallery-head">
                         <h2 class="mh-gallery-title" data-comment="members-gallery-title">From the community</h2>
-                        <span class="mh-count" data-comment="members-gallery-count">Showing 19 of 200+ posts</span>
+                        <div class="mh-gallery-side" data-comment="members-gallery-side">
+                            <span class="mh-count" data-comment="members-gallery-count">Showing 19 of 200+ posts</span>
+                            <button class="sg-btn sg-btn-primary mh-share-btn" type="button" onclick="openCompose()" data-comment="members-share-btn"><i class="ph ph-plus" aria-hidden="true"></i> Share</button>
+                        </div>
                     </div>
                     <div class="mh-filters" data-comment="members-filters">
                         <div class="mh-type-tabs" data-comment="members-type-tabs" role="group" aria-label="Filter by post type">
@@ -2020,27 +2242,7 @@
                 /* ---- Reply gate (#103): signed-out visitors get the sign-in popup ---- */
                 function membersReplyGate() { if (MH_SIGNED_IN) return; membersOpenGate(); }
 
-                /* ---- Composer: inline quick-add + full compose popup (mirrors viewer) ---- */
-                function membersQuickAdd() {
-                    var qi = document.querySelector('[data-comment="members-quick-input"]');
-                    var txt = qi ? qi.value.trim() : '';
-                    if (!txt) { if (qi) qi.focus(); return; }
-                    if (!MH_SIGNED_IN) { membersOpenGate(); return; }
-                    /* Derive a title from the first sentence/line; the whole note becomes the body. */
-                    var firstLine = txt.split(/\n/)[0].trim();
-                    var sentence = firstLine.match(/^[\s\S]*?[.!?](\s|$)/);
-                    var title = (sentence ? sentence[0] : firstLine).trim().replace(/[.!?]+$/, '');
-                    if (title.length > 90) title = title.slice(0, 88).replace(/\s+\S*$/, '') + '…';
-                    var paras = txt.split(/\n{2,}/).map(function (p) { return p.trim(); }).filter(Boolean);
-                    var body = paras.map(function (p, i) {
-                        var html = mhEsc(p).replace(/\n/g, '<br>');
-                        return i === 0 ? { lead: html } : html;
-                    });
-                    var id = mhAddPost({ type: 'discussion', topic: 'Getting started', title: mhEsc(title), author: MH_USER.name, date: 'Just now', meta: '', body: body, comments: [] }, null);
-                    if (qi) qi.value = '';
-                    membersToast('Posted to the community');
-                    openPost(id);
-                }
+                /* ---- Composer: full compose popup (mirrors viewer) ---- */
                 function membersComposePublish() {
                     if (!MH_SIGNED_IN) { membersOpenGate(); return; }
                     var lb = document.querySelector('.lb');
@@ -2217,10 +2419,24 @@
                 }
                 function membersPhotosAdded(n) {
                     if (!n) return;
-                    /* Photos chosen — continue into the full composer to add details & publish. */
                     membersToast(n === 1 ? '1 photo added' : n + ' photos added');
-                    openCompose();
+                    /* If the composer isn't open yet (drop on a future entry point), open it. */
+                    var lb = document.querySelector('.lb');
+                    if (!lb || !lb.classList.contains('is-compose')) openCompose();
                 }
+                /* ---- Featured grower photo carousel ---- */
+                var fgIndex = 0;
+                function fgGo(i) {
+                    var track = document.querySelector('[data-comment="members-featured-track"]');
+                    if (!track) return;
+                    var n = track.children.length;
+                    fgIndex = ((i % n) + n) % n;
+                    /* Each step is one slide width plus the 2px track gap */
+                    track.style.transform = 'translateX(calc(-' + (fgIndex * 100) + '% - ' + (fgIndex * 2) + 'px))';
+                    var dots = document.querySelectorAll('[data-comment="members-featured-dots"] .lbx-dot');
+                    Array.prototype.forEach.call(dots, function (d, k) { d.classList.toggle('is-active', k === fgIndex); });
+                }
+
                 function membersDropOver(e, el) { e.preventDefault(); el.classList.add('is-drag'); }
                 function membersDropLeave(e, el) { el.classList.remove('is-drag'); }
                 function membersDropPhotos(e, el) {
@@ -2243,6 +2459,9 @@
                 }
                 function membersApplyAuth() {
                     document.querySelectorAll('.sg-signin-note').forEach(function (n) { n.style.display = MH_SIGNED_IN ? 'none' : ''; });
+                    var cf = document.querySelector('[data-comment="members-compose-footer"]');
+                    if (cf) cf.innerHTML = mhComposeFooterHTML();
+                    mhComposeApplyAuthState();
                     var ja = document.querySelector('[data-comment="members-join-actions"]');
                     if (ja) {
                         ja.innerHTML = MH_SIGNED_IN
@@ -2411,7 +2630,7 @@
                     var section = box.closest('.lbx-comments');
                     var el = document.createElement('div');
                     el.className = 'lbx-comment';
-                    el.innerHTML = '<div class="lbx-comment-top"><img class="lbx-avatar-img" src="' + mhFace(MH_USER.name) + '" alt="">'
+                    el.innerHTML = '<div class="lbx-comment-top"><span class="lbx-avatar" aria-hidden="true">' + mhInitials(MH_USER.name) + '</span>'
                         + '<span class="lbx-comment-author">' + MH_USER.name + '</span><span class="lbx-comment-date">Just now</span></div>'
                         + '<p class="lbx-comment-text"></p>';
                     el.querySelector('.lbx-comment-text').textContent = ta.value.trim();
@@ -2432,7 +2651,7 @@
                         + '<div class="lbx-topbar"><span class="lbx-topbar-title">New post</span>'
                         + '<button class="lbx-topbar-close" data-lb-close type="button" aria-label="Close" onclick="closePost()"><i class="ph ph-x" aria-hidden="true"></i></button></div>'
                         + '<div class="lbx-scroll">'
-                        + '<div class="cmp-hero"><div class="sg-drop"><div class="sg-drop-icon"><i class="ph ph-image-square" aria-hidden="true"></i></div><div class="sg-drop-title">Drag photos here, or browse</div><div class="sg-drop-hint">Landscape or portrait — up to 8 · JPG or PNG</div></div></div>'
+                        + '<div class="cmp-hero"><div class="sg-drop" role="button" tabindex="0" aria-label="Add photos — drag files here or click to browse" onclick="membersPickPhotos()" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();membersPickPhotos();}" ondragover="membersDropOver(event,this)" ondragenter="membersDropOver(event,this)" ondragleave="membersDropLeave(event,this)" ondrop="membersDropPhotos(event,this)"><div class="sg-drop-icon"><i class="ph ph-image-square" aria-hidden="true"></i></div><div class="sg-drop-title">Drag photos here, or browse</div><div class="sg-drop-hint">Landscape or portrait — up to 8 · JPG or PNG</div></div></div>'
                         + '<div class="lbx-article cmp-article">'
                         + '<div class="sg-field cmp-eyebrow-field"><label class="sg-flabel">Topic</label><select class="sg-select">' + opts(topics) + '</select></div>'
                         + '<input class="cmp-title" type="text" placeholder="Add a title…">'
@@ -2455,9 +2674,27 @@
                         +   '</div>'
                         +   '<div class="cmp-rte" contenteditable="true" data-comment="members-compose-body" data-placeholder="Write your post — tell the community about it…">' + body + '</div>'
                         + '</div>'
-                        + '<p class="sg-signin-note"><i class="ph ph-info" aria-hidden="true"></i> You’ll need to sign in or create an account to publish.</p>'
-                        + '<div class="cmp-actions"><button class="sg-btn sg-btn-primary sg-btn--block" type="button" onclick="membersComposePublish()">Publish to the gallery</button></div>'
+                        + '<div class="cmp-footer" data-comment="members-compose-footer">' + mhComposeFooterHTML() + '</div>'
                         + '</div></div></div>';
+                }
+                /* Guests get a read-only composer: every field disabled (pointer AND keyboard),
+                   only the Log in / Sign up buttons stay live. Re-applied on auth change. */
+                function mhComposeApplyAuthState() {
+                    var lb = document.querySelector('.lb.is-compose');
+                    if (!lb) return;
+                    var off = !MH_SIGNED_IN;
+                    lb.classList.toggle('is-guest', off);
+                    lb.querySelectorAll('.cmp-article select, .cmp-article .wt-dd-trigger, .cmp-title, .cmp-tool').forEach(function (el) { el.disabled = off; });
+                    var ed = lb.querySelector('.cmp-rte');
+                    if (ed) { ed.setAttribute('contenteditable', off ? 'false' : 'true'); ed.setAttribute('aria-disabled', off ? 'true' : 'false'); }
+                    var drop = lb.querySelector('.cmp-hero .sg-drop');
+                    if (drop) { drop.setAttribute('aria-disabled', off ? 'true' : 'false'); drop.tabIndex = off ? -1 : 0; }
+                }
+                /* Composer footer follows the auth state: Publish for members, Log in / Sign up for guests. */
+                function mhComposeFooterHTML() {
+                    if (MH_SIGNED_IN) return '<div class="cmp-actions"><button class="sg-btn sg-btn-primary sg-btn--block" type="button" onclick="membersComposePublish()">Publish to the gallery</button></div>';
+                    return '<p class="sg-signin-note"><i class="ph ph-info" aria-hidden="true"></i> You’ll need to sign in or create an account to publish.</p>'
+                        + '<div class="cmp-actions cmp-actions--auth"><button class="sg-btn sg-btn-primary" type="button" onclick="membersOpenGate()">Log in</button><button class="sg-btn sg-btn-secondary" type="button" onclick="openSignup()">Sign up</button></div>';
                 }
                 function openCompose() {
                     var lb = document.querySelector('.lb');
@@ -2465,9 +2702,8 @@
                     mhReturnFocus = document.activeElement;
                     document.removeEventListener('keydown', lbKey);
                     lb._carPrev = lb._carNext = null;
-                    var qi = document.querySelector('[data-comment="members-quick-input"]');
                     lb.className = 'lb is-compose';
-                    lb.innerHTML = mhRenderCompose(qi ? qi.value : '');
+                    lb.innerHTML = mhRenderCompose('');
                     if (window.wtEnhance) window.wtEnhance(lb);
                     lb.setAttribute('aria-label', 'New post');
                     document.querySelector('.lb-scrim').classList.add('open');
@@ -2482,7 +2718,10 @@
                         ed.addEventListener('keyup', cmpSyncToolbar);
                         ed.addEventListener('mouseup', cmpSyncToolbar);
                     }
-                    var first = lb.querySelector('.cmp-title'); if (first) first.focus();
+                    mhComposeApplyAuthState();
+                    /* Guests can't type — the title is disabled, so focus lands on Log in */
+                    var first = lb.querySelector(MH_SIGNED_IN ? '.cmp-title' : '.cmp-actions--auth .sg-btn');
+                    if (first) first.focus();
                     document.addEventListener('keydown', lbKey);
                 }
 
@@ -2512,7 +2751,7 @@
                     function block(c, isReply) {
                         var replies = (c.replies || []).map(function (r) { return block(r, true); }).join('');
                         return '<div class="' + (isReply ? 'lbx-reply' : 'lbx-comment') + '">'
-                            + '<div class="lbx-comment-top"><img class="lbx-avatar-img" src="' + mhFace(c.author) + '" alt="">'
+                            + '<div class="lbx-comment-top"><span class="lbx-avatar" aria-hidden="true">' + mhInitials(c.author) + '</span>'
                             + '<span class="lbx-comment-author">' + c.author + '</span>'
                             + '<span class="lbx-comment-date">' + c.date + '</span></div>'
                             + '<p class="lbx-comment-text">' + c.text + '</p>'
@@ -2574,7 +2813,7 @@
                     var article = '<article class="lbx-article">'
                         + '<span class="lbx-eyebrow">' + (post.topic || 'From the community') + '</span>'
                         + '<h1 class="lbx-title">' + post.title + '</h1>'
-                        + '<div class="lbx-byline"><img class="lbx-byline-avatar" src="' + mhFace(post.author) + '" alt=""><span>' + byline + '</span></div>'
+                        + '<div class="lbx-byline"><span class="lbx-avatar lbx-avatar--sm" aria-hidden="true">' + mhInitials(post.author) + '</span><span>' + byline + '</span></div>'
                         + body
                         + (post.product ? '<div style="margin-top:8px">' + mhProd(post) + '</div>' : '')
                         + '</article>';
@@ -2793,23 +3032,23 @@
                 <div data-comment="contact-bg-image" style="position: absolute; inset: 0; overflow: visible; background: url('assets/cta-blossom.png') center / cover no-repeat"></div>
                 <!-- darkening layer for text legibility -->
                 <div data-comment="contact-bg-overlay" style="position:absolute; inset:0; background:radial-gradient(ellipse 70% 80% at center, rgba(0,0,0,0.48) 0%, rgba(0,0,0,0.30) 70%);"></div>
-                <div data-comment="contact-content" style="position:relative; max-width:780px; margin:0 auto; padding:128px 40px; text-align:center;">
+                <div data-comment="contact-content" class="wt-container wt-container--narrow wt-section" style="position:relative; text-align:center;">
                     <div data-comment="contact-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:#EAD7B4;">We’re here to help</div>
-                    <h2 data-comment="contact-heading" style="font-family:var(--display); font-weight:500; font-size:54px; line-height:1.08; color:#FFFFFF; margin:18px 0 0; text-wrap:balance;">Questions? Read our FAQ or get in touch.</h2>
+                    <h2 data-comment="contact-heading" style="font-family:var(--display); font-weight:500; font-size:var(--fs-cta); line-height:1.08; color:#FFFFFF; margin:18px 0 0; text-wrap:balance;">Questions? Read our FAQ or get in touch.</h2>
                     <p data-comment="contact-text" style="font-family:var(--sans); font-weight:400; font-size:18px; line-height:1.7; color:rgba(255,255,255,0.88); margin:20px auto 0; max-width:50ch;">New to fruit trees? We’re here to help, and we’ll do our best to answer your questions. Call us at <a data-comment="contact-phone-link" href="tel:5196691349" style="color:#FFFFFF; font-weight:700; text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.5);">519.669.1349</a> · Elora, Ontario.</p>
                     <div data-comment="contact-cta-group" style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-top:34px;">
-                        <a data-comment="contact-cta-faq" href="#" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent-deep); background:#FFFFFF; border-radius:4px; padding:16px 32px; text-decoration:none;">Read the FAQ</a>
-                        <a data-comment="contact-cta-contact" href="home.html#contact" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#FFFFFF; border:1.5px solid rgba(255,255,255,0.65); border-radius:4px; padding:14.5px 30px; text-decoration:none;">Contact us</a>
+                        <a data-comment="contact-cta-faq" href="product-faq.html" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent-deep); background:#FFFFFF; border-radius:4px; padding:16px 32px; text-decoration:none;">Read the FAQ</a>
+                        <a data-comment="contact-cta-contact" href="contact.html" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#FFFFFF; border:1.5px solid rgba(255,255,255,0.65); border-radius:4px; padding:14.5px 30px; text-decoration:none;">Contact us</a>
                     </div>
                 </div>
             </section>
 
             <!-- READY SET GROW / NEWSLETTER -->
             <section id="gift" data-comment="newsletter-section" style="background:var(--paper1);">
-                <div data-comment="newsletter-inner" style="max-width:none; width:100%; margin:0; padding:72px 40px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;">
+                <div data-comment="newsletter-inner" class="wt-container" style="padding-top:72px; padding-bottom:72px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;">
                     <div data-comment="newsletter-text">
                         <div data-comment="newsletter-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent-deep);">Ready, set, grow!</div>
-                        <h2 data-comment="newsletter-heading" style="font-family:var(--display); font-weight:500; font-size:44px; line-height:1.08; color:var(--ink); margin:12px 0 0; max-width:18ch;">Join our mailing list</h2>
+                        <h2 data-comment="newsletter-heading" style="font-family:var(--display); font-weight:500; font-size:var(--fs-h3); line-height:1.08; color:var(--ink); margin:12px 0 0; max-width:18ch;">Join our mailing list</h2>
                         <p data-comment="newsletter-subtext" style="font-family:var(--sans); font-size:16px; line-height:1.6; color:var(--muted); margin:14px 0 0; max-width:46ch;">Be first to know when the next crop is released, plus updates on events, workshops and sales from the farm.</p>
                     </div>
                     <form data-comment="newsletter-form" style="display:flex; gap:12px; flex-wrap:wrap;" onsubmit="return false;">
@@ -2821,7 +3060,7 @@
 
             <!-- FOOTER -->
             <footer data-comment="footer-root" style="background:var(--paper2); border-top:1px solid var(--line);">
-                <div data-comment="footer-inner" style="max-width:none; width:100%; margin:0; padding:64px 40px 40px;">
+                <div data-comment="footer-inner" class="wt-container" style="padding-top:64px; padding-bottom:40px;">
                     <div data-comment="footer-columns" style="display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px;">
                         <div data-comment="footer-brand">
                             <div data-comment="footer-logo-wrap" style="display: inline-block; border-radius: 4px; padding: 14px 18px; padding-top: 8px; padding-bottom: 8px; padding-left: 8px; padding-right: 8px">
@@ -2857,8 +3096,8 @@
                             <div data-comment="footer-col-links-title" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">Quick links</div>
                             <div data-comment="footer-col-links-links" style="display:flex; flex-direction:column; gap:11px; font-family:var(--sans); font-size:14.5px;">
                                 <a data-comment="footer-links-link-1" href="account.html" style="color:var(--ink2); text-decoration:none;">My account</a>
-                                <a data-comment="footer-links-link-2" href="#" style="color:var(--ink2); text-decoration:none;">Cart</a>
-                                <a data-comment="footer-links-link-3" href="#contact" style="color:var(--ink2); text-decoration:none;">Contact</a>
+                                <a data-comment="footer-links-link-2" href="#" onclick="event.preventDefault(); var b=document.querySelector('[data-comment=&quot;header-action-cart&quot;]'); if (b) b.click();" style="color:var(--ink2); text-decoration:none;">Cart</a>
+                                <a data-comment="footer-links-link-3" href="contact.html" style="color:var(--ink2); text-decoration:none;">Contact</a>
                                 <a data-comment="footer-links-link-4" href="tel:5196691349" style="color:var(--ink2); text-decoration:none;">(519) 669-1349</a>
                             </div>
                         </div>
@@ -2866,8 +3105,8 @@
                     <div data-comment="footer-bottom" style="border-top:1px solid var(--line); margin-top:44px; padding-top:24px; display:flex; flex-wrap:wrap; gap:14px; justify-content:space-between; font-family:var(--sans); font-size:12.5px; color:var(--muted);">
                         <span data-comment="footer-copyright">© 2026 Whiffletree Farm &amp; Nursery Inc. All rights reserved.</span>
                         <div data-comment="footer-legal-links" style="display:flex; gap:22px;">
-                            <a data-comment="footer-legal-terms" href="#" style="color:var(--muted); text-decoration:none;">Terms &amp; conditions</a>
-                            <a data-comment="footer-legal-privacy" href="#" style="color:var(--muted); text-decoration:none;">Privacy policy</a>
+                            <a data-comment="footer-legal-terms" href="terms-conditions.html" style="color:var(--muted); text-decoration:none;">Terms &amp; conditions</a>
+                            <a data-comment="footer-legal-privacy" href="privacy-policy.html" style="color:var(--muted); text-decoration:none;">Privacy policy</a>
                         </div>
                     </div>
                 </div>
@@ -3011,7 +3250,9 @@
                  Uses the design-system tokens already defined in this file's :root. -->
             <style>
                 /* ─── Floating launcher ─── */
-                .adv-fab { position: fixed; right: 26px; bottom: 26px; z-index: 1000; display: inline-flex; align-items: center; gap: 10px; background: var(--g700); color: #EAF0E0; border: none; cursor: pointer; border-radius: 2px; padding: 14px 24px 14px 14px; font-family: var(--sans); font-weight: 700; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; box-shadow: 0 10px 30px rgba(6,61,34,0.34); transition: transform 160ms, background 160ms; }
+                .adv-fab { position: fixed; right: 26px; bottom: 26px; z-index: 1000; display: inline-flex; align-items: center; gap: 10px; background: var(--g700); color: #EAF0E0; border: none; cursor: pointer; border-radius: 2px; padding: 14px 24px 14px 14px; font-family: var(--sans); font-weight: 700; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; box-shadow: 0 10px 30px rgba(6,61,34,0.34); transition: transform 160ms, background 160ms, opacity 220ms, visibility 220ms; }
+                /* Hide the launcher while the footer is on-screen so it never covers footer links. */
+                body.adv-near-footer .adv-fab { opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(16px); }
                 .adv-fab:hover { background: var(--g800); transform: translateY(-2px); }
                 .adv-fab:focus-visible { outline: 3px solid var(--g300); outline-offset: 3px; }
                 .adv-fab-mark { position: relative; width: 30px; height: 30px; border-radius: 999px; background: var(--paper1); color: var(--g700); display: flex; align-items: center; justify-content: center; font-size: 18px; }
@@ -3363,6 +3604,15 @@
                     }
 
                     // Expose the handlers used by inline on* attributes.
+                    // Hide the launcher while the footer is in view so it doesn't overlap footer links.
+                    (function () {
+                        var footer = document.querySelector('[data-comment="footer-root"]') || document.querySelector('footer');
+                        if (!footer || !('IntersectionObserver' in window)) return;
+                        var io = new IntersectionObserver(function (entries) {
+                            document.body.classList.toggle('adv-near-footer', entries[0].isIntersecting);
+                        }, { rootMargin: '0px 0px -40px 0px' });
+                        io.observe(footer);
+                    })();
                     window.openAdvisor = openAdvisor;
                     window.closeAdvisor = closeAdvisor;
                     window.send = send;
@@ -3481,7 +3731,7 @@
             document.addEventListener('click', function (e) { registry.forEach(function (d) { if (!d.wrap.contains(e.target)) d.close(); }); });
             function enhanceIn(root) {
                 var scope = (root && root.querySelectorAll) ? root : document;
-                var nodes = scope.querySelectorAll('.cat-select, .sg-select, .mh-filter, [data-comment="forms-variety-select"]');
+                var nodes = scope.querySelectorAll('.cat-select, .sg-select, .mh-filter, .wt-dd-select, [data-comment="forms-variety-select"]');
                 Array.prototype.forEach.call(nodes, enhance);
             }
             /* Exposed so JS-rendered popups (compose / signup) can enhance their
@@ -3568,6 +3818,450 @@
                     else window.wtCart.refresh();
                 })();
             </script>
+            <script data-inlined="wt-cart-drawer.js">
+/* ============================================================================
+   Whiffletree — shared Cart Drawer component
+   Right-side drawer opened from the header cart icon (click only — the
+   fly-to-cart animation on add stays as-is, per client decision).
+   Extends the existing wt-cart badge mock: line items persist across pages in
+   localStorage ('wt_cart_items'); the legacy 'wt_cart_count' key is kept in
+   sync so the red-dot badge logic keeps working unchanged.
+   Includes the inline discount progress bar and the pollination check with a
+   compatible-pollinator cross-sell (see docs/cart-checkout-spec.md §2, §7).
+   PRODUCTION: replace the localStorage store with the real WooCommerce cart;
+   the pollination result comes from the backend rule engine.
+   ========================================================================== */
+(function () {
+    'use strict';
+
+    var ITEMS_KEY = 'wt_cart_items';
+    var COUNT_KEY = 'wt_cart_count';
+    var DISCOUNT_THRESHOLD = 500;   /* existing "spend $500 → 10% off" promo */
+    var DISCOUNT_RATE = 0.10;
+    var CHECKOUT_URL = 'checkout.html';
+
+    /* ── Nursery mock data (per-category) ─────────────────────────────── */
+    var ROOTSTOCK = {
+        apples: 'MM.106 rootstock', pears: 'OHxF 87 rootstock', plums: 'Myrobalan rootstock',
+        cherries: 'Gisela 6 rootstock', peaches: 'Bailey rootstock', apricots: 'Manchurian rootstock'
+    };
+    var CAT_IMG = {
+        apples: 'assets/cat-apples.png', pears: 'assets/cat-pears.png', plums: 'assets/cat-plums.jpg',
+        cherries: 'assets/cat-cherries.png', peaches: 'assets/cat-peaches.png', apricots: 'assets/cat-apricots.png',
+        grapes: 'assets/cat-grapes.png', nuts: 'assets/cat-nuts.png', shrubs: 'assets/cat-shrubs.png',
+        supplies: 'assets/cat-supplies.png', books: 'assets/books.png'
+    };
+    /* Compatible-pollinator recommendations (mock of the §7 rule engine —
+       real varieties from the catalogue, same species + overlapping bloom). */
+    var POLLINATORS = {
+        apples:   [{ name: 'Liberty Apple', price: 44.95, type: 'Apple tree' }, { name: 'Harcourt Apple', price: 39.95, type: 'Apple tree' }],
+        pears:    [{ name: 'Shinsui Asian Pear', price: 39.95, type: 'Pear tree' }, { name: 'Flemish Beauty European Pear', price: 39.95, type: 'Pear tree' }],
+        plums:    [{ name: 'Shiro Japanese Plum', price: 46.95, type: 'Plum tree' }, { name: 'Superior American Hybrid Plum', price: 46.95, type: 'Plum tree' }],
+        cherries: [{ name: 'Stella Sweet Cherry', price: 49.95, type: 'Cherry tree' }],
+        apricots: [{ name: 'Precious Apricot', price: 49.95, type: 'Apricot tree' }],
+        peaches:  [{ name: 'Reliance Peach', price: 49.95, type: 'Peach tree' }]
+    };
+
+    /* ── Store (localStorage-backed, cross-page mock) ─────────────────── */
+    function loadItems() {
+        try { var a = JSON.parse(localStorage.getItem(ITEMS_KEY)); return Array.isArray(a) ? a : []; }
+        catch (e) { return []; }
+    }
+    function totalQty(items) { return items.reduce(function (n, it) { return n + (it.qty || 0); }, 0); }
+    function subtotal(items) { return items.reduce(function (n, it) { return n + (it.price || 0) * (it.qty || 0); }, 0); }
+    function saveItems(items) {
+        try {
+            localStorage.setItem(ITEMS_KEY, JSON.stringify(items));
+            localStorage.setItem(COUNT_KEY, String(totalQty(items)));
+        } catch (e) { }
+        refreshBadge(items);
+    }
+    function refreshBadge(items) {
+        var b = document.querySelector('[data-comment="header-cart-badge"]');
+        if (b) b.classList.toggle('on', totalQty(items) > 0);
+    }
+    function addItem(items, p) {
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].id === p.id) { items[i].qty += 1; return items; }
+        }
+        items.push({ id: p.id, name: p.name, price: p.price, category: p.category, chars: p.chars, img: p.img, type: p.type, qty: 1 });
+        return items;
+    }
+
+    /* ── Helpers ───────────────────────────────────────────────────────── */
+    function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+    function slug(s) { return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); }
+    function fmt(n) { return '$' + (Math.round(n * 100) / 100).toFixed(2); }
+    function bgUrl(el) {
+        if (!el) return '';
+        var m = /url\(['"]?([^'")]+)['"]?\)/.exec(el.style.backgroundImage || '');
+        return m ? m[1] : '';
+    }
+    function guessCategory(name) {
+        var n = String(name).toLowerCase();
+        if (n.indexOf('apple') !== -1) return 'apples';
+        if (n.indexOf('pear') !== -1) return 'pears';
+        if (n.indexOf('plum') !== -1) return 'plums';
+        if (n.indexOf('cherry') !== -1) return 'cherries';
+        if (n.indexOf('peach') !== -1) return 'peaches';
+        if (n.indexOf('apricot') !== -1) return 'apricots';
+        if (n.indexOf('grape') !== -1) return 'grapes';
+        return '';
+    }
+    function detailFor(it) {
+        var parts = [];
+        if (it.type) parts.push(it.type);
+        if (ROOTSTOCK[it.category]) parts.push(ROOTSTOCK[it.category]);
+        else if (it.category && CAT_IMG[it.category] && it.category !== 'supplies' && it.category !== 'books') parts.push('Bare-root');
+        return parts.join(' · ');
+    }
+
+    /* Derive the product from whatever element triggered the add:
+       a catalogue card, an advisor product card, or explicit data-cart-* attrs. */
+    function productFrom(src) {
+        if (!src || !src.closest) return null;
+        var card = src.closest('.cat-card');
+        if (card && card.dataset && card.dataset.name) {
+            return {
+                id: slug(card.dataset.name),
+                name: card.dataset.name,
+                price: parseFloat(card.dataset.price) || 0,
+                category: card.dataset.category || '',
+                chars: card.dataset.chars || '',
+                img: bgUrl(card.querySelector('.cat-card-img')),
+                type: (card.querySelector('.cat-card-type') || { textContent: '' }).textContent.trim()
+            };
+        }
+        var adv = src.closest('.adv-prod-card');
+        if (adv) {
+            var nameEl = adv.querySelector('.adv-prod-name');
+            if (nameEl) {
+                var name = nameEl.textContent.trim();
+                var priceEl = adv.querySelector('.adv-prod-price');
+                var priceM = priceEl ? /([\d.]+)/.exec(priceEl.textContent) : null;
+                return {
+                    id: slug(name), name: name,
+                    price: priceM ? parseFloat(priceM[1]) : 0,
+                    category: guessCategory(name), chars: '',
+                    img: bgUrl(adv.querySelector('.adv-prod-img')),
+                    type: (adv.querySelector('.adv-prod-meta') || { textContent: '' }).textContent.trim()
+                };
+            }
+        }
+        if (src.dataset && src.dataset.cartName) {
+            return {
+                id: slug(src.dataset.cartName), name: src.dataset.cartName,
+                price: parseFloat(src.dataset.cartPrice) || 0,
+                category: src.dataset.cartCategory || guessCategory(src.dataset.cartName),
+                chars: src.dataset.cartChars || '',
+                img: src.dataset.cartImg || '',
+                type: src.dataset.cartType || ''
+            };
+        }
+        return null;
+    }
+
+    /* ── Pollination check (mock of the §7 rule engine) ───────────────── */
+    function pollinationCheck(items) {
+        var trees = items.filter(function (it) { return ROOTSTOCK[it.category]; });
+        if (!trees.length) return null;
+        var conflicts = [];
+        trees.forEach(function (it) {
+            if ((it.chars || '').indexOf('needs-pollenizer') === -1) return;
+            var partner = trees.some(function (o) { return o !== it && o.category === it.category; });
+            if (!partner) conflicts.push(it);
+        });
+        return { conflicts: conflicts };
+    }
+    function suggestionFor(item, items) {
+        var pool = POLLINATORS[item.category] || [];
+        for (var i = 0; i < pool.length; i++) {
+            var inCart = items.some(function (it) { return it.id === slug(pool[i].name); });
+            if (!inCart) {
+                return {
+                    id: slug(pool[i].name), name: pool[i].name, price: pool[i].price,
+                    category: item.category, chars: '', img: CAT_IMG[item.category] || '', type: pool[i].type
+                };
+            }
+        }
+        return null;
+    }
+
+    /* ── Drawer DOM ────────────────────────────────────────────────────── */
+    var scrim, drawer, lastFocused = null;
+
+    function build() {
+        if (drawer) return;
+        scrim = document.createElement('div');
+        scrim.className = 'wtc-scrim';
+        scrim.setAttribute('data-comment', 'cart-drawer-scrim');
+        scrim.setAttribute('aria-hidden', 'true');
+
+        drawer = document.createElement('aside');
+        drawer.className = 'wtc-drawer';
+        drawer.setAttribute('data-comment', 'cart-drawer');
+        drawer.setAttribute('role', 'dialog');
+        drawer.setAttribute('aria-modal', 'true');
+        drawer.setAttribute('aria-label', 'Shopping cart');
+        drawer.innerHTML =
+            '<div class="wtc-head" data-comment="cart-drawer-head">'
+            + '<span class="wtc-title" data-comment="cart-drawer-title">Your cart</span>'
+            + '<span class="wtc-count" data-comment="cart-drawer-count"></span>'
+            + '<button type="button" class="wtc-close" data-comment="cart-drawer-close" aria-label="Close cart"><i class="ph ph-x" aria-hidden="true"></i></button>'
+            + '</div>'
+            + '<div class="wtc-progress" data-comment="cart-drawer-progress">'
+            + '<div class="wtc-progress-label" data-comment="cart-drawer-progress-label"></div>'
+            + '<div class="wtc-progress-track" data-comment="cart-drawer-progress-track"><div class="wtc-progress-fill" data-comment="cart-drawer-progress-fill"></div></div>'
+            + '</div>'
+            + '<div class="wtc-body" data-comment="cart-drawer-body"></div>'
+            + '<div class="wtc-foot" data-comment="cart-drawer-foot"></div>';
+
+        document.body.appendChild(scrim);
+        document.body.appendChild(drawer);
+
+        scrim.addEventListener('click', function () { close(); });
+        drawer.querySelector('.wtc-close').addEventListener('click', function () { close(); });
+        document.addEventListener('keydown', function (e) {
+            if (!isOpen()) return;
+            if (e.key === 'Escape') { close(true); return; }
+            if (e.key !== 'Tab') return;
+            /* keep focus inside the dialog */
+            var f = Array.prototype.filter.call(
+                drawer.querySelectorAll('button, a[href], input, [tabindex]:not([tabindex="-1"])'),
+                function (el) { return el.offsetParent !== null; });
+            if (!f.length) return;
+            var first = f[0], last = f[f.length - 1];
+            if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+            else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        });
+
+        /* event delegation for dynamic content */
+        drawer.addEventListener('click', function (e) {
+            var t = e.target.closest('[data-wtc-action]');
+            if (!t) return;
+            var action = t.getAttribute('data-wtc-action');
+            var id = t.getAttribute('data-wtc-id');
+            var items = loadItems();
+            if (action === 'inc' || action === 'dec') {
+                items.forEach(function (it) {
+                    if (it.id !== id) return;
+                    it.qty = Math.max(1, Math.min(99, it.qty + (action === 'inc' ? 1 : -1)));
+                });
+                saveItems(items); render();
+            } else if (action === 'remove') {
+                items = items.filter(function (it) { return it.id !== id; });
+                saveItems(items); render();
+            } else if (action === 'suggest-add') {
+                var p = null;
+                try { p = JSON.parse(t.getAttribute('data-wtc-product')); } catch (err) { }
+                if (p) { saveItems(addItem(items, p)); render(); }
+            } else if (action === 'continue') {
+                close();
+            }
+        });
+    }
+
+    /* ── Render ────────────────────────────────────────────────────────── */
+    function itemHTML(it, i) {
+        var n = i + 1;
+        var linkOpen = '<a class="wtc-item-name" data-comment="cart-drawer-item-' + n + '-name" href="product.html">' + esc(it.name) + '</a>';
+        return '<div class="wtc-item" data-comment="cart-drawer-item-' + n + '">'
+            + '<div class="wtc-item-img" data-comment="cart-drawer-item-' + n + '-img"' + (it.img ? ' style="background-image:url(\'' + esc(it.img) + '\')"' : '') + '></div>'
+            + '<div class="wtc-item-main">'
+            + linkOpen
+            + '<div class="wtc-item-detail" data-comment="cart-drawer-item-' + n + '-detail">' + esc(detailFor(it)) + '</div>'
+            + (it.price ? '<div class="wtc-item-unit" data-comment="cart-drawer-item-' + n + '-unit">' + fmt(it.price) + ' each</div>' : '')
+            + '<span class="wtc-qty" data-comment="cart-drawer-item-' + n + '-qty">'
+            + '<button type="button" data-wtc-action="dec" data-wtc-id="' + esc(it.id) + '" aria-label="Decrease quantity"><i class="ph ph-minus" aria-hidden="true"></i></button>'
+            + '<span class="wtc-qty-num">' + it.qty + '</span>'
+            + '<button type="button" data-wtc-action="inc" data-wtc-id="' + esc(it.id) + '" aria-label="Increase quantity"><i class="ph ph-plus" aria-hidden="true"></i></button>'
+            + '</span>'
+            + '</div>'
+            + '<div class="wtc-item-side">'
+            + '<span class="wtc-item-price" data-comment="cart-drawer-item-' + n + '-price">' + (it.price ? fmt(it.price * it.qty) : 'Call for price') + '</span>'
+            + '<button type="button" class="wtc-item-remove" data-wtc-action="remove" data-wtc-id="' + esc(it.id) + '" aria-label="Remove ' + esc(it.name) + ' from cart"><i class="ph ph-trash" aria-hidden="true"></i></button>'
+            + '</div>'
+            + '</div>';
+    }
+
+    function pollinationHTML(items) {
+        var res = pollinationCheck(items);
+        if (!res) return '';
+        if (!res.conflicts.length) {
+            return '<div class="wtc-poll ok" data-comment="cart-drawer-pollination">'
+                + '<div class="wtc-poll-head"><i class="ph ph-check-circle" aria-hidden="true"></i>Your order is pollination-ready</div>'
+                + '<div class="wtc-poll-text">Every variety in your cart is self-fertile or has a compatible partner.</div>'
+                + '</div>';
+        }
+        var html = '<div class="wtc-poll warn" data-comment="cart-drawer-pollination">'
+            + '<div class="wtc-poll-head"><i class="ph ph-warning-circle" aria-hidden="true"></i>'
+            + (res.conflicts.length === 1 ? '1 variety needs a pollinator' : res.conflicts.length + ' varieties need a pollinator')
+            + '</div>'
+            + '<div class="wtc-poll-text">'
+            + esc(res.conflicts.map(function (it) { return it.name; }).join(', '))
+            + (res.conflicts.length === 1 ? ' isn’t self-fertile — add a compatible partner nearby so it can set fruit.' : ' aren’t self-fertile — add compatible partners nearby so they can set fruit.')
+            + '</div>';
+        var seenCats = {};
+        res.conflicts.forEach(function (it) {
+            if (seenCats[it.category]) return;
+            seenCats[it.category] = true;
+            var s = suggestionFor(it, items);
+            if (!s) return;
+            html += '<div class="wtc-suggest" data-comment="cart-drawer-suggest-' + esc(it.category) + '">'
+                + '<div class="wtc-suggest-img"' + (s.img ? ' style="background-image:url(\'' + esc(s.img) + '\')"' : '') + '></div>'
+                + '<div class="wtc-suggest-main">'
+                + '<div class="wtc-suggest-name">' + esc(s.name) + '</div>'
+                + '<div class="wtc-suggest-meta">Compatible pollinator · ' + fmt(s.price) + '</div>'
+                + '</div>'
+                + '<button type="button" class="wtc-suggest-add" data-wtc-action="suggest-add" data-wtc-product="' + esc(JSON.stringify(s)) + '">Add</button>'
+                + '</div>';
+        });
+        return html + '</div>';
+    }
+
+    function render() {
+        if (!drawer) build();
+        var items = loadItems();
+        refreshBadge(items);
+        var qty = totalQty(items);
+        var sub = subtotal(items);
+        var head = drawer.querySelector('.wtc-count');
+        var progress = drawer.querySelector('.wtc-progress');
+        var body = drawer.querySelector('.wtc-body');
+        var foot = drawer.querySelector('.wtc-foot');
+
+        head.textContent = qty ? (qty + (qty === 1 ? ' item' : ' items')) : '';
+
+        if (!items.length) {
+            progress.style.display = 'none';
+            foot.style.display = 'none';
+            body.classList.add('is-empty');
+            body.innerHTML = '<div class="wtc-empty" data-comment="cart-drawer-empty">'
+                + '<i class="ph-light ph-plant" aria-hidden="true"></i>'
+                + '<div class="wtc-empty-title" data-comment="cart-drawer-empty-title">Your cart is empty</div>'
+                + '<p class="wtc-empty-text" data-comment="cart-drawer-empty-text">Bare-root season goes quickly — browse the nursery and reserve your trees.</p>'
+                + '<a class="wtc-empty-cta" data-comment="cart-drawer-empty-cta" href="shop.html">Browse the nursery</a>'
+                + '</div>';
+            return;
+        }
+        body.classList.remove('is-empty');
+
+        /* discount progress */
+        progress.style.display = '';
+        var away = DISCOUNT_THRESHOLD - sub;
+        var label = drawer.querySelector('.wtc-progress-label');
+        var fill = drawer.querySelector('.wtc-progress-fill');
+        if (away > 0) {
+            progress.classList.remove('done');
+            label.innerHTML = 'You’re <b>' + fmt(away) + '</b> away from a <b>10% discount</b> on your order.';
+            fill.style.width = Math.min(100, (sub / DISCOUNT_THRESHOLD) * 100) + '%';
+        } else {
+            progress.classList.add('done');
+            label.innerHTML = '<b>10% discount unlocked</b> — it’s applied to your order below.';
+            fill.style.width = '100%';
+        }
+
+        /* items + pollination */
+        body.innerHTML = items.map(itemHTML).join('') + pollinationHTML(items);
+
+        /* summary + CTAs */
+        var discount = sub >= DISCOUNT_THRESHOLD ? sub * DISCOUNT_RATE : 0;
+        foot.style.display = '';
+        foot.innerHTML =
+            '<div class="wtc-row' + (discount ? '' : ' total') + '" data-comment="cart-drawer-subtotal"><span class="wtc-row-label">Subtotal</span><span class="wtc-row-value">' + fmt(sub) + ' CAD</span></div>'
+            + (discount ? '<div class="wtc-row discount" data-comment="cart-drawer-discount"><span class="wtc-row-label">Volume discount (10%)</span><span class="wtc-row-value">−' + fmt(discount) + '</span></div>' : '')
+            + (discount ? '<div class="wtc-row total" data-comment="cart-drawer-total"><span>Total</span><span class="wtc-row-value">' + fmt(sub - discount) + ' CAD</span></div>' : '')
+            + '<div class="wtc-note" data-comment="cart-drawer-note">Shipping &amp; taxes calculated at checkout. Pickup at the farm is free.</div>'
+            + '<a class="wtc-checkout" data-comment="cart-drawer-checkout" href="' + CHECKOUT_URL + '">Proceed to checkout</a>'
+            + '<button type="button" class="wtc-continue" data-comment="cart-drawer-continue" data-wtc-action="continue">Continue shopping</button>';
+    }
+
+    /* ── Open / close ──────────────────────────────────────────────────── */
+    function isOpen() { return drawer && drawer.classList.contains('open'); }
+    function open() {
+        build(); render();
+        lastFocused = document.activeElement;
+        scrim.classList.add('open');
+        drawer.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        var closeBtn = drawer.querySelector('.wtc-close');
+        if (closeBtn) closeBtn.focus();
+    }
+    function close(restoreFocus) {
+        if (!isOpen()) return;
+        scrim.classList.remove('open');
+        drawer.classList.remove('open');
+        document.body.style.overflow = '';
+        /* Restore focus only for keyboard closes (Esc) — after a tap/click a
+           programmatic focus() would leave a stray :focus-visible ring on the
+           header cart icon on touch devices. */
+        if (restoreFocus && lastFocused && lastFocused.focus) lastFocused.focus();
+        else if (document.activeElement && drawer.contains(document.activeElement)) document.activeElement.blur();
+    }
+
+    /* ── Wire up ───────────────────────────────────────────────────────── */
+    function init() {
+        /* wrap the existing badge/fly mock so every add also records an item */
+        if (window.wtCart && window.wtCart.add) {
+            var base = window.wtCart.add.bind(window.wtCart);
+            window.wtCart.add = function (src, productOverride) {
+                base(src); /* fly animation + badge pop (legacy count bump) */
+                var p = productOverride || productFrom(src);
+                if (p) {
+                    saveItems(addItem(loadItems(), p));
+                    if (isOpen()) render();
+                }
+            };
+        }
+        /* items are the source of truth — reconcile the legacy count/badge */
+        saveItems(loadItems());
+
+        var icon = document.querySelector('[data-comment="header-action-cart"]');
+        if (icon) icon.addEventListener('click', function (e) { e.preventDefault(); open(); });
+
+        window.wtCartDrawer = { open: open, close: close, items: loadItems };
+    }
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+})();
+        </script>
+            <script data-inlined="wt-search.js">
+/* ============================================================================
+   Whiffletree — shared header search wiring
+   Desktop: the magnifier icon-button opens the dedicated results page.
+   Mobile: type in the nav-overlay field and hit the search button → results.
+   On search.html itself the desktop icon just focuses the on-page field.
+   ========================================================================== */
+(function () {
+    'use strict';
+
+    var SEARCH_URL = 'search.html';
+
+    function go(q) {
+        window.location.href = SEARCH_URL + (q ? '?q=' + encodeURIComponent(q) : '');
+    }
+
+    function init() {
+        var onPageInput = document.querySelector('[data-comment="search-input"]');
+
+        var deskBtn = document.querySelector('[data-comment="header-action-search"]');
+        if (deskBtn) deskBtn.addEventListener('click', function () {
+            if (onPageInput) { onPageInput.focus(); onPageInput.select(); }
+            else go('');
+        });
+
+        var mInput = document.querySelector('[data-comment="header-search-m"] input');
+        var mGo = document.querySelector('[data-comment="header-search-m-go"]');
+        function submitMobile() { go(mInput ? mInput.value.trim() : ''); }
+        if (mInput) mInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); submitMobile(); } });
+        if (mGo) mGo.addEventListener('click', submitMobile);
+    }
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+})();
+        </script>
             <script type="module" data-comment="wt-motion-module">
                 import { animate } from 'https://cdn.jsdelivr.net/npm/motion@11/+esm';
                 window.__wtMotion = { animate: animate };
@@ -3587,9 +4281,12 @@
     var LS_KEY = 'wtAccount';
     var ACCOUNT_URL = 'account.html'; /* signed-in destination (page built separately) */
     var listeners = [];
+    var authSuccess = null; /* optional per-page hook: run instead of routing to the account page after login (e.g. checkout keeps you on the page) */
     var state = load();
 
     function goAccount() { window.location.href = ACCOUNT_URL; }
+    /* after a successful login: if a page registered onAuthSuccess, let it decide what happens (stay put); otherwise go to the account page. */
+    function postAuth() { if (typeof authSuccess === 'function') { try { authSuccess(state); } catch (e) { } } else { goAccount(); } }
 
     function load() {
         try {
@@ -3782,12 +4479,12 @@
         state.signedIn = true;
         if (!state.user.name) state.user = { name: 'Alex Green', email: '' };
         persist(); closePop(); renderPop(); notify();
-        goAccount(); /* land the user in their account */
+        postAuth(); /* land the user in their account (or run the page's hook) */
     }
     function emailLogin() {
         var email = (pop.querySelector('[data-wta-email]') || {}).value || '';
         login({ name: email ? deriveName(email) : 'Alex Green', email: email });
-        goAccount();
+        postAuth();
     }
     function logout() {
         state.signedIn = false;
@@ -3814,6 +4511,7 @@
         isSignedIn: function () { return state.signedIn; },
         getUser: function () { return { name: state.user.name, email: state.user.email }; },
         onChange: function (cb) { listeners.push(cb); return function () { listeners = listeners.filter(function (f) { return f !== cb; }); }; },
+        onAuthSuccess: function (cb) { authSuccess = cb; },
         login: login,
         logout: logout,
         openLogin: openPop,

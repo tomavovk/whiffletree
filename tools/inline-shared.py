@@ -24,10 +24,15 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 # component filename -> (kind, source path). Present on a page only if its
 # marker/tag is found there, so this list is safe to apply to every file.
 COMPONENTS = [
-    ("wt-account.css", "css", "assets/wt-account.css"),
-    ("wt-fields.css",  "css", "assets/wt-fields.css"),
-    ("wt-account.js",  "js",  "assets/wt-account.js"),
-    ("wt-fields.js",   "js",  "assets/wt-fields.js"),
+    ("wt-layout.css",      "css", "assets/wt-layout.css"),
+    ("wt-header.css",      "css", "assets/wt-header.css"),
+    ("wt-account.css",     "css", "assets/wt-account.css"),
+    ("wt-fields.css",      "css", "assets/wt-fields.css"),
+    ("wt-cart-drawer.css", "css", "assets/wt-cart-drawer.css"),
+    ("wt-account.js",      "js",  "assets/wt-account.js"),
+    ("wt-fields.js",       "js",  "assets/wt-fields.js"),
+    ("wt-cart-drawer.js",  "js",  "assets/wt-cart-drawer.js"),
+    ("wt-search.js",       "js",  "assets/wt-search.js"),
 ]
 
 def html_files():

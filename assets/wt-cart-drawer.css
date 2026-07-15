@@ -1,0 +1,99 @@
+/* ============================================================================
+   Whiffletree — shared Cart Drawer component (styles)
+   Right-side drawer, ~40vw on desktop, full-width on mobile.
+   Markup is injected by wt-cart-drawer.js; uses site :root tokens only.
+   ========================================================================== */
+
+.wtc-scrim { position: fixed; inset: 0; background: rgba(21, 20, 15, 0.44); opacity: 0; pointer-events: none; transition: opacity 0.28s ease; z-index: 3000; }
+.wtc-scrim.open { opacity: 1; pointer-events: auto; }
+
+.wtc-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 35vw; min-width: 480px; max-width: 660px; background: #ffffff; z-index: 3001; display: flex; flex-direction: column; transform: translateX(103%); transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1); box-shadow: -18px 0 50px rgba(21, 20, 15, 0.18); font-family: var(--sans); color: var(--ink2); }
+.wtc-drawer.open { transform: none; }
+@media (max-width: 767px) { /* md */
+    .wtc-drawer { width: 100%; min-width: 0; max-width: none; }
+}
+
+/* ─── Header ─── */
+.wtc-head { display: flex; align-items: center; gap: 12px; padding: 20px 26px; border-bottom: 1px solid var(--line-soft); flex-shrink: 0; }
+.wtc-title { font-family: var(--display); font-weight: 600; font-size: 27px; line-height: 1.1; color: var(--ink); }
+.wtc-count { font-size: 13px; font-weight: 600; color: var(--muted); padding-top: 5px; }
+.wtc-close { margin-left: auto; width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; background: none; border: 1px solid transparent; border-radius: 2px; color: var(--muted); font-size: 21px; cursor: pointer; transition: background 0.15s ease, color 0.15s ease; }
+.wtc-close:hover { background: var(--paper1); color: var(--ink); }
+.wtc-close:focus-visible { outline: 2px solid var(--g700); outline-offset: 2px; }
+
+/* ─── Discount progress ─── */
+.wtc-progress { padding: 15px 26px 17px; background: var(--paper0); border-bottom: 1px solid var(--line-soft); flex-shrink: 0; }
+.wtc-progress-label { font-size: 13px; line-height: 1.45; color: var(--ink2); }
+.wtc-progress-label b { color: var(--accent-deep); }
+.wtc-progress.done .wtc-progress-label b { color: var(--g700); }
+.wtc-progress-track { height: 6px; background: var(--paper2); border-radius: 999px; margin-top: 9px; overflow: hidden; }
+.wtc-progress-fill { height: 100%; width: 0; background: var(--g600); border-radius: 999px; transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+
+/* ─── Body / items ─── */
+.wtc-body { flex: 1; overflow-y: auto; overflow-x: hidden; padding: 4px 26px 18px; }
+.wtc-item { display: flex; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line-soft); }
+.wtc-item-img { width: 78px; height: 78px; flex: 0 0 78px; border-radius: 2px; border: 1px solid var(--line-soft); background-color: var(--paper1); background-size: cover; background-position: center; }
+.wtc-item-main { flex: 1 1 auto; min-width: 0; }
+.wtc-item-name { display: inline-block; font-weight: 700; font-size: 15px; line-height: 1.35; color: var(--ink); text-decoration: none; }
+a.wtc-item-name:hover { color: var(--g700); }
+.wtc-item-detail { font-size: 12.5px; line-height: 1.45; color: var(--muted); margin-top: 3px; }
+.wtc-item-unit { font-size: 12.5px; color: var(--subtle); margin-top: 2px; }
+.wtc-qty { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 2px; margin-top: 10px; }
+.wtc-qty button { width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; background: none; border: none; color: var(--ink2); font-size: 14px; cursor: pointer; transition: background 0.15s ease; }
+.wtc-qty button:hover { background: var(--paper1); }
+.wtc-qty button:focus-visible { outline: 2px solid var(--g700); outline-offset: -2px; }
+.wtc-qty-num { min-width: 34px; text-align: center; font-weight: 700; font-size: 13.5px; color: var(--ink); }
+.wtc-item-side { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; flex-shrink: 0; }
+.wtc-item-price { font-weight: 700; font-size: 15px; color: var(--ink); }
+.wtc-item-remove { background: none; border: none; padding: 4px; color: var(--subtle); font-size: 17px; cursor: pointer; display: inline-flex; transition: color 0.15s ease; }
+.wtc-item-remove:hover { color: var(--error); }
+.wtc-item-remove:focus-visible { outline: 2px solid var(--g700); outline-offset: 2px; border-radius: 2px; }
+
+/* ─── Pollination check ─── */
+.wtc-poll { margin-top: 18px; border-radius: 2px; border: 1px solid; padding: 14px 16px; font-size: 13.5px; line-height: 1.5; }
+.wtc-poll.ok { background: var(--g050); border-color: var(--g200); color: var(--g900); }
+.wtc-poll.warn { background: #fbf3e6; border-color: #e9d5ad; color: #6e4a14; }
+.wtc-poll-head { display: flex; align-items: flex-start; gap: 9px; font-weight: 700; }
+.wtc-poll-head i { font-size: 17px; flex-shrink: 0; margin-top: 1px; }
+.wtc-poll.ok .wtc-poll-head i { color: var(--g700); }
+.wtc-poll.warn .wtc-poll-head i { color: var(--warning); }
+.wtc-poll-text { margin: 5px 0 0 26px; }
+
+/* pollinator cross-sell card */
+.wtc-suggest { display: flex; align-items: center; gap: 13px; margin-top: 12px; background: #ffffff; border: 1px solid var(--line-soft); border-radius: 2px; padding: 11px 12px; }
+.wtc-suggest-img { width: 54px; height: 54px; flex: 0 0 54px; border-radius: 2px; border: 1px solid var(--line-soft); background-color: var(--paper1); background-size: cover; background-position: center; }
+.wtc-suggest-main { flex: 1 1 auto; min-width: 0; }
+.wtc-suggest-name { font-weight: 700; font-size: 13.5px; color: var(--ink); line-height: 1.3; }
+.wtc-suggest-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.wtc-suggest-add { flex-shrink: 0; white-space: nowrap; font-family: var(--sans); font-weight: 700; font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: #ffffff; background: var(--c600); border: 1.5px solid var(--c600); border-radius: 2px; padding: 9px 14px; cursor: pointer; transition: background 0.15s ease; }
+.wtc-suggest-add:hover { background: var(--c700); border-color: var(--c700); }
+.wtc-suggest-add:focus-visible { outline: 2px solid var(--g700); outline-offset: 2px; }
+.wtc-suggest-add.added { background: var(--g700); border-color: var(--g700); cursor: default; }
+
+/* ─── Footer / summary ─── */
+.wtc-foot { border-top: 1px solid var(--line); padding: 16px 26px 22px; background: #ffffff; flex-shrink: 0; }
+.wtc-row { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; font-size: 14px; color: var(--ink2); margin-top: 5px; }
+.wtc-row-label { color: var(--muted); }
+.wtc-row.discount .wtc-row-value { color: var(--g700); font-weight: 700; }
+.wtc-row.total { font-size: 20px; font-weight: 700; color: var(--ink); margin-top: 8px; }
+.wtc-row.total .wtc-row-label { color: var(--ink); }
+.wtc-note { font-size: 12px; color: var(--subtle); margin-top: 8px; }
+.wtc-checkout { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; white-space: nowrap; margin-top: 14px; font-family: var(--sans); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #ffffff; background: var(--c600); border: none; border-radius: 2px; padding: 17px 24px; cursor: pointer; text-decoration: none; transition: background 0.15s ease; }
+.wtc-checkout:hover { background: var(--c700); }
+.wtc-checkout:focus-visible { outline: 2px solid var(--g700); outline-offset: 2px; }
+.wtc-continue { display: flex; align-items: center; justify-content: center; width: 100%; white-space: nowrap; margin-top: 10px; font-family: var(--sans); font-weight: 700; font-size: 12px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--accent-deep); background: transparent; border: 1.5px solid var(--accent-deep); border-radius: 2px; padding: 13px 24px; cursor: pointer; text-decoration: none; transition: background 0.15s ease, color 0.15s ease; }
+.wtc-continue:hover { background: var(--c050); }
+.wtc-continue:focus-visible { outline: 2px solid var(--g700); outline-offset: 2px; }
+
+/* ─── Empty state (vertically centered in the drawer body) ─── */
+.wtc-body.is-empty { display: flex; align-items: center; justify-content: center; }
+.wtc-empty { text-align: center; padding: 24px 26px; }
+.wtc-empty > i { font-size: 52px; color: var(--g300); }
+.wtc-empty-title { font-family: var(--display); font-weight: 600; font-size: 27px; color: var(--ink); margin-top: 16px; }
+.wtc-empty-text { font-size: 14.5px; line-height: 1.6; color: var(--muted); margin: 8px auto 0; max-width: 34ch; }
+.wtc-empty-cta { display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; margin-top: 24px; font-family: var(--sans); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #ffffff; background: var(--c600); border: none; border-radius: 2px; padding: 15px 26px; cursor: pointer; text-decoration: none; transition: background 0.15s ease; }
+.wtc-empty-cta:hover { background: var(--c700); }
+
+@media (prefers-reduced-motion: reduce) {
+    .wtc-drawer, .wtc-scrim, .wtc-progress-fill { transition: none; }
+}
