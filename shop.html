@@ -3223,6 +3223,8 @@ a.wtc-item-name:hover { color: var(--g700); }
                             btn.innerHTML = '<i class="ph ph-shopping-bag" aria-hidden="true"></i> Add to cart';
                             btn.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); if (!btn.disabled) wtShopAdd(btn); });
                             card.appendChild(btn);
+                            /* Card is an <a> to the PDP; guarantee a click on the add button never navigates (capture phase, any browser). */
+                            card.addEventListener('click', function (e) { if (e.target && e.target.closest && e.target.closest('.cat-card-add')) e.preventDefault(); }, true);
                         });
                     }
                     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
