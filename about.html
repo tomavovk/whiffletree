@@ -771,7 +771,7 @@
                 /* Header -> hamburger */
                 [data-comment="header-burger"] { display: inline-flex; }
                 [data-comment="header-inner"] { justify-content: flex-end !important; min-height: 72px; padding-top: 12px !important; padding-bottom: 12px !important; }
-                [data-comment="header-logo-link"] { left: 16px !important; top: 13px !important; }
+                [data-comment="header-logo-link"] { left: var(--page-x) !important; top: 13px !important; }
                 [data-comment="header-logo"] { height: 46px !important; width: auto !important; }
                 [data-comment="header-nav"] {
                     position: fixed; top: var(--menu-top, 72px); left: 0; right: 0; bottom: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
@@ -1021,8 +1021,23 @@ a.wtc-item-name:hover { color: var(--g700); }
 .wtc-empty-cta { display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; margin-top: 24px; font-family: var(--sans); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #ffffff; background: var(--c600); border: none; border-radius: 2px; padding: 15px 26px; cursor: pointer; text-decoration: none; transition: background 0.15s ease; }
 .wtc-empty-cta:hover { background: var(--c700); }
 
+/* ─── Floating discount nudge (shopping pages only; shown when the cart has
+      items and is still below the $500 threshold — see wt-cart-drawer.js) ─── */
+.wtc-float { position: fixed; top: 82px; right: var(--page-x); z-index: 1000; display: flex; align-items: center; gap: 11px; max-width: min(320px, calc(100vw - 40px)); padding: 9px 15px 9px 9px; background: #fffdf8; border: 1px solid var(--c200, #edc9c0); border-radius: 2px; box-shadow: 0 10px 28px rgba(21, 20, 15, 0.15); font-family: var(--sans); cursor: pointer; text-align: left; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: opacity 0.26s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.26s ease; }
+.wtc-float.show { opacity: 1; visibility: visible; transform: none; }
+.wtc-float:hover { box-shadow: 0 14px 34px rgba(21, 20, 15, 0.2); }
+.wtc-float:focus-visible { outline: 2px solid var(--g700); outline-offset: 3px; }
+.wtc-float-ic { flex: none; width: 32px; height: 32px; border-radius: 2px; display: inline-flex; align-items: center; justify-content: center; background: var(--c050, #fbeeea); color: var(--c600); font-size: 17px; }
+.wtc-float-body { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.wtc-float-txt { font-size: 12.5px; line-height: 1.3; color: var(--ink2); white-space: nowrap; }
+.wtc-float-txt b { color: var(--c700); font-weight: 800; }
+.wtc-float-track { height: 4px; border-radius: 999px; background: var(--paper2); overflow: hidden; }
+.wtc-float-fill { display: block; height: 100%; width: 0; border-radius: 999px; background: var(--c500); transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+body.nav-menu-open .wtc-float { display: none !important; }
+@media (max-width: 767px) { .wtc-float { top: 68px; right: var(--page-x); padding: 8px 13px 8px 8px; } }
+
 @media (prefers-reduced-motion: reduce) {
-    .wtc-drawer, .wtc-scrim, .wtc-progress-fill { transition: none; }
+    .wtc-drawer, .wtc-scrim, .wtc-progress-fill, .wtc-float, .wtc-float-fill { transition: none; }
 }
         </style>
     </head>
@@ -1035,7 +1050,7 @@ a.wtc-item-name:hover { color: var(--g700); }
             <!-- NAV -->
             <header data-comment="header-root" style="background:#FFFFFF; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:20;">
                 <div data-comment="header-inner" class="wt-container wt-container--full" style="margin: 0; padding: 16px var(--page-x); display: flex; align-items: center; justify-content: flex-end; padding-top: 20px; padding-bottom: 20px">
-                    <a data-comment="header-logo-link" href="home.html" style="position:absolute; left:28px; top:11px; z-index:40; display:block;"><img data-comment="header-logo" src="assets/whiffletree-logo.png" alt="Whiffletree Farm &amp; Nursery" style="height: 75px; width: 239px; display:block;"></a>
+                    <a data-comment="header-logo-link" href="home.html" style="position:absolute; left:var(--page-x); top:11px; z-index:40; display:block;"><img data-comment="header-logo" src="assets/whiffletree-logo.png" alt="Whiffletree Farm &amp; Nursery" style="height: 75px; width: 239px; display:block;"></a>
                     <nav data-comment="header-nav" style="display: flex; align-items: center; gap: 28px; font-family: var(--sans); font-weight: 600; font-size: 15px; color: var(--muted); align-self: flex-end">
 
                         <!-- SHOP ALL — mega panel -->
@@ -1831,6 +1846,10 @@ a.wtc-item-name:hover { color: var(--g700); }
     var DISCOUNT_THRESHOLD = 500;   /* existing "spend $500 → 10% off" promo */
     var DISCOUNT_RATE = 0.10;
     var CHECKOUT_URL = 'checkout.html';
+    /* Pages where the floating discount nudge may appear — shopping context
+       only. Everywhere else (checkout, info, legal, account) it stays hidden;
+       there the progress lives inline in the drawer / order summary instead. */
+    var FLOAT_PAGES = ['home.html', 'shop.html', 'product.html', 'search.html'];
 
     /* ── Nursery mock data (per-category) ─────────────────────────────── */
     var ROOTSTOCK = {
@@ -1867,10 +1886,67 @@ a.wtc-item-name:hover { color: var(--g700); }
             localStorage.setItem(COUNT_KEY, String(totalQty(items)));
         } catch (e) { }
         refreshBadge(items);
+        updateFloat(items);
     }
     function refreshBadge(items) {
         var b = document.querySelector('[data-comment="header-cart-badge"]');
         if (b) b.classList.toggle('on', totalQty(items) > 0);
+    }
+
+    /* ── Floating discount nudge (shopping pages only) ─────────────────── */
+    var floatEl = null;
+    function floatAllowed() {
+        var page = (location.pathname.split('/').pop() || 'home.html').toLowerCase();
+        return FLOAT_PAGES.indexOf(page) !== -1;
+    }
+    function buildFloat() {
+        if (floatEl || !floatAllowed()) return;
+        floatEl = document.createElement('button');
+        floatEl.type = 'button';
+        floatEl.className = 'wtc-float';
+        floatEl.setAttribute('data-comment', 'cart-discount-badge');
+        floatEl.setAttribute('aria-label', 'View cart — discount progress');
+        floatEl.innerHTML =
+            '<span class="wtc-float-ic" aria-hidden="true"><i class="ph-fill ph-seal-percent"></i></span>'
+            + '<span class="wtc-float-body">'
+            + '<span class="wtc-float-txt" data-comment="cart-discount-badge-txt"></span>'
+            + '<span class="wtc-float-track"><span class="wtc-float-fill" data-comment="cart-discount-badge-fill"></span></span>'
+            + '</span>';
+        floatEl.addEventListener('click', function () { open(); });
+        document.body.appendChild(floatEl);
+        /* Sit flush below the header's live bottom edge so the promo/announcement
+           bar (which scrolls away) never overlaps the nav. Track on scroll/resize. */
+        positionFloat();
+        var ticking = false;
+        function onScrollResize() {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(function () { positionFloat(); ticking = false; });
+        }
+        window.addEventListener('scroll', onScrollResize, { passive: true });
+        window.addEventListener('resize', onScrollResize);
+    }
+    function positionFloat() {
+        if (!floatEl) return;
+        var hdr = document.querySelector('[data-comment="header-root"]');
+        var top = hdr ? Math.max(12, hdr.getBoundingClientRect().bottom + 10) : 82;
+        floatEl.style.top = top + 'px';
+    }
+    function updateFloat(items) {
+        if (!floatEl) return;
+        var sub = subtotal(items || loadItems());
+        var away = DISCOUNT_THRESHOLD - sub;
+        /* Show only while the cart has items and the threshold isn't met yet. */
+        if (sub > 0 && away > 0) {
+            floatEl.querySelector('.wtc-float-txt').innerHTML =
+                'You’re <b>' + fmt(away) + '</b> away from <b>10% off</b>';
+            floatEl.querySelector('.wtc-float-fill').style.width =
+                Math.min(100, (sub / DISCOUNT_THRESHOLD) * 100) + '%';
+            positionFloat();
+            floatEl.classList.add('show');
+        } else {
+            floatEl.classList.remove('show');
+        }
     }
     function addItem(items, p) {
         for (var i = 0; i < items.length; i++) {
@@ -2205,7 +2281,9 @@ a.wtc-item-name:hover { color: var(--g700); }
                 }
             };
         }
-        /* items are the source of truth — reconcile the legacy count/badge */
+        /* items are the source of truth — reconcile the legacy count/badge
+           (also builds + refreshes the floating nudge on shopping pages) */
+        buildFloat();
         saveItems(loadItems());
 
         var icon = document.querySelector('[data-comment="header-action-cart"]');

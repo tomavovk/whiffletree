@@ -94,6 +94,21 @@ a.wtc-item-name:hover { color: var(--g700); }
 .wtc-empty-cta { display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; margin-top: 24px; font-family: var(--sans); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #ffffff; background: var(--c600); border: none; border-radius: 2px; padding: 15px 26px; cursor: pointer; text-decoration: none; transition: background 0.15s ease; }
 .wtc-empty-cta:hover { background: var(--c700); }
 
+/* ─── Floating discount nudge (shopping pages only; shown when the cart has
+      items and is still below the $500 threshold — see wt-cart-drawer.js) ─── */
+.wtc-float { position: fixed; top: 82px; right: var(--page-x); z-index: 1000; display: flex; align-items: center; gap: 11px; max-width: min(320px, calc(100vw - 40px)); padding: 9px 15px 9px 9px; background: #fffdf8; border: 1px solid var(--c200, #edc9c0); border-radius: 2px; box-shadow: 0 10px 28px rgba(21, 20, 15, 0.15); font-family: var(--sans); cursor: pointer; text-align: left; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: opacity 0.26s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.26s ease; }
+.wtc-float.show { opacity: 1; visibility: visible; transform: none; }
+.wtc-float:hover { box-shadow: 0 14px 34px rgba(21, 20, 15, 0.2); }
+.wtc-float:focus-visible { outline: 2px solid var(--g700); outline-offset: 3px; }
+.wtc-float-ic { flex: none; width: 32px; height: 32px; border-radius: 2px; display: inline-flex; align-items: center; justify-content: center; background: var(--c050, #fbeeea); color: var(--c600); font-size: 17px; }
+.wtc-float-body { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.wtc-float-txt { font-size: 12.5px; line-height: 1.3; color: var(--ink2); white-space: nowrap; }
+.wtc-float-txt b { color: var(--c700); font-weight: 800; }
+.wtc-float-track { height: 4px; border-radius: 999px; background: var(--paper2); overflow: hidden; }
+.wtc-float-fill { display: block; height: 100%; width: 0; border-radius: 999px; background: var(--c500); transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+body.nav-menu-open .wtc-float { display: none !important; }
+@media (max-width: 767px) { .wtc-float { top: 68px; right: var(--page-x); padding: 8px 13px 8px 8px; } }
+
 @media (prefers-reduced-motion: reduce) {
-    .wtc-drawer, .wtc-scrim, .wtc-progress-fill { transition: none; }
+    .wtc-drawer, .wtc-scrim, .wtc-progress-fill, .wtc-float, .wtc-float-fill { transition: none; }
 }

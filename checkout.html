@@ -859,7 +859,7 @@
                 /* Header -> hamburger */
                 [data-comment="header-burger"] { display: inline-flex; }
                 [data-comment="header-inner"] { justify-content: flex-end !important; min-height: 72px; padding-top: 12px !important; padding-bottom: 12px !important; }
-                [data-comment="header-logo-link"] { left: 16px !important; top: 13px !important; }
+                [data-comment="header-logo-link"] { left: var(--page-x) !important; top: 13px !important; }
                 [data-comment="header-logo"] { height: 46px !important; width: auto !important; }
                 [data-comment="header-nav"] {
                     position: fixed; top: var(--menu-top, 72px); left: 0; right: 0; bottom: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
@@ -1104,8 +1104,23 @@ a.wtc-item-name:hover { color: var(--g700); }
 .wtc-empty-cta { display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; margin-top: 24px; font-family: var(--sans); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #ffffff; background: var(--c600); border: none; border-radius: 2px; padding: 15px 26px; cursor: pointer; text-decoration: none; transition: background 0.15s ease; }
 .wtc-empty-cta:hover { background: var(--c700); }
 
+/* ─── Floating discount nudge (shopping pages only; shown when the cart has
+      items and is still below the $500 threshold — see wt-cart-drawer.js) ─── */
+.wtc-float { position: fixed; top: 82px; right: var(--page-x); z-index: 1000; display: flex; align-items: center; gap: 11px; max-width: min(320px, calc(100vw - 40px)); padding: 9px 15px 9px 9px; background: #fffdf8; border: 1px solid var(--c200, #edc9c0); border-radius: 2px; box-shadow: 0 10px 28px rgba(21, 20, 15, 0.15); font-family: var(--sans); cursor: pointer; text-align: left; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: opacity 0.26s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.26s ease; }
+.wtc-float.show { opacity: 1; visibility: visible; transform: none; }
+.wtc-float:hover { box-shadow: 0 14px 34px rgba(21, 20, 15, 0.2); }
+.wtc-float:focus-visible { outline: 2px solid var(--g700); outline-offset: 3px; }
+.wtc-float-ic { flex: none; width: 32px; height: 32px; border-radius: 2px; display: inline-flex; align-items: center; justify-content: center; background: var(--c050, #fbeeea); color: var(--c600); font-size: 17px; }
+.wtc-float-body { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.wtc-float-txt { font-size: 12.5px; line-height: 1.3; color: var(--ink2); white-space: nowrap; }
+.wtc-float-txt b { color: var(--c700); font-weight: 800; }
+.wtc-float-track { height: 4px; border-radius: 999px; background: var(--paper2); overflow: hidden; }
+.wtc-float-fill { display: block; height: 100%; width: 0; border-radius: 999px; background: var(--c500); transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+body.nav-menu-open .wtc-float { display: none !important; }
+@media (max-width: 767px) { .wtc-float { top: 68px; right: var(--page-x); padding: 8px 13px 8px 8px; } }
+
 @media (prefers-reduced-motion: reduce) {
-    .wtc-drawer, .wtc-scrim, .wtc-progress-fill { transition: none; }
+    .wtc-drawer, .wtc-scrim, .wtc-progress-fill, .wtc-float, .wtc-float-fill { transition: none; }
 }
         </style>
     </head>
@@ -1118,7 +1133,7 @@ a.wtc-item-name:hover { color: var(--g700); }
             <!-- NAV -->
             <header data-comment="header-root" style="background:#FFFFFF; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:20;">
                 <div data-comment="header-inner" class="wt-container wt-container--full" style="margin: 0; padding: 16px var(--page-x); display: flex; align-items: center; justify-content: flex-end; padding-top: 20px; padding-bottom: 20px">
-                    <a data-comment="header-logo-link" href="home.html" style="position:absolute; left:28px; top:11px; z-index:40; display:block;"><img data-comment="header-logo" src="assets/whiffletree-logo.png" alt="Whiffletree Farm &amp; Nursery" style="height: 75px; width: 239px; display:block;"></a>
+                    <a data-comment="header-logo-link" href="home.html" style="position:absolute; left:var(--page-x); top:11px; z-index:40; display:block;"><img data-comment="header-logo" src="assets/whiffletree-logo.png" alt="Whiffletree Farm &amp; Nursery" style="height: 75px; width: 239px; display:block;"></a>
                     <nav data-comment="header-nav" style="display: flex; align-items: center; gap: 28px; font-family: var(--sans); font-weight: 600; font-size: 15px; color: var(--muted); align-self: flex-end">
 
                         <!-- SHOP ALL — mega panel -->
@@ -1400,11 +1415,18 @@ a.wtc-item-name:hover { color: var(--g700); }
                     .co-line-qty { flex: none; font-family: var(--sans); font-size: 12.5px; color: var(--muted); white-space: nowrap; }
                     .co-line-price { font-family: var(--sans); font-weight: 700; font-size: 13px; color: var(--ink); white-space: nowrap; }
 
-                    .co-progress { margin: 0 0 16px; }
-                    .co-progress-bar { height: 7px; border-radius: 999px; background: var(--line); overflow: hidden; }
-                    .co-progress-fill { height: 100%; background: var(--c600); border-radius: 999px; transition: width 300ms; }
-                    .co-progress-note { font-family: var(--sans); font-size: 12px; color: var(--muted); margin: 7px 0 0; }
-                    .co-progress-note b { color: var(--ink); }
+                    .co-progress { margin: 0 0 18px; padding: 14px 15px; border-radius: 2px; background: var(--c050, #fbeeea); border: 1px solid var(--c200, #edc9c0); transition: background 200ms, border-color 200ms; }
+                    .co-progress.done { background: var(--g050); border-color: var(--g200); }
+                    .co-progress-top { display: flex; align-items: flex-start; gap: 10px; margin: 0 0 11px; }
+                    .co-progress-ic { flex: none; font-size: 20px; line-height: 1.15; color: var(--c600); }
+                    .co-progress.done .co-progress-ic { color: var(--g700); }
+                    .co-progress-note { font-family: var(--sans); font-size: 13px; line-height: 1.4; color: var(--ink2); margin: 0; }
+                    .co-progress-note b { color: var(--c700); font-weight: 800; }
+                    .co-progress.done .co-progress-note b { color: var(--g700); }
+                    .co-progress-bar { height: 8px; border-radius: 999px; background: #fff; border: 1px solid var(--c200, #edc9c0); overflow: hidden; }
+                    .co-progress.done .co-progress-bar { border-color: var(--g200); }
+                    .co-progress-fill { height: 100%; background: var(--c500); border-radius: 999px; transition: width 300ms, background 200ms; }
+                    .co-progress.done .co-progress-fill { background: var(--g600); }
 
                     .co-totals { border-top: 1px solid var(--line); padding-top: 14px; }
                     .co-total-row { display: flex; justify-content: space-between; font-family: var(--sans); font-size: 13.5px; color: var(--ink2); margin: 0 0 9px; }
@@ -1418,6 +1440,60 @@ a.wtc-item-name:hover { color: var(--g700); }
                     .co-guarantee-box span { font-size: 13px; line-height: 1.55; color: var(--ink2); }
                     .co-guarantee-box span i { color: var(--g700); margin-right: 3px; }
                     .co-guarantee-box a { color: var(--g700); font-weight: 700; }
+
+                    /* ── Guarantee video step (VideoAsk-style mock) ── */
+                    .co-vg { margin-top: 18px; background: #f5f8f2; border: 1px solid #cfe0cb; border-radius: 6px; padding: 13px; font-family: var(--sans); }
+                    .co-vg-top { display: flex; gap: 13px; align-items: center; }
+                    .co-vg-poster { position: relative; flex: none; width: 76px; height: 76px; border-radius: 4px; overflow: hidden; border: 0; padding: 0; cursor: pointer; background: #dfe7d8; }
+                    .co-vg-poster img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 220ms ease; }
+                    .co-vg-poster:hover img { transform: scale(1.06); }
+                    .co-vg-poster::after { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(9,63,30,0) 40%, rgba(9,63,30,0.45)); }
+                    .co-vg-play { position: absolute; z-index: 1; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,0.92); color: var(--g700); display: flex; align-items: center; justify-content: center; font-size: 15px; box-shadow: 0 2px 8px rgba(9,63,30,0.35); transition: transform 150ms; }
+                    .co-vg-poster:hover .co-vg-play { transform: translate(-50%,-50%) scale(1.1); }
+                    .co-vg-dur { position: absolute; z-index: 1; right: 4px; bottom: 4px; font-size: 10px; font-weight: 700; letter-spacing: 0.02em; color: #fff; background: rgba(9,63,30,0.68); border-radius: 3px; padding: 1px 5px; }
+                    .co-vg-copy { min-width: 0; }
+                    .co-vg-title { margin: 0; font-size: 13.5px; font-weight: 800; color: var(--ink); line-height: 1.3; }
+                    .co-vg-sub { margin: 3px 0 0; font-size: 12px; line-height: 1.45; color: var(--muted); }
+                    .co-vg-check { display: flex; align-items: flex-start; gap: 10px; margin-top: 12px; padding-top: 11px; border-top: 1px dashed #cfe0cb; cursor: not-allowed; }
+                    .co-vg-check input { flex: none; width: 18px; height: 18px; margin-top: 1px; accent-color: var(--g700); cursor: not-allowed; }
+                    .co-vg-check span { font-size: 12.5px; line-height: 1.5; color: var(--subtle); }
+                    .co-vg-check span a { color: var(--g700); font-weight: 700; }
+                    .co-vg.is-watched .co-vg-check { cursor: pointer; }
+                    .co-vg.is-watched .co-vg-check input { cursor: pointer; }
+                    .co-vg.is-watched .co-vg-check span { color: var(--ink2); }
+                    .co-vg.is-watched .co-vg-poster::after { background: rgba(9,63,30,0.55); }
+                    .co-vg.is-watched .co-vg-play { background: var(--g700); color: #fff; font-size: 12px; }
+                    .co-vg-again { display: none; margin: 4px 0 0; font-size: 11px; font-weight: 700; color: var(--g700); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
+                    .co-vg.is-watched .co-vg-again { display: inline-block; }
+                    .co-vg-flag { display: none; align-items: center; gap: 5px; margin: 3px 0 0; font-size: 12px; font-weight: 700; color: var(--g600); }
+                    .co-vg.is-watched .co-vg-flag { display: inline-flex; }
+                    .co-vg.is-watched .co-vg-sub { display: none; }
+
+                    /* Overlay */
+                    .cvg-ovl { position: fixed; inset: 0; z-index: 2200; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(9,20,12,0.6); backdrop-filter: blur(3px); opacity: 0; visibility: hidden; transition: opacity 200ms; }
+                    .cvg-ovl.open { opacity: 1; visibility: visible; }
+                    .cvg-modal { width: 340px; max-width: 100%; max-height: 92vh; overflow: hidden; background: #0d1f13; border-radius: 6px; box-shadow: 0 24px 60px rgba(0,0,0,0.5); transform: translateY(14px) scale(0.98); transition: transform 220ms cubic-bezier(0.2,0,0,1); display: flex; flex-direction: column; }
+                    .cvg-ovl.open .cvg-modal { transform: none; }
+                    .cvg-close { position: absolute; top: 14px; right: 14px; z-index: 3; width: 34px; height: 34px; border-radius: 50%; border: 0; background: rgba(0,0,0,0.4); color: #fff; font-size: 17px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+                    .cvg-close:hover { background: rgba(0,0,0,0.6); }
+                    .cvg-stage { position: relative; aspect-ratio: 9 / 12; background: #0d1f13; overflow: hidden; }
+                    .cvg-stage img { width: 100%; height: 100%; object-fit: cover; display: block; }
+                    .cvg-stage::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(9,20,12,0.15) 30%, rgba(9,20,12,0.75)); pointer-events: none; }
+                    .cvg-bigplay { position: absolute; z-index: 2; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 66px; height: 66px; border-radius: 50%; border: 0; background: rgba(255,255,255,0.95); color: var(--g700); font-size: 27px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(0,0,0,0.4); transition: transform 150ms, opacity 200ms; }
+                    .cvg-bigplay:hover { transform: translate(-50%,-50%) scale(1.07); }
+                    .cvg-stage.playing .cvg-bigplay { opacity: 0; pointer-events: none; }
+                    .cvg-brand { position: absolute; z-index: 2; top: 16px; left: 16px; display: flex; align-items: center; gap: 7px; color: #fff; font-family: var(--sans); font-size: 12px; font-weight: 800; letter-spacing: 0.02em; text-shadow: 0 1px 6px rgba(0,0,0,0.5); }
+                    .cvg-brand i { font-size: 16px; }
+                    .cvg-cap { position: absolute; z-index: 2; left: 18px; right: 18px; bottom: 22px; color: #fff; font-family: var(--sans); font-size: 15px; font-weight: 700; line-height: 1.4; text-shadow: 0 1px 8px rgba(0,0,0,0.6); opacity: 0; transform: translateY(6px); transition: opacity 300ms, transform 300ms; }
+                    .cvg-cap.show { opacity: 1; transform: none; }
+                    .cvg-bar { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; height: 4px; background: rgba(255,255,255,0.25); }
+                    .cvg-bar-fill { height: 100%; width: 0; background: var(--c500); transition: width 120ms linear; }
+                    .cvg-foot { padding: 15px 16px 16px; background: #0d1f13; }
+                    .cvg-foot p { margin: 0 0 12px; font-family: var(--sans); font-size: 12.5px; line-height: 1.5; color: #b9c8bb; }
+                    .cvg-confirm { width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap; font-family: var(--sans); font-weight: 700; font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; background: var(--c600); border: 0; border-radius: 2px; padding: 14px; cursor: pointer; transition: background 150ms, opacity 150ms; }
+                    .cvg-confirm:hover:not(:disabled) { background: var(--c700); }
+                    .cvg-confirm:disabled { background: #2c4130; color: #77896f; cursor: not-allowed; }
+                    @media (max-width: 480px) { .cvg-modal { width: 100%; } }
 
                     /* Order-confirmation screen */
                     .co-confirm { grid-column: 1 / -1; max-width: 540px; margin: 0 auto; text-align: center; padding: 24px 0 56px; }
@@ -1445,7 +1521,7 @@ a.wtc-item-name:hover { color: var(--g700); }
                     .co-confirm-btn-secondary { background: transparent; color: var(--g700); border: 1.5px solid var(--g700); }
                     .co-confirm-btn-secondary:hover { background: var(--g700); color: #fff; }
 
-                    .co-pollen { display: flex; gap: 9px; align-items: flex-start; border-radius: 3px; padding: 11px 13px; margin: 0 0 20px; font-family: var(--sans); font-size: 12.5px; line-height: 1.45; }
+                    .co-pollen { display: flex; gap: 9px; align-items: flex-start; border-radius: 2px; padding: 11px 13px; margin: 0 0 20px; font-family: var(--sans); font-size: 12.5px; line-height: 1.45; }
                     .co-pollen i { font-size: 16px; flex: none; margin-top: 1px; }
                     .co-pollen-ok { background: #eef6ec; color: #2f6b32; border: 1px solid #cfe6cf; }
                     .co-pollen-warn { background: #fdf3e7; color: #7a4b12; border: 1px solid #f0d3a8; }
@@ -1644,11 +1720,34 @@ a.wtc-item-name:hover { color: var(--g700); }
                                 </div>
                                 <div class="co-alert co-alert-info" data-comment="co-etransfer-note" style="display:none; margin-top:0;">
                                     <i class="ph-fill ph-envelope-simple"></i>
-                                    <span>After you place the order we’ll email Interac e-Transfer instructions — send it to <b>pay@whiffletree.ca</b>. Your order is reserved as <b>awaiting payment</b> until it arrives.</span>
+                                    <div class="co-alert-body">
+                                        <p class="co-alert-lead" style="margin:0 0 10px;">Place the order first — we’ll email your <b>order number</b> and full Interac e-Transfer instructions right away. To send it:</p>
+                                        <ol style="margin:0 0 10px; padding-left:18px; display:flex; flex-direction:column; gap:6px;">
+                                            <li>Send the e-Transfer to <b>pay@whiffletree.ca</b>.</li>
+                                            <li>In the message/memo field, put your <b>order number</b> (e.g. <b>WT-10432</b>) so we can match your payment to your order.</li>
+                                        </ol>
+                                        <p style="margin:0;">Your order is reserved as <b>awaiting payment</b> until the transfer arrives. Payments without an order number take longer to confirm.</p>
+                                    </div>
                                 </div>
                                 <div class="co-alert co-alert-info" data-comment="co-billpay-note" style="display:none; margin-top:0;">
                                     <i class="ph-fill ph-bank"></i>
-                                    <span>Pay through your credit union’s online bill payment — add <b>Whiffletree Farm &amp; Nursery</b> as a payee and use your order number as the account. Held as <b>awaiting payment</b> until funds clear.</span>
+                                    <div class="co-alert-body">
+                                        <p class="co-alert-lead" style="margin:0 0 10px;">Pay from your bank or credit union’s online bill payment. To set it up:</p>
+                                        <ol style="margin:0 0 10px; padding-left:18px; display:flex; flex-direction:column; gap:6px;">
+                                            <li>Add <b>Whiffletree Farm &amp; Nursery</b> as a payee.</li>
+                                            <li>Use your <b>order number</b> (e.g. <b>WT-10432</b>) as the account number so we can match your payment to your order.</li>
+                                        </ol>
+                                        <p style="margin:0 0 10px;">Supported banks &amp; credit unions:</p>
+                                        <!-- TODO: replace placeholder list with the real list from Accounting (comment #129) -->
+                                        <ul data-comment="co-billpay-banks" style="margin:0 0 10px; padding-left:18px; display:flex; flex-direction:column; gap:4px;">
+                                            <li>Bank 1</li>
+                                            <li>Bank 2</li>
+                                            <li>Bank 3</li>
+                                            <li>Credit Union 1</li>
+                                            <li>Credit Union 2</li>
+                                        </ul>
+                                        <p style="margin:0;">Held as <b>awaiting payment</b> until funds clear.</p>
+                                    </div>
                                 </div>
                             </section>
                         </div>
@@ -1659,16 +1758,20 @@ a.wtc-item-name:hover { color: var(--g700); }
                                 <h2 class="co-sum-title" style="margin:0;">Order summary</h2>
                                 <button type="button" class="co-sum-edit" data-comment="co-sum-edit" onclick="window.wtCartDrawer&amp;&amp;window.wtCartDrawer.open();return false;">Edit</button>
                             </div>
+
+                            <div class="co-progress" data-comment="co-progress">
+                                <div class="co-progress-top">
+                                    <i class="ph-fill ph-seal-percent co-progress-ic" data-comment="co-progress-ic" aria-hidden="true"></i>
+                                    <p class="co-progress-note" data-comment="co-progress-note"></p>
+                                </div>
+                                <div class="co-progress-bar"><div class="co-progress-fill" data-comment="co-progress-fill" style="width:0%"></div></div>
+                            </div>
+
                             <ul class="co-lines" data-comment="co-lines"></ul>
 
                             <div class="co-pollen co-pollen-ok" data-comment="co-pollen" style="display:none;">
                                 <i class="ph-fill ph-check-circle"></i>
                                 <span data-comment="co-pollen-text"></span>
-                            </div>
-
-                            <div class="co-progress" data-comment="co-progress">
-                                <div class="co-progress-bar"><div class="co-progress-fill" data-comment="co-progress-fill" style="width:0%"></div></div>
-                                <p class="co-progress-note" data-comment="co-progress-note"></p>
                             </div>
 
                             <div class="co-totals">
@@ -1680,10 +1783,43 @@ a.wtc-item-name:hover { color: var(--g700); }
                             </div>
 
 
-                            <label class="co-guarantee-box" data-comment="co-guarantee-wrap">
-                                <input type="checkbox" id="co-guarantee" />
-                                <span><i class="ph-fill ph-seal-check" aria-hidden="true"></i> I’ve read the <a href="guarantee-policy.html" target="_blank">guarantee</a> — trees are guaranteed true-to-name and healthy on arrival; clearance items are sold as-is with no warranty.</span>
-                            </label>
+                            <div class="co-vg" id="co-vg" data-comment="co-guarantee-wrap">
+                                <div class="co-vg-top">
+                                    <button type="button" class="co-vg-poster" id="cvg-open" aria-label="Play our 32-second guarantee video">
+                                        <img src="assets/about-orchard.png" alt="A young Whiffletree sapling held in the nursery" />
+                                        <span class="co-vg-play" aria-hidden="true"><i class="ph-fill ph-play"></i></span>
+                                        <span class="co-vg-dur">0:32</span>
+                                    </button>
+                                    <div class="co-vg-copy">
+                                        <p class="co-vg-title">Our guarantee, in 32 seconds</p>
+                                        <p class="co-vg-sub">A quick word from our nursery on how your trees are protected — before you order.</p>
+                                        <p class="co-vg-flag"><i class="ph-fill ph-seal-check" aria-hidden="true"></i> Guarantee reviewed</p>
+                                        <button type="button" class="co-vg-again" id="cvg-again">Watch again</button>
+                                    </div>
+                                </div>
+                                <label class="co-vg-check" id="cvg-check">
+                                    <input type="checkbox" id="co-guarantee" disabled />
+                                    <span>Watch the clip to confirm you’ve read the <a href="guarantee-policy.html" target="_blank">guarantee</a> — trees are guaranteed true-to-name and healthy on arrival; clearance items are sold as-is.</span>
+                                </label>
+                            </div>
+
+                            <!-- Guarantee video overlay (VideoAsk-style mock) -->
+                            <div class="cvg-ovl" id="cvg-ovl" role="dialog" aria-modal="true" aria-label="Our guarantee">
+                                <div class="cvg-modal">
+                                    <button type="button" class="cvg-close" id="cvg-close" aria-label="Close">&times;</button>
+                                    <div class="cvg-stage" id="cvg-stage">
+                                        <img src="assets/about-orchard.png" alt="A young Whiffletree sapling held in the nursery" />
+                                        <span class="cvg-brand"><i class="ph-fill ph-seal-check" aria-hidden="true"></i> Whiffletree</span>
+                                        <button type="button" class="cvg-bigplay" id="cvg-bigplay" aria-label="Play"><i class="ph-fill ph-play"></i></button>
+                                        <p class="cvg-cap" id="cvg-cap"></p>
+                                        <div class="cvg-bar"><div class="cvg-bar-fill" id="cvg-fill"></div></div>
+                                    </div>
+                                    <div class="cvg-foot">
+                                        <p>Every tree leaves our nursery true-to-name and healthy. Watch to the end to confirm the guarantee.</p>
+                                        <button type="button" class="cvg-confirm" id="cvg-confirm" disabled><i class="ph-fill ph-check"></i> I understand the guarantee</button>
+                                    </div>
+                                </div>
+                            </div>
 
                             <button type="button" class="co-place" data-comment="co-place">Place order</button>
                             <div class="co-trust"><i class="ph ph-lock-simple"></i> Secure checkout · encrypted</div>
@@ -2595,6 +2731,10 @@ a.wtc-item-name:hover { color: var(--g700); }
     var DISCOUNT_THRESHOLD = 500;   /* existing "spend $500 → 10% off" promo */
     var DISCOUNT_RATE = 0.10;
     var CHECKOUT_URL = 'checkout.html';
+    /* Pages where the floating discount nudge may appear — shopping context
+       only. Everywhere else (checkout, info, legal, account) it stays hidden;
+       there the progress lives inline in the drawer / order summary instead. */
+    var FLOAT_PAGES = ['home.html', 'shop.html', 'product.html', 'search.html'];
 
     /* ── Nursery mock data (per-category) ─────────────────────────────── */
     var ROOTSTOCK = {
@@ -2631,10 +2771,67 @@ a.wtc-item-name:hover { color: var(--g700); }
             localStorage.setItem(COUNT_KEY, String(totalQty(items)));
         } catch (e) { }
         refreshBadge(items);
+        updateFloat(items);
     }
     function refreshBadge(items) {
         var b = document.querySelector('[data-comment="header-cart-badge"]');
         if (b) b.classList.toggle('on', totalQty(items) > 0);
+    }
+
+    /* ── Floating discount nudge (shopping pages only) ─────────────────── */
+    var floatEl = null;
+    function floatAllowed() {
+        var page = (location.pathname.split('/').pop() || 'home.html').toLowerCase();
+        return FLOAT_PAGES.indexOf(page) !== -1;
+    }
+    function buildFloat() {
+        if (floatEl || !floatAllowed()) return;
+        floatEl = document.createElement('button');
+        floatEl.type = 'button';
+        floatEl.className = 'wtc-float';
+        floatEl.setAttribute('data-comment', 'cart-discount-badge');
+        floatEl.setAttribute('aria-label', 'View cart — discount progress');
+        floatEl.innerHTML =
+            '<span class="wtc-float-ic" aria-hidden="true"><i class="ph-fill ph-seal-percent"></i></span>'
+            + '<span class="wtc-float-body">'
+            + '<span class="wtc-float-txt" data-comment="cart-discount-badge-txt"></span>'
+            + '<span class="wtc-float-track"><span class="wtc-float-fill" data-comment="cart-discount-badge-fill"></span></span>'
+            + '</span>';
+        floatEl.addEventListener('click', function () { open(); });
+        document.body.appendChild(floatEl);
+        /* Sit flush below the header's live bottom edge so the promo/announcement
+           bar (which scrolls away) never overlaps the nav. Track on scroll/resize. */
+        positionFloat();
+        var ticking = false;
+        function onScrollResize() {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(function () { positionFloat(); ticking = false; });
+        }
+        window.addEventListener('scroll', onScrollResize, { passive: true });
+        window.addEventListener('resize', onScrollResize);
+    }
+    function positionFloat() {
+        if (!floatEl) return;
+        var hdr = document.querySelector('[data-comment="header-root"]');
+        var top = hdr ? Math.max(12, hdr.getBoundingClientRect().bottom + 10) : 82;
+        floatEl.style.top = top + 'px';
+    }
+    function updateFloat(items) {
+        if (!floatEl) return;
+        var sub = subtotal(items || loadItems());
+        var away = DISCOUNT_THRESHOLD - sub;
+        /* Show only while the cart has items and the threshold isn't met yet. */
+        if (sub > 0 && away > 0) {
+            floatEl.querySelector('.wtc-float-txt').innerHTML =
+                'You’re <b>' + fmt(away) + '</b> away from <b>10% off</b>';
+            floatEl.querySelector('.wtc-float-fill').style.width =
+                Math.min(100, (sub / DISCOUNT_THRESHOLD) * 100) + '%';
+            positionFloat();
+            floatEl.classList.add('show');
+        } else {
+            floatEl.classList.remove('show');
+        }
     }
     function addItem(items, p) {
         for (var i = 0; i < items.length; i++) {
@@ -2969,7 +3166,9 @@ a.wtc-item-name:hover { color: var(--g700); }
                 }
             };
         }
-        /* items are the source of truth — reconcile the legacy count/badge */
+        /* items are the source of truth — reconcile the legacy count/badge
+           (also builds + refreshes the floating nudge on shopping pages) */
+        buildFloat();
         saveItems(loadItems());
 
         var icon = document.querySelector('[data-comment="header-action-cart"]');
@@ -3116,8 +3315,16 @@ a.wtc-item-name:hover { color: var(--g700); }
                     // discount progress
                     var pct = Math.min(100, Math.round(t.subtotal / DISCOUNT_THRESHOLD * 100));
                     $('co-progress-fill').style.width = pct + '%';
-                    if (t.discount > 0) $('co-progress-note').innerHTML = '<b>10% discount unlocked</b> — applied below.';
-                    else $('co-progress-note').innerHTML = "You're <b>" + fmt(DISCOUNT_THRESHOLD - t.subtotal) + '</b> away from <b>10% off</b>.';
+                    var progBox = $('co-progress'), progIc = $('co-progress-ic');
+                    if (t.discount > 0) {
+                        progBox.classList.add('done');
+                        if (progIc) progIc.className = 'ph-fill ph-check-circle co-progress-ic';
+                        $('co-progress-note').innerHTML = '<b>10% discount unlocked</b> — it’s applied below.';
+                    } else {
+                        progBox.classList.remove('done');
+                        if (progIc) progIc.className = 'ph-fill ph-seal-percent co-progress-ic';
+                        $('co-progress-note').innerHTML = "You’re <b>" + fmt(DISCOUNT_THRESHOLD - t.subtotal) + '</b> away from a <b>10% discount</b> on your order.';
+                    }
 
                     $('co-subtotal').textContent = fmt(t.subtotal);
                     var dr = $('co-discount-row');
@@ -3364,8 +3571,8 @@ a.wtc-item-name:hover { color: var(--g700); }
                             state.pay = el.dataset.pay;
                             document.querySelectorAll('.co-opt[data-pay]').forEach(function (t) { t.classList.toggle('sel', t === el); });
                             $('co-card-fields').style.display = state.pay === 'card' ? 'block' : 'none';
-                            $('co-etransfer-note').style.display = state.pay === 'etransfer' ? 'block' : 'none';
-                            $('co-billpay-note').style.display = state.pay === 'billpay' ? 'block' : 'none';
+                            $('co-etransfer-note').style.display = state.pay === 'etransfer' ? 'flex' : 'none';
+                            $('co-billpay-note').style.display = state.pay === 'billpay' ? 'flex' : 'none';
                         });
                     });
 
@@ -3495,6 +3702,93 @@ a.wtc-item-name:hover { color: var(--g700); }
                         complete: function (i) { onContinue(i); }   // mark a step done + advance (used by login success)
                     };
                     render();
+                }
+                if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+            })();
+        </script>
+
+        <!-- Guarantee video step (VideoAsk-style mock) — self-contained -->
+        <script data-comment="cvg-script">
+            (function () {
+                'use strict';
+                function init() {
+                    var wrap = document.getElementById('co-vg');
+                    var ovl = document.getElementById('cvg-ovl');
+                    if (!wrap || !ovl) return;
+
+                    var openBtn = document.getElementById('cvg-open');
+                    var again = document.getElementById('cvg-again');
+                    var closeBtn = document.getElementById('cvg-close');
+                    var stage = document.getElementById('cvg-stage');
+                    var bigplay = document.getElementById('cvg-bigplay');
+                    var fill = document.getElementById('cvg-fill');
+                    var cap = document.getElementById('cvg-cap');
+                    var confirm = document.getElementById('cvg-confirm');
+                    var check = document.getElementById('co-guarantee');
+
+                    // Mock "captions" that surface as the clip plays (~6s sped-up run of a 0:32 clip).
+                    var CAPTIONS = [
+                        { at: 0.06, text: 'Hi — I’m Lowell, from Whiffletree.' },
+                        { at: 0.30, text: 'Every tree ships true-to-name and healthy.' },
+                        { at: 0.58, text: 'If it arrives damaged, we make it right.' },
+                        { at: 0.82, text: 'Clearance stock is the one exception — sold as-is.' }
+                    ];
+                    var DURATION = 6000;   // mock playback length in ms
+                    var timer = null, start = 0, played = false;
+
+                    function showCap(p) {
+                        var pick = null;
+                        for (var i = 0; i < CAPTIONS.length; i++) { if (p >= CAPTIONS[i].at) pick = CAPTIONS[i]; }
+                        if (pick && cap.textContent !== pick.text) { cap.textContent = pick.text; cap.classList.remove('show'); void cap.offsetWidth; cap.classList.add('show'); }
+                    }
+                    function stopTimer() { if (timer) { clearInterval(timer); timer = null; } }
+                    function finish() {
+                        stopTimer(); fill.style.width = '100%'; played = true;
+                        confirm.disabled = false;
+                        cap.textContent = 'That’s our promise. Thanks for watching.'; cap.classList.add('show');
+                    }
+                    function play() {
+                        if (played) { finish(); return; }
+                        stage.classList.add('playing');
+                        start = Date.now();
+                        timer = setInterval(function () {
+                            var p = Math.min(1, (Date.now() - start) / DURATION);
+                            fill.style.width = (p * 100).toFixed(1) + '%';
+                            showCap(p);
+                            if (p >= 1) finish();
+                        }, 100);
+                    }
+                    function openOverlay() {
+                        ovl.classList.add('open');
+                        document.body.style.overflow = 'hidden';
+                        // reset for a fresh watch unless already completed once
+                        if (!played) { fill.style.width = '0'; stage.classList.remove('playing'); cap.classList.remove('show'); cap.textContent = ''; confirm.disabled = true; }
+                        else { fill.style.width = '100%'; confirm.disabled = false; }
+                    }
+                    function closeOverlay() {
+                        ovl.classList.remove('open');
+                        document.body.style.overflow = '';
+                        stopTimer();
+                        if (!played) { stage.classList.remove('playing'); fill.style.width = '0'; }
+                    }
+                    function markReviewed() {
+                        wrap.classList.add('is-watched');
+                        if (check) {
+                            check.disabled = false;
+                            check.checked = true;
+                            check.dispatchEvent(new Event('change', { bubbles: true }));
+                        }
+                        closeOverlay();
+                    }
+
+                    openBtn.addEventListener('click', openOverlay);
+                    if (again) again.addEventListener('click', openOverlay);
+                    closeBtn.addEventListener('click', closeOverlay);
+                    bigplay.addEventListener('click', play);
+                    stage.addEventListener('click', function (e) { if (e.target === bigplay || bigplay.contains(e.target)) return; if (!played && !timer) play(); });
+                    confirm.addEventListener('click', markReviewed);
+                    ovl.addEventListener('click', function (e) { if (e.target === ovl) closeOverlay(); });
+                    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && ovl.classList.contains('open')) closeOverlay(); });
                 }
                 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
             })();

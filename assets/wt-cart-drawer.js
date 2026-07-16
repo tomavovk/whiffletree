@@ -18,6 +18,10 @@
     var DISCOUNT_THRESHOLD = 500;   /* existing "spend $500 → 10% off" promo */
     var DISCOUNT_RATE = 0.10;
     var CHECKOUT_URL = 'checkout.html';
+    /* Pages where the floating discount nudge may appear — shopping context
+       only. Everywhere else (checkout, info, legal, account) it stays hidden;
+       there the progress lives inline in the drawer / order summary instead. */
+    var FLOAT_PAGES = ['home.html', 'shop.html', 'product.html', 'search.html'];
 
     /* ── Nursery mock data (per-category) ─────────────────────────────── */
     var ROOTSTOCK = {
@@ -54,10 +58,67 @@
             localStorage.setItem(COUNT_KEY, String(totalQty(items)));
         } catch (e) { }
         refreshBadge(items);
+        updateFloat(items);
     }
     function refreshBadge(items) {
         var b = document.querySelector('[data-comment="header-cart-badge"]');
         if (b) b.classList.toggle('on', totalQty(items) > 0);
+    }
+
+    /* ── Floating discount nudge (shopping pages only) ─────────────────── */
+    var floatEl = null;
+    function floatAllowed() {
+        var page = (location.pathname.split('/').pop() || 'home.html').toLowerCase();
+        return FLOAT_PAGES.indexOf(page) !== -1;
+    }
+    function buildFloat() {
+        if (floatEl || !floatAllowed()) return;
+        floatEl = document.createElement('button');
+        floatEl.type = 'button';
+        floatEl.className = 'wtc-float';
+        floatEl.setAttribute('data-comment', 'cart-discount-badge');
+        floatEl.setAttribute('aria-label', 'View cart — discount progress');
+        floatEl.innerHTML =
+            '<span class="wtc-float-ic" aria-hidden="true"><i class="ph-fill ph-seal-percent"></i></span>'
+            + '<span class="wtc-float-body">'
+            + '<span class="wtc-float-txt" data-comment="cart-discount-badge-txt"></span>'
+            + '<span class="wtc-float-track"><span class="wtc-float-fill" data-comment="cart-discount-badge-fill"></span></span>'
+            + '</span>';
+        floatEl.addEventListener('click', function () { open(); });
+        document.body.appendChild(floatEl);
+        /* Sit flush below the header's live bottom edge so the promo/announcement
+           bar (which scrolls away) never overlaps the nav. Track on scroll/resize. */
+        positionFloat();
+        var ticking = false;
+        function onScrollResize() {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(function () { positionFloat(); ticking = false; });
+        }
+        window.addEventListener('scroll', onScrollResize, { passive: true });
+        window.addEventListener('resize', onScrollResize);
+    }
+    function positionFloat() {
+        if (!floatEl) return;
+        var hdr = document.querySelector('[data-comment="header-root"]');
+        var top = hdr ? Math.max(12, hdr.getBoundingClientRect().bottom + 10) : 82;
+        floatEl.style.top = top + 'px';
+    }
+    function updateFloat(items) {
+        if (!floatEl) return;
+        var sub = subtotal(items || loadItems());
+        var away = DISCOUNT_THRESHOLD - sub;
+        /* Show only while the cart has items and the threshold isn't met yet. */
+        if (sub > 0 && away > 0) {
+            floatEl.querySelector('.wtc-float-txt').innerHTML =
+                'You’re <b>' + fmt(away) + '</b> away from <b>10% off</b>';
+            floatEl.querySelector('.wtc-float-fill').style.width =
+                Math.min(100, (sub / DISCOUNT_THRESHOLD) * 100) + '%';
+            positionFloat();
+            floatEl.classList.add('show');
+        } else {
+            floatEl.classList.remove('show');
+        }
     }
     function addItem(items, p) {
         for (var i = 0; i < items.length; i++) {
@@ -392,7 +453,9 @@
                 }
             };
         }
-        /* items are the source of truth — reconcile the legacy count/badge */
+        /* items are the source of truth — reconcile the legacy count/badge
+           (also builds + refreshes the floating nudge on shopping pages) */
+        buildFloat();
         saveItems(loadItems());
 
         var icon = document.querySelector('[data-comment="header-action-cart"]');
