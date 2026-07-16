@@ -1366,6 +1366,29 @@ body.nav-menu-open .wtc-float { display: none !important; }
                     .co-link-opts { display: flex; flex-direction: column; gap: 12px; }
                     .co-link-opts .co-check { margin: 0; font-size: 14px; color: var(--ink); }
 
+                    /* Contact — tiered identity (signed-in banner + recognized-email verify) */
+                    .co-linkbtn { font-family: var(--sans); font-weight: 700; font-size: 13px; color: var(--g700); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+                    .co-linkbtn:hover { color: var(--g800); }
+                    .co-signedin { display: flex; align-items: center; gap: 12px; background: var(--g050); border: 1px solid var(--g200); border-radius: 3px; padding: 14px 16px; }
+                    .co-signedin-ic { color: var(--g700); font-size: 26px; flex: none; display: flex; }
+                    .co-signedin-body { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; flex: 1; min-width: 0; }
+                    .co-signedin-lead { font-family: var(--sans); font-size: 14px; color: var(--ink2); }
+                    .co-signedin-lead b { color: var(--ink); }
+                    .co-verify { margin: 16px 0 0; background: var(--paper0); border: 1px solid var(--line); border-radius: 3px; padding: 16px; }
+                    .co-verify-head { display: flex; gap: 11px; align-items: flex-start; }
+                    .co-verify-head i { color: var(--g700); font-size: 20px; flex: none; margin-top: 1px; }
+                    .co-verify-head p { margin: 0; font-family: var(--sans); font-size: 13.5px; line-height: 1.5; color: var(--ink2); }
+                    .co-verify-head b { color: var(--ink); }
+                    .co-verify-actions { display: flex; align-items: center; gap: 18px; margin: 14px 0 0; flex-wrap: wrap; }
+                    .co-verify-actions .wta-btn { padding: 12px 22px; }
+                    .co-verify-row { display: flex; gap: 10px; margin: 14px 0 0; }
+                    .co-code { flex: 1; letter-spacing: 0.3em; font-variant-numeric: tabular-nums; }
+                    .co-verify-row .wta-btn { flex: none; padding: 10px 22px; }
+                    .co-verify-err { margin: 10px 0 0; font-family: var(--sans); font-size: 13px; color: var(--c700); }
+                    .co-verify-skip { margin: 12px 0 0; }
+                    .co-verified { display: flex; align-items: center; gap: 10px; margin: 14px 0 0; font-family: var(--sans); font-size: 13.5px; color: var(--success); }
+                    .co-verified i { font-size: 18px; flex: none; }
+
                     /* Scheduler */
                     .co-cal { margin-top: 20px; border: 1px solid var(--line-soft); border-radius: 6px; padding: 14px; }
                     .co-cal-head { display: flex; align-items: center; justify-content: space-between; margin: 0 0 10px; }
@@ -1561,18 +1584,57 @@ body.nav-menu-open .wtc-float { display: none !important; }
                             <!-- 1 Contact -->
                             <section class="co-sec" data-comment="co-contact-sec">
                                 <div class="co-sec-head"><span class="co-step">1</span>
-                                    <div><h2 class="co-sec-title">Contact</h2><p class="co-sec-note">No account needed — check out as a guest. Sign in only if you’d like to add to this order later.</p></div>
+                                    <div><h2 class="co-sec-title">Contact</h2><p class="co-sec-note" data-comment="co-contact-note">No account needed — check out with just your email. Ordered with us before? Use that same email to add to your order.</p></div>
                                 </div>
-                                <div class="co-auth-row" data-comment="co-auth-row">
-                                    <button type="button" class="wta-btn wta-btn-primary" style="flex:1;" onclick="window.WTAccount&amp;&amp;window.WTAccount.openLogin();return false;">Log in</button>
-                                    <button type="button" class="wta-btn wta-btn-secondary" style="flex:1;" onclick="window.WTAccount&amp;&amp;window.WTAccount.openSignup();return false;">Sign up</button>
+
+                                <!-- Signed in: identity already proven → collapse auth + email into a banner -->
+                                <div class="co-signedin" data-comment="co-signedin" style="display:none;">
+                                    <span class="co-signedin-ic"><i class="ph-fill ph-user-circle"></i></span>
+                                    <div class="co-signedin-body">
+                                        <span class="co-signedin-lead">Signed in as <b data-comment="co-signedin-email">you@email.com</b></span>
+                                        <button type="button" class="co-linkbtn" data-comment="co-notyou">Not you?</button>
+                                    </div>
                                 </div>
-                                <div class="co-divider">or continue as guest</div>
-                                <div class="co-field">
-                                    <label class="co-label" for="co-email">Email address</label>
-                                    <input class="co-input" id="co-email" type="email" placeholder="you@email.com" autocomplete="email" />
+
+                                <!-- Guest: email only (sign in lives in the header account menu); recognized emails get a verify step -->
+                                <div data-comment="co-guest-block">
+                                    <div class="co-field">
+                                        <label class="co-label" for="co-email">Email address</label>
+                                        <input class="co-input" id="co-email" type="email" placeholder="you@email.com" autocomplete="email" />
+                                    </div>
+                                    <label class="co-check"><input type="checkbox" id="co-news" /> Email me about new crops, workshops and sales.</label>
+
+                                    <!-- Recognized email → first choose intent, then verify only if adding to the existing order -->
+                                    <div class="co-verify" data-comment="co-verify" style="display:none;">
+                                        <!-- Step A — add to existing, or start new? (no code sent yet) -->
+                                        <div data-comment="co-verify-choose">
+                                            <div class="co-verify-head"><i class="ph-fill ph-user-circle-check"></i>
+                                                <p>Looks like you’ve ordered with us before. Add these to your <b>existing order</b>, or place a <b>new order</b>?</p>
+                                            </div>
+                                            <div class="co-verify-actions">
+                                                <button type="button" class="wta-btn wta-btn-primary" data-comment="co-verify-add">Add to my existing order</button>
+                                                <button type="button" class="co-linkbtn" data-comment="co-verify-new">Place a new order</button>
+                                            </div>
+                                        </div>
+                                        <!-- Step B — verify identity to open the existing order (code sent on demand) -->
+                                        <div data-comment="co-verify-code" style="display:none;">
+                                            <div class="co-verify-head"><i class="ph-fill ph-shield-check"></i>
+                                                <p>To open your order, enter the 6-digit code we’ve just emailed to <b data-comment="co-verify-email"></b>.</p>
+                                            </div>
+                                            <div class="co-verify-row">
+                                                <input class="co-input co-code" id="co-code" inputmode="numeric" maxlength="6" placeholder="6-digit code" autocomplete="one-time-code" />
+                                                <button type="button" class="wta-btn wta-btn-primary" data-comment="co-verify-btn">Verify</button>
+                                            </div>
+                                            <p class="co-verify-err" data-comment="co-verify-err" style="display:none;">That code doesn’t match. Check your inbox and try again.</p>
+                                            <button type="button" class="co-linkbtn co-verify-skip" data-comment="co-verify-skip">Place a new order instead</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- After a correct code -->
+                                    <div class="co-verified" data-comment="co-verified" style="display:none;">
+                                        <i class="ph-fill ph-check-circle"></i><span>Verified — we found your open order. Add to it on the schedule step below.</span>
+                                    </div>
                                 </div>
-                                <label class="co-check"><input type="checkbox" id="co-news" /> Email me about new crops, workshops and sales.</label>
                             </section>
 
                             <!-- 2 Delivery method -->
@@ -3256,13 +3318,22 @@ body.nav-menu-open .wtc-float { display: none !important; }
                 var today = new Date(); today.setHours(0, 0, 0, 0);
                 var existingOrder = { date: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 30) };
 
+                /* Mock "customer database" for email recognition (prototype — no backend).
+                   Type one of these as a guest to see the returning-customer path;
+                   the emailed code is DEMO_CODE below. */
+                var KNOWN_EMAILS = ['returning@whiffletree.ca', 'member@whiffletree.ca'];
+                var DEMO_CODE = '123456';
+                function emailKnown(v) { return KNOWN_EMAILS.indexOf((v || '').trim().toLowerCase()) !== -1; }
+
                 var state = {
                     method: 'pickup',        // 'pickup' | 'ship'
                     province: '',
                     date: null,              // Date
                     slot: null,              // pickup time window
                     pay: 'card',
-                    linkMode: 'add'          // 'add' | 'separate'
+                    linkMode: 'separate',    // 'add' | 'separate' — 'add' only once identity is proven
+                    identityVerified: false, // guest proved ownership via the emailed code
+                    recognized: false        // typed email matched a known customer
                 };
                 var stepper = null;          // accordion controller (set by initStepper)
 
@@ -3459,15 +3530,18 @@ body.nav-menu-open .wtc-float { display: none !important; }
                     renderCal(); renderSlots(); updatePlace();
                 }
 
-                /* ── Add-to-existing ── */
+                /* ── Add-to-existing ──────────────────────────────────────────────
+                   The prompt is gated behind proven identity: it stays hidden until
+                   the shopper is signed in or a recognized guest enters the code.
+                   revealExistingOrder()/hideExistingOrder() toggle it from there. */
+                function hasProvenIdentity() { return isSignedIn() || state.identityVerified; }
+
                 function initLink() {
                     // nudge the existing-order date to the next bookable day if capacity/closed rules landed on it
                     var guard = 0;
                     while (typeof dayState(existingOrder.date) !== 'object' && guard++ < 60) {
                         existingOrder.date = new Date(existingOrder.date.getFullYear(), existingOrder.date.getMonth(), existingOrder.date.getDate() + 1);
                     }
-                    var banner = $('co-link-alert');
-                    banner.classList.add('show');
                     $('co-link-date').textContent = existingOrder.date.toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric' });
                     document.querySelectorAll('input[name="co-link"]').forEach(function (r) {
                         r.addEventListener('change', function () {
@@ -3476,9 +3550,24 @@ body.nav-menu-open .wtc-float { display: none !important; }
                             else { state.date = null; state.slot = null; renderCal(); renderSlots(); updatePlace(); }
                         });
                     });
-                    // default: add → preselect existing date
+                    // banner stays hidden until identity is proven; a fresh guest picks a date normally
+                    state.linkMode = 'separate';
+                }
+
+                function revealExistingOrder() {
+                    $('co-link-alert').classList.add('show');
+                    var add = document.querySelector('input[name="co-link"][value="add"]');
+                    if (add) add.checked = true;
+                    state.linkMode = 'add';
                     viewY = existingOrder.date.getFullYear(); viewM = existingOrder.date.getMonth();
-                    state.date = existingOrder.date;
+                    selectDate(existingOrder.date); // add-mode → preselect the existing order's date
+                }
+
+                function hideExistingOrder() {
+                    $('co-link-alert').classList.remove('show');
+                    state.linkMode = 'separate';
+                    if (state.date && sameDay(state.date, existingOrder.date)) { state.date = null; state.slot = null; }
+                    renderCal(); renderSlots(); updatePlace();
                 }
 
                 /* ── Place order enable/disable ── */
@@ -3549,6 +3638,97 @@ body.nav-menu-open .wtc-float { display: none !important; }
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
 
+                /* ── Contact: tiered identity ─────────────────────────────────────
+                   New guest → plain email. Recognized guest → emailed code unlocks
+                   the existing order. Signed in → collapse to a banner, identity is
+                   already proven so the existing order shows straight away. */
+                var applySignedInContact = null; // set by initContact, reused by onAuthSuccess
+                function initContact() {
+                    var emailEl = document.getElementById('co-email');
+                    var verify = $('co-verify'), verified = $('co-verified');
+
+                    function showSignedIn(on) {
+                        $('co-signedin').style.display = on ? 'flex' : 'none';
+                        $('co-guest-block').style.display = on ? 'none' : 'block';
+                        $('co-contact-note').textContent = on
+                            ? 'You’re signed in — we’ll link this to your account.'
+                            : 'No account needed — check out with just your email. Ordered with us before? Use that same email to add to your order.';
+                    }
+
+                    // recognized-email panel toggles as the guest types → shows the intent
+                    // choice first (NO code sent yet); the code step only appears on demand.
+                    function resetVerify() {
+                        $('co-verify-choose').style.display = 'block';
+                        $('co-verify-code').style.display = 'none';
+                        $('co-verify-err').style.display = 'none';
+                        var c = document.getElementById('co-code'); if (c) c.value = '';
+                    }
+                    function checkRecognition() {
+                        if (hasProvenIdentity()) return;
+                        var known = emailKnown(emailEl.value);
+                        state.recognized = known;
+                        if (known) { $('co-verify-email').textContent = emailEl.value.trim(); resetVerify(); verify.style.display = 'block'; }
+                        else { verify.style.display = 'none'; }
+                    }
+                    emailEl.addEventListener('input', checkRecognition);
+
+                    // chose "add to existing" → now (and only now) send the code + reveal the code step
+                    $('co-verify-add').addEventListener('click', function () {
+                        $('co-verify-email').textContent = emailEl.value.trim();
+                        $('co-verify-choose').style.display = 'none';
+                        $('co-verify-code').style.display = 'block';
+                        var c = document.getElementById('co-code'); if (c) c.focus();
+                    });
+                    // chose "new order" (from either sub-step) → dismiss, stay a plain guest
+                    function chooseNew() { state.recognized = false; verify.style.display = 'none'; }
+                    $('co-verify-new').addEventListener('click', chooseNew);
+
+                    // verify the emailed code → prove identity → open the existing order
+                    $('co-verify-btn').addEventListener('click', function () {
+                        if ((document.getElementById('co-code').value || '').trim() === DEMO_CODE) {
+                            state.identityVerified = true;
+                            verify.style.display = 'none';
+                            $('co-verify-err').style.display = 'none';
+                            verified.style.display = 'flex';
+                            revealExistingOrder();
+                            updatePlace();
+                            if (stepper) stepper.refresh();
+                        } else {
+                            $('co-verify-err').style.display = 'block';
+                        }
+                    });
+
+                    // continue as a new order → drop the recognition prompt, stay a plain guest
+                    $('co-verify-skip').addEventListener('click', function () {
+                        state.recognized = false;
+                        verify.style.display = 'none';
+                    });
+
+                    applySignedInContact = function () {
+                        var u = (window.WTAccount && WTAccount.getUser) ? WTAccount.getUser() : null;
+                        var em = (u && u.email) || '';
+                        if (em && emailEl) emailEl.value = em;
+                        $('co-signedin-email').textContent = em || (u && u.name) || 'your account';
+                        verify.style.display = 'none'; verified.style.display = 'none';
+                        showSignedIn(true);
+                        revealExistingOrder();
+                    };
+
+                    // "Not you?" → sign out, back to a guest with the same cart, no existing order
+                    $('co-notyou').addEventListener('click', function () {
+                        if (window.WTAccount && WTAccount.logout) WTAccount.logout();
+                        state.identityVerified = false;
+                        if (emailEl) emailEl.value = '';
+                        showSignedIn(false);
+                        hideExistingOrder();
+                        checkRecognition();
+                        if (stepper) stepper.refresh();
+                    });
+
+                    if (isSignedIn()) applySignedInContact();
+                    else showSignedIn(false);
+                }
+
                 /* ── Wire up ── */
                 function init() {
                     if (!items.length) { $('co-empty').style.display = 'block'; $('co-grid').style.display = 'none'; return; }
@@ -3600,15 +3780,14 @@ body.nav-menu-open .wtc-float { display: none !important; }
                     renderSlots();
                     renderSummary();
                     updatePlace();
+                    initContact();
                     initStepper();
 
                     // Login from the checkout popup stays on this page: close popup → Contact step
                     // succeeds and collapses → next step opens (same flow as clicking Continue).
                     if (window.WTAccount && WTAccount.onAuthSuccess) {
                         WTAccount.onAuthSuccess(function () {
-                            var u = WTAccount.getUser ? WTAccount.getUser() : null;
-                            var em = document.getElementById('co-email');
-                            if (em && u && u.email) em.value = u.email;
+                            if (applySignedInContact) applySignedInContact();
                             updatePlace();
                             if (stepper && stepper.complete) stepper.complete(0);
                         });
