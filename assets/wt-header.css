@@ -25,3 +25,11 @@
        (wt-cart block), so this needs higher specificity to win. */
     .hdr-cart .cart-badge { top: 8px; right: 7px; }
 }
+
+/* Footer link tap targets — WCAG 2.5.8 (min 24px). The footer links are
+   inline-styled <a> with no class, so scope by the footer container. Column
+   lists get near-contiguous ~40px rows (gap tightened to offset the padding);
+   the legal row grows vertically but keeps its horizontal gap. */
+footer[data-comment="footer-root"] [data-comment^="footer-col-"][data-comment$="-links"] { gap: 2px !important; }
+footer[data-comment="footer-root"] [data-comment^="footer-col-"][data-comment$="-links"] > a { padding: 9px 0; }
+footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { padding: 6px 0; }
