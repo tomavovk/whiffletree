@@ -126,21 +126,21 @@
    match the 1280 design; bumps land at 1440 and 1920. Mobile heading
    downsizing keeps working via the existing per-page !important overrides. */
 :root {
-    --fs-hero: 74px;       /* home hero display */
-    --fs-title: 52px;      /* page/product titles (catalog, PDP, register, workshops) */
-    --fs-h2: 48px;         /* section headings */
-    --fs-cta: 54px;        /* contact CTA heading */
-    --fs-h3: 44px;         /* newsletter / minor band headings */
+    --fs-hero: 66px;       /* home hero display */
+    --fs-title: 38px;      /* page/product titles (catalog, PDP, register, workshops) */
+    --fs-h2: 30px;         /* section headings */
+    --fs-cta: 40px;        /* contact CTA heading */
+    --fs-h3: 26px;         /* newsletter / minor band headings */
     --fs-tile-title: 22px; /* icon-tile display titles */
     --fs-icon: 54px;       /* icon-tile pictograms — the tile visual, must
                               grow with the tile or wide screens look empty */
     --fs-icon-lg: 72px;    /* large feature-card pictograms */
 }
 @media (min-width: 1440px) {
-    :root { --fs-hero: 84px; --fs-title: 58px; --fs-h2: 54px; --fs-cta: 60px; --fs-h3: 48px;
+    :root { --fs-hero: 76px; --fs-title: 44px; --fs-h2: 36px; --fs-cta: 46px; --fs-h3: 30px;
             --fs-tile-title: 24px; --fs-icon: 66px; --fs-icon-lg: 86px; }
 }
 @media (min-width: 1920px) {
-    :root { --fs-hero: 96px; --fs-title: 66px; --fs-h2: 60px; --fs-cta: 66px; --fs-h3: 52px;
+    :root { --fs-hero: 88px; --fs-title: 52px; --fs-h2: 42px; --fs-cta: 52px; --fs-h3: 34px;
             --fs-tile-title: 27px; --fs-icon: 78px; --fs-icon-lg: 102px; }
 }

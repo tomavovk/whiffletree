@@ -4,12 +4,16 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Whiffletree Farm &amp; Nursery — Terms &amp; Conditions</title>
+        <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+        <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+        <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+        <link rel="icon" href="assets/favicon.ico" sizes="any" />
 
         <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700&amp;family=Mulish:wght@300;400;500;600;700;800&amp;display=block"
+            href="https://fonts.googleapis.com/css2?family=Kaushan+Script&amp;family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;display=block"
             rel="stylesheet" />
 
         <!-- Phosphor icons (CDN) -->
@@ -145,22 +149,22 @@
    match the 1280 design; bumps land at 1440 and 1920. Mobile heading
    downsizing keeps working via the existing per-page !important overrides. */
 :root {
-    --fs-hero: 74px;       /* home hero display */
-    --fs-title: 52px;      /* page/product titles (catalog, PDP, register, workshops) */
-    --fs-h2: 48px;         /* section headings */
-    --fs-cta: 54px;        /* contact CTA heading */
-    --fs-h3: 44px;         /* newsletter / minor band headings */
+    --fs-hero: 66px;       /* home hero display */
+    --fs-title: 38px;      /* page/product titles (catalog, PDP, register, workshops) */
+    --fs-h2: 30px;         /* section headings */
+    --fs-cta: 40px;        /* contact CTA heading */
+    --fs-h3: 26px;         /* newsletter / minor band headings */
     --fs-tile-title: 22px; /* icon-tile display titles */
     --fs-icon: 54px;       /* icon-tile pictograms — the tile visual, must
                               grow with the tile or wide screens look empty */
     --fs-icon-lg: 72px;    /* large feature-card pictograms */
 }
 @media (min-width: 1440px) {
-    :root { --fs-hero: 84px; --fs-title: 58px; --fs-h2: 54px; --fs-cta: 60px; --fs-h3: 48px;
+    :root { --fs-hero: 76px; --fs-title: 44px; --fs-h2: 36px; --fs-cta: 46px; --fs-h3: 30px;
             --fs-tile-title: 24px; --fs-icon: 66px; --fs-icon-lg: 86px; }
 }
 @media (min-width: 1920px) {
-    :root { --fs-hero: 96px; --fs-title: 66px; --fs-h2: 60px; --fs-cta: 66px; --fs-h3: 52px;
+    :root { --fs-hero: 88px; --fs-title: 52px; --fs-h2: 42px; --fs-cta: 52px; --fs-h3: 34px;
             --fs-tile-title: 27px; --fs-icon: 78px; --fs-icon-lg: 102px; }
 }
         </style>
@@ -183,6 +187,9 @@
 .icon-btn--ghost i { font-size:22px; }
 .icon-btn--ghost:hover { background:var(--paper1); border-color:transparent; }
 .icon-btn--ghost:active { background:var(--paper2); }
+/* Top-level nav links are regular weight; the current page's item stays
+   emphasised (bold + ink). Overrides the item's inline colour, hence !important. */
+[data-comment="header-nav"] .nav-current { font-weight: 600 !important; color: var(--ink) !important; }
 .hdr-search-m-row, .hdr-account-m { display: none; }
 [data-comment="header-cart-wrap"], .hdr-cart { margin-left: 16px; }
 @media (max-width: 900px) { /* mobile header */
@@ -231,7 +238,7 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
 .wta-pop-close:hover { background: var(--paper1, #f0ebe2); color: var(--ink, #15140f); }
 .wta-pop-close i { font-size: 18px; }
 .wta-pop-head { margin-bottom: 16px; padding-right: 28px; }
-.wta-pop-title { font-family: var(--display, Georgia, serif); font-weight: 600; font-size: 22px; line-height: 1.1; color: var(--ink, #15140f); margin: 0; }
+.wta-pop-title { font-family: var(--display, Georgia, serif); font-weight: 400; font-size: 22px; line-height: 1.1; color: var(--ink, #15140f); margin: 0; }
 .wta-pop-sub { font-family: var(--sans, sans-serif); font-size: 13px; line-height: 1.5; color: var(--muted, #57544e); margin: 5px 0 0; }
 .wta-pop-alt { font-family: var(--sans, sans-serif); font-size: 13px; color: var(--muted, #57544e); text-align: center; margin: 14px 0 0; }
 
@@ -260,17 +267,17 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
 .wta-field--full { grid-column: 1 / -1; }
 .wta-label { font-family: var(--sans, sans-serif); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted, #57544e); }
 .wta-input, .wta-select { font-family: var(--sans, sans-serif); font-size: 13.5px; color: var(--ink2, #262521); background: #fff; border: 1px solid var(--line, #d2cabb); border-radius: 2px; padding: 10px 12px; width: 100%; }
-.wta-input:focus, .wta-select:focus { outline: none; border-color: var(--g700, #14682a); }
+.wta-input:focus, .wta-select:focus { outline: none; border-color: var(--g700, #006838); }
 .wta-forgot { align-self: flex-start; font-size: 12.5px; margin-top: -2px; margin-bottom: 12px; }
 
 /* ---- Buttons ---- */
 .wta-btn { font-family: var(--sans, sans-serif); font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; padding: 14px 24px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 9px; border: 1.5px solid transparent; transition: background-color 150ms cubic-bezier(0.2, 0, 0, 1), border-color 150ms cubic-bezier(0.2, 0, 0, 1), color 150ms cubic-bezier(0.2, 0, 0, 1); }
 .wta-btn--block { width: 100%; }
-.wta-btn-primary { background: var(--g700, #14682a); color: #eaf0e0; border-color: var(--g700, #14682a); }
-.wta-btn-primary:hover { background: var(--g800, #0e4c23); border-color: var(--g800, #0e4c23); }
-.wta-btn-secondary { background: transparent; color: var(--g700, #14682a); border-color: var(--g700, #14682a); }
-.wta-btn-secondary:hover { background: var(--g700, #14682a); color: #eaf0e0; }
-.wta-linkbtn { font-family: var(--sans, sans-serif); font-weight: 700; font-size: inherit; color: var(--g700, #14682a); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: transparent; transition: text-decoration-color 150ms cubic-bezier(0.2, 0, 0, 1); }
+.wta-btn-primary { background: var(--g700, #006838); color: #eaf0e0; border-color: var(--g700, #006838); }
+.wta-btn-primary:hover { background: var(--g800, #00522c); border-color: var(--g800, #00522c); }
+.wta-btn-secondary { background: transparent; color: var(--g700, #006838); border-color: var(--g700, #006838); }
+.wta-btn-secondary:hover { background: var(--g700, #006838); color: #eaf0e0; }
+.wta-linkbtn { font-family: var(--sans, sans-serif); font-weight: 700; font-size: inherit; color: var(--g700, #006838); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: transparent; transition: text-decoration-color 150ms cubic-bezier(0.2, 0, 0, 1); }
 .wta-linkbtn:hover { text-decoration-color: currentColor; }
 
 /* ---- Signed-in account menu ---- */
@@ -278,10 +285,10 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
 .wta-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex: none; background: var(--paper1, #f0ebe2); }
 .wta-id { display: flex; flex-direction: column; min-width: 0; }
 .wta-hello { font-family: var(--sans, sans-serif); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--subtle, #939089); }
-.wta-name { font-family: var(--display, Georgia, serif); font-weight: 600; font-size: 18px; color: var(--ink, #15140f); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wta-name { font-family: var(--display, Georgia, serif); font-weight: 400; font-size: 18px; color: var(--ink, #15140f); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .wta-menu { display: flex; flex-direction: column; }
 .wta-menu-item { display: flex; align-items: center; gap: 11px; font-family: var(--sans, sans-serif); font-size: 14px; font-weight: 600; color: var(--ink2, #262521); text-decoration: none; padding: 10px 8px; border-radius: 3px; transition: background-color 130ms cubic-bezier(0.2, 0, 0, 1), color 130ms cubic-bezier(0.2, 0, 0, 1); }
-.wta-menu-item i { font-size: 19px; color: var(--g600, #2f7d3f); }
+.wta-menu-item i { font-size: 19px; color: var(--g600, #088149); }
 .wta-menu-item:hover { background: var(--paper1, #f0ebe2); color: var(--ink, #15140f); }
 .wta-menu-foot { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line-soft, #e3ddd1); }
 
@@ -291,15 +298,15 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
 .wta-modal { position: fixed; z-index: 1301; top: 50%; left: 50%; transform: translate(-50%, -46%); width: min(560px, 94vw); max-height: 92vh; overflow: hidden; background: #fffdf8; border-radius: 6px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35); opacity: 0; pointer-events: none; transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1), transform 220ms cubic-bezier(0.22, 1, 0.36, 1); display: flex; flex-direction: column; }
 .wta-modal.on { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%); }
 .wta-modal-bar { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1px solid var(--line-soft, #e3ddd1); flex: none; }
-.wta-modal-bar-title { font-family: var(--display, Georgia, serif); font-weight: 600; font-size: 20px; color: var(--ink, #15140f); }
+.wta-modal-bar-title { font-family: var(--display, Georgia, serif); font-weight: 400; font-size: 20px; color: var(--ink, #15140f); }
 .wta-modal-close { width: 34px; height: 34px; border-radius: 50%; background: transparent; border: 0; cursor: pointer; color: var(--muted, #57544e); display: flex; align-items: center; justify-content: center; transition: background-color 200ms, color 200ms; }
 .wta-modal-close:hover { background: var(--paper1, #f0ebe2); color: var(--ink, #15140f); }
 .wta-modal-close i { font-size: 18px; }
 .wta-modal-scroll { overflow-y: auto; padding: 26px 32px 30px; }
 .wta-intro { font-family: var(--sans, sans-serif); font-size: 14.5px; line-height: 1.6; color: var(--muted, #57544e); margin: 0 0 22px; }
-.wta-sub { font-family: var(--display, Georgia, serif); font-weight: 600; font-size: 20px; color: var(--ink, #15140f); margin: 26px 0 14px; }
+.wta-sub { font-family: var(--display, Georgia, serif); font-weight: 400; font-size: 20px; color: var(--ink, #15140f); margin: 26px 0 14px; }
 .wta-check { display: flex; align-items: center; gap: 10px; font-family: var(--sans, sans-serif); font-size: 14px; color: var(--ink2, #262521); margin: 16px 0 4px; cursor: pointer; }
-.wta-check input { width: 17px; height: 17px; accent-color: var(--g700, #14682a); cursor: pointer; flex: none; }
+.wta-check input { width: 17px; height: 17px; accent-color: var(--g700, #006838); cursor: pointer; flex: none; }
 .wta-fine { font-family: var(--sans, sans-serif); font-size: 12.5px; line-height: 1.5; color: var(--subtle, #939089); margin: 16px 0 0; }
 .wta-modal-actions { margin-top: 22px; }
 .wta-modal-alt { font-family: var(--sans, sans-serif); font-size: 13.5px; color: var(--muted, #57544e); text-align: center; margin: 16px 0 0; }
@@ -308,7 +315,7 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
 /* ---- Toast ---- */
 .wta-toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%) translateY(10px); display: flex; align-items: center; gap: 10px; background: var(--ink, #15140f); color: #fff; font-family: var(--sans, sans-serif); font-size: 14px; font-weight: 600; padding: 13px 20px; border-radius: 2px; box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3); opacity: 0; pointer-events: none; transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1), transform 220ms cubic-bezier(0.22, 1, 0.36, 1); z-index: 1400; }
 .wta-toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
-.wta-toast i { color: var(--g300, #8fce9b); font-size: 18px; }
+.wta-toast i { color: var(--g300, #6dba94); font-size: 18px; }
         </style>
 
         <style>
@@ -335,8 +342,10 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
             /* Design tokens */
             :root {
                 /* Typography */
-                --display: "Cormorant Garamond", Georgia, serif;
-                --sans: "Mulish", ui-sans-serif, system-ui, sans-serif;
+                --display: "Libre Caslon Text", Georgia, serif;
+                --serif-text: "Libre Caslon Text", Georgia, serif;
+                --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                --script: "Kaushan Script", cursive;
 
                 /* Colors — ink / paper */
                 --ink: #15140f;
@@ -352,33 +361,41 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
                 --line-neutral: #d5d4d0;
 
                 /* Colors — greens */
-                --g900: #093f1e;
-                --g800: #0e4c23;
-                --g700: #14682a;
-                --g600: #268b39;
-                --g500: #2f9b3c;
-                --g300: #85ac81;
-                --g200: #c1d8b6;
-                --g100: #e6f1db;
-                --g050: #f1f8ea;
+                --g900: #003d21;
+                --g800: #00522c;
+                --g700: #006838;
+                --g600: #088149;
+                --g500: #199a5e;
+                --g300: #6dba94;
+                --g200: #a6d3bb;
+                --g100: #d4eddf;
+                --g050: #e8f7ee;
+
+                /* Brand — canonical brand-guide colours */
+                --brand-green: #006838;
+                --brand-brown: #5e3210;
+
+                /* Brown / earth — secondary brand scale (anchor e700 = brand brown) */
+                --e900: #341c09;
+                --e800: #4a270d;
+                --e700: #5e3210;
+                --e600: #75411a;
+                --e500: #91592b;
+                --e300: #bc8c62;
+                --e200: #d3baa1;
+                --e100: #ecdfd0;
+                --e050: #f7f0e8;
 
                 /* Colors — status / accent */
                 --success: #1c7a45;
                 --warning: #b5772a;
                 --error: #e5202c;
-                /* Coral — primary accent (brand scale) */
-                --c900: #521c13;
-                --c800: #6e2519;
-                --c700: #8f3122;
-                --c600: #b23e2c;
-                --c500: #d75640;
-                --c300: #ee917d;
-                --c200: #f5bcaf;
-                --c100: #fbdfd7;
-                --c050: #fdf1ec;
-                --accent: var(--c500);
-                --accent-deep: var(--c700);
-                --accent-soft: var(--c100);
+                --accent: var(--e600);
+                --accent-deep: var(--e700);
+                --accent-soft: var(--e100);
+                /* Action buttons — brand brown */
+                --btn: var(--e600);
+                --btn-hover: var(--e700);
             }
 
             /* Newsletter input theming */
@@ -449,7 +466,7 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
             }
             .nav-trigger {
                 font-family: var(--sans);
-                font-weight: 600;
+                font-weight: 400;
                 font-size: 15px;
                 color: var(--muted);
                 background: none;
@@ -557,7 +574,7 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
             }
             .np-link {
                 font-family: var(--sans);
-                font-weight: 600;
+                font-weight: 400;
                 font-size: 15.5px;
                 color: var(--muted);
                 text-decoration: none;
@@ -593,7 +610,7 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
 
             /* --- Solid accent (brick red) button --- */
             [data-comment="newsletter-submit"]:hover {
-                background: var(--c700) !important;
+                background: var(--btn-hover) !important;
                 transform: translateY(-1px);
                 box-shadow: 0 4px 12px rgba(158, 44, 32, 0.22);
             }
@@ -648,7 +665,7 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
             }
             .oc-eyebrow i { font-size: 15px; }
             [data-comment="oc-head-inner"] { max-width: calc(var(--measure-narrow) + 2 * var(--page-x)); margin: 0 auto; padding: 58px var(--page-x) 12px; text-align: center; }
-            .oc-h1 { font-family: var(--display); font-weight: 500; font-size: var(--fs-h2); line-height: 1.06; color: var(--ink); margin: 16px 0 0; }
+            .oc-h1 { font-family: var(--display); font-weight: 400; font-size: var(--fs-h2); line-height: 1.06; color: var(--ink); margin: 16px 0 0; }
             .oc-byline {
                 display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center;
                 font-family: var(--sans); font-size: 13.5px; color: var(--muted); margin: 20px 0 0;
@@ -656,7 +673,7 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
             .oc-byline .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--g300); }
             .oc-byline strong { color: var(--ink2); font-weight: 700; }
             .oc-pull {
-                font-family: var(--display); font-weight: 500; font-style: italic; font-size: 25px;
+                font-family: var(--display); font-weight: 400; font-style: italic; font-size: 25px;
                 line-height: 1.35; color: var(--g800); margin: 26px auto 0; max-width: 40ch;
             }
 
@@ -684,7 +701,7 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
                 font-family: var(--sans); font-size: 18.5px; line-height: 1.7; color: var(--ink2); margin: 0;
             }
             .oc-h2 {
-                font-family: var(--display); font-weight: 500; font-size: 30px; line-height: 1.12;
+                font-family: var(--display); font-weight: 400; font-size: 30px; line-height: 1.12;
                 color: var(--ink); margin: 42px 0 0; scroll-margin-top: 96px;
             }
             .oc-p { font-family: var(--sans); font-size: 16px; line-height: 1.75; color: var(--ink2); margin: 16px 0 0; }
@@ -760,16 +777,16 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
             /* Related CTA */
             [data-comment="oc-related"] { background: var(--g050); border-top: 1px solid var(--line-soft); }
             [data-comment="oc-related-inner"] { max-width: calc(var(--measure-narrow) + 2 * var(--page-x)); margin: 0 auto; padding: 54px var(--page-x); text-align: center; }
-            .oc-related-title { font-family: var(--display); font-weight: 500; font-size: 30px; line-height: 1.12; color: var(--g900); margin: 0; }
+            .oc-related-title { font-family: var(--display); font-weight: 400; font-size: 30px; line-height: 1.12; color: var(--g900); margin: 0; }
             .oc-related-text { font-family: var(--sans); font-size: 16px; line-height: 1.7; color: var(--muted); margin: 12px auto 0; max-width: 52ch; }
             .oc-related-btn {
                 display: inline-flex; align-items: center; gap: 9px; margin-top: 22px;
                 font-family: var(--sans); font-weight: 700; font-size: 13px;
                 letter-spacing: 0.08em; text-transform: uppercase; color: #fff;
-                background: var(--c600); border-radius: 4px; padding: 15px 28px;
+                background: var(--btn); border-radius: 2px; padding: 15px 28px;
                 text-decoration: none; transition: background 180ms ease;
             }
-            .oc-related-btn:hover { background: var(--c700); }
+            .oc-related-btn:hover { background: var(--btn-hover); }
             .oc-related-btn i { font-size: 17px; }
             /* ============================================================
                RESPONSIVE
@@ -867,13 +884,13 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
                 [data-comment="header-action-search"], [data-comment="header-action-user"] { display: none !important; }
                 .hdr-search-m-row { display: flex !important; align-items: stretch; gap: 8px; width: 100%; }
                 .hdr-search-m { display: flex !important; align-items: center; gap: 10px; flex: 1 1 auto; min-width: 0; border: 1px solid var(--line); border-radius: 2px; padding: 0 14px; min-height: 48px; }
-                .hdr-search-m-go { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 48px; min-height: 48px; background: var(--c600); color: #fff; border: none; border-radius: 2px; cursor: pointer; }
+                .hdr-search-m-go { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 48px; min-height: 48px; background: var(--btn); color: #fff; border: none; border-radius: 2px; cursor: pointer; }
                 .hdr-search-m-go i { font-size: 20px; }
-                .hdr-search-m-go:hover { background: var(--c700); }
+                .hdr-search-m-go:hover { background: var(--btn-hover); }
                 .hdr-search-m-go:focus-visible { outline: 2px solid var(--g700); outline-offset: 2px; }
                 .hdr-search-m i { font-size: 18px; color: var(--subtle); }
                 .hdr-search-m input { flex: 1 1 auto; min-width: 0; border: none; background: none; outline: none; font-family: var(--sans); font-size: 15px; color: var(--ink2); min-height: 46px; }
-                .hdr-account-m { display: inline-flex !important; align-items: center; justify-content: center; gap: 9px; width: 100%; min-height: 50px; background: var(--c600); color: #fff; border: none; border-radius: 2px; font-family: var(--sans); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; }
+                .hdr-account-m { display: inline-flex !important; align-items: center; justify-content: center; gap: 9px; width: 100%; min-height: 50px; background: var(--btn); color: #fff; border: none; border-radius: 2px; font-family: var(--sans); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; }
                 .hdr-account-m i { font-size: 18px; }
                 [data-comment="header-cart-wrap"], .hdr-cart { margin-left: 0 !important; margin-right: 8px !important; }
 
@@ -956,7 +973,7 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
 
 /* ─── Header ─── */
 .wtc-head { display: flex; align-items: center; gap: 12px; padding: 20px 26px; border-bottom: 1px solid var(--line-soft); flex-shrink: 0; }
-.wtc-title { font-family: var(--display); font-weight: 600; font-size: 27px; line-height: 1.1; color: var(--ink); }
+.wtc-title { font-family: var(--display); font-weight: 400; font-size: 27px; line-height: 1.1; color: var(--ink); }
 .wtc-count { font-size: 13px; font-weight: 600; color: var(--muted); padding-top: 5px; }
 .wtc-close { margin-left: auto; width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; background: none; border: 1px solid transparent; border-radius: 2px; color: var(--muted); font-size: 21px; cursor: pointer; transition: background 0.15s ease, color 0.15s ease; }
 .wtc-close:hover { background: var(--paper1); color: var(--ink); }
@@ -1006,8 +1023,8 @@ a.wtc-item-name:hover { color: var(--g700); }
 .wtc-suggest-main { flex: 1 1 auto; min-width: 0; }
 .wtc-suggest-name { font-weight: 700; font-size: 13.5px; color: var(--ink); line-height: 1.3; }
 .wtc-suggest-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
-.wtc-suggest-add { flex-shrink: 0; white-space: nowrap; font-family: var(--sans); font-weight: 700; font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: #ffffff; background: var(--c600); border: 1.5px solid var(--c600); border-radius: 2px; padding: 9px 14px; cursor: pointer; transition: background 0.15s ease; }
-.wtc-suggest-add:hover { background: var(--c700); border-color: var(--c700); }
+.wtc-suggest-add { flex-shrink: 0; white-space: nowrap; font-family: var(--sans); font-weight: 700; font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: #ffffff; background: var(--btn); border: 1.5px solid var(--btn); border-radius: 2px; padding: 9px 14px; cursor: pointer; transition: background 0.15s ease; }
+.wtc-suggest-add:hover { background: var(--btn-hover); border-color: var(--btn-hover); }
 .wtc-suggest-add:focus-visible { outline: 2px solid var(--g700); outline-offset: 2px; }
 .wtc-suggest-add.added { background: var(--g700); border-color: var(--g700); cursor: default; }
 
@@ -1019,34 +1036,34 @@ a.wtc-item-name:hover { color: var(--g700); }
 .wtc-row.total { font-size: 20px; font-weight: 700; color: var(--ink); margin-top: 8px; }
 .wtc-row.total .wtc-row-label { color: var(--ink); }
 .wtc-note { font-size: 12px; color: var(--subtle); margin-top: 8px; }
-.wtc-checkout { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; white-space: nowrap; margin-top: 14px; font-family: var(--sans); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #ffffff; background: var(--c600); border: none; border-radius: 2px; padding: 17px 24px; cursor: pointer; text-decoration: none; transition: background 0.15s ease; }
-.wtc-checkout:hover { background: var(--c700); }
+.wtc-checkout { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; white-space: nowrap; margin-top: 14px; font-family: var(--sans); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #ffffff; background: var(--btn); border: none; border-radius: 2px; padding: 17px 24px; cursor: pointer; text-decoration: none; transition: background 0.15s ease; }
+.wtc-checkout:hover { background: var(--btn-hover); }
 .wtc-checkout:focus-visible { outline: 2px solid var(--g700); outline-offset: 2px; }
 .wtc-continue { display: flex; align-items: center; justify-content: center; width: 100%; white-space: nowrap; margin-top: 10px; font-family: var(--sans); font-weight: 700; font-size: 12px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--accent-deep); background: transparent; border: 1.5px solid var(--accent-deep); border-radius: 2px; padding: 13px 24px; cursor: pointer; text-decoration: none; transition: background 0.15s ease, color 0.15s ease; }
-.wtc-continue:hover { background: var(--c050); }
+.wtc-continue:hover { background: var(--e050); }
 .wtc-continue:focus-visible { outline: 2px solid var(--g700); outline-offset: 2px; }
 
 /* ─── Empty state (vertically centered in the drawer body) ─── */
 .wtc-body.is-empty { display: flex; align-items: center; justify-content: center; }
 .wtc-empty { text-align: center; padding: 24px 26px; }
 .wtc-empty > i { font-size: 52px; color: var(--g300); }
-.wtc-empty-title { font-family: var(--display); font-weight: 600; font-size: 27px; color: var(--ink); margin-top: 16px; }
+.wtc-empty-title { font-family: var(--display); font-weight: 400; font-size: 27px; color: var(--ink); margin-top: 16px; }
 .wtc-empty-text { font-size: 14.5px; line-height: 1.6; color: var(--muted); margin: 8px auto 0; max-width: 34ch; }
-.wtc-empty-cta { display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; margin-top: 24px; font-family: var(--sans); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #ffffff; background: var(--c600); border: none; border-radius: 2px; padding: 15px 26px; cursor: pointer; text-decoration: none; transition: background 0.15s ease; }
-.wtc-empty-cta:hover { background: var(--c700); }
+.wtc-empty-cta { display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; margin-top: 24px; font-family: var(--sans); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #ffffff; background: var(--btn); border: none; border-radius: 2px; padding: 15px 26px; cursor: pointer; text-decoration: none; transition: background 0.15s ease; }
+.wtc-empty-cta:hover { background: var(--btn-hover); }
 
 /* ─── Floating discount nudge (shopping pages only; shown when the cart has
       items and is still below the $500 threshold — see wt-cart-drawer.js) ─── */
-.wtc-float { position: fixed; top: 82px; right: var(--page-x); z-index: 1000; display: flex; align-items: center; gap: 9px; max-width: min(300px, calc(100vw - 40px)); padding: 7px 12px 7px 7px; background: #fffdf8; border: 1px solid var(--c200, #edc9c0); border-radius: 2px; box-shadow: 0 10px 28px rgba(21, 20, 15, 0.15); font-family: var(--sans); cursor: pointer; text-align: left; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: opacity 0.26s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.26s ease; }
+.wtc-float { position: fixed; top: 82px; right: var(--page-x); z-index: 1000; display: flex; align-items: center; gap: 9px; max-width: min(300px, calc(100vw - 40px)); padding: 7px 12px 7px 7px; background: #fffdf8; border: 1px solid var(--e200, #d3baa1); border-radius: 2px; box-shadow: 0 10px 28px rgba(21, 20, 15, 0.15); font-family: var(--sans); cursor: pointer; text-align: left; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: opacity 0.26s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.26s ease; }
 .wtc-float.show { opacity: 1; visibility: visible; transform: none; }
 .wtc-float:hover { box-shadow: 0 14px 34px rgba(21, 20, 15, 0.2); }
 .wtc-float:focus-visible { outline: 2px solid var(--g700); outline-offset: 3px; }
-.wtc-float-ic { flex: none; width: 26px; height: 26px; border-radius: 2px; display: inline-flex; align-items: center; justify-content: center; background: var(--c050, #fbeeea); color: var(--c600); font-size: 15px; }
+.wtc-float-ic { flex: none; width: 26px; height: 26px; border-radius: 2px; display: inline-flex; align-items: center; justify-content: center; background: var(--e050, #f7f0e8); color: var(--btn); font-size: 15px; }
 .wtc-float-body { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .wtc-float-txt { font-size: 12px; line-height: 1.3; color: var(--ink2); white-space: nowrap; }
-.wtc-float-txt b { color: var(--c700); font-weight: 800; }
+.wtc-float-txt b { color: var(--btn-hover); font-weight: 800; }
 .wtc-float-track { height: 3px; border-radius: 999px; background: var(--paper2); overflow: hidden; }
-.wtc-float-fill { display: block; height: 100%; width: 0; border-radius: 999px; background: var(--c500); transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+.wtc-float-fill { display: block; height: 100%; width: 0; border-radius: 999px; background: var(--e500); transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
 /* Hide the floating nudge whenever navigation is open so it never overlaps the
    menu — mobile overlay sets body.nav-menu-open; the desktop mega-menu marks the
    open trigger .nav-item.open (no body class), caught here with :has(). */
@@ -1068,8 +1085,8 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
             <!-- NAV -->
             <header data-comment="header-root" style="background:#FFFFFF; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:20;">
                 <div data-comment="header-inner" class="wt-container wt-container--full" style="margin: 0; padding: 16px var(--page-x); display: flex; align-items: center; justify-content: flex-end; padding-top: 20px; padding-bottom: 20px">
-                    <a data-comment="header-logo-link" href="home.html" style="position:absolute; left:var(--page-x); top:11px; z-index:40; display:block;"><img data-comment="header-logo" src="assets/whiffletree-logo.png" alt="Whiffletree Farm &amp; Nursery" style="height: 75px; width: 239px; display:block;"></a>
-                    <nav data-comment="header-nav" style="display: flex; align-items: center; gap: 28px; font-family: var(--sans); font-weight: 600; font-size: 15px; color: var(--muted); align-self: flex-end">
+                    <a data-comment="header-logo-link" href="home.html" style="position:absolute; left:var(--page-x); top:11px; z-index:40; display:block;"><img data-comment="header-logo" src="assets/whiffletree-logo.svg" alt="Whiffletree Farm &amp; Nursery" style="height: 75px; width: 239px; display:block;"></a>
+                    <nav data-comment="header-nav" style="display: flex; align-items: center; gap: 28px; font-family: var(--sans); font-weight: 400; font-size: 15px; color: var(--muted); align-self: flex-end">
 
                         <!-- SHOP ALL — mega panel -->
                         <div class="nav-item" data-nav-item>
@@ -1156,7 +1173,7 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
 
                         <!-- INFO -->
                         <div class="nav-item" data-nav-item>
-                            <button class="nav-trigger" data-comment="header-nav-link-info" data-nav-trigger="info" aria-expanded="false" aria-controls="nav-panel-info" aria-haspopup="true">Info <svg class="nav-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+                            <button class="nav-trigger nav-current" data-comment="header-nav-link-info" data-nav-trigger="info" aria-expanded="false" aria-controls="nav-panel-info" aria-haspopup="true">Info <svg class="nav-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
                             <div class="nav-panel" id="nav-panel-info" data-comment="nav-panel-info" role="region" aria-label="Information">
                                 <div class="np-inner">
                                     <div class="np-grid np-grid--2">
@@ -1254,7 +1271,7 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                         </div>
 
                         <h2 class="oc-h2" id="tc-agreement" data-comment="terms-h2-agreement-to-terms">Agreement to Terms</h2>
-                        <p class="oc-p">These Terms of Use constitute a legally binding agreement made between you, whether personally or on behalf of an entity (&ldquo;you&rdquo;) and Whiffletree Farm &amp; Nursery Inc. (&ldquo;Company&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;), concerning your access to and use of the whiffletreefarmandnursery.ca website as well as any other media form, media channel, mobile website or mobile application related, linked, or otherwise connected thereto (collectively, the &ldquo;Site&rdquo;). You agree that by accessing the Site, you have read, understood, and agreed to be bound by all of these Terms of Use. IF YOU DO NOT AGREE WITH ALL OF THESE TERMS OF USE, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SITE AND YOU MUST DISCONTINUE USE IMMEDIATELY.</p>
+                        <p class="oc-p">These Terms of Use constitute a legally binding agreement made between you, whether personally or on behalf of an entity (&ldquo;you&rdquo;) and Whiffletree Farm &amp; Nursery Inc. (&ldquo;Company&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;), concerning your access to and use of the whiffletreefarmandnursery.ca website as well as any other media form, media channel, mobile website or mobile application related, linked, or otherwise connected thereto (collectively, the &ldquo;Site&rdquo;). You agree that by accessing the Site, you have read, understood, and agreed to be bound by all of these Terms of Use. If you do not agree with all of these Terms of Use, then you are expressly prohibited from using the Site and you must discontinue use immediately.</p>
                         <p class="oc-p">Supplemental terms and conditions or documents that may be posted on the Site from time to time are hereby expressly incorporated herein by reference. We reserve the right, in our sole discretion, to make changes or modifications to these Terms of Use at any time and for any reason. We will alert you about any changes by updating the &ldquo;Last updated&rdquo; date of these Terms of Use, and you waive any right to receive specific notice of each such change. It is your responsibility to periodically review these Terms of Use to stay informed of updates. You will be subject to, and will be deemed to have been made aware of and to have accepted, the changes in any revised Terms of Use by your continued use of the Site after the date such revised Terms of Use are posted.</p>
                         <p class="oc-p">The information provided on the Site is not intended for distribution to or use by any person or entity in any jurisdiction or country where such distribution or use would be contrary to law or regulation or which would subject us to any registration requirement within such jurisdiction or country. Accordingly, those persons who choose to access the Site from other locations do so on their own initiative and are solely responsible for compliance with local laws, if and to the extent local laws are applicable.</p>
                         <p class="oc-p">The Site is intended for users who are at least 18 years old. Persons under the age of 18 are not permitted to use or register for the Site.</p>
@@ -1346,7 +1363,7 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                         <p class="oc-p">We reserve the right, but not the obligation, to: (1) monitor the Site for violations of these Terms of Use; (2) take appropriate legal action against anyone who, in our sole discretion, violates the law or these Terms of Use, including without limitation, reporting such user to law enforcement authorities; (3) in our sole discretion and without limitation, refuse, restrict access to, limit the availability of, or disable (to the extent technologically feasible) any of your Contributions or any portion thereof; (4) in our sole discretion and without limitation, notice, or liability, to remove from the Site or otherwise disable all files and content that are excessive in size or are in any way burdensome to our systems; and (5) otherwise manage the Site in a manner designed to protect our rights and property and to facilitate the proper functioning of the Site and the Marketplace Offerings.</p>
 
                         <h2 class="oc-h2" id="tc-termination" data-comment="terms-h2-term-and-termination">Term &amp; Termination</h2>
-                        <p class="oc-p">These Terms of Use shall remain in full force and effect while you use the Site. WITHOUT LIMITING ANY OTHER PROVISION OF THESE TERMS OF USE, WE RESERVE THE RIGHT TO, IN OUR SOLE DISCRETION AND WITHOUT NOTICE OR LIABILITY, DENY ACCESS TO AND USE OF THE SITE AND THE MARKETPLACE OFFERINGS (INCLUDING BLOCKING CERTAIN IP ADDRESSES), TO ANY PERSON FOR ANY REASON OR FOR NO REASON, INCLUDING WITHOUT LIMITATION FOR BREACH OF ANY REPRESENTATION, WARRANTY, OR COVENANT CONTAINED IN THESE TERMS OF USE OR OF ANY APPLICABLE LAW OR REGULATION. WE MAY TERMINATE YOUR USE OR PARTICIPATION IN THE SITE AND THE MARKETPLACE OFFERINGS OR DELETE YOUR ACCOUNT AND ANY CONTENT OR INFORMATION THAT YOU POSTED AT ANY TIME, WITHOUT WARNING, IN OUR SOLE DISCRETION.</p>
+                        <p class="oc-p">These Terms of Use shall remain in full force and effect while you use the Site. Without limiting any other provision of these Terms of Use, we reserve the right to, in our sole discretion and without notice or liability, deny access to and use of the Site and the Marketplace Offerings (including blocking certain IP addresses), to any person for any reason or for no reason, including without limitation for breach of any representation, warranty, or covenant contained in these Terms of Use or of any applicable law or regulation. We may terminate your use or participation in the Site and the Marketplace Offerings or delete your account and any content or information that you posted at any time, without warning, in our sole discretion.</p>
                         <p class="oc-p">If we terminate or suspend your account for any reason, you are prohibited from registering and creating a new account under your name, a fake or borrowed name, or the name of any third party, even if you may be acting on behalf of the third party. In addition to terminating or suspending your account, we reserve the right to take appropriate legal action, including without limitation pursuing civil, criminal, and injunctive redress.</p>
 
                         <h2 class="oc-h2" id="tc-modifications" data-comment="terms-h2-modifications-and-interruptions">Modifications &amp; Interruptions</h2>
@@ -1370,10 +1387,10 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                         <p class="oc-p">There may be information on the Site that contains typographical errors, inaccuracies, or omissions that may relate to the Marketplace Offerings, including descriptions, pricing, availability, and various other information. We reserve the right to correct any errors, inaccuracies, or omissions and to change or update the information on the Site at any time, without prior notice.</p>
 
                         <h2 class="oc-h2" id="tc-disclaimer" data-comment="terms-h2-disclaimer">Disclaimer</h2>
-                        <p class="oc-p">THE SITE IS PROVIDED ON AN AS-IS AND AS-AVAILABLE BASIS. YOU AGREE THAT YOUR USE OF THE SITE SERVICES WILL BE AT YOUR SOLE RISK. TO THE FULLEST EXTENT PERMITTED BY LAW, WE DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED, IN CONNECTION WITH THE SITE AND YOUR USE THEREOF, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. WE MAKE NO WARRANTIES OR REPRESENTATIONS ABOUT THE ACCURACY OR COMPLETENESS OF THE SITE&rsquo;S CONTENT OR THE CONTENT OF ANY WEBSITES LINKED TO THIS SITE AND WE WILL ASSUME NO LIABILITY OR RESPONSIBILITY FOR ANY (1) ERRORS, MISTAKES, OR INACCURACIES OF CONTENT AND MATERIALS, (2) PERSONAL INJURY OR PROPERTY DAMAGE, OF ANY NATURE WHATSOEVER, RESULTING FROM YOUR ACCESS TO AND USE OF THE SITE, (3) ANY UNAUTHORIZED ACCESS TO OR USE OF OUR SECURE SERVERS AND/OR ANY AND ALL PERSONAL INFORMATION AND/OR FINANCIAL INFORMATION STORED THEREIN, (4) ANY INTERRUPTION OR CESSATION OF TRANSMISSION TO OR FROM THE SITE, (5) ANY BUGS, VIRUSES, TROJAN HORSES, OR THE LIKE WHICH MAY BE TRANSMITTED TO OR THROUGH THE SITE BY ANY THIRD PARTY, AND/OR (6) ANY ERRORS OR OMISSIONS IN ANY CONTENT AND MATERIALS OR FOR ANY LOSS OR DAMAGE OF ANY KIND INCURRED AS A RESULT OF THE USE OF ANY CONTENT POSTED, TRANSMITTED, OR OTHERWISE MADE AVAILABLE VIA THE SITE. WE DO NOT WARRANT, ENDORSE, GUARANTEE, OR ASSUME RESPONSIBILITY FOR ANY PRODUCT OR SERVICE ADVERTISED OR OFFERED BY A THIRD PARTY THROUGH THE SITE, ANY HYPERLINKED WEBSITE, OR ANY WEBSITE OR MOBILE APPLICATION FEATURED IN ANY BANNER OR OTHER ADVERTISING, AND WE WILL NOT BE A PARTY TO OR IN ANY WAY BE RESPONSIBLE FOR MONITORING ANY TRANSACTION BETWEEN YOU AND ANY THIRD-PARTY PROVIDERS OF PRODUCTS OR SERVICES. AS WITH THE PURCHASE OF A PRODUCT OR SERVICE THROUGH ANY MEDIUM OR IN ANY ENVIRONMENT, YOU SHOULD USE YOUR BEST JUDGMENT AND EXERCISE CAUTION WHERE APPROPRIATE.</p>
+                        <p class="oc-p">The Site is provided on an as-is and as-available basis. You agree that your use of the Site Services will be at your sole risk. To the fullest extent permitted by law, we disclaim all warranties, express or implied, in connection with the Site and your use thereof, including, without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement. We make no warranties or representations about the accuracy or completeness of the Site&rsquo;s content or the content of any websites linked to this Site, and we will assume no liability or responsibility for any (1) errors, mistakes, or inaccuracies of content and materials, (2) personal injury or property damage, of any nature whatsoever, resulting from your access to and use of the Site, (3) any unauthorized access to or use of our secure servers and/or any and all personal information and/or financial information stored therein, (4) any interruption or cessation of transmission to or from the Site, (5) any bugs, viruses, Trojan horses, or the like which may be transmitted to or through the Site by any third party, and/or (6) any errors or omissions in any content and materials or for any loss or damage of any kind incurred as a result of the use of any content posted, transmitted, or otherwise made available via the Site. We do not warrant, endorse, guarantee, or assume responsibility for any product or service advertised or offered by a third party through the Site, any hyperlinked website, or any website or mobile application featured in any banner or other advertising, and we will not be a party to or in any way be responsible for monitoring any transaction between you and any third-party providers of products or services. As with the purchase of a product or service through any medium or in any environment, you should use your best judgment and exercise caution where appropriate.</p>
 
                         <h2 class="oc-h2" id="tc-liability" data-comment="terms-h2-limitations-of-liability">Limitations of Liability</h2>
-                        <p class="oc-p">IN NO EVENT WILL WE OR OUR DIRECTORS, EMPLOYEES, OR AGENTS BE LIABLE TO YOU OR ANY THIRD PARTY FOR ANY DIRECT, INDIRECT, CONSEQUENTIAL, EXEMPLARY, INCIDENTAL, SPECIAL, OR PUNITIVE DAMAGES, INCLUDING LOST PROFIT, LOST REVENUE, LOSS OF DATA, OR OTHER DAMAGES ARISING FROM YOUR USE OF THE SITE, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. NOTWITHSTANDING ANYTHING TO THE CONTRARY CONTAINED HEREIN, OUR LIABILITY TO YOU FOR ANY CAUSE WHATSOEVER AND REGARDLESS OF THE FORM OF THE ACTION, WILL AT ALL TIMES BE LIMITED TO THE AMOUNT PAID, IF ANY, BY YOU TO US DURING THE ONE (1) MONTH PERIOD PRIOR TO ANY CAUSE OF ACTION ARISING. CERTAIN US STATE LAWS AND INTERNATIONAL LAWS DO NOT ALLOW LIMITATIONS ON IMPLIED WARRANTIES OR THE EXCLUSION OR LIMITATION OF CERTAIN DAMAGES. IF THESE LAWS APPLY TO YOU, SOME OR ALL OF THE ABOVE DISCLAIMERS OR LIMITATIONS MAY NOT APPLY TO YOU, AND YOU MAY HAVE ADDITIONAL RIGHTS.</p>
+                        <p class="oc-p">In no event will we or our directors, employees, or agents be liable to you or any third party for any direct, indirect, consequential, exemplary, incidental, special, or punitive damages, including lost profit, lost revenue, loss of data, or other damages arising from your use of the Site, even if we have been advised of the possibility of such damages. Notwithstanding anything to the contrary contained herein, our liability to you for any cause whatsoever and regardless of the form of the action, will at all times be limited to the amount paid, if any, by you to us during the one (1) month period prior to any cause of action arising. Certain US state laws and international laws do not allow limitations on implied warranties or the exclusion or limitation of certain damages. If these laws apply to you, some or all of the above disclaimers or limitations may not apply to you, and you may have additional rights.</p>
 
                         <h2 class="oc-h2" id="tc-indemnification" data-comment="terms-h2-indemnification">Indemnification</h2>
                         <p class="oc-p">You agree to defend, indemnify, and hold us harmless, including our subsidiaries, affiliates, and all of our respective officers, agents, partners, and employees, from and against any loss, damage, liability, claim, or demand, including reasonable attorneys&rsquo; fees and expenses, made by any third party due to or arising out of: (1) use of the Site; (2) breach of these Terms of Use; (3) any breach of your representations and warranties set forth in these Terms of Use; (4) your violation of the rights of a third party, including but not limited to intellectual property rights; or (5) any overt harmful act toward any other user of the Site with whom you connected via the Site. Notwithstanding the foregoing, we reserve the right, at your expense, to assume the exclusive defense and control of any matter for which you are required to indemnify us, and you agree to cooperate, at your expense, with our defense of such claims. We will use reasonable efforts to notify you of any such claim, action, or proceeding which is subject to this indemnification upon becoming aware of it.</p>
@@ -1382,7 +1399,7 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                         <p class="oc-p">We will maintain certain data that you transmit to the Site for the purpose of managing the performance of the Site, as well as data relating to your use of the Site. Although we perform regular routine backups of data, you are solely responsible for all data that you transmit or that relates to any activity you have undertaken using the Site. You agree that we shall have no liability to you for any loss or corruption of any such data, and you hereby waive any right of action against us arising from any such loss or corruption of such data.</p>
 
                         <h2 class="oc-h2" id="tc-electronic" data-comment="terms-h2-electronic-communications">Electronic Communications, Transactions, and Signatures</h2>
-                        <p class="oc-p">Visiting the Site, sending us emails, and completing online forms constitute electronic communications. You consent to receive electronic communications, and you agree that all agreements, notices, disclosures, and other communications we provide to you electronically, via email and on the Site, satisfy any legal requirement that such communication be in writing. YOU HEREBY AGREE TO THE USE OF ELECTRONIC SIGNATURES, CONTRACTS, ORDERS, AND OTHER RECORDS, AND TO ELECTRONIC DELIVERY OF NOTICES, POLICIES, AND RECORDS OF TRANSACTIONS INITIATED OR COMPLETED BY US OR VIA THE SITE. You hereby waive any rights or requirements under any statutes, regulations, rules, ordinances, or other laws in any jurisdiction which require an original signature or delivery or retention of non-electronic records, or to payments or the granting of credits by any means other than electronic means.</p>
+                        <p class="oc-p">Visiting the Site, sending us emails, and completing online forms constitute electronic communications. You consent to receive electronic communications, and you agree that all agreements, notices, disclosures, and other communications we provide to you electronically, via email and on the Site, satisfy any legal requirement that such communication be in writing. You hereby agree to the use of electronic signatures, contracts, orders, and other records, and to electronic delivery of notices, policies, and records of transactions initiated or completed by us or via the Site. You hereby waive any rights or requirements under any statutes, regulations, rules, ordinances, or other laws in any jurisdiction which require an original signature or delivery or retention of non-electronic records, or to payments or the granting of credits by any means other than electronic means.</p>
 
                         <h2 class="oc-h2" id="tc-misc" data-comment="terms-h2-miscellaneous">Miscellaneous</h2>
                         <p class="oc-p">These Terms of Use and any policies or operating rules posted by us on the Site or in respect to the Site constitute the entire agreement and understanding between you and us. Our failure to exercise or enforce any right or provision of these Terms of Use shall not operate as a waiver of such right or provision. These Terms of Use operate to the fullest extent permissible by law. We may assign any or all of our rights and obligations to others at any time. We shall not be responsible or liable for any loss, damage, delay, or failure to act caused by any cause beyond our reasonable control. If any provision or part of a provision of these Terms of Use is determined to be unlawful, void, or unenforceable, that provision or part of the provision is deemed severable from these Terms of Use and does not affect the validity and enforceability of any remaining provisions. There is no joint venture, partnership, employment or agency relationship created between you and us as a result of these Terms of Use or use of the Site. You agree that these Terms of Use will not be construed against us by virtue of having drafted them. You hereby waive any and all defenses you may have based on the electronic form of these Terms of Use and the lack of signing by the parties hereto to execute these Terms of Use.</p>
@@ -1400,18 +1417,18 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
             </main>
 
             <!-- FAQ / CONTACT CTA -->
-            <section id="contact" data-comment="contact-section" style="position:relative; overflow:hidden; background:#0e4c23;">
+            <section id="contact" data-comment="contact-section" style="position:relative; overflow:hidden; background:var(--g700);">
                 <!-- background photo (section has solid --g800 as fallback) -->
                 <div data-comment="contact-bg-image" style="position: absolute; inset: 0; overflow: visible; background: url('assets/cta-blossom.png') center / cover no-repeat"></div>
                 <!-- darkening layer for text legibility -->
                 <div data-comment="contact-bg-overlay" style="position:absolute; inset:0; background:radial-gradient(ellipse 70% 80% at center, rgba(0,0,0,0.48) 0%, rgba(0,0,0,0.30) 70%);"></div>
                 <div data-comment="contact-content" class="wt-container wt-container--narrow wt-section" style="position:relative; text-align:center;">
                     <div data-comment="contact-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:#EAD7B4;">We’re here to help</div>
-                    <h2 data-comment="contact-heading" style="font-family:var(--display); font-weight:500; font-size:var(--fs-cta); line-height:1.08; color:#FFFFFF; margin:18px 0 0; text-wrap:balance;">Questions? Read our FAQ or get in touch.</h2>
+                    <h2 data-comment="contact-heading" style="font-family:var(--display); font-weight: 400; font-size:var(--fs-cta); line-height:1.08; color:#FFFFFF; margin:18px 0 0; text-wrap:balance;">Questions? Read our FAQ or get in touch.</h2>
                     <p data-comment="contact-text" style="font-family:var(--sans); font-weight:400; font-size:18px; line-height:1.7; color:rgba(255,255,255,0.88); margin:20px auto 0; max-width:50ch;">New to fruit trees? We’re here to help, and we’ll do our best to answer your questions. Call us at <a data-comment="contact-phone-link" href="tel:5196691349" style="color:#FFFFFF; font-weight:700; text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.5);">519.669.1349</a> · Elora, Ontario.</p>
                     <div data-comment="contact-cta-group" style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-top:34px;">
-                        <a data-comment="contact-cta-faq" href="product-faq.html" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent-deep); background:#FFFFFF; border-radius:4px; padding:16px 32px; text-decoration:none;">Read the FAQ</a>
-                        <a data-comment="contact-cta-contact" href="contact.html" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#FFFFFF; border:1.5px solid rgba(255,255,255,0.65); border-radius:4px; padding:14.5px 30px; text-decoration:none;">Contact us</a>
+                        <a data-comment="contact-cta-faq" href="product-faq.html" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent-deep); background:#FFFFFF; border-radius:2px; padding:16px 32px; text-decoration:none;">Read the FAQ</a>
+                        <a data-comment="contact-cta-contact" href="contact.html" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#FFFFFF; border:1.5px solid rgba(255,255,255,0.65); border-radius:2px; padding:14.5px 30px; text-decoration:none;">Contact us</a>
                     </div>
                 </div>
             </section>
@@ -1421,12 +1438,12 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                 <div data-comment="newsletter-inner" class="wt-container" style="padding-top:72px; padding-bottom:72px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;">
                     <div data-comment="newsletter-text">
                         <div data-comment="newsletter-eyebrow" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent-deep);">Ready, set, grow!</div>
-                        <h2 data-comment="newsletter-heading" style="font-family:var(--display); font-weight:500; font-size:var(--fs-h3); line-height:1.08; color:var(--ink); margin:12px 0 0; max-width:18ch;">Join our mailing list</h2>
+                        <h2 data-comment="newsletter-heading" style="font-family:var(--display); font-weight: 400; font-size:var(--fs-h3); line-height:1.08; color:var(--ink); margin:12px 0 0; max-width:18ch;">Join our mailing list</h2>
                         <p data-comment="newsletter-subtext" style="font-family:var(--sans); font-size:16px; line-height:1.6; color:var(--muted); margin:14px 0 0; max-width:46ch;">Be first to know when the next crop is released, plus updates on events, workshops and sales from the farm.</p>
                     </div>
                     <form data-comment="newsletter-form" style="display:flex; gap:12px; flex-wrap:wrap;" onsubmit="return false;">
-                        <input data-comment="newsletter-input" placeholder="you@email.com" style="flex: 1; min-width: 220px; font-family: var(--sans); font-size: 15px; color: var(--ink); border: 1.5px solid var(--line); border-radius: 4px; padding: 15px 16px; outline: none; background-color: #fff">
-                        <button data-comment="newsletter-submit" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#fff; background:var(--c600); border:none; border-radius:4px; padding:15px 30px; cursor:pointer;">Subscribe</button>
+                        <input data-comment="newsletter-input" placeholder="you@email.com" style="flex: 1; min-width: 220px; font-family: var(--sans); font-size: 15px; color: var(--ink); border: 1.5px solid var(--line); border-radius: 2px; padding: 15px 16px; outline: none; background-color: #fff">
+                        <button data-comment="newsletter-submit" style="font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:#fff; background:var(--btn); border:none; border-radius:2px; padding:15px 30px; cursor:pointer;">Subscribe</button>
                     </form>
                 </div>
             </section>
@@ -1437,7 +1454,7 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                     <div data-comment="footer-columns" style="display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px;">
                         <div data-comment="footer-brand">
                             <div data-comment="footer-logo-wrap" style="display: inline-block; border-radius: 4px; padding: 14px 18px; padding-top: 8px; padding-bottom: 8px; padding-left: 8px; padding-right: 8px">
-                                <img data-comment="footer-logo" src="assets/whiffletree-logo.png" alt="Whiffletree Farm &amp; Nursery" style="height: 80px; width: 251px; display: block">
+                                <img data-comment="footer-logo" src="assets/whiffletree-logo.svg" alt="Whiffletree Farm &amp; Nursery" style="height: 80px; width: 251px; display: block">
                             </div>
                             <p data-comment="footer-brand-text" style="font-family:var(--sans); font-size:14px; line-height:1.6; color:var(--muted); margin:18px 0 0; max-width:34ch;">Cold-hardy, disease-resistant bare-root fruit trees &amp; fruiting shrubs grown in Elora, Ontario. Alive and true to name.</p>
                             <div data-comment="footer-social" style="display:flex; gap:16px; margin-top:18px; color:var(--g700);">

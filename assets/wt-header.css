@@ -16,6 +16,9 @@
 .icon-btn--ghost i { font-size:22px; }
 .icon-btn--ghost:hover { background:var(--paper1); border-color:transparent; }
 .icon-btn--ghost:active { background:var(--paper2); }
+/* Top-level nav links are regular weight; the current page's item stays
+   emphasised (bold + ink). Overrides the item's inline colour, hence !important. */
+[data-comment="header-nav"] .nav-current { font-weight: 600 !important; color: var(--ink) !important; }
 .hdr-search-m-row, .hdr-account-m { display: none; }
 [data-comment="header-cart-wrap"], .hdr-cart { margin-left: 16px; }
 @media (max-width: 900px) { /* mobile header */
