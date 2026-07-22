@@ -547,7 +547,7 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
             .acct-id { background: #fff; border: 1px solid var(--line); border-radius: 2px; padding: 22px 22px; display: flex; align-items: center; gap: 15px; }
             .acct-id img { width: 56px; height: 56px; border-radius: 50%; flex: none; background: var(--paper1); }
             .acct-id-name { font-family: var(--display); font-weight: 400; font-size: 23px; line-height: 1.1; color: var(--ink); }
-            .acct-badge { display: inline-block; margin-top: 6px; font-family: var(--sans); font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--btn-hover); background: var(--e050); border: 1px solid var(--e100); padding: 3px 10px; border-radius: 999px; }
+            .acct-badge { display: inline-block; margin-bottom: 7px; font-family: var(--sans); font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--btn-hover); background: var(--e050); border: 1px solid var(--e100); padding: 3px 10px; border-radius: 999px; }
 
             .acct-nav { background: #fff; border: 1px solid var(--line); border-radius: 4px; padding: 8px; display: flex; flex-direction: column; gap: 2px; }
             .acct-navlink { display: flex; align-items: center; gap: 12px; width: 100%; font-family: var(--sans); font-size: 15px; font-weight: 600; color: var(--ink2); background: none; border: 0; text-align: left; text-decoration: none; padding: 13px 14px; border-radius: 3px; cursor: pointer; }
@@ -600,39 +600,164 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
             .acct-addcard h2 { font-family: var(--display); font-weight: 400; font-size: 21px; color: var(--ink); margin-bottom: 16px; }
 
             /* ---- Orders ---- */
-            .acct-orders { border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+            .acct-orders { display: flex; flex-direction: column; gap: 14px; }
+            .acct-order-card { background: #fff; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
             .acct-otable { width: 100%; border-collapse: collapse; }
             .acct-otable th { font-family: var(--sans); font-weight: 700; font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--subtle); text-align: left; padding: 14px 18px; background: var(--paper0); border-bottom: 1px solid var(--line); }
             .acct-otable th.num, .acct-otable td.num { text-align: right; }
             .acct-orow-head { cursor: pointer; }
-            .acct-orow-head > td { padding: 18px 18px; border-bottom: 1px solid var(--line-soft); font-size: 14.5px; color: var(--ink2); }
+            .acct-orow-head > td { padding: 18px 18px; font-size: 14.5px; color: var(--ink2); }
             .acct-orow-head:hover > td { background: var(--paper0); }
-            .acct-order.open .acct-orow-head > td { background: var(--paper1); }
-            .acct-order:last-child .acct-orow-head > td { border-bottom: 0; }
+            .acct-orow-head.open > td { background: var(--paper1); }
             .acct-ono { font-weight: 800; color: var(--ink); }
             .acct-ototal { font-weight: 800; color: var(--ink); }
             .acct-ocaret { color: var(--subtle); font-size: 16px; transition: transform 200ms cubic-bezier(0.22,1,0.36,1); display: inline-block; }
-            .acct-order.open .acct-ocaret { transform: rotate(180deg); }
+            .acct-orow-head.open .acct-ocaret { transform: rotate(180deg); }
             .acct-status { display: inline-flex; align-items: center; gap: 6px; font-family: var(--sans); font-weight: 800; font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; }
             .acct-status.pending { color: var(--warning); background: #fbf1e2; }
             .acct-status.shipped { color: #2563a8; background: #e8f0fa; }
             .acct-status.delivered { color: var(--success); background: var(--g050); }
             .acct-orow-detail { display: none; }
-            .acct-order.open .acct-orow-detail { display: table-row; }
-            .acct-orow-detail > td { padding: 0 18px 22px; background: var(--paper1); border-bottom: 1px solid var(--line-soft); }
-            .acct-order:last-child .acct-orow-detail > td { border-bottom: 0; }
-            .acct-oship { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px 20px; background: #fff; border: 1px solid var(--line-soft); border-radius: 4px; padding: 16px 18px; margin: 6px 0 16px; }
-            .acct-oship dt { font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--subtle); margin-bottom: 3px; }
-            .acct-oship dd { font-size: 14px; font-weight: 600; color: var(--ink2); }
-            .acct-oitems { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--line-soft); border-radius: 4px; overflow: hidden; }
-            .acct-oitems th { font-size: 10.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--subtle); text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line-soft); }
+            .acct-orow-head.open + .acct-orow-detail { display: table-row; }
+            .acct-orow-detail > td { padding: 0 18px 22px; background: var(--paper1); }
+            .acct-oship { width: calc(100% + 36px); margin: 0 -18px 16px; border-collapse: collapse; }
+            .acct-oship th { text-align: left; padding: 12px 18px; background: var(--paper0); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--subtle); white-space: nowrap; }
+            .acct-oship td { padding: 13px 18px; font-size: 14px; font-weight: 600; color: var(--ink2); vertical-align: top; border-bottom: 1px solid var(--line); }
+            .acct-oitems-scroll { max-height: 400px; overflow-y: auto; overscroll-behavior: contain; background: #fff; border: 1px solid var(--line); border-radius: 4px; }
+            .acct-oitems { width: 100%; border-collapse: collapse; background: #fff; }
+            .acct-oitems th { position: sticky; top: 0; z-index: 2; font-size: 10.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--subtle); text-align: left; padding: 9px 14px; background: var(--paper0); border-bottom: 0; box-shadow: inset 0 -1px 0 var(--line); }
             .acct-oitems th.num, .acct-oitems td.num { text-align: right; }
-            .acct-oitems td { padding: 13px 14px; border-bottom: 1px solid var(--line-soft); font-size: 14px; }
-            .acct-oitems tr:last-child td { border-bottom: 0; }
+            .acct-oitems td { padding: 9px 14px; border-bottom: 1px solid var(--line-soft); font-size: 14px; }
+            .acct-oitems tbody tr:last-child td { border-bottom: 0; }
+            .acct-oitems-hcount { font-weight: 600; color: var(--subtle); }
             .acct-oitem-prod { display: flex; align-items: center; gap: 13px; }
-            .acct-oitem-thumb { width: 46px; height: 46px; border-radius: 3px; object-fit: cover; flex: none; background: var(--paper2); }
-            .acct-oitem-name { font-weight: 700; color: var(--ink); }
-            .acct-oitem-variant { font-size: 12.5px; color: var(--subtle); }
+            .acct-oitem-thumb { width: 38px; height: 38px; border-radius: 3px; object-fit: cover; flex: none; background: var(--paper2); }
+            .acct-oitem-name { font-weight: 700; color: var(--ink); line-height: 1.3; }
+            .acct-oitem-variant { font-size: 12.5px; color: var(--subtle); line-height: 1.3; }
+
+            /* ── Change pickup/ship date: entry button + result note ── */
+            .acct-datebar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin: 4px 0 16px; }
+            .acct-datebtn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--sans); font-weight: 700; font-size: 13px; color: var(--g700); background: #fff; border: 1px solid var(--line); border-radius: 3px; padding: 9px 14px; cursor: pointer; transition: border-color 150ms, background 150ms; }
+            .acct-datebtn:hover { border-color: var(--g700); background: var(--paper1); }
+            .acct-datebtn i { font-size: 16px; }
+            .acct-datemsg { display: none; font-family: var(--sans); font-size: 13px; font-weight: 600; }
+            .acct-datemsg.ok { display: inline-flex; align-items: center; gap: 7px; color: var(--success); }
+            .acct-datemsg.ok i { font-size: 16px; }
+
+            /* ── Scheduler popup ── */
+            .acct-sched { position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center; padding: 24px; }
+            .acct-sched[hidden] { display: none; }
+            .acct-sched-backdrop { position: absolute; inset: 0; background: rgba(21,20,15,0.5); }
+            .acct-sched-card { position: relative; width: 100%; max-width: 470px; max-height: 92vh; overflow-y: auto; background: #fff; border: 1px solid var(--line); border-radius: 6px; box-shadow: 0 30px 70px -30px rgba(21,20,15,0.5); padding: 20px 22px 22px; }
+            .acct-sched-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+            .acct-sched-head h3 { font-family: var(--display); font-weight: 400; font-size: 22px; color: var(--ink); }
+            .acct-sched-x { background: none; border: 0; color: var(--subtle); font-size: 22px; cursor: pointer; display: flex; padding: 4px; border-radius: 3px; }
+            .acct-sched-x:hover { color: var(--ink); background: var(--paper1); }
+            .acct-sched-note { font-family: var(--sans); font-size: 13px; font-weight: 600; margin: 12px 0 0; }
+            .acct-sched-note.err { color: var(--error); }
+            .acct-sched-actions { display: flex; justify-content: flex-end; gap: 10px; margin: 18px 0 0; }
+            .acct-sched-actions .wta-btn { padding: 11px 20px; font-size: 12px; white-space: nowrap; }
+            .acct-sched-actions .wta-btn[disabled] { opacity: 0.5; cursor: not-allowed; }
+
+            /* Calendar — reused verbatim from checkout .co-cal */
+            .co-cal { margin-top: 14px; border: 1px solid var(--line-soft); border-radius: 6px; padding: 14px; }
+            .co-cal-head { display: flex; align-items: center; justify-content: space-between; margin: 0 0 10px; }
+            .co-cal-month { font-family: var(--display); font-weight: 400; font-size: 16px; color: var(--ink); }
+            .co-cal-nav { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border: 1px solid var(--line); border-radius: 3px; background: #fff; color: var(--g700); cursor: pointer; }
+            .co-cal-nav:hover { background: var(--paper1); }
+            .co-cal-nav[disabled] { opacity: 0.35; cursor: not-allowed; }
+            .co-dow { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin: 0 0 4px; }
+            .co-dow span { text-align: center; font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--subtle); }
+            .co-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+            .co-day { position: relative; min-height: 38px; display: flex; align-items: center; justify-content: center; gap: 5px; border: 1px solid transparent; border-radius: 4px; background: var(--paper1); font-family: var(--sans); font-weight: 600; font-size: 13.5px; color: var(--ink2); cursor: pointer; transition: border-color 120ms, background 120ms; }
+            .co-day:hover:not([disabled]) { border-color: var(--g700); background: #fff; }
+            .co-day[disabled] { background: transparent; color: var(--subtle); cursor: not-allowed; text-decoration: line-through; }
+            .co-day.full { background: transparent; color: var(--subtle); text-decoration: line-through; cursor: pointer; }
+            .co-day.full:hover { border-color: var(--error); background: #fff; }
+            .co-day.empty { background: transparent; cursor: default; }
+            .co-day.sel { background: var(--g700); color: #fff; }
+            .co-day-dot { width: 5px; height: 5px; border-radius: 50%; background: #c9832b; flex: none; }
+            .co-day.sel .co-day-dot { background: #f0d3a8; }
+            .co-legend { display: flex; flex-wrap: wrap; gap: 16px; margin: 12px 0 0; font-family: var(--sans); font-size: 11px; color: var(--muted); }
+            .co-legend span { display: inline-flex; align-items: center; gap: 6px; }
+            .co-legend i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+            .co-slots { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
+            .co-slot { font-family: var(--sans); font-weight: 700; font-size: 12.5px; color: var(--g700); background: #fff; border: 1px solid var(--line); border-radius: 3px; padding: 8px 13px; cursor: pointer; }
+            .co-slot:hover { border-color: var(--g700); }
+            .co-slot.sel { background: var(--g700); color: #fff; border-color: var(--g700); }
+            .co-slot-label { flex-basis: 100%; font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 0 0 2px; }
+            .co-sched-picked { font-family: var(--sans); font-size: 13.5px; color: var(--g700); font-weight: 700; margin: 14px 0 0; display: none; }
+            .co-sched-picked.show { display: block; }
+            .co-sched-picked i { margin-right: 6px; }
+
+            /* Payment methods + fields + alerts — reused from checkout */
+            .co-pay-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 4px 0 16px; }
+            @media (max-width: 520px) { .co-pay-grid { grid-template-columns: 1fr; } }
+            .co-opt { position: relative; display: flex; gap: 12px; align-items: center; border: 1px solid var(--line); border-radius: 3px; padding: 16px; cursor: pointer; background: #fff; transition: border-color 150ms, background 150ms; }
+            .co-opt:hover { border-color: var(--subtle); }
+            .co-opt.sel { border-color: var(--g700); background: #f5f8f2; }
+            .co-opt input { position: absolute; opacity: 0; pointer-events: none; }
+            .co-opt-dot { position: absolute; top: 50%; transform: translateY(-50%); right: 15px; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--subtle); transition: border-color 150ms; }
+            .co-opt.sel .co-opt-dot { border-color: var(--g700); }
+            .co-opt.sel .co-opt-dot::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: var(--g700); }
+            .co-opt-t { display: block; font-family: var(--sans); font-weight: 700; font-size: 13.5px; color: var(--ink); }
+            .co-opt--pay { align-items: center; padding: 14px 40px 14px 16px; gap: 9px; }
+            .co-opt--pay .co-opt-glyph { flex: none; font-size: 19px; color: var(--g700); }
+            .co-opt--pay .co-opt-t { font-size: 13.5px; white-space: nowrap; }
+            .co-field { margin: 0 0 14px; }
+            .co-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+            @media (max-width: 520px) { .co-row { grid-template-columns: 1fr; } }
+            .co-label { display: block; font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
+            .co-input { width: 100%; font-family: var(--sans); font-size: 13.5px; color: var(--ink2); background: #fff; border: 1px solid var(--line); border-radius: 2px; padding: 10px 12px; outline: none; transition: border-color 150ms; }
+            .co-input:focus { border-color: var(--g700); }
+            .co-input::placeholder { color: var(--subtle); }
+            .co-check { display: flex; align-items: center; gap: 9px; font-family: var(--sans); font-size: 13.5px; color: var(--ink2); margin: 14px 0 0; cursor: pointer; }
+            .co-check input { width: 16px; height: 16px; accent-color: var(--g700); }
+            .co-alert { display: none; gap: 11px; align-items: flex-start; border-radius: 3px; padding: 14px 16px; margin: 14px 0 0; font-family: var(--sans); font-size: 13.5px; line-height: 1.5; }
+            .co-alert i { font-size: 18px; flex: none; margin-top: 1px; }
+            .co-alert-info { background: #eef4fb; color: #24507e; border: 1px solid #c9ddf1; }
+            .co-alert-body { flex: 1; min-width: 0; }
+            .co-alert-lead { margin: 0 0 10px; }
+
+            /* Open-order payment bar */
+            .acct-paybar { border: 1px solid var(--g200); background: var(--g050); border-radius: 4px; padding: 16px 18px; margin: 0 0 16px; }
+            .acct-paybar.is-cancelled { border-color: var(--line); background: var(--paper0); }
+            .acct-paybar-figs { display: flex; flex-wrap: wrap; gap: 16px 28px; }
+            .acct-paybar-figs > div { display: flex; flex-direction: column; gap: 3px; }
+            .acct-paybar-lbl { font-family: var(--sans); font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--subtle); }
+            .acct-paybar-val { font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--ink2); }
+            .acct-paybar-due .acct-paybar-val { color: var(--g800); }
+            .acct-paybar-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin: 16px 0 0; }
+            .acct-paybar-actions .wta-btn { padding: 11px 20px; font-size: 12px; }
+            .acct-cancel-link { background: none; border: 0; font-family: var(--sans); font-weight: 700; font-size: 13px; color: var(--subtle); cursor: pointer; padding: 4px; }
+            .acct-cancel-link:hover { color: var(--error); text-decoration: underline; }
+            .acct-paybar-note { font-family: var(--sans); font-size: 13px; font-weight: 600; margin: 12px 0 0; display: none; align-items: center; gap: 7px; }
+            .acct-paybar-note.show { display: flex; }
+            .acct-paybar-note.ok { color: var(--success); }
+            .acct-paybar-note.pending { color: var(--warning); }
+            .acct-paybar-note i { font-size: 16px; }
+
+            [data-acct-pay-modal] .acct-sched-card { max-width: 640px; }
+            .acct-pay-due { font-family: var(--sans); font-size: 14px; color: var(--ink2); margin: 12px 0 4px; }
+            .acct-pay-due b { font-size: 18px; color: var(--ink); }
+
+            /* Order status variants */
+            .acct-status.awaiting { color: var(--warning); background: #fbf1e2; }
+            .acct-status.paid { color: var(--success); background: var(--g050); }
+            .acct-status.cancelled { color: var(--subtle); background: var(--paper2); }
+
+            /* Store credit (Payment Methods) */
+            .acct-storecredit { display: flex; align-items: center; gap: 14px; background: var(--g050); border: 1px solid var(--g200); border-radius: 4px; padding: 16px 18px; margin: 0 0 6px; }
+            .acct-sc-ic { flex: none; width: 40px; height: 40px; border-radius: 50%; background: #fff; border: 1px solid var(--g200); color: var(--g700); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+            .acct-sc-amt { font-family: var(--display); font-weight: 400; font-size: 24px; color: var(--ink); line-height: 1.1; }
+            .acct-sc-note { font-family: var(--sans); font-size: 12.5px; color: var(--muted); margin-top: 3px; }
+
+            /* Confirm dialog + danger button */
+            .acct-confirm-card { max-width: 540px; }
+            .acct-confirm-card h3 { font-family: var(--display); font-weight: 400; font-size: 22px; color: var(--ink); margin: 0; }
+            .acct-confirm-card p { font-family: var(--sans); font-size: 14px; line-height: 1.5; color: var(--muted); margin: 12px 0 0; }
+            .wta-btn-danger { background: var(--error); color: #fff; border-color: var(--error); }
+            .wta-btn-danger:hover { background: #c21620; border-color: #c21620; }
 
             /* ---- Guest (signed-out) state ---- */
             .acct-guest { display: none; max-width: 460px; margin: 40px auto; background: #fff; border: 1px solid var(--line); border-radius: 4px; padding: 44px 40px; text-align: center; box-shadow: 0 24px 60px -34px rgba(21,20,15,0.24); }
@@ -740,7 +865,8 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
                 .acct-grid { grid-template-columns: 1fr; gap: 20px; }
                 .acct-side { position: static; }
                 .acct-panel { padding: 26px 20px 28px; }
-                .acct-oship { grid-template-columns: 1fr 1fr; }
+                .acct-oship th, .acct-oship td { padding-left: 14px; padding-right: 14px; }
+                .acct-oship th { white-space: normal; }
             }
             @media (max-width: 560px) {
                 .wta-fields { grid-template-columns: 1fr !important; }
@@ -1032,8 +1158,8 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                                 <div class="acct-id">
                                     <img data-acct-avatar src="" alt=""  data-comment="account-img-avatar"/>
                                     <div>
-                                        <div class="acct-id-name" data-acct-name>Whiffletree Member</div>
                                         <span class="acct-badge">Member</span>
+                                        <div class="acct-id-name" data-acct-name>Whiffletree Member</div>
                                     </div>
                                 </div>
                                 <div class="acct-nav" role="tablist" aria-label="Account sections">
@@ -1079,6 +1205,16 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                                         <p>Manage your saved payment cards</p>
                                     </div>
 
+                                    <div class="acct-pm-subhead" style="margin-top:0;">Store credit</div>
+                                    <div class="acct-storecredit">
+                                        <span class="acct-sc-ic" aria-hidden="true"><i class="ph ph-wallet"></i></span>
+                                        <div>
+                                            <div class="acct-sc-amt" data-acct-sc-amt>$0.00</div>
+                                            <div class="acct-sc-note">Applied automatically at checkout.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="acct-pm-subhead">Saved cards</div>
                                     <div class="acct-pm-label">
                                         <span>Default card: <strong data-acct-default>•••• 4242</strong></span>
                                         <span class="acct-pm-hint">Drag to reorder</span>
@@ -1139,149 +1275,230 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                                         <p>View and track your purchase history</p>
                                     </div>
 
-                                    <div class="acct-orders">
-                                        <table class="acct-otable">
-                                            <thead>
-                                                <tr>
-                                                    <th>Order #</th>
-                                                    <th class="hide-sm">Date</th>
-                                                    <th class="num hide-sm">Subtotal</th>
-                                                    <th class="num hide-sm">Tax</th>
-                                                    <th class="num">Total</th>
-                                                    <th>Status</th>
-                                                    <th aria-label="Expand"></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody data-acct-orders>
-                                                <!-- Order 1 -->
-                                                <tr class="acct-order open" data-acct-order>
-                                                    <td colspan="7" style="padding:0; border:0;">
-                                                        <table style="width:100%; border-collapse:collapse;">
-                                                            <tbody>
-                                                                <tr class="acct-orow-head" data-acct-order-toggle>
-                                                                    <td class="acct-ono">#WT-10428</td>
-                                                                    <td class="hide-sm">Apr 18, 2026</td>
-                                                                    <td class="num hide-sm">$248.00</td>
-                                                                    <td class="num hide-sm">$32.24</td>
-                                                                    <td class="num acct-ototal">$280.24</td>
-                                                                    <td><span class="acct-status pending"><i class="ph-fill ph-clock" aria-hidden="true"></i> Pending</span></td>
-                                                                    <td class="num"><i class="ph ph-caret-down acct-ocaret" aria-hidden="true"></i></td>
-                                                                </tr>
-                                                                <tr class="acct-orow-detail">
-                                                                    <td colspan="7">
-                                                                        <dl class="acct-oship">
-                                                                            <div><dt>Delivery</dt><dd>Pickup</dd></div>
-                                                                            <div><dt>Postal Code</dt><dd>P1L 1W8</dd></div>
-                                                                            <div><dt>Address</dt><dd>1436 Muskoka Rd 118 W</dd></div>
-                                                                            <div><dt>Ready Date</dt><dd>Apr 25, 2026</dd></div>
-                                                                        </dl>
-                                                                        <table class="acct-oitems">
-                                                                            <thead><tr><th>Product</th><th class="num">Price</th><th class="num">Qty</th><th class="num">Total</th></tr></thead>
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-apples.png" alt="" data-comment="account-img-img"><div><div class="acct-oitem-name">Honeycrisp Apple</div><div class="acct-oitem-variant">Semi-dwarf · Bare root</div></div></div></td>
-                                                                                    <td class="num">$62.00</td><td class="num">2</td><td class="num">$124.00</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-pears.png" alt="" data-comment="account-img-img-1"><div><div class="acct-oitem-name">Bartlett Pear</div><div class="acct-oitem-variant">Standard · Bare root</div></div></div></td>
-                                                                                    <td class="num">$58.00</td><td class="num">1</td><td class="num">$58.00</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-supplies.png" alt="" data-comment="account-img-img-2"><div><div class="acct-oitem-name">Tree Guard Kit</div><div class="acct-oitem-variant">Spiral · 5-pack</div></div></div></td>
-                                                                                    <td class="num">$33.00</td><td class="num">2</td><td class="num">$66.00</td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                                <!-- Order 2 -->
-                                                <tr class="acct-order" data-acct-order>
-                                                    <td colspan="7" style="padding:0; border:0;">
-                                                        <table style="width:100%; border-collapse:collapse;">
-                                                            <tbody>
-                                                                <tr class="acct-orow-head" data-acct-order-toggle>
-                                                                    <td class="acct-ono">#WT-10310</td>
-                                                                    <td class="hide-sm">Mar 2, 2026</td>
-                                                                    <td class="num hide-sm">$186.00</td>
-                                                                    <td class="num hide-sm">$24.18</td>
-                                                                    <td class="num acct-ototal">$210.18</td>
-                                                                    <td><span class="acct-status shipped"><i class="ph-fill ph-truck" aria-hidden="true"></i> Shipped</span></td>
-                                                                    <td class="num"><i class="ph ph-caret-down acct-ocaret" aria-hidden="true"></i></td>
-                                                                </tr>
-                                                                <tr class="acct-orow-detail">
-                                                                    <td colspan="7">
-                                                                        <dl class="acct-oship">
-                                                                            <div><dt>Delivery</dt><dd>Canada Post</dd></div>
-                                                                            <div><dt>Postal Code</dt><dd>P1L 1W8</dd></div>
-                                                                            <div><dt>Tracking</dt><dd>CP 4021 8830 1177</dd></div>
-                                                                            <div><dt>Shipped</dt><dd>Mar 5, 2026</dd></div>
-                                                                        </dl>
-                                                                        <table class="acct-oitems">
-                                                                            <thead><tr><th>Product</th><th class="num">Price</th><th class="num">Qty</th><th class="num">Total</th></tr></thead>
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-grapes.png" alt="" data-comment="account-img-img-3"><div><div class="acct-oitem-name">Somerset Seedless Grape</div><div class="acct-oitem-variant">Potted · 1 gal</div></div></div></td>
-                                                                                    <td class="num">$34.00</td><td class="num">3</td><td class="num">$102.00</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-shrubs.png" alt="" data-comment="account-img-img-4"><div><div class="acct-oitem-name">Tundra Haskap</div><div class="acct-oitem-variant">Potted · 2 gal</div></div></div></td>
-                                                                                    <td class="num">$42.00</td><td class="num">2</td><td class="num">$84.00</td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                                <!-- Order 3 -->
-                                                <tr class="acct-order" data-acct-order>
-                                                    <td colspan="7" style="padding:0; border:0;">
-                                                        <table style="width:100%; border-collapse:collapse;">
-                                                            <tbody>
-                                                                <tr class="acct-orow-head" data-acct-order-toggle>
-                                                                    <td class="acct-ono">#WT-10199</td>
-                                                                    <td class="hide-sm">Nov 12, 2025</td>
-                                                                    <td class="num hide-sm">$96.00</td>
-                                                                    <td class="num hide-sm">$12.48</td>
-                                                                    <td class="num acct-ototal">$108.48</td>
-                                                                    <td><span class="acct-status delivered"><i class="ph-fill ph-check-circle" aria-hidden="true"></i> Delivered</span></td>
-                                                                    <td class="num"><i class="ph ph-caret-down acct-ocaret" aria-hidden="true"></i></td>
-                                                                </tr>
-                                                                <tr class="acct-orow-detail">
-                                                                    <td colspan="7">
-                                                                        <dl class="acct-oship">
-                                                                            <div><dt>Delivery</dt><dd>Canada Post</dd></div>
-                                                                            <div><dt>Postal Code</dt><dd>P1L 1W8</dd></div>
-                                                                            <div><dt>Tracking</dt><dd>CP 3390 7712 0043</dd></div>
-                                                                            <div><dt>Delivered</dt><dd>Nov 18, 2025</dd></div>
-                                                                        </dl>
-                                                                        <table class="acct-oitems">
-                                                                            <thead><tr><th>Product</th><th class="num">Price</th><th class="num">Qty</th><th class="num">Total</th></tr></thead>
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/books.png" alt="" data-comment="account-img-img-5"><div><div class="acct-oitem-name">The Holistic Orchard</div><div class="acct-oitem-variant">Reference book</div></div></div></td>
-                                                                                    <td class="num">$48.00</td><td class="num">1</td><td class="num">$48.00</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-supplies.png" alt="" data-comment="account-img-img-6"><div><div class="acct-oitem-name">Dormant Oil Spray</div><div class="acct-oitem-variant">1 L concentrate</div></div></div></td>
-                                                                                    <td class="num">$24.00</td><td class="num">2</td><td class="num">$48.00</td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                    <div class="acct-orders" data-acct-orders>
+                                        <!-- Order 1 -->
+                                        <article class="acct-order-card">
+                                            <table class="acct-otable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Order #</th>
+                                                        <th class="hide-sm">Date</th>
+                                                        <th class="num hide-sm">Subtotal</th>
+                                                        <th class="num hide-sm">Tax</th>
+                                                        <th class="num">Total</th>
+                                                        <th>Status</th>
+                                                        <th aria-label="Expand"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="acct-orow-head open" data-acct-order-toggle>
+                                                        <td class="acct-ono">#WT-10428</td>
+                                                        <td class="hide-sm">Apr 18, 2026</td>
+                                                        <td class="num hide-sm">$1,757.00</td>
+                                                        <td class="num hide-sm">$228.41</td>
+                                                        <td class="num acct-ototal">$1,985.41</td>
+                                                        <td><span class="acct-status awaiting" data-acct-status><i class="ph-fill ph-wallet" aria-hidden="true"></i> Unpaid</span></td>
+                                                        <td class="num"><i class="ph ph-caret-down acct-ocaret" aria-hidden="true"></i></td>
+                                                    </tr>
+                                                    <tr class="acct-orow-detail">
+                                                        <td colspan="7">
+                                                            <table class="acct-oship">
+                                                                <thead><tr><th>Delivery</th><th>Postal Code</th><th>Address</th><th>Ready Date</th></tr></thead>
+                                                                <tbody><tr><td>Pickup</td><td>P1L 1W8</td><td>1436 Muskoka Rd 118 W</td><td data-acct-ready>Apr 25, 2026</td></tr></tbody>
+                                                            </table>
+                                                            <div class="acct-paybar" data-acct-paybar>
+                                                                <div class="acct-paybar-figs">
+                                                                    <div><span class="acct-paybar-lbl">Order total</span><span class="acct-paybar-val">$1,985.41</span></div>
+                                                                    <div><span class="acct-paybar-lbl">Deposit paid</span><span class="acct-paybar-val">$500.00</span></div>
+                                                                    <div class="acct-paybar-due"><span class="acct-paybar-lbl">Balance due</span><span class="acct-paybar-val" data-acct-balance>$1,485.41</span></div>
+                                                                    <div><span class="acct-paybar-lbl">Due by</span><span class="acct-paybar-val" data-acct-payby>—</span></div>
+                                                                </div>
+                                                                <div class="acct-paybar-actions" data-acct-paybar-actions>
+                                                                    <button type="button" class="wta-btn wta-btn-primary" data-acct-pay>Pay balance</button>
+                                                                    <button type="button" class="acct-cancel-link" data-acct-cancel>Cancel order</button>
+                                                                </div>
+                                                                <p class="acct-paybar-note" data-acct-paynote role="status" aria-live="polite"></p>
+                                                            </div>
+                                                            <div class="acct-datebar">
+                                                                <button type="button" class="acct-datebtn" data-acct-change-date="WT-10428"><i class="ph ph-calendar-dots" aria-hidden="true"></i> Change pickup date</button>
+                                                                <span class="acct-datemsg" data-acct-datemsg role="status" aria-live="polite"></span>
+                                                            </div>
+                                                            <div class="acct-oitems-scroll">
+                                                                <table class="acct-oitems">
+                                                                    <thead><tr><th>Product <span class="acct-oitems-hcount">/ 16 items</span></th><th class="num">Price</th><th class="num">Qty</th><th class="num">Total</th></tr></thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-apples.png" alt="" data-comment="account-img-o1-01"><div><div class="acct-oitem-name">Honeycrisp Apple</div><div class="acct-oitem-variant">Semi-dwarf · Bare root</div></div></div></td>
+                                                                            <td class="num">$62.00</td><td class="num">3</td><td class="num">$186.00</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-pears.png" alt="" data-comment="account-img-o1-02"><div><div class="acct-oitem-name">Bartlett Pear</div><div class="acct-oitem-variant">Standard · Bare root</div></div></div></td>
+                                                                            <td class="num">$58.00</td><td class="num">2</td><td class="num">$116.00</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-apples.png" alt="" data-comment="account-img-o1-03"><div><div class="acct-oitem-name">Cortland Apple</div><div class="acct-oitem-variant">Standard · Bare root</div></div></div></td>
+                                                                            <td class="num">$60.00</td><td class="num">3</td><td class="num">$180.00</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-cherries.png" alt="" data-comment="account-img-o1-04"><div><div class="acct-oitem-name">Montmorency Cherry</div><div class="acct-oitem-variant">Semi-dwarf · Bare root</div></div></div></td>
+                                                                            <td class="num">$64.00</td><td class="num">2</td><td class="num">$128.00</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-pears.png" alt="" data-comment="account-img-o1-05"><div><div class="acct-oitem-name">Bosc Pear</div><div class="acct-oitem-variant">Semi-dwarf · Bare root</div></div></div></td>
+                                                                            <td class="num">$58.00</td><td class="num">1</td><td class="num">$58.00</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-plums.jpg" alt="" data-comment="account-img-o1-06"><div><div class="acct-oitem-name">Italian Plum</div><div class="acct-oitem-variant">Standard · Bare root</div></div></div></td>
+                                                                            <td class="num">$59.00</td><td class="num">2</td><td class="num">$118.00</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-peaches.png" alt="" data-comment="account-img-o1-07"><div><div class="acct-oitem-name">Reliance Peach</div><div class="acct-oitem-variant">Semi-dwarf · Bare root</div></div></div></td>
+                                                                            <td class="num">$66.00</td><td class="num">2</td><td class="num">$132.00</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-grapes.png" alt="" data-comment="account-img-o1-08"><div><div class="acct-oitem-name">Somerset Seedless Grape</div><div class="acct-oitem-variant">Potted · 1 gal</div></div></div></td>
+                                                                            <td class="num">$34.00</td><td class="num">4</td><td class="num">$136.00</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-shrubs.png" alt="" data-comment="account-img-o1-09"><div><div class="acct-oitem-name">Tundra Haskap</div><div class="acct-oitem-variant">Potted · 2 gal</div></div></div></td>
+                                                                            <td class="num">$42.00</td><td class="num">3</td><td class="num">$126.00</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-shrubs.png" alt="" data-comment="account-img-o1-10"><div><div class="acct-oitem-name">Heritage Raspberry</div><div class="acct-oitem-variant">Potted · 1 gal</div></div></div></td>
+                                                                            <td class="num">$18.00</td><td class="num">5</td><td class="num">$90.00</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-shrubs.png" alt="" data-comment="account-img-o1-11"><div><div class="acct-oitem-name">Bluecrop Blueberry</div><div class="acct-oitem-variant">Potted · 2 gal</div></div></div></td>
+                                                                            <td class="num">$28.00</td><td class="num">4</td><td class="num">$112.00</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-supplies.png" alt="" data-comment="account-img-o1-12"><div><div class="acct-oitem-name">Tree Guard Kit</div><div class="acct-oitem-variant">Spiral · 5-pack</div></div></div></td>
+                                                                            <td class="num">$33.00</td><td class="num">2</td><td class="num">$66.00</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-supplies.png" alt="" data-comment="account-img-o1-13"><div><div class="acct-oitem-name">Bamboo Stake</div><div class="acct-oitem-variant">6 ft · 10-pack</div></div></div></td>
+                                                                            <td class="num">$22.00</td><td class="num">2</td><td class="num">$44.00</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-supplies.png" alt="" data-comment="account-img-o1-14"><div><div class="acct-oitem-name">Mycorrhizal Inoculant</div><div class="acct-oitem-variant">1 kg pouch</div></div></div></td>
+                                                                            <td class="num">$26.00</td><td class="num">2</td><td class="num">$52.00</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-supplies.png" alt="" data-comment="account-img-o1-15"><div><div class="acct-oitem-name">Dormant Oil Spray</div><div class="acct-oitem-variant">1 L concentrate</div></div></div></td>
+                                                                            <td class="num">$24.00</td><td class="num">1</td><td class="num">$24.00</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-supplies.png" alt="" data-comment="account-img-o1-16"><div><div class="acct-oitem-name">Orchard Ladder</div><div class="acct-oitem-variant">8 ft tripod</div></div></div></td>
+                                                                            <td class="num">$189.00</td><td class="num">1</td><td class="num">$189.00</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </article>
+                                        <!-- Order 2 -->
+                                        <article class="acct-order-card">
+                                            <table class="acct-otable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Order #</th>
+                                                        <th class="hide-sm">Date</th>
+                                                        <th class="num hide-sm">Subtotal</th>
+                                                        <th class="num hide-sm">Tax</th>
+                                                        <th class="num">Total</th>
+                                                        <th>Status</th>
+                                                        <th aria-label="Expand"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="acct-orow-head" data-acct-order-toggle>
+                                                        <td class="acct-ono">#WT-10310</td>
+                                                        <td class="hide-sm">Mar 2, 2026</td>
+                                                        <td class="num hide-sm">$186.00</td>
+                                                        <td class="num hide-sm">$24.18</td>
+                                                        <td class="num acct-ototal">$210.18</td>
+                                                        <td><span class="acct-status shipped"><i class="ph-fill ph-truck" aria-hidden="true"></i> Shipped</span></td>
+                                                        <td class="num"><i class="ph ph-caret-down acct-ocaret" aria-hidden="true"></i></td>
+                                                    </tr>
+                                                    <tr class="acct-orow-detail">
+                                                        <td colspan="7">
+                                                            <table class="acct-oship">
+                                                                <thead><tr><th>Delivery</th><th>Postal Code</th><th>Tracking</th><th>Shipped</th></tr></thead>
+                                                                <tbody><tr><td>Canada Post</td><td>P1L 1W8</td><td>CP 4021 8830 1177</td><td>Mar 5, 2026</td></tr></tbody>
+                                                            </table>
+                                                            <div class="acct-oitems-scroll">
+                                                                <table class="acct-oitems">
+                                                                    <thead><tr><th>Product <span class="acct-oitems-hcount">/ 2 items</span></th><th class="num">Price</th><th class="num">Qty</th><th class="num">Total</th></tr></thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-grapes.png" alt="" data-comment="account-img-o2-01"><div><div class="acct-oitem-name">Somerset Seedless Grape</div><div class="acct-oitem-variant">Potted · 1 gal</div></div></div></td>
+                                                                            <td class="num">$34.00</td><td class="num">3</td><td class="num">$102.00</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-shrubs.png" alt="" data-comment="account-img-o2-02"><div><div class="acct-oitem-name">Tundra Haskap</div><div class="acct-oitem-variant">Potted · 2 gal</div></div></div></td>
+                                                                            <td class="num">$42.00</td><td class="num">2</td><td class="num">$84.00</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </article>
+                                        <!-- Order 3 -->
+                                        <article class="acct-order-card">
+                                            <table class="acct-otable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Order #</th>
+                                                        <th class="hide-sm">Date</th>
+                                                        <th class="num hide-sm">Subtotal</th>
+                                                        <th class="num hide-sm">Tax</th>
+                                                        <th class="num">Total</th>
+                                                        <th>Status</th>
+                                                        <th aria-label="Expand"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="acct-orow-head" data-acct-order-toggle>
+                                                        <td class="acct-ono">#WT-10199</td>
+                                                        <td class="hide-sm">Nov 12, 2025</td>
+                                                        <td class="num hide-sm">$96.00</td>
+                                                        <td class="num hide-sm">$12.48</td>
+                                                        <td class="num acct-ototal">$108.48</td>
+                                                        <td><span class="acct-status delivered"><i class="ph-fill ph-check-circle" aria-hidden="true"></i> Delivered</span></td>
+                                                        <td class="num"><i class="ph ph-caret-down acct-ocaret" aria-hidden="true"></i></td>
+                                                    </tr>
+                                                    <tr class="acct-orow-detail">
+                                                        <td colspan="7">
+                                                            <table class="acct-oship">
+                                                                <thead><tr><th>Delivery</th><th>Postal Code</th><th>Tracking</th><th>Delivered</th></tr></thead>
+                                                                <tbody><tr><td>Canada Post</td><td>P1L 1W8</td><td>CP 3390 7712 0043</td><td>Nov 18, 2025</td></tr></tbody>
+                                                            </table>
+                                                            <div class="acct-oitems-scroll">
+                                                                <table class="acct-oitems">
+                                                                    <thead><tr><th>Product <span class="acct-oitems-hcount">/ 2 items</span></th><th class="num">Price</th><th class="num">Qty</th><th class="num">Total</th></tr></thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/books.png" alt="" data-comment="account-img-o3-01"><div><div class="acct-oitem-name">The Holistic Orchard</div><div class="acct-oitem-variant">Reference book</div></div></div></td>
+                                                                            <td class="num">$48.00</td><td class="num">1</td><td class="num">$48.00</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td><div class="acct-oitem-prod"><img class="acct-oitem-thumb" src="assets/cat-supplies.png" alt="" data-comment="account-img-o3-02"><div><div class="acct-oitem-name">Dormant Oil Spray</div><div class="acct-oitem-variant">1 L concentrate</div></div></div></td>
+                                                                            <td class="num">$24.00</td><td class="num">2</td><td class="num">$48.00</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </article>
                                     </div>
                                 </section>
 
@@ -1289,6 +1506,125 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                         </div>
                     </div>
 
+                </div>
+
+                <!-- Change pickup/ship date — scheduler popup (reuses checkout .co-cal) -->
+                <div class="acct-sched" data-acct-sched hidden>
+                    <div class="acct-sched-backdrop" data-acct-sched-close></div>
+                    <div class="acct-sched-card" role="dialog" aria-modal="true" aria-label="Change pickup date">
+                        <div class="acct-sched-head">
+                            <h3>Change pickup date</h3>
+                            <button type="button" class="acct-sched-x" data-acct-sched-close aria-label="Close"><i class="ph ph-x" aria-hidden="true"></i></button>
+                        </div>
+                        <div class="co-cal">
+                            <div class="co-cal-head">
+                                <button type="button" class="co-cal-nav" data-sc-prev aria-label="Previous month"><i class="ph ph-caret-left" aria-hidden="true"></i></button>
+                                <span class="co-cal-month" data-sc-month>Month</span>
+                                <button type="button" class="co-cal-nav" data-sc-next aria-label="Next month"><i class="ph ph-caret-right" aria-hidden="true"></i></button>
+                            </div>
+                            <div class="co-dow"><span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span></div>
+                            <div class="co-days" data-sc-days></div>
+                            <div class="co-legend">
+                                <span><i style="background:#c9832b;"></i> Limited availability</span>
+                                <span><i style="background:transparent; border:1px solid var(--line);"></i> Full / closed</span>
+                            </div>
+                            <div class="co-slots" data-sc-slots></div>
+                            <p class="co-sched-picked" data-sc-picked></p>
+                            <p class="acct-sched-note" data-sc-note></p>
+                        </div>
+                        <div class="acct-sched-actions">
+                            <button type="button" class="wta-btn wta-btn-secondary" data-acct-sched-close>Cancel</button>
+                            <button type="button" class="wta-btn wta-btn-primary" data-sc-apply disabled>Update date</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pay open order — popup with the 3 checkout payment methods combined -->
+                <div class="acct-sched" data-acct-pay-modal hidden>
+                    <div class="acct-sched-backdrop" data-acct-pay-close></div>
+                    <div class="acct-sched-card" role="dialog" aria-modal="true" aria-label="Pay your balance">
+                        <div class="acct-sched-head">
+                            <h3>Pay your balance</h3>
+                            <button type="button" class="acct-sched-x" data-acct-pay-close aria-label="Close"><i class="ph ph-x" aria-hidden="true"></i></button>
+                        </div>
+                        <p class="acct-pay-due">Balance due <b data-acct-pay-amount>$1,485.41</b> · Order #WT-10428</p>
+                        <div class="co-pay-grid">
+                            <label class="co-opt co-opt--pay sel" data-acct-paytab="card">
+                                <input type="radio" name="acct-pay" value="card" checked />
+                                <i class="ph ph-credit-card co-opt-glyph" aria-hidden="true"></i><span class="co-opt-t">Card</span>
+                                <span class="co-opt-dot"></span>
+                            </label>
+                            <label class="co-opt co-opt--pay" data-acct-paytab="etransfer">
+                                <input type="radio" name="acct-pay" value="etransfer" />
+                                <i class="ph ph-envelope-simple co-opt-glyph" aria-hidden="true"></i><span class="co-opt-t">e-Transfer</span>
+                                <span class="co-opt-dot"></span>
+                            </label>
+                            <label class="co-opt co-opt--pay" data-acct-paytab="billpay">
+                                <input type="radio" name="acct-pay" value="billpay" />
+                                <i class="ph ph-bank co-opt-glyph" aria-hidden="true"></i><span class="co-opt-t">Bill Payment</span>
+                                <span class="co-opt-dot"></span>
+                            </label>
+                        </div>
+                        <div data-acct-pay-card>
+                            <div class="co-field"><label class="co-label" for="acct-card">Card number</label><input class="co-input" id="acct-card" inputmode="numeric" placeholder="1234 1234 1234 1234" autocomplete="cc-number" /></div>
+                            <div class="co-row">
+                                <div class="co-field"><label class="co-label" for="acct-exp">Expiry</label><input class="co-input" id="acct-exp" placeholder="MM / YY" autocomplete="cc-exp" /></div>
+                                <div class="co-field"><label class="co-label" for="acct-cvc">CVC</label><input class="co-input" id="acct-cvc" inputmode="numeric" placeholder="CVC" autocomplete="cc-csc" /></div>
+                            </div>
+                            <label class="co-check"><input type="checkbox" checked /> Billing address same as shipping</label>
+                        </div>
+                        <div class="co-alert co-alert-info" data-acct-pay-etransfer style="display:none; margin-top:14px;">
+                            <i class="ph-fill ph-envelope-simple" aria-hidden="true"></i>
+                            <div class="co-alert-body">
+                                <p class="co-alert-lead">Send an Interac e-Transfer for the balance. To send it:</p>
+                                <ol style="margin:0 0 10px; padding-left:18px; display:flex; flex-direction:column; gap:6px;">
+                                    <li>Send the e-Transfer to <b>pay@whiffletree.ca</b>.</li>
+                                    <li>In the message/memo field, put your <b>order number</b> (<b>WT-10428</b>) so we can match your payment.</li>
+                                </ol>
+                                <p style="margin:0;">Your order stays <b>awaiting payment</b> until the transfer arrives.</p>
+                            </div>
+                        </div>
+                        <div class="co-alert co-alert-info" data-acct-pay-billpay style="display:none; margin-top:14px;">
+                            <i class="ph-fill ph-bank" aria-hidden="true"></i>
+                            <div class="co-alert-body">
+                                <p class="co-alert-lead">Pay from your bank or credit union’s online bill payment. To set it up:</p>
+                                <ol style="margin:0 0 10px; padding-left:18px; display:flex; flex-direction:column; gap:6px;">
+                                    <li>Add <b>Whiffletree Farm &amp; Nursery</b> as a payee.</li>
+                                    <li>Use your <b>order number</b> (<b>WT-10428</b>) as the account number.</li>
+                                </ol>
+                                <p style="margin:0 0 10px;">Supported banks &amp; credit unions:</p>
+                                <ul style="margin:0 0 10px; padding-left:18px; display:flex; flex-direction:column; gap:4px;">
+                                    <li>Bank 1</li>
+                                    <li>Bank 2</li>
+                                    <li>Bank 3</li>
+                                    <li>Credit Union 1</li>
+                                    <li>Credit Union 2</li>
+                                </ul>
+                                <p style="margin:0;">Held as <b>awaiting payment</b> until funds clear.</p>
+                            </div>
+                        </div>
+                        <p class="acct-sched-note" data-acct-pay-msg></p>
+                        <div class="acct-sched-actions">
+                            <button type="button" class="wta-btn wta-btn-secondary" data-acct-pay-close>Cancel</button>
+                            <button type="button" class="wta-btn wta-btn-primary" data-acct-pay-confirm>Pay $1,485.41</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cancel order confirmation -->
+                <div class="acct-sched" data-acct-confirm hidden>
+                    <div class="acct-sched-backdrop" data-acct-confirm-close></div>
+                    <div class="acct-sched-card acct-confirm-card" role="dialog" aria-modal="true" aria-label="Cancel order">
+                        <div class="acct-sched-head">
+                            <h3>Cancel this order?</h3>
+                            <button type="button" class="acct-sched-x" data-acct-confirm-close aria-label="Close"><i class="ph ph-x" aria-hidden="true"></i></button>
+                        </div>
+                        <p>Your <b>$500.00</b> deposit will be added to your store credit and can be used on a future order. This can’t be undone.</p>
+                        <div class="acct-sched-actions">
+                            <button type="button" class="wta-btn wta-btn-danger" data-acct-confirm-yes>Cancel &amp; refund to credit</button>
+                            <button type="button" class="wta-btn wta-btn-secondary" data-acct-confirm-close>Keep order</button>
+                        </div>
+                    </div>
                 </div>
             </main>
 
@@ -2697,10 +3033,261 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                 /* ---- Orders: expandable rows ---- */
                 app.querySelectorAll('[data-acct-order-toggle]').forEach(function (head) {
                     head.addEventListener('click', function () {
-                        var order = head.closest('[data-acct-order]');
-                        if (order) order.classList.toggle('open');
+                        head.classList.toggle('open');
                     });
                 });
+            })();
+        </script>
+
+        <!-- Change pickup/ship date — self-contained scheduler (capacity model mirrors checkout .co-cal) -->
+        <script>
+            (function () {
+                'use strict';
+                var app = document.querySelector('[data-acct-app]');
+                var sched = document.querySelector('[data-acct-sched]');
+                if (!app || !sched) return;
+
+                /* ── Capacity model (same logic as the checkout pickup scheduler) ── */
+                var LEAD_DAYS = 2, DAILY_CAP = 180;
+                var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                var today = new Date(); today.setHours(0, 0, 0, 0);
+                function bookedFor(d) { return ((d.getDate() * 17 + (d.getMonth() + 1) * 29) % 205); } // 0..204 mock
+                function dayState(d) {
+                    var dd = new Date(d); dd.setHours(0, 0, 0, 0);
+                    var diff = Math.round((dd - today) / 86400000);
+                    if (diff < LEAD_DAYS) return 'past';
+                    if (dd.getDay() === 0) return 'closed';                 // farm closed Sundays
+                    var left = DAILY_CAP - bookedFor(dd);
+                    if (left <= 0) return 'full';
+                    return { left: left };
+                }
+                function sameDay(a, b) { return a && b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate(); }
+                function nextAvailable(start) { var d = new Date(start); for (var i = 0; i < 120; i++) { if (typeof dayState(d) === 'object') return d; d.setDate(d.getDate() + 1); } return start; }
+                function fmt(d) { return d.toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric' }); }
+                function fmtLong(d) { return d.toLocaleDateString('en-CA', { weekday: 'long', month: 'long', day: 'numeric' }); }
+
+                /* ── Current pickup date for the order (in-memory only — resets on reload so
+                       the demo starts fresh every time; no localStorage on purpose) ── */
+                var ORDER_ID = 'WT-10428';
+                var current = nextAvailable(new Date(today.getFullYear(), today.getMonth(), today.getDate() + 21));
+                var readyCell = document.querySelector('[data-acct-ready]');
+                function paintReady() { if (readyCell) readyCell.textContent = fmt(current); }
+                paintReady();
+
+                /* ── Modal state ── */
+                var q = function (sel) { return sched.querySelector(sel); };
+                var minIdx = today.getFullYear() * 12 + today.getMonth(), maxIdx = minIdx + 3;
+                var viewY, viewM, pick = null, slot = null;
+
+                function note(kind, msg) { var n = q('[data-sc-note]'); n.className = 'acct-sched-note' + (kind ? ' ' + kind : ''); n.textContent = msg || ''; }
+                function updateApply() { q('[data-sc-apply]').disabled = !(pick && slot); }
+
+                function renderCal() {
+                    q('[data-sc-month]').textContent = MONTHS[viewM] + ' ' + viewY;
+                    var idx = viewY * 12 + viewM;
+                    q('[data-sc-prev]').disabled = idx <= minIdx;
+                    q('[data-sc-next]').disabled = idx >= maxIdx;
+                    var wrap = q('[data-sc-days]'); wrap.innerHTML = '';
+                    var first = new Date(viewY, viewM, 1).getDay();
+                    var dim = new Date(viewY, viewM + 1, 0).getDate();
+                    for (var i = 0; i < first; i++) { var e = document.createElement('div'); e.className = 'co-day empty'; wrap.appendChild(e); }
+                    for (var day = 1; day <= dim; day++) {
+                        var date = new Date(viewY, viewM, day);
+                        var st = dayState(date);
+                        var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'co-day';
+                        btn.innerHTML = '<span>' + day + '</span>';
+                        if (st === 'past' || st === 'closed') { btn.disabled = true; }
+                        else if (st === 'full') {
+                            btn.classList.add('full');
+                            (function (dt) { btn.addEventListener('click', function () { onFull(dt); }); })(date);
+                        } else {
+                            if (st.left <= 20) { btn.innerHTML += '<span class="co-day-dot" title="Limited availability"></span>'; }
+                            (function (dt) { btn.addEventListener('click', function () { choose(dt); }); })(date);
+                        }
+                        if (sameDay(date, pick)) btn.classList.add('sel');
+                        wrap.appendChild(btn);
+                    }
+                }
+                function renderSlots() {
+                    var wrap = q('[data-sc-slots]'); wrap.innerHTML = '';
+                    if (!pick) return;
+                    var label = document.createElement('span'); label.className = 'co-slot-label'; label.textContent = 'Choose a pickup time';
+                    wrap.appendChild(label);
+                    ['9:00–12:00', '12:00–3:00', '3:00–6:00'].forEach(function (sName, i) {
+                        var b = document.createElement('button'); b.type = 'button'; b.className = 'co-slot' + (slot === sName ? ' sel' : ''); b.textContent = sName;
+                        if (i === 1 && pick.getDate() % 4 === 0) { b.disabled = true; b.style.opacity = '0.4'; b.style.textDecoration = 'line-through'; b.title = 'Full'; }
+                        else b.addEventListener('click', function () { slot = sName; renderSlots(); renderPicked(); updateApply(); });
+                        wrap.appendChild(b);
+                    });
+                }
+                function renderPicked() {
+                    var el = q('[data-sc-picked]');
+                    if (!pick) { el.classList.remove('show'); el.innerHTML = ''; return; }
+                    el.classList.add('show');
+                    el.innerHTML = '<i class="ph-fill ph-calendar-check" aria-hidden="true"></i>Pickup ' + fmtLong(pick) + (slot ? ', ' + slot : '');
+                }
+                function render() { renderCal(); renderSlots(); renderPicked(); updateApply(); }
+
+                function choose(d) { pick = d; slot = null; note(''); render(); }
+                function onFull(d) { pick = null; slot = null; render(); note('err', fmtLong(d) + ' is fully booked — please choose another day.'); }
+
+                function openModal() {
+                    pick = current; slot = null; note('');
+                    viewY = current.getFullYear(); viewM = current.getMonth();
+                    sched.hidden = false; document.body.style.overflow = 'hidden';
+                    render();
+                }
+                function closeModal() { sched.hidden = true; document.body.style.overflow = ''; }
+
+                function apply() {
+                    if (!(pick && slot)) return;
+                    if (dayState(pick) === 'full') {   // final capacity re-check (slot may have sold out)
+                        note('err', fmtLong(pick) + ' just filled up — please choose another day.');
+                        pick = null; render(); return;
+                    }
+                    current = pick;
+                    paintReady();
+                    closeModal();
+                    var msg = document.querySelector('[data-acct-datemsg]');
+                    if (msg) { msg.className = 'acct-datemsg ok'; msg.innerHTML = '<i class="ph-fill ph-check-circle" aria-hidden="true"></i> Pickup date updated to ' + fmtLong(current) + ', ' + slot + '.'; }
+                }
+
+                /* ── Wire up ── */
+                document.querySelectorAll('[data-acct-change-date]').forEach(function (b) { b.addEventListener('click', openModal); });
+                sched.querySelectorAll('[data-acct-sched-close]').forEach(function (b) { b.addEventListener('click', closeModal); });
+                q('[data-sc-prev]').addEventListener('click', function () { if (viewM === 0) { viewM = 11; viewY--; } else viewM--; renderCal(); });
+                q('[data-sc-next]').addEventListener('click', function () { if (viewM === 11) { viewM = 0; viewY++; } else viewM++; renderCal(); });
+                q('[data-sc-apply]').addEventListener('click', apply);
+                document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !sched.hidden) closeModal(); });
+            })();
+        </script>
+
+        <!-- Pay open order + cancel → store credit (self-contained; 3 checkout methods combined) -->
+        <script>
+            (function () {
+                'use strict';
+                var app = document.querySelector('[data-acct-app]');
+                var paybar = document.querySelector('[data-acct-paybar]');
+                var payModal = document.querySelector('[data-acct-pay-modal]');
+                if (!app || !paybar || !payModal) return;
+
+                var ORDER_ID = 'WT-10428';
+                var TOTAL = 1985.41, DEPOSIT = 500.00, BALANCE = +(TOTAL - DEPOSIT).toFixed(2);
+
+                function money(n) { return '$' + n.toLocaleString('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+
+                /* State is IN-MEMORY only (no localStorage) — every page reload starts fresh
+                   as an open/unpaid order so all scenarios can be demoed repeatedly. */
+                var order = { status: 'awaiting', method: null };
+                var credit = 0;
+
+                /* ── "Due by" mirrors the pickup date shown in the delivery block ── */
+                var readyCell = document.querySelector('[data-acct-ready]');
+                function payByText() { return readyCell ? readyCell.textContent.trim() : ''; }
+
+                /* ── Elements ── */
+                var elBalance = paybar.querySelector('[data-acct-balance]');
+                var elPayby = paybar.querySelector('[data-acct-payby]');
+                var elActions = paybar.querySelector('[data-acct-paybar-actions]');
+                var elNote = paybar.querySelector('[data-acct-paynote]');
+                var elStatus = document.querySelector('[data-acct-status]');
+                var elCredit = document.querySelector('[data-acct-sc-amt]');
+
+                var BADGE = {
+                    awaiting: { cls: 'awaiting', ic: 'ph-fill ph-wallet', txt: 'Unpaid' },
+                    paid: { cls: 'paid', ic: 'ph-fill ph-check-circle', txt: 'Paid' },
+                    pending: { cls: 'pending', ic: 'ph-fill ph-clock', txt: 'Pending' },
+                    cancelled: { cls: 'cancelled', ic: 'ph-fill ph-x-circle', txt: 'Cancelled' }
+                };
+                function setNote(kind, msg) { elNote.className = 'acct-paybar-note' + (kind ? ' show ' + kind : ''); elNote.innerHTML = kind ? msg : ''; }
+
+                function render() {
+                    elPayby.textContent = payByText();
+                    elCredit.textContent = money(credit);
+                    var b = BADGE[order.status] || BADGE.awaiting;
+                    if (elStatus) { elStatus.className = 'acct-status ' + b.cls; elStatus.innerHTML = '<i class="' + b.ic + '" aria-hidden="true"></i> ' + b.txt; }
+                    paybar.classList.toggle('is-cancelled', order.status === 'cancelled');
+
+                    if (order.status === 'paid') {
+                        elBalance.textContent = money(0);
+                        elActions.style.display = 'none';
+                        setNote('ok', '<i class="ph-fill ph-check-circle" aria-hidden="true"></i> Paid in full — thank you!');
+                    } else if (order.status === 'pending') {
+                        elActions.style.display = 'none';
+                        var mword = order.method === 'billpay' ? 'bill payment' : 'e-Transfer';
+                        setNote('pending', '<i class="ph-fill ph-clock" aria-hidden="true"></i> Payment received — we’ll confirm once your ' + mword + ' clears.');
+                    } else if (order.status === 'cancelled') {
+                        elActions.style.display = 'none';
+                        setNote('pending', '<i class="ph-fill ph-x-circle" aria-hidden="true"></i> Order cancelled · ' + money(DEPOSIT) + ' added to your store credit.');
+                    } else {
+                        elBalance.textContent = money(BALANCE);
+                        elActions.style.display = 'flex';
+                        setNote('', '');
+                    }
+                }
+
+                /* ── Pay modal ── */
+                function payClose() { payModal.hidden = true; document.body.style.overflow = ''; }
+                function payOpen() {
+                    if (order.status !== 'awaiting') return;
+                    payMsg(''); selectMethod('card'); payModal.hidden = false; document.body.style.overflow = 'hidden';
+                }
+                function payMsg(msg) { var n = payModal.querySelector('[data-acct-pay-msg]'); n.className = 'acct-sched-note' + (msg ? ' err' : ''); n.textContent = msg || ''; }
+                var curMethod = 'card';
+                function selectMethod(m) {
+                    curMethod = m;
+                    payModal.querySelectorAll('[data-acct-paytab]').forEach(function (t) {
+                        var on = t.getAttribute('data-acct-paytab') === m;
+                        t.classList.toggle('sel', on);
+                        var input = t.querySelector('input'); if (input) input.checked = on;
+                    });
+                    payModal.querySelector('[data-acct-pay-card]').style.display = m === 'card' ? 'block' : 'none';
+                    payModal.querySelector('[data-acct-pay-etransfer]').style.display = m === 'etransfer' ? 'flex' : 'none';
+                    payModal.querySelector('[data-acct-pay-billpay]').style.display = m === 'billpay' ? 'flex' : 'none';
+                    var btn = payModal.querySelector('[data-acct-pay-confirm]');
+                    btn.textContent = m === 'card' ? 'Pay ' + money(BALANCE) : (m === 'etransfer' ? 'I’ve sent the e-Transfer' : 'I’ve set up the payment');
+                    payMsg('');
+                }
+                function payConfirm() {
+                    if (curMethod === 'card') {
+                        var num = (payModal.querySelector('#acct-card').value || '').replace(/\s/g, '');
+                        if (num.length < 12) { payMsg('Enter your card details to pay.'); return; }
+                        order = { status: 'paid', method: 'card' };
+                    } else {
+                        order = { status: 'pending', method: curMethod };
+                    }
+                    payClose();
+                    render();
+                }
+
+                /* ── Cancel → store credit ── */
+                var confirmModal = document.querySelector('[data-acct-confirm]');
+                function confirmOpen() { if (order.status !== 'awaiting') return; confirmModal.hidden = false; document.body.style.overflow = 'hidden'; }
+                function confirmClose() { confirmModal.hidden = true; document.body.style.overflow = ''; }
+                function doCancel() {
+                    order = { status: 'cancelled', method: null };
+                    credit += DEPOSIT;
+                    confirmClose();
+                    render();
+                }
+
+                /* ── Wire ── */
+                paybar.querySelector('[data-acct-pay]').addEventListener('click', payOpen);
+                paybar.querySelector('[data-acct-cancel]').addEventListener('click', confirmOpen);
+                payModal.querySelectorAll('[data-acct-pay-close]').forEach(function (b) { b.addEventListener('click', payClose); });
+                payModal.querySelectorAll('[data-acct-paytab]').forEach(function (t) { t.addEventListener('click', function () { selectMethod(t.getAttribute('data-acct-paytab')); }); });
+                payModal.querySelector('[data-acct-pay-confirm]').addEventListener('click', payConfirm);
+                if (confirmModal) {
+                    confirmModal.querySelectorAll('[data-acct-confirm-close]').forEach(function (b) { b.addEventListener('click', confirmClose); });
+                    confirmModal.querySelector('[data-acct-confirm-yes]').addEventListener('click', doCancel);
+                }
+                document.addEventListener('keydown', function (e) {
+                    if (e.key !== 'Escape') return;
+                    if (!payModal.hidden) payClose();
+                    if (confirmModal && !confirmModal.hidden) confirmClose();
+                });
+
+                render();
             })();
         </script>
     </body>
