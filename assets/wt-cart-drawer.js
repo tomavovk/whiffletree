@@ -21,7 +21,7 @@
     /* Pages where the floating discount nudge may appear — shopping context
        only. Everywhere else (checkout, info, legal, account) it stays hidden;
        there the progress lives inline in the drawer / order summary instead. */
-    var FLOAT_PAGES = ['home.html', 'shop.html', 'product.html', 'search.html'];
+    var FLOAT_PAGES = ['home.html', 'shop.html', 'product.html', 'search.html', 'all-categories.html'];
 
     /* ── Nursery mock data (per-category) ─────────────────────────────── */
     var ROOTSTOCK = {

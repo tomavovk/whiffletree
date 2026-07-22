@@ -524,7 +524,7 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
                 to   { opacity: 1; transform: none; }
             }
 
-            .np-inner { padding: 32px 40px 40px; }
+            .np-inner { padding: 32px var(--page-x) 40px; }
             .np-top {
                 display: flex;
                 align-items: center;
@@ -545,18 +545,19 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
             .np-pill {
                 font-family: var(--sans);
                 font-weight: 700;
-                font-size: 14px;
+                font-size: 13px;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
                 color: #ffffff;
-                background: var(--accent);
-                padding: 11px 22px;
-                border-radius: 999px;
+                background: var(--btn);
+                padding: 13px 22px;
+                border-radius: 2px;
                 text-decoration: none;
                 white-space: nowrap;
+                transition: background-color 150ms cubic-bezier(0.2, 0, 0, 1);
             }
             .np-pill:hover {
-                background: var(--accent-deep);
-                transform: translateY(-1px);
-                box-shadow: 0 4px 12px rgba(158, 44, 32, 0.22);
+                background: var(--btn-hover);
             }
             .np-grid { display: grid; gap: 30px 28px; }
             .np-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -805,6 +806,15 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
                 transition: transform 450ms cubic-bezier(0.2, 0, 0, 1);
             }
             .cat-card:hover .cat-card-img { transform: scale(1.045); }
+            /* Placeholder for products without a photo: beige media + small centred logo, no text */
+            .cat-card-img--ph {
+                background-image: url('assets/favicon.svg');
+                background-size: 46px auto;
+                background-position: center;
+                background-repeat: no-repeat;
+                opacity: 0.45;
+            }
+            .cat-card:hover .cat-card-img--ph { transform: none; }
             /* House pill style (matches the former card feature tags) */
             .cat-badge {
                 position: absolute;
@@ -820,7 +830,7 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
                 color: var(--g900);
                 background: #fff;
                 border: 1px solid var(--line-soft);
-                border-radius: 6px;
+                border-radius: 2px;
                 padding: 5px 9px;
             }
             .cat-badge--out { background: #fff; }
@@ -834,9 +844,9 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
                 color: var(--ink);
                 margin-top: 14px;
                 transition: color 240ms cubic-bezier(0.22, 1, 0.36, 1);
-                /* never more than two lines — ellipsis at the end of line 2 */
+                /* single line only — keeps every card the same height so price/type/button rows align across the grid; long names ellipsis */
                 display: -webkit-box;
-                -webkit-line-clamp: 2;
+                -webkit-line-clamp: 1;
                 -webkit-box-orient: vertical;
                 overflow: hidden;
             }
@@ -928,17 +938,17 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
             /* Catalog grid columns */
             [data-comment="catalog-grid"] {
                 display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 28px 24px;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 40px 24px;
             }
 
             @media (min-width: 1280px) {  /* xl */
-                [data-comment="catalog-grid"] { grid-template-columns: repeat(4, 1fr); }
+                [data-comment="catalog-grid"] { grid-template-columns: repeat(4, minmax(0, 1fr)); }
             }
 
             /* ---- Tablet ---- */
             @media (max-width: 1024px) {
-                [data-comment="catalog-grid"] { grid-template-columns: repeat(2, 1fr) !important; }
+                [data-comment="catalog-grid"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
             }
 
             /* ---- Mobile & small tablet ---- */
@@ -976,7 +986,7 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
                     background: transparent !important; color: var(--muted) !important;
                     font-weight: 600 !important; font-size: 15px !important;
                     border-radius: 0 !important; border-bottom: 1px solid var(--line-soft) !important;
-                    min-height: 44px; white-space: normal;
+                    min-height: 44px; white-space: normal; text-transform: none !important; letter-spacing: normal !important; /* np-pill mobile case reset */
                 }
                 .nav-panel .np-pill::after { content: "\2192"; margin-left: auto; padding-left: 12px; color: var(--subtle); font-size: 18px; }
                 .nav-panel .np-pill:hover { transform: none !important; box-shadow: none !important; background: var(--paper1) !important; }
@@ -1056,7 +1066,7 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
                 [data-comment="catalog-filter-toggle"] { display: inline-flex !important; }
 
                 /* Product tiles: two-up with tight columns, roomy rows */
-                [data-comment="catalog-grid"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 32px 8px !important; }
+                [data-comment="catalog-grid"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 48px 8px !important; }
 
                 /* Toolbar: Sort (left) · Filters (right) · count on its own row below */
                 [data-comment="catalog-toolbar"] { flex-wrap: wrap !important; align-items: center; gap: 14px 12px !important; }
@@ -1325,7 +1335,7 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                                 <div class="np-inner">
                                     <div class="np-top">
                                         <span class="np-eyebrow" data-comment="navp-shop-eyebrow">Explore the nursery</span>
-                                        <a class="np-pill" href="shop.html" data-comment="navp-shop-allcats">See all categories</a>
+                                        <a class="np-pill" href="all-categories.html" data-comment="navp-shop-allcats">See all categories</a>
                                     </div>
                                     <div class="np-grid np-grid--4">
                                         <div class="np-col">
@@ -1573,7 +1583,7 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                         <div data-comment="catalog-main">
                             <div data-comment="catalog-grid">
                                 <a class="cat-card" data-comment="catalog-product-1" href="product.html" data-index="1" data-name="Bancroft Apple" data-category="apples" data-zone="3" data-harvest="oct" data-stock="out" data-price="" data-chars="needs-pollenizer cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-1-media"><div class="cat-card-img" data-comment="catalog-product-1-image" style="background-image:url('assets/cat-apples.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-1-badge">Sold out</span></div>
+                                    <div class="cat-card-media" data-comment="catalog-product-1-media"><div class="cat-card-img cat-card-img--ph" data-comment="catalog-product-1-image"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-1-badge">Sold out</span></div>
                                     <div class="cat-card-title" data-comment="catalog-product-1-title">Bancroft Apple</div>
                                     <div class="cat-card-price" data-comment="catalog-product-1-price">Call for price</div>
                                     <div class="cat-card-type" data-comment="catalog-product-1-type">Apple tree</div>
@@ -1825,7 +1835,7 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                                     <div class="cat-card-type" data-comment="catalog-product-42-type">Nut tree</div>
                                 </a>
                                 <a class="cat-card" data-comment="catalog-product-43" href="product.html" data-index="43" data-name="Vanessa Seedless Grape" data-category="grapes" data-zone="5" data-harvest="sep" data-stock="out" data-price="21.95" data-chars="self-fertile cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-43-media"><div class="cat-card-img" data-comment="catalog-product-43-image" style="background-image:url('assets/cat-grapes.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-43-badge">Sold out</span></div>
+                                    <div class="cat-card-media" data-comment="catalog-product-43-media"><div class="cat-card-img cat-card-img--ph" data-comment="catalog-product-43-image"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-43-badge">Sold out</span></div>
                                     <div class="cat-card-title" data-comment="catalog-product-43-title">Vanessa Seedless Grape</div>
                                     <div class="cat-card-price" data-comment="catalog-product-43-price">$21.95 CAD</div>
                                     <div class="cat-card-type" data-comment="catalog-product-43-type">Grape vine</div>
@@ -1861,7 +1871,7 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                                     <div class="cat-card-type" data-comment="catalog-product-48-type">Grape vine</div>
                                 </a>
                                 <a class="cat-card" data-comment="catalog-product-49" href="product.html" data-index="49" data-name="Ruby Carpet Low Bush Blueberry" data-category="blueberry" data-zone="3" data-harvest="jul" data-stock="out" data-price="24.95" data-chars="self-fertile cold-hardy">
-                                    <div class="cat-card-media" data-comment="catalog-product-49-media"><div class="cat-card-img" data-comment="catalog-product-49-image" style="background-image:url('assets/cat-shrubs.png');"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-49-badge">Sold out</span></div>
+                                    <div class="cat-card-media" data-comment="catalog-product-49-media"><div class="cat-card-img cat-card-img--ph" data-comment="catalog-product-49-image"></div><span class="cat-badge cat-badge--out" data-comment="catalog-product-49-badge">Sold out</span></div>
                                     <div class="cat-card-title" data-comment="catalog-product-49-title">Ruby Carpet Low Bush Blueberry</div>
                                     <div class="cat-card-price" data-comment="catalog-product-49-price">$24.95 CAD</div>
                                     <div class="cat-card-type" data-comment="catalog-product-49-type">Blueberry bush</div>
@@ -3368,7 +3378,7 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
     /* Pages where the floating discount nudge may appear — shopping context
        only. Everywhere else (checkout, info, legal, account) it stays hidden;
        there the progress lives inline in the drawer / order summary instead. */
-    var FLOAT_PAGES = ['home.html', 'shop.html', 'product.html', 'search.html'];
+    var FLOAT_PAGES = ['home.html', 'shop.html', 'product.html', 'search.html', 'all-categories.html'];
 
     /* ── Nursery mock data (per-category) ─────────────────────────────── */
     var ROOTSTOCK = {
