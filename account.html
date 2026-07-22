@@ -722,7 +722,8 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
             /* Open-order payment bar */
             .acct-paybar { border: 1px solid var(--g200); background: var(--g050); border-radius: 4px; padding: 16px 18px; margin: 0 0 16px; }
             .acct-paybar.is-cancelled { border-color: var(--line); background: var(--paper0); }
-            .acct-paybar-figs { display: flex; flex-wrap: wrap; gap: 16px 28px; }
+            .acct-paybar-figs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px 28px; }
+            @media (max-width: 640px) { .acct-paybar-figs { grid-template-columns: repeat(2, 1fr); } }
             .acct-paybar-figs > div { display: flex; flex-direction: column; gap: 3px; }
             .acct-paybar-lbl { font-family: var(--sans); font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--subtle); }
             .acct-paybar-val { font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--ink2); }
