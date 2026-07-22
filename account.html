@@ -1037,9 +1037,9 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                                     </div>
                                 </div>
                                 <div class="acct-nav" role="tablist" aria-label="Account sections">
-                                    <button type="button" class="acct-navlink is-active" data-acct-tab="details" role="tab" aria-selected="true" data-comment="account-button-tab"><i class="ph-fill ph-user-circle acct-navicon" data-icon="user-circle" aria-hidden="true"></i> Account details <i class="ph ph-caret-right acct-chev" aria-hidden="true"></i></button>
+                                    <button type="button" class="acct-navlink is-active" data-acct-tab="orders" role="tab" aria-selected="true" data-comment="account-button-tab-2"><i class="ph-fill ph-package acct-navicon" data-icon="package" aria-hidden="true"></i> Your Orders <i class="ph ph-caret-right acct-chev" aria-hidden="true"></i></button>
                                     <button type="button" class="acct-navlink" data-acct-tab="payment" role="tab" aria-selected="false" data-comment="account-button-tab-1"><i class="ph-light ph-credit-card acct-navicon" data-icon="credit-card" aria-hidden="true"></i> Payment Methods <i class="ph ph-caret-right acct-chev" aria-hidden="true"></i></button>
-                                    <button type="button" class="acct-navlink" data-acct-tab="orders" role="tab" aria-selected="false" data-comment="account-button-tab-2"><i class="ph-light ph-package acct-navicon" data-icon="package" aria-hidden="true"></i> Your Orders <i class="ph ph-caret-right acct-chev" aria-hidden="true"></i></button>
+                                    <button type="button" class="acct-navlink" data-acct-tab="details" role="tab" aria-selected="false" data-comment="account-button-tab"><i class="ph-light ph-user-circle acct-navicon" data-icon="user-circle" aria-hidden="true"></i> Account details <i class="ph ph-caret-right acct-chev" aria-hidden="true"></i></button>
                                     <div class="acct-nav-sep" aria-hidden="true"></div>
                                     <button type="button" class="acct-navlink acct-logout" data-acct-logout data-comment="account-button-logout"><i class="ph-light ph-sign-out" aria-hidden="true"></i> Log out</button>
                                 </div>
@@ -1049,7 +1049,7 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                             <div class="acct-panels">
 
                                 <!-- Account details -->
-                                <section class="acct-panel is-active" data-acct-panel="details" role="tabpanel" aria-label="Account details" data-comment="acct-panel-details">
+                                <section class="acct-panel" data-acct-panel="details" role="tabpanel" aria-label="Account details" data-comment="acct-panel-details">
                                     <div class="acct-phead">
                                         <h2 data-comment="acct-details-title">Account details</h2>
                                         <p>Manage your profile and shipping information</p>
@@ -1133,7 +1133,7 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                                 </section>
 
                                 <!-- Your Orders -->
-                                <section class="acct-panel" data-acct-panel="orders" role="tabpanel" aria-label="Your orders" data-comment="acct-panel-orders">
+                                <section class="acct-panel is-active" data-acct-panel="orders" role="tabpanel" aria-label="Your orders" data-comment="acct-panel-orders">
                                     <div class="acct-phead">
                                         <h2 data-comment="acct-orders-title">Your Orders</h2>
                                         <p>View and track your purchase history</p>
