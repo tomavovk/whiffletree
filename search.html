@@ -2882,6 +2882,10 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                             if (card.querySelector('.cat-card-add')) return;
                             var n = card.getAttribute('data-comment').replace('catalog-product-', '');
                             var out = card.getAttribute('data-stock') !== 'in';
+                            /* Route to the matching PDP variant: sold-out → the Notify-me
+                               page, in-stock → the add-to-cart page. Set here (not in static
+                               markup) so it always tracks the runtime IN_STOCK state above. */
+                            card.setAttribute('href', out ? 'product-unavailable.html' : 'product.html');
                             var btn = document.createElement('button');
                             btn.className = 'cat-card-add' + (out ? ' is-out' : '');
                             btn.type = 'button';

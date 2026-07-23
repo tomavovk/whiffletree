@@ -1139,6 +1139,39 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
             [data-comment="pdp-buy-add"]:hover { background: var(--btn-hover); border-color: var(--btn-hover); }
             [data-comment="pdp-buy-add"].added { background: var(--g700); border-color: var(--g700); }
             [data-comment="pdp-buy-notify"]:hover { background: var(--btn-hover); border-color: var(--btn-hover); }
+            /* Notify waitlist confirmation — bottom-right toast, sitting just ABOVE the
+               "Ask the advisor" FAB (which is right:--page-x / bottom:26px, ~58px tall) */
+            [data-comment="pdp-notify-toast"] { position: fixed; right: var(--page-x, 40px); bottom: 108px; z-index: 1400; display: flex; align-items: flex-start; gap: 12px; width: min(360px, calc(100vw - 40px)); padding: 16px 16px 16px 18px; background: #fffdf8; border: 1px solid var(--line-soft); border-left: 3px solid var(--g700); border-radius: 2px; box-shadow: 0 16px 40px rgba(21, 20, 15, 0.22); opacity: 0; visibility: hidden; transform: translateY(12px); transition: opacity 0.26s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.26s ease; }
+            [data-comment="pdp-notify-toast"].show { opacity: 1; visibility: visible; transform: none; }
+            [data-comment="pdp-notify-toast-ic"] { flex: none; width: 34px; height: 34px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; background: var(--e050, #f7f0e8); color: var(--g700); font-size: 18px; }
+            [data-comment="pdp-notify-toast-body"] { flex: 1 1 auto; min-width: 0; }
+            [data-comment="pdp-notify-toast-title"] { font-family: var(--sans); font-weight: 700; font-size: 13.5px; color: var(--ink); line-height: 1.35; }
+            [data-comment="pdp-notify-toast-text"] { font-family: var(--sans); font-size: 13px; line-height: 1.5; color: var(--muted); margin: 4px 0 0; }
+            [data-comment="pdp-notify-toast-text"] b { color: var(--ink2); font-weight: 700; }
+            [data-comment="pdp-notify-toast-close"] { flex: none; width: 26px; height: 26px; border: 0; border-radius: 999px; background: transparent; color: var(--subtle); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: background-color 200ms, color 200ms; }
+            [data-comment="pdp-notify-toast-close"]:hover { background: var(--paper1); color: var(--ink); }
+            @media (prefers-reduced-motion: reduce) { [data-comment="pdp-notify-toast"] { transition: none; } }
+            /* Notify email-capture popup (centred dialog over a dimmed backdrop) */
+            [data-comment="pdp-notify-scrim"] { position: fixed; inset: 0; background: rgba(21, 20, 15, 0.55); opacity: 0; pointer-events: none; transition: opacity 200ms ease; z-index: 1300; }
+            [data-comment="pdp-notify-scrim"].on { opacity: 1; pointer-events: auto; }
+            [data-comment="pdp-notify-modal"] { position: fixed; z-index: 1301; top: 50%; left: 50%; transform: translate(-50%, -46%); width: min(440px, 94vw); background: #fffdf8; border-radius: 6px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35); padding: 30px 30px 32px; opacity: 0; pointer-events: none; transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1), transform 220ms cubic-bezier(0.22, 1, 0.36, 1); }
+            [data-comment="pdp-notify-modal"].on { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%); }
+            [data-comment="pdp-notify-close"] { position: absolute; top: 14px; right: 14px; width: 34px; height: 34px; border: 0; border-radius: 50%; background: transparent; color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background-color 200ms, color 200ms; }
+            [data-comment="pdp-notify-close"]:hover { background: var(--paper1); color: var(--ink); }
+            [data-comment="pdp-notify-close"] i { font-size: 18px; }
+            [data-comment="pdp-notify-modal-ic"] { width: 46px; height: 46px; border-radius: 999px; background: var(--e050, #f7f0e8); color: var(--g700); display: inline-flex; align-items: center; justify-content: center; font-size: 22px; }
+            [data-comment="pdp-notify-title"] { font-family: var(--display); font-weight: 400; font-size: 24px; line-height: 1.15; color: var(--ink); margin: 16px 0 0; }
+            [data-comment="pdp-notify-sub"] { font-family: var(--sans); font-size: 14.5px; line-height: 1.6; color: var(--muted); margin: 8px 0 0; }
+            [data-comment="pdp-notify-form"] { margin-top: 20px; }
+            [data-comment="pdp-notify-label"] { display: block; font-family: var(--sans); font-weight: 700; font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--subtle); margin-bottom: 7px; }
+            [data-comment="pdp-notify-email"] { width: 100%; box-sizing: border-box; font-family: var(--sans); font-size: 15px; color: var(--ink); background: #fff; border: 1.5px solid var(--line); border-radius: 2px; padding: 13px 15px; transition: border-color 180ms; }
+            [data-comment="pdp-notify-email"]::placeholder { color: var(--subtle); }
+            [data-comment="pdp-notify-email"]:focus { outline: none; border-color: var(--g700); }
+            [data-comment="pdp-notify-error"] { display: none; font-family: var(--sans); font-size: 13px; color: var(--danger, #b3261e); margin: 8px 0 0; }
+            [data-comment="pdp-notify-submit"] { margin-top: 16px; width: 100%; font-family: var(--sans); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; background: var(--btn); border: 1.5px solid var(--btn); border-radius: 2px; padding: 15px 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: background-color 200ms, border-color 200ms; }
+            [data-comment="pdp-notify-submit"]:hover { background: var(--btn-hover); border-color: var(--btn-hover); }
+            [data-comment="pdp-notify-submit"] i { font-size: 17px; }
+            @media (prefers-reduced-motion: reduce) { [data-comment="pdp-notify-scrim"], [data-comment="pdp-notify-modal"] { transition: none; } }
         </style>
     </head>
     <body>
@@ -1328,7 +1361,7 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
 
                         <!-- BUY ACTION — stock-driven: Add to cart when in stock, Notify when sold out (toggle in pdp-buy-script) -->
                         <button data-comment="pdp-buy-add" data-component="button" data-cart-name="Liberty Apple" data-cart-price="44.95" data-cart-category="apples" data-cart-img="assets/cat-apples.png" data-cart-type="Apple tree" style="margin-top:24px; width:100%; font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; color:#FFFFFF; background:var(--btn); border:1.5px solid var(--btn); border-radius:2px; padding:18px 24px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px;"><i data-comment="pdp-buy-add-icon" class="ph ph-shopping-bag" style="font-size:18px;"></i> Add to cart</button>
-                        <button data-comment="pdp-buy-notify" data-component="button" style="display:none; margin-top:24px; width:100%; font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; color:#FFFFFF; background:var(--btn); border:1.5px solid var(--btn); border-radius:2px; padding:18px 24px; cursor:pointer; align-items:center; justify-content:center; gap:10px;"><i data-comment="pdp-buy-notify-icon" class="ph ph-bell" style="font-size:18px;"></i> Notify me when available</button>
+                        <button data-comment="pdp-buy-notify" data-component="button" style="display:none; margin-top:24px; width:100%; font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; color:#FFFFFF; background:var(--btn); border:1.5px solid var(--btn); border-radius:2px; padding:18px 24px; cursor:pointer; align-items:center; justify-content:center; gap:10px;"><i data-comment="pdp-buy-notify-icon" class="ph ph-bell" style="font-size:18px;"></i> Notify me when in stock</button>
 
                         <p data-comment="pdp-buy-short-desc" style="font-family:var(--sans); font-size:15.5px; line-height:1.7; color:var(--muted); margin:24px 0 0;">A reliable dessert apple for cold climates — juicy, sweet-tart fruit with a refreshing bite. Scab-immune and easy to grow, it's an ideal variety for a first orchard or low-spray, organic growing.</p>
 
@@ -1530,6 +1563,31 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                     <a data-comment="pdp-resources-cta-link" href="home.html#resources" style="font-family:var(--sans); font-weight:700; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:#FFFFFF; background:var(--btn); border-radius:2px; padding:15px 28px; text-decoration:none; white-space:nowrap;">View all resources</a>
                 </div>
             </section>
+
+            <!-- NOTIFY EMAIL-CAPTURE POPUP — opens on "Notify me when in stock", submits → toast -->
+            <div data-comment="pdp-notify-scrim"></div>
+            <div data-comment="pdp-notify-modal" role="dialog" aria-modal="true" aria-labelledby="pdp-notify-title">
+                <button type="button" data-comment="pdp-notify-close" aria-label="Close"><i class="ph ph-x" aria-hidden="true"></i></button>
+                <div data-comment="pdp-notify-modal-ic" aria-hidden="true"><i class="ph ph-bell"></i></div>
+                <h2 data-comment="pdp-notify-title" id="pdp-notify-title">Notify me when in stock</h2>
+                <p data-comment="pdp-notify-sub">Enter your email and we'll let you know the moment this variety is back — in the order you signed up.</p>
+                <form data-comment="pdp-notify-form" novalidate>
+                    <label data-comment="pdp-notify-label" for="pdp-notify-email">Email address</label>
+                    <input data-comment="pdp-notify-email" id="pdp-notify-email" type="email" autocomplete="email" placeholder="you@example.com" required>
+                    <p data-comment="pdp-notify-error" role="alert">Please enter a valid email address.</p>
+                    <button type="submit" data-comment="pdp-notify-submit"><i class="ph ph-bell" aria-hidden="true"></i> Notify me when in stock</button>
+                </form>
+            </div>
+
+            <!-- NOTIFY WAITLIST TOAST — bottom-right confirmation shown after email submit -->
+            <div data-comment="pdp-notify-toast" role="status" aria-live="polite">
+                <span data-comment="pdp-notify-toast-ic" aria-hidden="true"><i class="ph-fill ph-bell-ringing"></i></span>
+                <div data-comment="pdp-notify-toast-body">
+                    <div data-comment="pdp-notify-toast-title">Thanks for your interest</div>
+                    <p data-comment="pdp-notify-toast-text">You're <b>10th</b> in the queue. We'll email you when this variety is back in stock.</p>
+                </div>
+                <button type="button" data-comment="pdp-notify-toast-close" aria-label="Dismiss"><i class="ph ph-x" aria-hidden="true" style="font-size:15px;"></i></button>
+            </div>
 
             <!-- PDP IMAGE LIGHTBOX -->
             <div data-comment="pdp-lightbox" id="pdp-lightbox" role="dialog" aria-modal="true" aria-label="Product image viewer" onclick="if(event.target===this)closePdpLightbox()" style="position:fixed; inset:0; z-index:1100; display:none; align-items:center; justify-content:center; background:rgba(21,20,15,0.9); padding:40px;">
@@ -3086,7 +3144,10 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
             </script>
         <script data-comment="pdp-buy-script">
         (function () {
-            var IN_STOCK = true; /* flip to false to show the sold-out state + Notify me button */
+            /* This is the UNAVAILABLE (sold-out) PDP variant. product.html is the
+               available variant. Availability is a static per-page flag in this
+               prototype — there is no live stock source. */
+            var IN_STOCK = false;
             var addBtn = document.querySelector('[data-comment="pdp-buy-add"]');
             var notifyBtn = document.querySelector('[data-comment="pdp-buy-notify"]');
             var badge = document.querySelector('[data-comment="pdp-gallery-badge"]');
@@ -3094,10 +3155,12 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                 if (addBtn) addBtn.style.display = IN_STOCK ? 'flex' : 'none';
                 if (notifyBtn) notifyBtn.style.display = IN_STOCK ? 'none' : 'flex';
                 if (badge) {
+                    /* DS status badges: solid fill, white text. Sold out uses --muted
+                       (this page has no --n70 token; --muted keeps white text AA-legible) */
                     badge.textContent = IN_STOCK ? 'In stock' : 'Sold out';
-                    badge.style.color = IN_STOCK ? '#fff' : 'var(--g900)';
-                    badge.style.background = IN_STOCK ? 'var(--g700)' : '#fff';
-                    badge.style.borderColor = IN_STOCK ? 'transparent' : 'var(--line-soft)';
+                    badge.style.color = '#fff';
+                    badge.style.background = IN_STOCK ? 'var(--g700)' : 'var(--muted)';
+                    badge.style.borderColor = 'transparent';
                 }
             }
             applyStock();
@@ -3108,13 +3171,69 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                 addBtn.innerHTML = '<i class="ph ph-check" aria-hidden="true" style="font-size:18px;"></i> Added — view cart';
                 if (window.wtCartDrawer) window.wtCartDrawer.open();
             });
-            if (notifyBtn) notifyBtn.addEventListener('click', function () {
-                var gift = document.querySelector('#gift');
-                if (gift) {
-                    gift.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    var inp = gift.querySelector('input');
-                    if (inp) setTimeout(function () { try { inp.focus(); } catch (e) {} }, 500);
+            /* Notify me flow:
+               1) Click "Notify me when in stock" → open the email-capture popup.
+               2) Submit a valid email → close the popup → show the bottom-right toast.
+               BACKEND (not in this prototype): signups are queued chronologically
+               (FIFO) and notified one at a time / per time-frame — never all at once.
+               The queue position ("10th") is hardcoded here; the backend derives it
+               from the count of prior signups for this product. The notify feature is
+               gated behind premium membership. */
+            var notifyToast = document.querySelector('[data-comment="pdp-notify-toast"]');
+            var notifyToastTimer = null;
+            var nScrim = document.querySelector('[data-comment="pdp-notify-scrim"]');
+            var nModal = document.querySelector('[data-comment="pdp-notify-modal"]');
+            var nForm = document.querySelector('[data-comment="pdp-notify-form"]');
+            var nInput = document.querySelector('[data-comment="pdp-notify-email"]');
+            var nError = document.querySelector('[data-comment="pdp-notify-error"]');
+            var nReturnFocus = null;
+
+            function openNotify() {
+                nReturnFocus = document.activeElement;
+                if (nError) nError.style.display = 'none';
+                nScrim.classList.add('on');
+                nModal.classList.add('on');
+                document.body.style.overflow = 'hidden';
+                setTimeout(function () { try { nInput.focus(); } catch (e) {} }, 60);
+                document.addEventListener('keydown', onNotifyKey);
+            }
+            function closeNotify() {
+                nScrim.classList.remove('on');
+                nModal.classList.remove('on');
+                document.body.style.overflow = '';
+                document.removeEventListener('keydown', onNotifyKey);
+                if (nReturnFocus && nReturnFocus.focus) { try { nReturnFocus.focus(); } catch (e) {} }
+            }
+            function onNotifyKey(e) { if (e.key === 'Escape') closeNotify(); }
+            function showNotifyToast() {
+                notifyToast.classList.add('show');
+                if (notifyToastTimer) clearTimeout(notifyToastTimer);
+                notifyToastTimer = setTimeout(function () { notifyToast.classList.remove('show'); }, 6000);
+            }
+
+            if (notifyBtn) notifyBtn.addEventListener('click', openNotify);
+            if (nScrim) nScrim.addEventListener('click', closeNotify);
+            document.querySelectorAll('[data-comment="pdp-notify-close"]').forEach(function (b) {
+                b.addEventListener('click', closeNotify);
+            });
+            if (nForm) nForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var val = (nInput.value || '').trim();
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+                    if (nError) nError.style.display = 'block';
+                    try { nInput.focus(); } catch (e2) {}
+                    return;
                 }
+                /* BACKEND: persist { email, productId, timestamp } to the waitlist queue here. */
+                closeNotify();
+                nInput.value = '';
+                showNotifyToast();
+            });
+
+            var notifyToastClose = document.querySelector('[data-comment="pdp-notify-toast-close"]');
+            if (notifyToastClose && notifyToast) notifyToastClose.addEventListener('click', function () {
+                notifyToast.classList.remove('show');
+                if (notifyToastTimer) clearTimeout(notifyToastTimer);
             });
         })();
         </script>
