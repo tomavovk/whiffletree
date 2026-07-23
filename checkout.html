@@ -1381,6 +1381,20 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                     .co-opt--pay .co-opt-t { font-size: 13.5px; white-space: nowrap; }
                     .co-method-msg { font-family: var(--sans); font-size: 13px; color: var(--muted); margin: 12px 0 0; }
 
+                    /* Pruning add-on — per-tree checklist ("Choose per tree" mode) */
+                    .co-prune-list { margin: 14px 0 0; border: 1px solid var(--line-soft); border-radius: 4px; overflow: hidden; }
+                    .co-prune-item { display: flex; gap: 12px; align-items: center; padding: 12px 14px; border-bottom: 1px solid var(--line-soft); cursor: pointer; }
+                    .co-prune-item:last-child { border-bottom: 0; }
+                    .co-prune-item:hover { background: var(--paper1); }
+                    .co-prune-item input { flex: none; width: 18px; height: 18px; accent-color: var(--g700); cursor: pointer; }
+                    .co-prune-item-img { flex: none; width: 38px; height: 38px; border-radius: 3px; background: #fff center/cover no-repeat; border: 1px solid var(--line); }
+                    .co-prune-item-main { flex: 1; min-width: 0; }
+                    .co-prune-item-name { display: block; font-family: var(--sans); font-weight: 700; font-size: 13.5px; color: var(--ink); line-height: 1.25; }
+                    .co-prune-item-meta { display: block; font-family: var(--sans); font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+                    .co-prune-item-price { flex: none; font-family: var(--sans); font-weight: 700; font-size: 13px; color: var(--g700); white-space: nowrap; }
+                    .co-prune-email { display: flex; gap: 9px; align-items: flex-start; margin: 14px 0 0; font-family: var(--sans); font-size: 12.5px; line-height: 1.5; color: var(--muted); }
+                    .co-prune-email i { font-size: 15px; flex: none; margin-top: 2px; color: var(--subtle); }
+
                     /* Alerts */
                     .co-alert { display: none; gap: 11px; align-items: flex-start; border-radius: 3px; padding: 14px 16px; margin: 14px 0 0; font-family: var(--sans); font-size: 13.5px; line-height: 1.5; }
                     .co-alert.show { display: flex; }
@@ -1454,11 +1468,21 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                     .co-check { display: flex; align-items: center; gap: 9px; font-family: var(--sans); font-size: 13.5px; color: var(--ink2); margin: 14px 0 0; cursor: pointer; }
                     .co-check input { width: 16px; height: 16px; accent-color: var(--g700); }
 
-                    /* Summary */
-                    .co-summary { position: sticky; top: 96px; background: transparent; border: 0; padding: 0; }
-                    @media (max-width: 980px) { .co-summary { position: static; } }
+                    /* Summary — a sticky, viewport-capped flex column: the item list scrolls in the
+                       middle while the totals + Place order stay pinned and always visible. */
+                    .co-summary { position: sticky; top: 96px; background: transparent; border: 0; padding: 0; display: flex; flex-direction: column; max-height: calc(100vh - 112px); }
+                    .co-summary > * { flex: 0 0 auto; }
+                    @media (max-width: 980px) { .co-summary { position: static; display: block; max-height: none; } }
                     .co-sum-title { font-family: var(--display); font-weight: 400; font-size: 24px; color: var(--ink); margin: 0 0 16px; }
-                    .co-lines { list-style: none; margin: 0 0 16px; padding: 0; display: flex; flex-direction: column; }
+                    .co-sum-count { flex: none; font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+                    /* Big carts (up to ~100 lines): the list scrolls inside a capped height while
+                       the totals + Place order stay pinned below, always in view. */
+                    .co-lines { list-style: none; margin: 0 0 16px; padding: 0; display: flex; flex-direction: column; flex: 1 1 auto; min-height: 110px; overflow-y: auto; overscroll-behavior: contain; }
+                    @media (max-width: 980px) { .co-lines { flex: none; max-height: 60vh; } }
+                    .co-lines.is-scroll { padding-right: 10px; }
+                    .co-lines::-webkit-scrollbar { width: 8px; }
+                    .co-lines::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+                    .co-lines::-webkit-scrollbar-thumb:hover { background: var(--subtle); }
                     .co-line { display: flex; gap: 11px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line-soft); }
                     .co-line:first-child { padding-top: 0; }
                     .co-line-img { flex: none; width: 42px; height: 42px; border-radius: 3px; background: #fff center/cover no-repeat; border: 1px solid var(--line); }
@@ -1634,6 +1658,12 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                                     </div>
                                     <label class="co-check"><input type="checkbox" id="co-news" /> Email me about new crops, workshops and sales.</label>
 
+                                    <!-- PROTOTYPE ONLY (#1004): one-click fill of an email that already has an
+                                         order, so the returning-customer path (log in with the same email to see
+                                         past orders / add to an order) is easy to demo. Remove before launch —
+                                         the real flow recognizes the ported customer email + magic link. -->
+                                    <button type="button" class="co-linkbtn" data-comment="co-demo-existing" style="margin-top:12px;"><i class="ph ph-flask" aria-hidden="true"></i> Prototype: use a returning-customer email</button>
+
                                     <!-- Recognized email → first choose intent, then verify only if adding to the existing order -->
                                     <div class="co-verify" data-comment="co-verify" style="display:none;">
                                         <!-- Step A — add to existing, or start new? (no code sent yet) -->
@@ -1756,9 +1786,80 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                                 </div>
                             </section>
 
-                            <!-- 4 Order preferences (substitution) -->
-                            <section class="co-sec" data-comment="co-prefs-sec">
+                            <!-- 4 Pruning (optional add-on component) -->
+                            <section class="co-sec" data-comment="co-prune-sec">
                                 <div class="co-sec-head"><span class="co-step">4</span>
+                                    <div><h2 class="co-sec-title">Add pruning?</h2><p class="co-sec-note">Our growers can shape and prune your trees before they leave the farm — a clean start for the first season. Optional, priced per tree, and available on fruit trees only.</p></div>
+                                </div>
+
+                                <div class="co-opt-list" data-comment="co-prune-options">
+                                    <label class="co-opt" data-prune="all">
+                                        <input type="radio" name="co-prune" value="all" />
+                                        <span class="co-opt-body"><span class="co-opt-t">Prune every eligible tree</span><span class="co-opt-s">We’ll prune all the fruit trees in your order. Priced per tree by type.</span></span>
+                                        <span class="co-opt-dot"></span>
+                                    </label>
+                                    <label class="co-opt" data-prune="choose">
+                                        <input type="radio" name="co-prune" value="choose" />
+                                        <span class="co-opt-body"><span class="co-opt-t">Choose per tree</span><span class="co-opt-s">Pick exactly which trees to prune from the list below.</span></span>
+                                        <span class="co-opt-dot"></span>
+                                    </label>
+                                    <label class="co-opt" data-prune="none">
+                                        <input type="radio" name="co-prune" value="none" />
+                                        <span class="co-opt-body"><span class="co-opt-t">No pruning</span><span class="co-opt-s">Your trees ship unpruned — prune them yourself after planting.</span></span>
+                                        <span class="co-opt-dot"></span>
+                                    </label>
+                                </div>
+
+                                <!-- Per-tree checklist — shown only in "Choose per tree" mode -->
+                                <div class="co-prune-list" data-comment="co-prune-list" style="display:none;"></div>
+
+                                <!-- Smaller-box note — shown when any pruning is selected -->
+                                <div class="co-alert co-alert-info" data-comment="co-prune-box-note">
+                                    <i class="ph-fill ph-package"></i>
+                                    <span>Pruned trees ship in a smaller box — kinder to the tree, and often lighter to ship.</span>
+                                </div>
+
+                                <!-- Stone-fruit pruning video — shown only when the cart has stone fruit -->
+                                <div class="co-vg" data-comment="co-prune-vg" style="display:none;">
+                                    <div class="co-vg-top">
+                                        <button type="button" class="co-vg-poster" data-comment="pvg-open" aria-label="Play our stone-fruit pruning video">
+                                            <img src="assets/pexels-33790937.jpg" alt="Pruning a young stone-fruit tree at the nursery" />
+                                            <span class="co-vg-play" aria-hidden="true"><i class="ph-fill ph-play"></i></span>
+                                            <span class="co-vg-dur">1:10</span>
+                                        </button>
+                                        <div class="co-vg-copy">
+                                            <p class="co-vg-title">How we prune your stone fruit</p>
+                                            <p class="co-vg-sub">Peaches, plums, cherries &amp; apricots are pruned differently. A quick look at the cuts we make — and why.</p>
+                                            <button type="button" class="co-vg-again" data-comment="pvg-again">Watch again</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Post-ship follow-up (backend email — stub only) -->
+                                <p class="co-prune-email" data-comment="co-prune-email-note" style="display:none;"><i class="ph ph-envelope-simple" aria-hidden="true"></i> About a week after your trees ship, we’ll email this pruning video again along with our planting guide, so it’s handy when you plant.</p>
+                            </section>
+
+                            <!-- Stone-fruit pruning video overlay (VideoAsk-style mock; reuses .cvg-* styles) -->
+                            <div class="cvg-ovl" id="pvg-ovl" role="dialog" aria-modal="true" aria-label="How we prune your stone fruit">
+                                <div class="cvg-modal">
+                                    <button type="button" class="cvg-close" id="pvg-close" aria-label="Close">&times;</button>
+                                    <div class="cvg-stage" id="pvg-stage">
+                                        <img src="assets/pexels-33790937.jpg" alt="Pruning a young stone-fruit tree at the nursery" />
+                                        <span class="cvg-brand"><i class="ph-fill ph-scissors" aria-hidden="true"></i> Whiffletree</span>
+                                        <button type="button" class="cvg-bigplay" id="pvg-bigplay" aria-label="Play"><i class="ph-fill ph-play"></i></button>
+                                        <p class="cvg-cap" id="pvg-cap"></p>
+                                        <div class="cvg-bar"><div class="cvg-bar-fill" id="pvg-fill"></div></div>
+                                    </div>
+                                    <div class="cvg-foot">
+                                        <p>Stone fruit is pruned to an open vase so light and air reach the fruit. We’ll send this again after your trees ship.</p>
+                                        <button type="button" class="cvg-confirm" id="pvg-done"><i class="ph-fill ph-check"></i> Got it</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 5 Order preferences (substitution) -->
+                            <section class="co-sec" data-comment="co-prefs-sec">
+                                <div class="co-sec-head"><span class="co-step">5</span>
                                     <div><h2 class="co-sec-title">If an item runs out</h2><p class="co-sec-note">Stock is dug fresh and finite. Tell us what to do if something you ordered isn’t available — please choose one.</p></div>
                                 </div>
                                 <div class="co-opt-list" data-comment="co-sub-options">
@@ -1780,9 +1881,9 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                                 </div>
                             </section>
 
-                            <!-- 5 Payment -->
+                            <!-- 6 Payment -->
                             <section class="co-sec" data-comment="co-payment-sec">
-                                <div class="co-sec-head"><span class="co-step">5</span>
+                                <div class="co-sec-head"><span class="co-step">6</span>
                                     <div><h2 class="co-sec-title">Payment</h2><p class="co-sec-note">Card is charged now. e-Transfer and credit-union bill payment are confirmed once funds arrive — your order is held as “awaiting payment” until then.</p></div>
                                 </div>
                                 <div class="co-pay-grid">
@@ -1848,7 +1949,10 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                         <aside class="co-summary" data-comment="co-summary">
                             <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin:0 0 16px;">
                                 <h2 class="co-sum-title" style="margin:0;">Order summary</h2>
-                                <button type="button" class="co-sum-edit" data-comment="co-sum-edit" onclick="window.wtCartDrawer&amp;&amp;window.wtCartDrawer.open();return false;">Edit</button>
+                                <div style="display:flex; align-items:baseline; gap:12px;">
+                                    <span class="co-sum-count" data-comment="co-sum-count"></span>
+                                    <button type="button" class="co-sum-edit" data-comment="co-sum-edit" onclick="window.wtCartDrawer&amp;&amp;window.wtCartDrawer.open();return false;">Edit</button>
+                                </div>
                             </div>
 
                             <div class="co-progress" data-comment="co-progress">
@@ -1868,6 +1972,7 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
 
                             <div class="co-totals">
                                 <div class="co-total-row"><span>Subtotal</span><span data-comment="co-subtotal">$0.00</span></div>
+                                <div class="co-total-row" data-comment="co-prune-row" style="display:none;"><span>Pruning</span><span data-comment="co-prune-amt">$0.00</span></div>
                                 <div class="co-total-row discount" data-comment="co-discount-row" style="display:none;"><span>Discount (10%)</span><span data-comment="co-discount">−$0.00</span></div>
                                 <div class="co-total-row muted"><span data-comment="co-ship-label">Shipping</span><span data-comment="co-ship-val">Free</span></div>
                                 <div class="co-total-row muted"><span>Estimated tax (HST 13%)</span><span data-comment="co-tax">$0.00</span></div>
@@ -3325,6 +3430,20 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                 var POLLINATORS = { apples: 'Liberty Apple', pears: 'Shinsui Asian Pear', plums: 'Shiro Japanese Plum', cherries: 'Stella Sweet Cherry', apricots: 'Precious Apricot', peaches: 'Reliance Peach' };
                 var RESTRICTED_CATS = { apples: 1, pears: 1, plums: 1, cherries: 1, peaches: 1, apricots: 1, nuts: 1, grapes: 1 };
 
+                /* Stone-fruit categories — pruned to an open vase; get the checkout video + follow-up email. */
+                var STONE = { plums: 1, cherries: 1, peaches: 1, apricots: 1 };
+                /* Optional pruning add-on — modelled as an EBMS component with its own SKU, priced
+                   PER TREE in tiers by complexity (apple = $1). Eligible on fruit trees only (all
+                   ROOTSTOCK categories); berries/shrubs are excluded.
+                   TODO(#1006): confirm the real per-category tiers AND the EBMS component SKUs with
+                   the nursery before launch — the prices and SKU scheme below are placeholders. */
+                var PRUNE_TIERS = { apples: 1, pears: 1, plums: 2, peaches: 2, cherries: 3, apricots: 3 };
+                function pruneEligible(it) { return !!PRUNE_TIERS[it.category]; }
+                function pruneTier(it) { return PRUNE_TIERS[it.category] || 0; }
+                function pruneSku(it) { return 'PRUNE-' + String(it.category || '').toUpperCase(); }
+                function eligibleItems() { return items.filter(pruneEligible); }
+                function cartHasStone() { return items.some(function (it) { return STONE[it.category]; }); }
+
                 /* Demo seed — only if the cart is genuinely empty (keeps the prototype demoable
                    without clobbering a real cart; persists so the drawer/badge stay in sync). */
                 var DEMO_ITEMS = [
@@ -3363,7 +3482,8 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                     pay: 'card',
                     linkMode: 'separate',    // 'add' | 'separate' — 'add' only once identity is proven
                     identityVerified: false, // guest proved ownership via the emailed code
-                    recognized: false        // typed email matched a known customer
+                    recognized: false,       // typed email matched a known customer
+                    pruneMode: null          // null | 'all' | 'choose' | 'none' (per-item flags on items[].prune)
                 };
                 var stepper = null;          // accordion controller (set by initStepper)
 
@@ -3384,15 +3504,24 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                 }
                 function cartHasRestricted() { return items.some(function (it) { return RESTRICTED_CATS[it.category]; }); }
 
+                /* Sum of the optional pruning add-on across pruned, eligible lines (tier × qty). */
+                function pruneTotal() {
+                    if (state.pruneMode !== 'all' && state.pruneMode !== 'choose') return 0;
+                    return items.reduce(function (n, it) {
+                        return n + (it.prune && pruneEligible(it) ? pruneTier(it) * it.qty : 0);
+                    }, 0);
+                }
+
                 /* ── Totals ── */
                 function totals() {
                     var subtotal = items.reduce(function (n, it) { return n + it.price * it.qty; }, 0);
-                    var discount = subtotal >= DISCOUNT_THRESHOLD ? subtotal * DISCOUNT_RATE : 0;
+                    var pruning = pruneTotal();
+                    var discount = subtotal >= DISCOUNT_THRESHOLD ? subtotal * DISCOUNT_RATE : 0;   // items only
                     var shipping = state.method === 'ship' ? SHIP_FLAT : 0;
-                    var taxable = subtotal - discount;
+                    var taxable = subtotal - discount + pruning;
                     var tax = taxable * TAX_RATE;
                     var total = taxable + shipping + tax;
-                    return { subtotal: subtotal, discount: discount, shipping: shipping, tax: tax, total: total };
+                    return { subtotal: subtotal, pruning: pruning, discount: discount, shipping: shipping, tax: tax, total: total };
                 }
 
                 /* ── Render order summary ── */
@@ -3402,16 +3531,23 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                     items.forEach(function (it) {
                         var detail = [it.type, ROOTSTOCK[it.category]].filter(Boolean).join(' · ');
                         var img = it.img || CAT_IMG[it.category] || '';
+                        var pruned = it.prune && pruneEligible(it) && (state.pruneMode === 'all' || state.pruneMode === 'choose');
+                        var pruneMeta = pruned ? '<span class="co-line-meta"><i class="ph ph-scissors" aria-hidden="true"></i> Pruning · ' + fmt(pruneTier(it) * it.qty) + '</span>' : '';
                         var li = document.createElement('li'); li.className = 'co-line';
                         li.innerHTML =
                             '<span class="co-line-img" style="background-image:url(\'' + esc(img) + '\')"></span>' +
                             '<span class="co-line-main"><span class="co-line-name">' + esc(it.name) + '</span>' +
                             (detail ? '<span class="co-line-meta">' + esc(detail) + '</span>' : '') +
+                            pruneMeta +
                             '</span>' +
                             '<span class="co-line-qty">Qty ' + it.qty + '</span>' +
                             '<span class="co-line-price">' + fmt(it.price * it.qty) + '</span>';
                         ul.appendChild(li);
                     });
+                    // Item count + scroll affordance (carts can run to ~100 lines)
+                    var qtyCount = items.reduce(function (n, it) { return n + it.qty; }, 0);
+                    var cnt = $('co-sum-count'); if (cnt) cnt.textContent = qtyCount + (qtyCount === 1 ? ' item' : ' items');
+                    ul.classList.toggle('is-scroll', ul.scrollHeight > ul.clientHeight + 1);
 
                     // discount progress
                     var pct = Math.min(100, Math.round(t.subtotal / DISCOUNT_THRESHOLD * 100));
@@ -3428,6 +3564,8 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                     }
 
                     $('co-subtotal').textContent = fmt(t.subtotal);
+                    var pr = $('co-prune-row');
+                    if (t.pruning > 0) { pr.style.display = 'flex'; $('co-prune-amt').textContent = fmt(t.pruning); } else pr.style.display = 'none';
                     var dr = $('co-discount-row');
                     if (t.discount > 0) { dr.style.display = 'flex'; $('co-discount').textContent = '−' + fmt(t.discount); } else dr.style.display = 'none';
                     $('co-ship-label').textContent = state.method === 'ship' ? 'Shipping (flat)' : 'Pickup';
@@ -3702,6 +3840,15 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                     }
                     emailEl.addEventListener('input', checkRecognition);
 
+                    // PROTOTYPE (#1004): fill a known returning-customer email and trigger the
+                    // recognized-email path in one click. Remove with the button before launch.
+                    var demoBtn = $('co-demo-existing');
+                    if (demoBtn) demoBtn.addEventListener('click', function () {
+                        emailEl.value = KNOWN_EMAILS[0];
+                        checkRecognition();
+                        updatePlace();
+                    });
+
                     // chose "add to existing" → now (and only now) send the code + reveal the code step
                     $('co-verify-add').addEventListener('click', function () {
                         $('co-verify-email').textContent = emailEl.value.trim();
@@ -3759,6 +3906,61 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                     else showSignedIn(false);
                 }
 
+                /* ── Pruning add-on (optional per-tree component) ────────────────── */
+                function anyStonePruned() {
+                    if (state.pruneMode === 'all') return cartHasStone();
+                    if (state.pruneMode === 'choose') return items.some(function (it) { return it.prune && STONE[it.category]; });
+                    return false;
+                }
+                function updatePruneAffordances() {
+                    var m = state.pruneMode;
+                    var anySelected = m === 'all' || (m === 'choose' && items.some(function (it) { return it.prune && pruneEligible(it); }));
+                    $('co-prune-box-note').classList.toggle('show', anySelected);
+                    // The video helps shoppers decide, so it shows as soon as pruning is on the
+                    // table and the cart has stone fruit. The post-ship email note only shows once
+                    // stone fruit is actually being pruned.
+                    $('co-prune-vg').style.display = ((m === 'all' || m === 'choose') && cartHasStone()) ? 'block' : 'none';
+                    $('co-prune-email-note').style.display = anyStonePruned() ? 'flex' : 'none';
+                }
+                function renderPruneList() {
+                    var box = $('co-prune-list'); box.innerHTML = '';
+                    eligibleItems().forEach(function (it) {
+                        var img = it.img || CAT_IMG[it.category] || '';
+                        var per = pruneTier(it);
+                        var row = document.createElement('label'); row.className = 'co-prune-item';
+                        row.innerHTML =
+                            '<input type="checkbox"' + (it.prune ? ' checked' : '') + ' />' +
+                            '<span class="co-prune-item-img" style="background-image:url(\'' + esc(img) + '\')"></span>' +
+                            '<span class="co-prune-item-main"><span class="co-prune-item-name">' + esc(it.name) + '</span>' +
+                            '<span class="co-prune-item-meta">' + (it.qty > 1 ? it.qty + ' trees · ' : '') + fmt(per) + ' per tree</span></span>' +
+                            '<span class="co-prune-item-price">' + fmt(per * it.qty) + '</span>';
+                        var cb = row.querySelector('input');
+                        cb.addEventListener('change', function () {
+                            it.prune = cb.checked;
+                            updatePruneAffordances(); renderSummary(); updatePlace();
+                        });
+                        box.appendChild(row);
+                    });
+                }
+                function setPruneMode(m) {
+                    state.pruneMode = m;
+                    document.querySelectorAll('.co-opt[data-prune]').forEach(function (el) { el.classList.toggle('sel', el.dataset.prune === m); });
+                    if (m === 'all') { items.forEach(function (it) { if (pruneEligible(it)) it.prune = true; }); }
+                    else if (m === 'none') { items.forEach(function (it) { it.prune = false; }); }
+                    // 'choose' keeps whatever per-item flags are already set
+                    $('co-prune-list').style.display = m === 'choose' ? 'block' : 'none';
+                    if (m === 'choose') renderPruneList();
+                    updatePruneAffordances(); renderSummary(); updatePlace();
+                }
+                function initPruning() {
+                    var sec = $('co-prune-sec');
+                    if (!sec) return;
+                    if (!eligibleItems().length) { sec.style.display = 'none'; return; }   // nothing prunable → skip the step
+                    document.querySelectorAll('.co-opt[data-prune]').forEach(function (el) {
+                        el.addEventListener('click', function () { setPruneMode(el.dataset.prune); });
+                    });
+                }
+
                 /* ── Wire up ── */
                 function init() {
                     if (!items.length) { $('co-empty').style.display = 'block'; $('co-grid').style.display = 'none'; return; }
@@ -3811,6 +4013,7 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                     renderSummary();
                     updatePlace();
                     initContact();
+                    initPruning();
                     initStepper();
 
                     // Login from the checkout popup stays on this page: close popup → Contact step
@@ -3841,6 +4044,15 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                         { el: $('co-sched-sec'),
                           done: function () { return !!state.date; },
                           summary: function () { if (!state.date) return ''; return (state.method === 'ship' ? 'Ships ' : 'Pickup ') + state.date.toLocaleDateString('en-CA', { month: 'long', day: 'numeric' }) + (state.method === 'pickup' && state.slot ? ', ' + state.slot : ''); } },
+                        { el: $('co-prune-sec'), prune: true,
+                          done: function () { return !!state.pruneMode; },
+                          summary: function () {
+                              if (!state.pruneMode || state.pruneMode === 'none') return 'No pruning';
+                              var elig = eligibleItems().length;
+                              if (state.pruneMode === 'all') return 'Pruning all ' + elig + ' tree' + (elig === 1 ? '' : 's');
+                              var n = eligibleItems().filter(function (it) { return it.prune; }).length;
+                              return n ? ('Pruning ' + n + ' of ' + elig) : 'No trees selected';
+                          } },
                         { el: $('co-prefs-sec'),
                           done: function () { return !!document.querySelector('input[name="co-sub"]:checked'); },
                           summary: function () { var r = document.querySelector('input[name="co-sub"]:checked'); return r ? SUB_LABEL[r.value] : ''; } },
@@ -3848,7 +4060,8 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                           done: function () { return true; },
                           summary: function () { return PAY_LABEL[state.pay] || 'Card'; } }
                     ];
-                    var openIdx = 0, doneFlags = [false, false, false, false, false];
+                    if (!eligibleItems().length) STEPS = STEPS.filter(function (s) { return !s.prune; });   // no prunable items → drop the step
+                    var openIdx = 0, doneFlags = STEPS.map(function () { return false; });
 
                     STEPS.forEach(function (step, i) {
                         var head = step.el.querySelector('.co-sec-head');
@@ -3996,6 +4209,69 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                     bigplay.addEventListener('click', play);
                     stage.addEventListener('click', function (e) { if (e.target === bigplay || bigplay.contains(e.target)) return; if (!played && !timer) play(); });
                     confirm.addEventListener('click', markReviewed);
+                    ovl.addEventListener('click', function (e) { if (e.target === ovl) closeOverlay(); });
+                    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && ovl.classList.contains('open')) closeOverlay(); });
+                }
+                if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+            })();
+        </script>
+
+        <!-- Stone-fruit pruning video (VideoAsk-style mock) — self-contained, reuses .cvg-* styles -->
+        <script data-comment="pvg-script">
+            (function () {
+                'use strict';
+                function init() {
+                    var ovl = document.getElementById('pvg-ovl');
+                    if (!ovl) return;
+                    var openBtn = document.querySelector('[data-comment="pvg-open"]');
+                    var again = document.querySelector('[data-comment="pvg-again"]');
+                    var closeBtn = document.getElementById('pvg-close');
+                    var stage = document.getElementById('pvg-stage');
+                    var bigplay = document.getElementById('pvg-bigplay');
+                    var fill = document.getElementById('pvg-fill');
+                    var cap = document.getElementById('pvg-cap');
+                    var done = document.getElementById('pvg-done');
+
+                    var CAPTIONS = [
+                        { at: 0.04, text: 'Stone fruit — peaches, plums, cherries, apricots.' },
+                        { at: 0.30, text: 'We prune to an open vase, not a central leader.' },
+                        { at: 0.60, text: 'That lets light and air reach every branch.' },
+                        { at: 0.85, text: 'Fewer, stronger scaffolds mean better fruit.' }
+                    ];
+                    var DURATION = 6000, timer = null, start = 0, played = false;
+
+                    function showCap(p) {
+                        var pick = null;
+                        for (var i = 0; i < CAPTIONS.length; i++) { if (p >= CAPTIONS[i].at) pick = CAPTIONS[i]; }
+                        if (pick && cap.textContent !== pick.text) { cap.textContent = pick.text; cap.classList.remove('show'); void cap.offsetWidth; cap.classList.add('show'); }
+                    }
+                    function stopTimer() { if (timer) { clearInterval(timer); timer = null; } }
+                    function finish() { stopTimer(); fill.style.width = '100%'; played = true; cap.textContent = 'That’s how we shape your stone fruit.'; cap.classList.add('show'); }
+                    function play() {
+                        if (played) { finish(); return; }
+                        stage.classList.add('playing'); start = Date.now();
+                        timer = setInterval(function () {
+                            var p = Math.min(1, (Date.now() - start) / DURATION);
+                            fill.style.width = (p * 100).toFixed(1) + '%'; showCap(p);
+                            if (p >= 1) finish();
+                        }, 100);
+                    }
+                    function openOverlay() {
+                        ovl.classList.add('open'); document.body.style.overflow = 'hidden';
+                        if (!played) { fill.style.width = '0'; stage.classList.remove('playing'); cap.classList.remove('show'); cap.textContent = ''; }
+                        else { fill.style.width = '100%'; }
+                    }
+                    function closeOverlay() {
+                        ovl.classList.remove('open'); document.body.style.overflow = ''; stopTimer();
+                        if (!played) { stage.classList.remove('playing'); fill.style.width = '0'; }
+                    }
+
+                    if (openBtn) openBtn.addEventListener('click', openOverlay);
+                    if (again) again.addEventListener('click', openOverlay);
+                    closeBtn.addEventListener('click', closeOverlay);
+                    bigplay.addEventListener('click', play);
+                    stage.addEventListener('click', function (e) { if (e.target === bigplay || bigplay.contains(e.target)) return; if (!played && !timer) play(); });
+                    done.addEventListener('click', closeOverlay);
                     ovl.addEventListener('click', function (e) { if (e.target === ovl) closeOverlay(); });
                     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && ovl.classList.contains('open')) closeOverlay(); });
                 }
