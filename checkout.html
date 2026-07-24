@@ -1602,6 +1602,21 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                     .co-pollen i { font-size: 16px; flex: none; margin-top: 1px; }
                     .co-pollen-ok { background: #eef6ec; color: #2f6b32; border: 1px solid #cfe6cf; }
                     .co-pollen-warn { background: #fdf3e7; color: #7a4b12; border: 1px solid #f0d3a8; }
+                    .co-pollen-text { flex: 1; min-width: 0; }
+                    .co-pollen-add { flex: none; align-self: center; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; font-family: var(--sans); font-weight: 700; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; background: #7a4b12; border: none; border-radius: 2px; padding: 8px 13px; cursor: pointer; transition: background 150ms; }
+                    .co-pollen-add:hover { background: #5e3a0e; }
+                    .co-pollen-add i { font-size: 13px; }
+
+                    /* Bill Payment — supported institutions (Central 1 participating BP clients) */
+                    .co-bp-group { margin: 0 0 12px; }
+                    .co-bp-h { font-family: var(--sans); font-weight: 700; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
+                    .co-bp-fi { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 3px 16px; }
+                    .co-bp-fi li { font-size: 12.5px; line-height: 1.4; }
+                    .co-bp-cu { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 7px; }
+                    .co-bp-cu li { font-size: 12.5px; line-height: 1.45; }
+                    .co-bp-cu .co-bp-prov { color: var(--ink); }
+                    .co-bp-cu .co-bp-exc { color: var(--muted); }
+                    .co-bp-cu a { color: var(--g700); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; white-space: nowrap; }
 
                     .co-place { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; white-space: nowrap; margin: 18px 0 0; font-family: var(--sans); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; background: var(--btn); border: none; border-radius: 2px; padding: 17px 24px; cursor: pointer; transition: background 150ms; }
                     .co-place:hover:not([disabled]) { background: var(--btn-hover); }
@@ -1930,15 +1945,39 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                                             <li>Add <b>Whiffletree Farm &amp; Nursery</b> as a payee.</li>
                                             <li>Use your <b>order number</b> (e.g. <b>WT-10432</b>) as the account number so we can match your payment to your order.</li>
                                         </ol>
-                                        <p style="margin:0 0 10px;">Supported banks &amp; credit unions:</p>
-                                        <!-- TODO: replace placeholder list with the real list from Accounting (comment #129) -->
-                                        <ul data-comment="co-billpay-banks" style="margin:0 0 10px; padding-left:18px; display:flex; flex-direction:column; gap:4px;">
-                                            <li>Bank 1</li>
-                                            <li>Bank 2</li>
-                                            <li>Bank 3</li>
-                                            <li>Credit Union 1</li>
-                                            <li>Credit Union 2</li>
-                                        </ul>
+                                        <p style="margin:0 0 12px;">Bill payment is supported through the institutions below (Central 1 participating clients). If you don’t see yours, use <b>Interac e-Transfer</b> instead.</p>
+
+                                        <div class="co-bp-group" data-comment="co-billpay-banks">
+                                            <p class="co-bp-h">Other financial institutions</p>
+                                            <ul class="co-bp-fi">
+                                                <li>ATB Financial</li>
+                                                <li>Canadian Western Bank</li>
+                                                <li>Caisse Financial Group</li>
+                                                <li>First Nations Bank of Canada</li>
+                                                <li>CTBC Bank Corp. (Canada)</li>
+                                                <li>Equitable Bank</li>
+                                                <li>CFF Bank</li>
+                                                <li>Alterna Bank</li>
+                                                <li>People’s Trust</li>
+                                                <li>Neo Financial</li>
+                                                <li>Uni Financial</li>
+                                                <li>Caisse Alliance</li>
+                                                <li>Haventree Bank</li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="co-bp-group">
+                                            <p class="co-bp-h">Credit unions (via Central 1)</p>
+                                            <ul class="co-bp-cu">
+                                                <li><b class="co-bp-prov">British Columbia</b> — all credit unions. <a href="https://www.central1.com/list-bc/" target="_blank" rel="noopener">Find a credit union&nbsp;↗</a></li>
+                                                <li><b class="co-bp-prov">Alberta</b> — all <span class="co-bp-exc">except Calgary Police, Christian, Khalsa, Spark the Energy and Transcanada</span>. <a href="https://albertacreditunions.com/find-a-credit-union/" target="_blank" rel="noopener">Find a credit union&nbsp;↗</a></li>
+                                                <li><b class="co-bp-prov">Saskatchewan</b> — all <span class="co-bp-exc">except Conexus and Affinity</span>. <a href="https://www.saskcu.com/online-banking-websites/" target="_blank" rel="noopener">Find a credit union&nbsp;↗</a></li>
+                                                <li><b class="co-bp-prov">Manitoba</b> — all <span class="co-bp-exc">except Achieva Financial, Outlook Financial and Maxa Financial</span>.</li>
+                                                <li><b class="co-bp-prov">Ontario</b> — all <span class="co-bp-exc">except Meridian and Smiths Falls</span>. <a href="https://www.central1.com/list-on/" target="_blank" rel="noopener">Find a credit union&nbsp;↗</a></li>
+                                                <li><b class="co-bp-prov">Atlantic</b> — all credit unions. <a href="http://atlanticcreditunions.ca/find-a-branch/" target="_blank" rel="noopener">Find a credit union&nbsp;↗</a></li>
+                                            </ul>
+                                        </div>
+
                                         <p style="margin:0;">Held as <b>awaiting payment</b> until funds clear.</p>
                                     </div>
                                 </div>
@@ -1967,7 +2006,7 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
 
                             <div class="co-pollen co-pollen-ok" data-comment="co-pollen" style="display:none;">
                                 <i class="ph-fill ph-check-circle"></i>
-                                <span data-comment="co-pollen-text"></span>
+                                <span class="co-pollen-text" data-comment="co-pollen-text"></span>
                             </div>
 
                             <div class="co-totals">
@@ -3427,7 +3466,17 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
 
                 var ROOTSTOCK = { apples: 'MM.106 rootstock', pears: 'OHxF 87 rootstock', plums: 'Myrobalan rootstock', cherries: 'Gisela 6 rootstock', peaches: 'Bailey rootstock', apricots: 'Manchurian rootstock' };
                 var CAT_IMG = { apples: 'assets/cat-apples.png', pears: 'assets/cat-pears.png', plums: 'assets/cat-plums.jpg', cherries: 'assets/cat-cherries.png', peaches: 'assets/cat-peaches.png', apricots: 'assets/cat-apricots.png', grapes: 'assets/cat-grapes.png', nuts: 'assets/cat-nuts.png', shrubs: 'assets/cat-shrubs.png', supplies: 'assets/cat-supplies.png', books: 'assets/books.png' };
-                var POLLINATORS = { apples: 'Liberty Apple', pears: 'Shinsui Asian Pear', plums: 'Shiro Japanese Plum', cherries: 'Stella Sweet Cherry', apricots: 'Precious Apricot', peaches: 'Reliance Peach' };
+                /* Compatible-pollinator recommendation per category (real catalogue varieties).
+                   Full product objects so the "Add" button in the summary can drop one straight
+                   into the cart without leaving checkout. */
+                var POLLINATORS = {
+                    apples:   { id: 'liberty-apple',        name: 'Liberty Apple',        price: 44.95, category: 'apples',   type: 'Apple tree',   img: 'assets/cat-apples.png' },
+                    pears:    { id: 'shinsui-asian-pear',   name: 'Shinsui Asian Pear',   price: 39.95, category: 'pears',    type: 'Pear tree',    img: 'assets/cat-pears.png' },
+                    plums:    { id: 'shiro-japanese-plum',  name: 'Shiro Japanese Plum',  price: 46.95, category: 'plums',    type: 'Plum tree',    img: 'assets/cat-plums.jpg' },
+                    cherries: { id: 'stella-sweet-cherry',  name: 'Stella Sweet Cherry',  price: 49.95, category: 'cherries', type: 'Cherry tree',  img: 'assets/cat-cherries.png' },
+                    apricots: { id: 'precious-apricot',     name: 'Precious Apricot',     price: 49.95, category: 'apricots', type: 'Apricot tree', img: 'assets/cat-apricots.png' },
+                    peaches:  { id: 'reliance-peach',       name: 'Reliance Peach',       price: 49.95, category: 'peaches',  type: 'Peach tree',   img: 'assets/cat-peaches.png' }
+                };
                 var RESTRICTED_CATS = { apples: 1, pears: 1, plums: 1, cherries: 1, peaches: 1, apricots: 1, nuts: 1, grapes: 1 };
 
                 /* Stone-fruit categories — pruned to an open vase; get the checkout video + follow-up email. */
@@ -3524,6 +3573,31 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                     return { subtotal: subtotal, pruning: pruning, discount: discount, shipping: shipping, tax: tax, total: total };
                 }
 
+                /* ── Persist the cart back to the shared store + keep the header badge in sync ── */
+                function persistItems() {
+                    try {
+                        localStorage.setItem(ITEMS_KEY, JSON.stringify(items));
+                        localStorage.setItem(COUNT_KEY, String(items.reduce(function (n, it) { return n + it.qty; }, 0)));
+                    } catch (e) { }
+                    var b = document.querySelector('[data-comment="header-cart-badge"]');
+                    if (b) b.classList.toggle('on', items.length > 0);
+                }
+
+                /* ── Add the recommended pollinator straight into the cart (no page change) ── */
+                function addPollinator(cat) {
+                    var p = POLLINATORS[cat]; if (!p) return;
+                    var line = null;
+                    for (var i = 0; i < items.length; i++) { if (items[i].id === p.id) { line = items[i]; break; } }
+                    if (line) { line.qty += 1; }
+                    else { items.push({ id: p.id, name: p.name, price: p.price, category: p.category, chars: '', img: p.img, type: p.type, qty: 1 }); }
+                    persistItems();
+                    renderPruneList();          // new tree is prune-eligible
+                    updatePruneAffordances();
+                    renderSummary();            // reflows totals + flips the chip to "pollination-ready"
+                    updatePlace();
+                    checkCFIA();
+                }
+
                 /* ── Render order summary ── */
                 function renderSummary() {
                     var t = totals();
@@ -3575,11 +3649,27 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
 
                     // pollination chip
                     var chip = $('co-pollen'), txt = $('co-pollen-text'), conflict = pollination();
+                    var addBtn = $('co-pollen-add'); if (addBtn) addBtn.style.display = 'none';
                     if (!trees().length) { chip.style.display = 'none'; }
                     else if (conflict) {
                         chip.style.display = 'flex'; chip.className = 'co-pollen co-pollen-warn';
                         chip.querySelector('i').className = 'ph-fill ph-warning';
-                        txt.innerHTML = '<b>' + esc(conflict.name) + '</b> needs a pollinator. Add <b>' + esc(POLLINATORS[conflict.category] || 'a compatible variety') + '</b> for fruit set.';
+                        var rec = POLLINATORS[conflict.category];
+                        txt.innerHTML = '<b>' + esc(conflict.name) + '</b> needs a pollinator. Add <b>' + esc(rec ? rec.name : 'a compatible variety') + '</b> for fruit set.';
+                        // Inline "Add" so the shopper can resolve the conflict without leaving checkout.
+                        if (rec) {
+                            if (!addBtn) {
+                                addBtn = document.createElement('button');
+                                addBtn.type = 'button';
+                                addBtn.className = 'co-pollen-add';
+                                addBtn.setAttribute('data-comment', 'co-pollen-add');
+                                addBtn.innerHTML = '<i class="ph-bold ph-plus" aria-hidden="true"></i> Add';
+                                chip.appendChild(addBtn);
+                            }
+                            addBtn.style.display = 'inline-flex';
+                            addBtn.setAttribute('aria-label', 'Add ' + rec.name + ' to your order');
+                            addBtn.onclick = function () { addPollinator(conflict.category); };
+                        }
                     } else {
                         chip.style.display = 'flex'; chip.className = 'co-pollen co-pollen-ok';
                         chip.querySelector('i').className = 'ph-fill ph-check-circle';
