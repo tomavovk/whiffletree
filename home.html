@@ -669,29 +669,15 @@ footer[data-comment="footer-root"] [data-comment="footer-legal-links"] > a { pad
                 color: var(--g700) !important;
             }
 
-            /* --- Why Whiffletree cards: icon-tile lift + accent-underline link --- */
-            [data-comment^="why-card-"][data-comment$="-icon-tile"] {
-                position: relative;
-                overflow: hidden;
-            }
-            [data-comment^="why-card-"][data-comment$="-icon-tile"]::after {
-                content: "";
-                position: absolute;
-                inset: 0;
-                background: #ffffff;
-                opacity: 0;
-                transition: opacity 550ms cubic-bezier(0.22, 1, 0.36, 1);
-                pointer-events: none;
-            }
-            [data-comment^="why-card-"][data-comment$="-icon-tile"] > i {
-                position: relative;
-                z-index: 1;
-            }
-            [data-comment="why-card-1"]:hover [data-comment$="-icon-tile"]::after,
-            [data-comment="why-card-2"]:hover [data-comment$="-icon-tile"]::after,
-            [data-comment="why-card-3"]:hover [data-comment$="-icon-tile"]::after {
-                opacity: 1;
-            }
+            /* --- Why section: reduced vertical rhythm (128→92 @bp2),
+                   other breakpoints scaled proportionally (×0.719) --- */
+            [data-comment="why-inner"] { padding-block: 46px; }
+            @media (min-width: 720px)  { [data-comment="why-inner"] { padding-block: 69px; } }
+            @media (min-width: 1024px) { [data-comment="why-inner"] { padding-block: 92px; } }
+            @media (min-width: 1440px) { [data-comment="why-inner"] { padding-block: 104px; } }
+            @media (min-width: 1920px) { [data-comment="why-inner"] { padding-block: 115px; } }
+
+            /* --- Why Whiffletree cards: accent-underline link --- */
             [data-comment="why-card-1"]:hover [data-comment$="-link"],
             [data-comment="why-card-2"]:hover [data-comment$="-link"],
             [data-comment="why-card-3"]:hover [data-comment$="-link"] {
@@ -1321,30 +1307,30 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                         <div data-comment="why-eyebrow" style="font-family: var(--sans); font-weight: 700; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent-deep)">The Whiffletree difference</div>
                         <h1 data-comment="why-heading" style="font-family: var(--display); font-weight: 400; font-size: var(--fs-h2); line-height: 1.04; color: var(--ink); margin: 12px 0 0">Why Whiffletree?</h1>
                     </div>
-                    <div data-comment="why-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-top:48px;">
-                        <div data-comment="why-card-1" style="display:flex; flex-direction:column;">
-                            <div data-comment="why-card-1-icon-tile" style="aspect-ratio:7/5; border:1px solid #F1EEE7; border-radius:2px; background:linear-gradient(135deg, #ffffff 0%, #EDE7DB 100%); display:flex; align-items:center; justify-content:center;">
-                                <i data-comment="why-card-1-icon" class="ph-light ph-medal" style="font-size:var(--fs-icon-lg); color:#9A7B4F;"></i>
+                    <div data-comment="why-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-top:64px;">
+                        <div data-comment="why-card-1" style="display:flex; flex-direction:column; border:1px solid var(--line-soft); border-radius:2px; padding:32px;">
+                            <div data-comment="why-card-1-icon-tile" style="display:flex; align-items:center; justify-content:flex-start;">
+                                <i data-comment="why-card-1-icon" class="ph-light ph-medal" style="font-size:40px; color:#9A7B4F;"></i>
                             </div>
                             <div data-comment="why-card-1-title" style="font-family:var(--display); font-weight: 400; font-size:var(--fs-tile-title); line-height:1.15; color:var(--ink); margin-top:24px;">Quality</div>
                             <p data-comment="why-card-1-text" style="font-family:var(--sans); font-size:14px; line-height:1.65; color:var(--muted); margin:12px 0 0;">We work hard to provide high-quality stock from one of the finest collections of fruiting trees in Canada.</p>
                             <a data-comment="why-card-1-link" href="about.html" style="margin-top:22px; align-self:flex-start; font-family:var(--sans); font-weight:700; font-size:15px; letter-spacing:0; color:var(--accent); text-decoration:none; padding-bottom:6px; border-bottom:1.5px solid var(--accent); display:inline-flex; align-items:center; gap:8px;">Our story <i data-comment="why-card-1-link-icon" class="ph-light ph-arrow-right" style="font-size:16px;"></i></a>
                         </div>
-                        <div data-comment="why-card-2" style="display:flex; flex-direction:column;">
-                            <div data-comment="why-card-2-icon-tile" style="aspect-ratio:7/5; border:1px solid #F1EEE7; border-radius:2px; background:linear-gradient(135deg, #ffffff 0%, #EDE7DB 100%); display:flex; align-items:center; justify-content:center;">
-                                <i data-comment="why-card-2-icon" class="ph-light ph-seal-check" style="font-size:var(--fs-icon-lg); color:#9A7B4F;"></i>
+                        <div data-comment="why-card-2" style="display:flex; flex-direction:column; border:1px solid var(--line-soft); border-radius:2px; padding:32px;">
+                            <div data-comment="why-card-2-icon-tile" style="display:flex; align-items:center; justify-content:flex-start;">
+                                <i data-comment="why-card-2-icon" class="ph-light ph-seal-check" style="font-size:40px; color:#9A7B4F;"></i>
                             </div>
                             <div data-comment="why-card-2-title" style="font-family:var(--display); font-weight: 400; font-size:var(--fs-tile-title); line-height:1.15; color:var(--ink); margin-top:24px;">Guaranteed</div>
                             <p data-comment="why-card-2-text" style="font-family:var(--sans); font-size:14px; line-height:1.65; color:var(--muted); margin:12px 0 0;">All plants sent out are considered alive and true to name — grown by us, start to finish.</p>
                             <a data-comment="why-card-2-link" href="guarantee-policy.html" style="margin-top:22px; align-self:flex-start; font-family:var(--sans); font-weight:700; font-size:15px; letter-spacing:0; color:var(--accent); text-decoration:none; padding-bottom:6px; border-bottom:1.5px solid var(--accent); display:inline-flex; align-items:center; gap:8px;">View guarantee <i data-comment="why-card-2-link-icon" class="ph-light ph-arrow-right" style="font-size:16px;"></i></a>
                         </div>
-                        <div data-comment="why-card-3" style="display:flex; flex-direction:column;">
-                            <div data-comment="why-card-3-icon-tile" style="aspect-ratio:7/5; border:1px solid #F1EEE7; border-radius:2px; background:linear-gradient(135deg, #ffffff 0%, #EDE7DB 100%); display:flex; align-items:center; justify-content:center;">
-                                <i data-comment="why-card-3-icon" class="ph-light ph-hand-heart" style="font-size:var(--fs-icon-lg); color:#9A7B4F;"></i>
+                        <div data-comment="why-card-3" style="display:flex; flex-direction:column; border:1px solid var(--line-soft); border-radius:2px; padding:32px;">
+                            <div data-comment="why-card-3-icon-tile" style="display:flex; align-items:center; justify-content:flex-start;">
+                                <i data-comment="why-card-3-icon" class="ph-light ph-hand-heart" style="font-size:40px; color:#9A7B4F;"></i>
                             </div>
                             <div data-comment="why-card-3-title" style="font-family:var(--display); font-weight: 400; font-size:var(--fs-tile-title); line-height:1.15; color:var(--ink); margin-top:24px;">Knowledge</div>
-                            <p data-comment="why-card-3-text" style="font-family:var(--sans); font-size:14px; line-height:1.65; color:var(--muted); margin:12px 0 0;">New to fruit trees? We’re here to help. Contact us and we’ll do our best to answer your questions.</p>
-                            <a data-comment="why-card-3-link" href="#contact" style="margin-top:22px; align-self:flex-start; font-family:var(--sans); font-weight:700; font-size:15px; letter-spacing:0; color:var(--accent); text-decoration:none; padding-bottom:6px; border-bottom:1.5px solid var(--accent); display:inline-flex; align-items:center; gap:8px;">Get in touch <i data-comment="why-card-3-link-icon" class="ph-light ph-arrow-right" style="font-size:16px;"></i></a>
+                            <p data-comment="why-card-3-text" style="font-family:var(--sans); font-size:14px; line-height:1.65; color:var(--muted); margin:12px 0 0;">New to fruit trees? Join the Members Hub to swap tips with fellow growers and find answers from our community.</p>
+                            <a data-comment="why-card-3-link" href="members.html" style="margin-top:22px; align-self:flex-start; font-family:var(--sans); font-weight:700; font-size:15px; letter-spacing:0; color:var(--accent); text-decoration:none; padding-bottom:6px; border-bottom:1.5px solid var(--accent); display:inline-flex; align-items:center; gap:8px;">Explore the Hub <i data-comment="why-card-3-link-icon" class="ph-light ph-arrow-right" style="font-size:16px;"></i></a>
                         </div>
                     </div>
                 </div>
@@ -1382,19 +1368,19 @@ body:has(.nav-item.open) .wtc-float { display: none !important; }
                             <div data-comment="gifts-card-1-image" style="aspect-ratio:6/5; border-radius:2px; overflow:hidden; background:url('assets/books.png') center 30% / cover no-repeat;"></div>
                             <div data-comment="gifts-card-1-title" style="font-family:var(--display); font-weight: 400; font-size:var(--fs-tile-title); line-height:1.15; color:var(--ink); margin-top:24px;">Reference books</div>
                             <p data-comment="gifts-card-1-text" style="font-family:var(--sans); font-size:14px; line-height:1.65; color:var(--muted); margin:12px 0 0;">From pruning to landscaping — a thoughtful gift for any green thumb.</p>
-                            <a data-comment="gifts-card-1-link" href="#" style="margin-top:22px; align-self:flex-start; font-family:var(--sans); font-weight:700; font-size:15px; letter-spacing:0; color:var(--accent); text-decoration:none; padding-bottom:6px; border-bottom:1.5px solid var(--accent); display:inline-flex; align-items:center; gap:8px;">Read more <i data-comment="gifts-card-1-link-icon" class="ph-light ph-arrow-right" style="font-size:16px;"></i></a>
+                            <a data-comment="gifts-card-1-link" href="shop.html?category=books" style="margin-top:22px; align-self:flex-start; font-family:var(--sans); font-weight:700; font-size:15px; letter-spacing:0; color:var(--accent); text-decoration:none; padding-bottom:6px; border-bottom:1.5px solid var(--accent); display:inline-flex; align-items:center; gap:8px;">Read more <i data-comment="gifts-card-1-link-icon" class="ph-light ph-arrow-right" style="font-size:16px;"></i></a>
                         </div>
                         <div data-comment="gifts-card-2" style="display:flex; flex-direction:column;">
                             <div data-comment="gifts-card-2-image" style="aspect-ratio:6/5; border-radius:2px; overflow:hidden; background:url('assets/orchard-supplies.png') center / cover no-repeat;"></div>
                             <div data-comment="gifts-card-2-title" style="font-family:var(--display); font-weight: 400; font-size:var(--fs-tile-title); line-height:1.15; color:var(--ink); margin-top:24px;">Orchard supplies</div>
                             <p data-comment="gifts-card-2-text" style="font-family:var(--sans); font-size:14px; line-height:1.65; color:var(--muted); margin:12px 0 0;">Year-round tools for the aspiring and seasoned gardener alike.</p>
-                            <a data-comment="gifts-card-2-link" href="#" style="margin-top:22px; align-self:flex-start; font-family:var(--sans); font-weight:700; font-size:15px; letter-spacing:0; color:var(--accent); text-decoration:none; padding-bottom:6px; border-bottom:1.5px solid var(--accent); display:inline-flex; align-items:center; gap:8px;">Read more <i data-comment="gifts-card-2-link-icon" class="ph-light ph-arrow-right" style="font-size:16px;"></i></a>
+                            <a data-comment="gifts-card-2-link" href="shop.html?category=supplies" style="margin-top:22px; align-self:flex-start; font-family:var(--sans); font-weight:700; font-size:15px; letter-spacing:0; color:var(--accent); text-decoration:none; padding-bottom:6px; border-bottom:1.5px solid var(--accent); display:inline-flex; align-items:center; gap:8px;">Read more <i data-comment="gifts-card-2-link-icon" class="ph-light ph-arrow-right" style="font-size:16px;"></i></a>
                         </div>
                         <div data-comment="gifts-card-3" style="display:flex; flex-direction:column;">
                             <div data-comment="gifts-card-3-image" style="aspect-ratio:6/5; border-radius:2px; overflow:hidden; background:url('assets/gift-certificates.png') center / cover no-repeat;"></div>
                             <div data-comment="gifts-card-3-title" style="font-family:var(--display); font-weight: 400; font-size:var(--fs-tile-title); line-height:1.15; color:var(--ink); margin-top:24px;">Gift certificates</div>
                             <p data-comment="gifts-card-3-text" style="font-family:var(--sans); font-size:14px; line-height:1.65; color:var(--muted); margin:12px 0 0;">Let them choose their own favourites from across the nursery.</p>
-                            <a data-comment="gifts-card-3-link" href="#contact" style="margin-top:22px; align-self:flex-start; font-family:var(--sans); font-weight:700; font-size:15px; letter-spacing:0; color:var(--accent); text-decoration:none; padding-bottom:6px; border-bottom:1.5px solid var(--accent); display:inline-flex; align-items:center; gap:8px;">Read more <i data-comment="gifts-card-3-link-icon" class="ph-light ph-arrow-right" style="font-size:16px;"></i></a>
+                            <a data-comment="gifts-card-3-link" href="shop.html?category=gift-certificates" style="margin-top:22px; align-self:flex-start; font-family:var(--sans); font-weight:700; font-size:15px; letter-spacing:0; color:var(--accent); text-decoration:none; padding-bottom:6px; border-bottom:1.5px solid var(--accent); display:inline-flex; align-items:center; gap:8px;">Read more <i data-comment="gifts-card-3-link-icon" class="ph-light ph-arrow-right" style="font-size:16px;"></i></a>
                         </div>
                     </div>
                 </div>
